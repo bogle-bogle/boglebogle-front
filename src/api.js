@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
-const serverUrl = "http://localhost:8080/";
+const serverUrl = 'http://localhost:8080/';
 
-async function get(endpoint, params = "") {
-  return axios.get(serverUrl + endpoint + "/" + params);
+async function get(endpoint, params = '') {
+  return axios.get(serverUrl + endpoint + '/' + params);
 }
 
 async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
 
   return axios.post(serverUrl + endpoint, bodyData, {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   });
 }
 
@@ -21,13 +21,13 @@ async function put(endpoint, data) {
 
   return axios.put(serverUrl + endpoint, bodyData, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 }
 
-async function del(endpoint, params = "") {
-  return axios.delete(serverUrl + endpoint + "/" + params);
+async function del(endpoint, params = '') {
+  return axios.delete(serverUrl + endpoint + '/' + params);
 }
 
 export { get, post, put, del as delete };
