@@ -1,5 +1,5 @@
 {
-  "name": "eatgo_web_front",
+  "name": "thepet_front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,8 +24,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "husky install",
-		"format": "prettier --cache --write .",
-		"lint": "eslint --cache ."
+    "format": "prettier --cache --write .",
+    "lint": "eslint --cache ."
   },
   "eslintConfig": {
     "extends": [
