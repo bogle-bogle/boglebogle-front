@@ -1,16 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import KakaoLoginButton from './components/login/KakaoLoginButton';
+import Main from './pages/Main';
+import RedirectUrl from './components/login/RedirectUrl';
+import MainPage from './pages/MainPage';
 function App() {
   return (
-    <>
+    <div>
       <Router>
         <Routes>
-          <Route></Route>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/second" element={<MainPage />}></Route>
+          <Route path="/auth" element={<RedirectUrl />}></Route>
         </Routes>
       </Router>
-      <KakaoLoginButton></KakaoLoginButton>
-    </>
+    </div>
   );
 }
 
