@@ -49,13 +49,13 @@ function RedirectUrl() {
               imgUrl: kakao_account.profile.profile_image_url,
             };
             axios.post(`/api/member/login`, data).then((res) => {
-                console.info(data);
+              console.info(data);
               dispatch(memberAction.setMemeber(res.data));
             });
           });
       })
       .catch((Error) => {
-        console.info("Error");
+        console.info('Error');
       });
   }, []);
 
