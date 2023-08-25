@@ -57,7 +57,7 @@ function RedirectUrl() {
       .catch((Error) => {
         console.info('Error');
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

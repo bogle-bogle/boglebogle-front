@@ -6,6 +6,7 @@ import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
 import Detail from './pages/Detail';
+import Cart from './pages/CartPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/auth" element={<RedirectUrl />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </Router>
     </div>
