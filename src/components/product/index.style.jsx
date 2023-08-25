@@ -54,18 +54,18 @@ export const PageNationContainer = styled.div`
 
   display: flex;
   justify-content: center;
-`
+`;
 
 export const PageNumber = styled.div`
   width: 30px;
   height: 30px;
   border: 1px solid black;
-  margin-left : 1%;
-  margin-right : 1%;
+  margin-left: 1%;
+  margin-right: 1%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: ${(props) => props.flag ? "gray" : "white"};
-`
+  background-color: ${(props) => (props.flag ? 'gray' : 'white')};
+`;

@@ -12,11 +12,9 @@ function Header() {
 
       <Divider />
       <MenuContainer>
-        
         {menuList.map((menuEle, idx) => (
           <MenuItem key={idx}>{menuEle}</MenuItem>
         ))}
-        
       </MenuContainer>
     </div>
   );

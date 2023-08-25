@@ -27,7 +27,7 @@ function ProductList() {
         cnt += 1;
       }
       setCount(() => {
-        const newCount = Array(cnt).fill(false)
+        const newCount = Array(cnt).fill(false);
         newCount[0] = true;
         return newCount;
       });
@@ -45,8 +45,8 @@ function ProductList() {
         cnt += 1;
       }
       setCount(() => {
-        const newCount = Array(cnt).fill(false)
-        newCount[page-1] = true;
+        const newCount = Array(cnt).fill(false);
+        newCount[page - 1] = true;
         return newCount;
       });
     });
@@ -69,7 +69,11 @@ function ProductList() {
         </ProductCard>
       ))}
       <PageNationContainer>
-          {count.map((c, idx) => (<PageNumber flag={c} onClick={() => handlePage(idx+1)}>{idx + 1}</PageNumber>))}
+        {count.map((c, idx) => (
+          <PageNumber flag={c} onClick={() => handlePage(idx + 1)}>
+            {idx + 1}
+          </PageNumber>
+        ))}
       </PageNationContainer>
     </ProductContainer>
   );
