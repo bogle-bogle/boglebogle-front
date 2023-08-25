@@ -8,15 +8,11 @@ function CartPage() {
       <div className="cart-header">
         <h1>장바구니</h1>
         <AiOutlineShoppingCart className="cart-icon" />
-      <hr />
+        <hr />
       </div>
       <div className="content-wrapper">
-        <div className="left-content">
-          {/* 왼쪽 컨텐츠 내용 */}
-        </div>
-        <div className="right-content">
-          {/* 오른쪽 컨텐츠 내용 */}
-        </div>
+        <div className="left-content">{/* 왼쪽 컨텐츠 내용 */}</div>
+        <div className="right-content">{/* 오른쪽 컨텐츠 내용 */}</div>
       </div>
     </div>
   );

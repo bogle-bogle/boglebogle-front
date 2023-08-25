@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
 import Detail from './pages/Detail';
 import Cart from './pages/CartPage';
+import Subscription from './pages/Subscription';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/sub" element={<Subscription />} />
         </Routes>
       </Router>
     </div>
