@@ -44,8 +44,8 @@ function CustomPage() {
         </div>
       </div>
 
-      {/* 업로드 박스 */}
-      <div className="upload-box">
+      {/* 결과 박스 */}
+      <div className="result-box">
         {/* 나의 반려동물 선택 부분 */}
         <div className="upload-section">
           <hr className="divider" />
