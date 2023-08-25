@@ -6,10 +6,12 @@ import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
 import Detail from './pages/Detail';
+import Header from './components/header/Header';
 
 function App() {
   return (
     <div className="appContainer">
+      <Header></Header>
       <Router>
         <Routes>
           <Route path="/customready" element={<CustomReadyPage />} />

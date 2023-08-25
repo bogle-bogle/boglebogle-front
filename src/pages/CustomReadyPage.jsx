@@ -46,7 +46,6 @@ function CustomReadyPage() {
 
   return (
     <div className="custom-ready-page">
-
       {/* <LogoContainer>
         <p>나의 소중한 반려동물을 위한 모든 서비스</p>
         <img src={logo} alt="Logo" className="logo" />

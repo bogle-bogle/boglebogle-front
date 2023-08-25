@@ -11,17 +11,16 @@ export const LogoContainer = styled.div`
 export const Divider = styled.hr`
   width: 100%;
   background-color: #f5f5f5;
-`
+`;
 
 export const MenuContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
-`
+`;
 
 export const MenuItem = styled.p`
-  margin: 5px;
-`
-
+  margin: 10px;
+`;

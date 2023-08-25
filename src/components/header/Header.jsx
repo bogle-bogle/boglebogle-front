@@ -1,8 +1,8 @@
-import React from 'react'
-import { Divider, LogoContainer, MenuContainer, MenuItem } from './index.style'
-import logo from '../assets/logo.png';
+import React from 'react';
+import { Divider, LogoContainer, MenuContainer, MenuItem } from './index.style';
+import logo from '../../assets/logo.png';
 function Header() {
-    const menuList = ["구독", "맞춤 추천", "쇼핑", "흰디카 예약", "흰디 놀이터"];
+  const menuList = ['구독', '맞춤 추천', '쇼핑', '흰디카 예약', '흰디 놀이터'];
   return (
     <div>
       <LogoContainer>
@@ -12,12 +12,14 @@ function Header() {
 
       <Divider />
       <MenuContainer>
-        <div></div>
-        {menuList.map((menuEle, idx) => <MenuItem key={idx}>{menuEle}</MenuItem>)}
-        <div></div>
+        
+        {menuList.map((menuEle, idx) => (
+          <MenuItem key={idx}>{menuEle}</MenuItem>
+        ))}
+        
       </MenuContainer>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
