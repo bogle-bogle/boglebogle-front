@@ -3,14 +3,16 @@ import './App.css';
 import Main from './pages/Main';
 import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
+import Shop from './pages/Shop';
 function App() {
   return (
-    <div>
+    <div className="appContainer">
       <Router>
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/second" element={<MainPage />}></Route>
           <Route path="/auth" element={<RedirectUrl />}></Route>
+          <Route path="/shop" element={<Shop />}></Route>
         </Routes>
       </Router>
     </div>
