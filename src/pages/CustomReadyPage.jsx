@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import logo from '../assets/logo.png';
+// import logo from '../assets/logo.png';
 import heendycustomready from '../assets/custom/heendycustomready.png';
 import heendysay1 from '../assets/custom/heendysay1.png';
 import heendysay2 from '../assets/custom/heendysay2.png';
@@ -7,7 +7,7 @@ import { PiBoneLight } from 'react-icons/pi';
 import '../styles/CustomReadyPage.css';
 import AWS from 'aws-sdk';
 
-import { LogoContainer } from './index.style';
+// import { LogoContainer } from './index.style';
 
 function CustomReadyPage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -46,12 +46,7 @@ function CustomReadyPage() {
 
   return (
     <div className="custom-ready-page">
-      {/* <div className="logo-container">
-        <p>나의 소중한 반려동물을 위한 모든 서비스</p>
-        <img src={logo} alt="Logo" className="logo" />
-      </div> */}
-
-      <LogoContainer>
+      {/* <LogoContainer>
         <p>나의 소중한 반려동물을 위한 모든 서비스</p>
         <img src={logo} alt="Logo" className="logo" />
       </LogoContainer>
@@ -66,7 +61,7 @@ function CustomReadyPage() {
         <p className="menu-item">흰디 놀이터</p>
         <div></div>
       </div>
-      <hr className="divider" />
+      <hr className="divider" /> */}
 
       {/* 흰디 안내말 */}
       <div className="heendy-say">
