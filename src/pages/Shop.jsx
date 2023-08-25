@@ -1,10 +1,8 @@
-import React from 'react'
-import ProductList from '../components/product/ProductList'
+import React from 'react';
+import ProductList from '../components/product/ProductList';
 
 function Shop() {
-  return (
-    <ProductList></ProductList>
-  )
+  return <ProductList></ProductList>;
 }
 
-export default Shop
+export default Shop;
