@@ -1,4 +1,7 @@
 .appContainer {
   border: 1px solid green;
-  width: 80%;
+  width: 40%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }

@@ -1,0 +1,143 @@
+.custom-ready-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column; /* 요소들을 세로로 정렬합니다 */
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.divider {
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 미디어 쿼리를 사용하여 화면 크기에 따라 스타일 조정 */
+@media (min-width: 768px) {
+  .menu-container {
+    justify-content: space-between;
+  }
+
+  .menu-item {
+    margin: 5px;
+  }
+}
+
+/* 모바일 뷰일 때 간격을 조절 */
+@media (max-width: 767px) {
+  .menu-item {
+    margin: 10px; /* 모바일 뷰에서 아이템 간격을 더 넓게 설정 */
+  }
+}
+
+.heendy-say {
+  width: 60%;
+  position: relative;
+  top: 70px;
+}
+
+.heendy-say-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heendy-say-images img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .heendy-say {
+    width: 90%;
+  }
+}
+
+.upload-box {
+  background-color: #ecf7f5;
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 요소들을 수직으로 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+  justify-content: center; /* 수직 중앙 정렬 */
+  width: 95%;
+  padding: 20px;
+  padding-top: 40px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 3px solid #29a592;
+}
+
+.feed-box {
+  background-color: #ecf7f5;
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  height: 300px;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 50%; /* 왼쪽과 오른쪽 영역을 50%로 분할 */
+}
+
+.box-title {
+  margin: 0px 0;
+}
+
+.image-preview {
+  padding: 5px;
+  background-color: #fff;
+  width: 200px; /* Set the desired width */
+  height: 200px; /* Set the desired height */
+  margin-top: 10px; /* Adjust margin for spacing */
+  border: 1px solid #ccc; /* Add a border for visualization */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Hide overflow if the image is larger */
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.custom-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0a9882; /* 원하는 배경색 지정 */
+  color: #ffffff; /* 텍스트 색상 지정 */
+  border: none;
+  border-radius: 10px; /* 원하는 라운드 값을 지정 */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s; /* 부드러운 효과를 위한 트랜지션 설정 */
+}
+
+.custom-button:hover {
+  background-color: #087161; /* 마우스 호버 시 배경색 변경 */
+  color: #fff; /* 마우스 호버 시 텍스트 색상 변경 */
+}
