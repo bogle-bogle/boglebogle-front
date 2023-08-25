@@ -26,3 +26,5 @@ yarn-error.log*
 /.github
 .github
 .eslintcache
+.eslintcache
+.github

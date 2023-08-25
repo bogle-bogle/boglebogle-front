@@ -7,6 +7,8 @@ import { PiBoneLight } from 'react-icons/pi';
 import '../styles/CustomReadyPage.css';
 import AWS from 'aws-sdk';
 
+import { LogoContainer } from './index.style';
+
 function CustomReadyPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
@@ -44,10 +46,16 @@ function CustomReadyPage() {
 
   return (
     <div className="custom-ready-page">
-      <div className="logo-container">
+      {/* <div className="logo-container">
         <p>나의 소중한 반려동물을 위한 모든 서비스</p>
         <img src={logo} alt="Logo" className="logo" />
-      </div>
+      </div> */}
+
+      <LogoContainer>
+        <p>나의 소중한 반려동물을 위한 모든 서비스</p>
+        <img src={logo} alt="Logo" className="logo" />
+      </LogoContainer>
+
       <hr className="divider" />
       <div className="menu-container">
         <div></div>
