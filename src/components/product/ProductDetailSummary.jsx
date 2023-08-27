@@ -1,13 +1,8 @@
-import React from 'react'
-import { ProductDetailSummaryContainer } from './detail.style'
-
+import React from 'react';
+import { ProductDetailSummaryContainer } from './detail.style';
 
 function ProductDetailSummary() {
-  return (
-    <ProductDetailSummaryContainer>
-      
-    </ProductDetailSummaryContainer>
-  )
+  return <ProductDetailSummaryContainer></ProductDetailSummaryContainer>;
 }
 
-export default ProductDetailSummary
+export default ProductDetailSummary;

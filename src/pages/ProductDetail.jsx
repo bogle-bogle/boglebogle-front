@@ -2,9 +2,7 @@ import React from 'react';
 import ProductDetailSummary from '../components/product/ProductDetailSummary';
 
 function ProductDetail() {
-  return (
-    <ProductDetailSummary />
-  );
+  return <ProductDetailSummary />;
 }
 
 export default ProductDetail;
