@@ -7,4 +7,3 @@ export const LogoContainer = styled.div`
   align-items: center;
   margin-bottom: 10px;
 `;
-

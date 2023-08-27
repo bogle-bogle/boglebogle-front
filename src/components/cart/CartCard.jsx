@@ -1,16 +1,22 @@
 // import axios from 'axios';
-// import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { DeleteIcon
 
-// import { useNavigate } from 'react-router-dom';
-import { CartCardContainer } from './CartCard.style';
+} from './CartCard.style';
+import { Checkbox } from '@mui/material';
 
-function CartCard() {
+function CartCard({cnt}) {
+  // if (cart !== undefined) {
+  //   console.log(cart)
+  // }
 
-    
+  console.log(cnt)
   return (
-    <CartCardContainer>
-      안녕
-    </CartCardContainer>
+    <CartCard>
+      <Checkbox />
+      <DeleteIcon />
+
+    </CartCard>
   )
 }
 

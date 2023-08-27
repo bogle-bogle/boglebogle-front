@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RiDeleteBin6Line } from "react-icons/ri";
+
 
 export const CartContentContainer = styled.div`
   display: flex;
@@ -10,21 +10,9 @@ export const CartContentContainer = styled.div`
 `;
 
 export const CartCardContainer = styled.div`
-  flex: 70%;
+  flex: 75%;
 `;
 
 export const CartInfoContainer = styled.div`
-  flex: 30%;
-`;
-
-export const CartCard = styled.div`
-  background-color: transparent;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  margin-bottom: 10px; /* Add margin between each CartCard */
-`
-
-export const DeleteIcon = styled(RiDeleteBin6Line)`
-  font-size: 27px;
+  flex: 25%;
 `;

@@ -8,6 +8,7 @@ export const CartHeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  margin-bottom: 30px;
 `;
 
 export const CartTextContainer = styled.div`
@@ -15,7 +16,6 @@ export const CartTextContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  
 `;
 
 export const HeaderTitle = styled.h1`
@@ -28,8 +28,7 @@ export const HeaderContent = styled.div`
   margin-right: 0;
   display: flex;
   flex-direction: row;
-`
-
+`;
 
 export const BagIcon = styled(HiOutlineShoppingBag)`
   font-size: 30px;
@@ -56,6 +55,12 @@ export const StepText = styled.p`
 
 export const Divider = styled.div`
   width: 100%;
-  height: 10px;
-  background: repeating-linear-gradient(-45deg, #fff, #fff 1px, #EDEDED 1px, #EDEDED 2px);
+  height: 15px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #fff,
+    #fff 1px,
+    #ededed 1px,
+    #ededed 2px
+  );
 `;

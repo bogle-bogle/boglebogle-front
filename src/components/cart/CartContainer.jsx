@@ -1,43 +1,37 @@
-// import axios from 'axios';
-// import React, { useEffect } from 'react';
-import React from 'react';
-// import { useSelector } from 'react-redux';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
-    CartContentContainer,
-    CartCardContainer,
-    CartInfoContainer,
-    CartCard,
-    DeleteIcon
+  CartContentContainer,
+  CartCardContainer,
+  CartInfoContainer
 } from './CartContainer.style';
+import CartCard from './CartCard';
 import CartInfo from './CartInfo';
-import { Checkbox } from '@mui/material';
 
 function CartContainer() {
-    // 개발 단계 하드코딩
-    //const simulatedLoggedInMember = {socialId: 2984239392, name: '김설희', email: 'sxxlhi12@kakao.com', nickname: '김설희', imgUrl: 'http://k.kakaocdn.net/dn/qJlMy/btsaw63DFfk/gzMe1gcZLBQo6XxgPRQOh1/img_640x640.jpg'};
-    // const member = useSelector((state) => state.member);
-    //const member = simulatedLoggedInMember
- 
-    // useEffect(() => {
-    //     axios.get('/api/cart/${member.}').then((res) => {
-    //       setProducts(res.data);
-    //     });
-    //   }, []);
 
+  const member = useSelector((state) => state.member);
+  console.info("cart 멤버 정보", member);
+
+ const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/api/cart/16`).then((res) => {
+      setCart(res.data)
+    });
+  }, [member.id]);
+  console.info(cart)
   return (
     <CartContentContainer>
-        <CartCardContainer>
-            <CartCard>
-                <Checkbox />
-                <DeleteIcon />
-                <img src='https://image.thehyundai.com/static/3/7/4/51/A1/40A1514737_0_300.jpg'/>
-            </CartCard>
-        </CartCardContainer>
-        <CartInfoContainer>
-            <CartInfo />
-        </CartInfoContainer>
+      <CartCardContainer>
+        {cart.map((item) => <CartCard cnt={item.cnt}/>)}
+      </CartCardContainer>
+      <CartInfoContainer>
+        <CartInfo />
+      </CartInfoContainer>
     </CartContentContainer>
-  )
+  );
 }
 
-export default CartContainer
+export default CartContainer;
