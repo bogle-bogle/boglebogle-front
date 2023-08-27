@@ -17,7 +17,7 @@ export const HeendycarHeaderText = styled.div`
   color: white;
   width: 100%;
   height: 100%;
-`
+`;
 
 export const HeendycarSubTitle = styled.div`
   width: 100%;
@@ -25,7 +25,7 @@ export const HeendycarSubTitle = styled.div`
   text-align: center;
   font-weight: bold;
   text-shadow: 2px 2px 2px gray;
-`
+`;
 
 export const HeendycarTitle = styled.div`
   width: 100%;
@@ -33,10 +33,10 @@ export const HeendycarTitle = styled.div`
   text-align: center;
   font-weight: bolder;
   text-shadow: 2px 2px 2px gray;
-`
+`;
 
 export const HeendycarDescription = styled.div`
-    font-size: 0.8vw;
-    padding: 1vw 2vw;
-    line-height: 180%;
-`
+  font-size: 0.8vw;
+  padding: 1vw 2vw;
+  line-height: 180%;
+`;
