@@ -24,7 +24,7 @@ export const AdvOverlayButton = styled.button`
   border-radius: 0%;
   color: white;
   background-color: black;
-  font-size: 10px;
-  padding: 10px 15px;
+  font-size: 0.7vw;
+  padding: 0.5vw 0.8vh;
   /* transform: translate(-50%, -50%); 버튼 중앙 정렬 */
 `;
