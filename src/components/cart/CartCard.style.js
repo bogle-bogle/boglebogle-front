@@ -14,7 +14,7 @@ export const CardBox = styled.div`
 
 export const ProductSelect = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
   margin-top: -100px;
 `;

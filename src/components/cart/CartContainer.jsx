@@ -5,7 +5,6 @@ import {
   CartContentContainer,
   CartCardContainer,
   CartInfoContainer,
-
 } from './CartContainer.style';
 import CartCard from './CartCard';
 import CartInfo from './CartInfo';
@@ -13,6 +12,7 @@ import CartInfo from './CartInfo';
 function CartContainer() {
   const member = useSelector((state) => state.member);
   const [cart, setCart] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     axios.get(`/api/cart/${member.id}`).then((res) => {
@@ -20,17 +20,20 @@ function CartContainer() {
     });
   }, [member.id]);
 
-  console.info('cart 멤버 정보', member);
-  console.info('cart 정보', cart);
+
   return (
     <CartContentContainer>
       <CartCardContainer>
-      {cart.map((cartItem) => (
-        <CartCard cartItem={cartItem} />
-      ))}
+        {cart.map((cartItem) => (
+          <CartCard 
+            key={cartItem.id}
+            cartItem={cartItem}
+            setTotalAmount={setTotalAmount}
+            />
+        ))}
       </CartCardContainer>
       <CartInfoContainer>
-        <CartInfo />
+        <CartInfo totalAmount={totalAmount}/>
       </CartInfoContainer>
     </CartContentContainer>
   );

@@ -15,5 +15,3 @@ export const CartCardContainer = styled.div`
 export const CartInfoContainer = styled.div`
   flex: 25%;
 `;
-
-
