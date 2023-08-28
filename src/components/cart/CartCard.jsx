@@ -1,23 +1,20 @@
 // import axios from 'axios';
 import React from 'react';
-import { DeleteIcon
-
-} from './CartCard.style';
+import { DeleteIcon } from './CartCard.style';
 import { Checkbox } from '@mui/material';
 
-function CartCard({cnt}) {
+function CartCard({ cnt }) {
   // if (cart !== undefined) {
   //   console.log(cart)
   // }
 
-  console.log(cnt)
+  // console.log(cnt);
   return (
     <CartCard>
       <Checkbox />
       <DeleteIcon />
-
     </CartCard>
-  )
+  );
 }
 
-export default CartCard
+export default CartCard;

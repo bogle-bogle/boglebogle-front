@@ -19,8 +19,16 @@ export const MenuContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
+
+  border-top : 1px solid #D4D4D4;
+  border-bottom : 1px solid #D4D4D4;
+
+  padding-top: 1%;
+  padding-bottom: 1%;
 `;
 
 export const MenuItem = styled.p`
   margin: 10px;
+  font-weight: bold;
+  font-size: 20px;
 `;

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const CartContentContainer = styled.div`
   display: flex;
 

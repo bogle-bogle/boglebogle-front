@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, LogoContainer, MenuContainer, MenuItem } from './index.style';
+import { LogoContainer, MenuContainer, MenuItem } from './index.style';
 import logo from '../../assets/logo.png';
 function Header() {
   const menuList = ['구독', '맞춤 추천', '쇼핑', '흰디카 예약', '흰디 놀이터'];
@@ -10,7 +10,6 @@ function Header() {
         <img src={logo} alt="Logo" className="logo" />
       </LogoContainer>
 
-      <Divider />
       <MenuContainer>
         {menuList.map((menuEle, idx) => (
           <MenuItem key={idx}>{menuEle}</MenuItem>
