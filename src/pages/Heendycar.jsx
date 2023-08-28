@@ -1,8 +1,8 @@
 import React from 'react';
-import HeendycarInfo from '../components/heendycar/HeendycarInfo';
+import HeendycarContainer from '../components/heendycar/HeendycarContainer';
 
 function Heendycar() {
-  return <HeendycarInfo></HeendycarInfo>;
+  return <HeendycarContainer></HeendycarContainer>;
 }
 
 export default Heendycar;
