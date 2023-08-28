@@ -153,11 +153,11 @@ export const HcContentDescr = styled.div`
   background-color: #f6f6f6;
   border-radius: 0vw 0vw 1vw 1vw;
   border: 1px outset lightgray;
-  font-size: 0.8vw;
-  height: 3vw;
+  font-size: 0.75vw;
+  height: 3.5vw;
   padding: 0.5vw 0.8vw;
-  line-height: 160%;
-  margin-top: -1.3vw;
+  line-height: 70%;
+  margin-top: -1.6vw;
 `;
 
 export const HcContentTitle = styled.div`
@@ -178,7 +178,7 @@ export const HcBtn = styled.button`
   margin-left: 1vw;
   margin-bottom: 0.5vw;
   font-size: 0.8vw;
-  width: 6.5vw;
+  width: 7vw;
   cursor: pointer;
 
   &:hover {
@@ -216,16 +216,17 @@ export const HcMainBtn = styled.button`
 `;
 
 export const HcSection2 = styled.div`
+  margin-top: 2vw;
   font-size: 1.2vw;
   padding: 1.5vw 1.5vw 0.5vw;
-  /* font-weight: bold; */
   grid-area: sect2;
   margin-bottom: 2vw;
 `;
 
 export const HcDescr2 = styled.div`
-  font-size: 1vw;
+  font-size: 0.9vw;
   margin-left: 1vw;
   margin-top: 1vw;
   line-height: 200%;
+  color: #3e3e3e;
 `;

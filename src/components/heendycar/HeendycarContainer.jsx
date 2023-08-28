@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   HcBtn,
   HcBtnSect,
@@ -37,55 +37,68 @@ import headerImg from '../../assets/heendycar/heendycar_header_img.png';
 import dogIcon from '../../assets/heendycar/dog_icon_img.png';
 import trollyIcon from '../../assets/heendycar/trolly_icon_img.png';
 import qrIcon from '../../assets/heendycar/qr_hand_icon_img.png';
-import imgBranch101 from '../../assets/heendycar/hc_branch_101.jpg';
-import imgBranch102 from '../../assets/heendycar/hc_branch_102.jpg';
-import imgBranch201 from '../../assets/heendycar/hc_branch_201.jpg';
-import imgBranch202 from '../../assets/heendycar/hc_branch_202.jpg';
-import imgBranch203 from '../../assets/heendycar/hc_branch_203.jpg';
-import imgBranch204 from '../../assets/heendycar/hc_branch_204.jpg';
-import imgBranch205 from '../../assets/heendycar/hc_branch_205.jpg';
 
 function HeendycarInfo() {
-  const deptBranches = [
-    { id: '101', text: '더현대 서울', img: imgBranch101, descr: '설명' },
-    { id: '102', text: '더현대 대구', img: imgBranch102, descr: '설명' },
-  ];
+  useEffect(() => {
+    axios
+      .get(`/api/hc/branch`)
+      .then((res) => {
+        console.log(res.data);
+        const transformedData = res.data.map((item) => ({
+          branchCode: item.branchCode,
+          name: item.name,
+          cnt: item.cnt,
+          imgUrl: item.imgUrl,
+          descr: item.description,
+        }));
 
-  const outletBranches = [
-    { id: '201', text: '가산점', img: imgBranch201, descr: '설명' },
-    { id: '202', text: '가든파이브', img: imgBranch202, descr: '설명' },
-    { id: '203', text: 'SPACE 1', img: imgBranch203, descr: '설명' },
-    { id: '204', text: '송도점', img: imgBranch204, descr: '설명' },
-    { id: '205', text: '김포점', img: imgBranch205, descr: '설명' },
-  ];
+        setDeptBranches(
+          transformedData.filter((item) => item.branchCode <= '200'),
+        );
+        setOutletBranches(
+          transformedData.filter((item) => item.branchCode > '200'),
+        );
+      })
+      .catch((Error) => {
+        console.info('Error');
+      });
+  }, []);
 
-  const getBranchImage = (id) => {
+  const [branchCode, setBranchCode] = useState('101'); // 초기값 설정
+
+  const [deptBranches, setDeptBranches] = useState([]);
+  const [outletBranches, setOutletBranches] = useState([]);
+
+  const getBranchName = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.id === id,
+      (branch) => branch.branchCode === branchCode,
     );
-    return selectedBranch ? selectedBranch.img : imgBranch101;
+    return selectedBranch ? selectedBranch.name : null;
   };
 
-  const getBranchName = (id) => {
+  const getBranchDescr = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.id === id,
+      (branch) => branch.branchCode === branchCode,
     );
-    return selectedBranch ? selectedBranch.text : '더현대 서울';
+    return selectedBranch ? selectedBranch.descr : null;
   };
 
-  const getBranchDescr = (id) => {
+  const getBranchCnt = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.id === id,
+      (branch) => branch.branchCode === branchCode,
     );
-    return selectedBranch ? selectedBranch.descr : '기본 설명';
+    return selectedBranch ? selectedBranch.cnt : null;
   };
 
-  const [branchId, setBranchId] = useState('branch_101'); // 초기값 설정
+  const getBranchImgUrl = (branchCode) => {
+    const selectedBranch = [...deptBranches, ...outletBranches].find(
+      (branch) => branch.branchCode === branchCode,
+    );
+    return selectedBranch ? selectedBranch.imgUrl : null;
+  };
 
-  const handleBtnClick = (newBranchId) => {
-    console.log(branchId);
-    console.log(<img src={`../../assets/heendycar/hc_${branchId}.jpg`} />);
-    setBranchId(newBranchId); // 버튼 클릭 시 branchId 변경
+  const handleBtnClick = (newBranchCode) => {
+    setBranchCode(newBranchCode);
   };
 
   return (
@@ -178,27 +191,36 @@ function HeendycarInfo() {
         <HcContent1>
           <HcContentTitle>백화점</HcContentTitle>
           {deptBranches.map((branch) => (
-            <HcBtn key={branch.id} onClick={() => handleBtnClick(branch.id)}>
-              {branch.text}
+            <HcBtn
+              key={branch.branchCode}
+              onClick={() => handleBtnClick(branch.branchCode)}
+            >
+              {branch.name}
             </HcBtn>
           ))}
           <br />
           <br />
           <HcContentTitle>아울렛</HcContentTitle>
           {outletBranches.map((branch) => (
-            <HcBtn key={branch.id} onClick={() => handleBtnClick(branch.id)}>
-              {branch.text}
+            <HcBtn
+              key={branch.branchCode}
+              onClick={() => handleBtnClick(branch.branchCode)}
+            >
+              {branch.name}
             </HcBtn>
           ))}
         </HcContent1>
         <HcContent2></HcContent2>
         <HcContent3>
-          <HcContentImg src={getBranchImage(branchId)} />
+          <HcContentImg src={getBranchImgUrl(branchCode)} />
           <br />
           <HcContentDescr>
-            <strong>{getBranchName(branchId)}</strong>
+            <strong>{getBranchName(branchCode)}</strong>
             <br />
-            {getBranchDescr(branchId)}
+            <div key={branchCode}>
+              <p>대여 가능 수량: {getBranchCnt(branchCode)}</p>
+              <p>{getBranchDescr(branchCode)}</p>
+            </div>
           </HcContentDescr>
         </HcContent3>
       </HcContent>
