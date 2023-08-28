@@ -4,28 +4,30 @@ import { useSelector } from 'react-redux';
 import {
   CartContentContainer,
   CartCardContainer,
-  CartInfoContainer
+  CartInfoContainer,
+
 } from './CartContainer.style';
 import CartCard from './CartCard';
 import CartInfo from './CartInfo';
 
 function CartContainer() {
-
   const member = useSelector((state) => state.member);
-  console.info("cart 멤버 정보", member);
-
- const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/cart/16`).then((res) => {
-      setCart(res.data)
+    axios.get(`/api/cart/${member.id}`).then((res) => {
+      setCart(res.data);
     });
   }, [member.id]);
-  console.info(cart)
+
+  console.info('cart 멤버 정보', member);
+  console.info('cart 정보', cart);
   return (
     <CartContentContainer>
       <CartCardContainer>
-        {cart.map((item) => <CartCard cnt={item.cnt}/>)}
+      {cart.map((cartItem) => (
+        <CartCard cartItem={cartItem} />
+      ))}
       </CartCardContainer>
       <CartInfoContainer>
         <CartInfo />

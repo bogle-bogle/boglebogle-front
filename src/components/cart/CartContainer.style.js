@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const CartContentContainer = styled.div`
   display: flex;
 
@@ -16,3 +15,5 @@ export const CartCardContainer = styled.div`
 export const CartInfoContainer = styled.div`
   flex: 25%;
 `;
+
+
