@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+
 import {
   HcBtn,
   HcBtnSect,
@@ -39,6 +41,8 @@ import trollyIcon from '../../assets/heendycar/trolly_icon_img.png';
 import qrIcon from '../../assets/heendycar/qr_hand_icon_img.png';
 
 function HeendycarInfo() {
+  const member = useSelector((state) => state.member);
+
   useEffect(() => {
     axios
       .get(`/api/hc/branch`)
@@ -64,10 +68,18 @@ function HeendycarInfo() {
       });
   }, []);
 
-  const [branchCode, setBranchCode] = useState('101'); // 초기값 설정
-
+  const [branchCode, setBranchCode] = useState('101');
   const [deptBranches, setDeptBranches] = useState([]);
   const [outletBranches, setOutletBranches] = useState([]);
+
+  const reservationTimes = [
+    { text: '11:00' },
+    { text: '12:00' },
+    { text: '13:00' },
+    { text: '14:00' },
+    { text: '15:00' },
+    { text: '16:00' },
+  ];
 
   const getBranchName = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
@@ -99,6 +111,32 @@ function HeendycarInfo() {
 
   const handleBtnClick = (newBranchCode) => {
     setBranchCode(newBranchCode);
+  };
+
+  const handleMainBtnClick = () => {
+    const data = {
+      branchCode: branchCode,
+      reservationTime: '',
+      createdAt: +new Date(),
+    };
+
+    axios
+      .post(
+        `/api/hc/branch`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${member.jwt.accessToken}`,
+            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+        },
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((Error) => {
+        console.info('Error');
+      });
   };
 
   return (
@@ -198,8 +236,10 @@ function HeendycarInfo() {
               {branch.name}
             </HcBtn>
           ))}
+
           <br />
           <br />
+
           <HcContentTitle>아울렛</HcContentTitle>
           {outletBranches.map((branch) => (
             <HcBtn
@@ -209,6 +249,18 @@ function HeendycarInfo() {
               {branch.name}
             </HcBtn>
           ))}
+
+          <br />
+          <br />
+
+          <HcContentTitle>픽업 시간</HcContentTitle>
+          {reservationTimes.map((time) => (
+            <HcBtn key={time.text} onClick={() => handleBtnClick(time.text)}>
+              {time.text}
+            </HcBtn>
+          ))}
+          <br />
+          <br />
         </HcContent1>
         <HcContent2></HcContent2>
         <HcContent3>
@@ -218,7 +270,12 @@ function HeendycarInfo() {
             <strong>{getBranchName(branchCode)}</strong>
             <br />
             <div key={branchCode}>
-              <p>대여 가능 수량: {getBranchCnt(branchCode)}</p>
+              <p>
+                대여 가능 수량:{' '}
+                <span style={{ color: 'darkred', fontWeight: 'bold' }}>
+                  {getBranchCnt(branchCode)}
+                </span>
+              </p>
               <p>{getBranchDescr(branchCode)}</p>
             </div>
           </HcContentDescr>
@@ -226,7 +283,7 @@ function HeendycarInfo() {
       </HcContent>
 
       <HcBtnSect>
-        <HcMainBtn>예약하기</HcMainBtn>
+        <HcMainBtn onClick={handleMainBtnClick}>예약하기</HcMainBtn>
       </HcBtnSect>
 
       <HcSection2>

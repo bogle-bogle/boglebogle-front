@@ -157,7 +157,7 @@ export const HcContentDescr = styled.div`
   height: 3.5vw;
   padding: 0.5vw 0.8vw;
   line-height: 70%;
-  margin-top: -1.6vw;
+  margin-top: -1.2vw;
 `;
 
 export const HcContentTitle = styled.div`
