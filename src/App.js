@@ -8,8 +8,10 @@ import Shop from './pages/Shop';
 import Detail from './pages/Detail';
 import Header from './components/header/Header';
 import Cart from './pages/CartPage';
-import ClubRegister from './pages/ClubRegister';
+import ClubRegister from './components/club/ClubRegister';
+import CompleteClubRegister from './pages/CompleteClubRegister';
 import MyPet from './pages/MyPet';
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/detail/:id" element={<Detail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/clubregister" element={<ClubRegister/>}></Route>
+          <Route path="/completeclubregister" element={<CompleteClubRegister/>}></Route>
           <Route path="/mypet/:memberId" element={<MyPet/>}></Route>
         </Routes>
       </Router>
