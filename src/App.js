@@ -18,8 +18,8 @@ import HyundaiCard from './pages/HyundaiCard';
 function App() {
   return (
     <div className="appContainer">
-      <Header></Header>
       <Router>
+        <Header />
         <Routes>
           <Route path="/customready" element={<CustomReadyPage />} />
           <Route path="/" element={<Main />}></Route>
