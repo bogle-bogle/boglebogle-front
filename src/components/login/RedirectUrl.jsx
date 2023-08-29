@@ -62,7 +62,7 @@ function RedirectUrl() {
   return (
     <div>
       <h1>로그인 중</h1>
-      <button onClick={() => navigate('/second')}>이동</button>
+      <button onClick={() => navigate('/cart')}>이동</button>
     </div>
   );
 }
