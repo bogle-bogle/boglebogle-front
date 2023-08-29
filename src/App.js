@@ -7,7 +7,11 @@ import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
 import Header from './components/header/Header';
 import Cart from './pages/CartPage';
+import ClubRegister from './components/club/ClubRegister';
+import CompleteClubRegister from './pages/CompleteClubRegister';
+import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
+
 
 function App() {
   return (
@@ -22,6 +26,12 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/clubregister" element={<ClubRegister />}></Route>
+          <Route
+            path="/completeclubregister"
+            element={<CompleteClubRegister />}
+          ></Route>
+          <Route path="/mypet/:memberId" element={<MyPet />}></Route>
         </Routes>
       </Router>
     </div>
