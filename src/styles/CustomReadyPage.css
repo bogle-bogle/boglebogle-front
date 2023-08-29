@@ -34,7 +34,7 @@
 /* 미디어 쿼리를 사용하여 화면 크기에 따라 스타일 조정 */
 @media (min-width: 768px) {
   .menu-container {
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .menu-item {

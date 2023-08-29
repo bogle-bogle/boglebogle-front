@@ -84,8 +84,8 @@ function CartCard({ cartItem, setTotalAmount, onDelete }) {
         return prev - product.price * count;
       });
       onDelete(cartItem.id);
-    })
-  }
+    });
+  };
 
   return (
     <CardBox key={cartItem.id}>

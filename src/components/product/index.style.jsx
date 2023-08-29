@@ -46,3 +46,26 @@ export const ProductSummary = styled.p`
   display: flex;
   align-items: center;
 `;
+
+export const PageNationContainer = styled.div`
+  width: 100%;
+  height: 30px;
+  border: 1px solid blue;
+
+  display: flex;
+  justify-content: center;
+`;
+
+export const PageNumber = styled.div`
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  margin-left: 1%;
+  margin-right: 1%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${(props) => (props.flag ? 'gray' : 'white')};
+`;

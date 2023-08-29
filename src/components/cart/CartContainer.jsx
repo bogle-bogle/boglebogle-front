@@ -22,9 +22,9 @@ function CartContainer() {
 
   // 상품 삭제하면 카드 업데이트
   const handleDeleteItem = (itemId) => {
-    const updatedCartItems = cart.filter(item => item.id !== itemId)
-    setCart(updatedCartItems)
-  }
+    const updatedCartItems = cart.filter((item) => item.id !== itemId);
+    setCart(updatedCartItems);
+  };
 
   return (
     <CartContentContainer>
