@@ -39,9 +39,9 @@ function ProductDetail() {
 
   return (
     <>
-      {modalOpen && <Modal handleModalClose={handleModalClose}>
-        {<ReviewModal/>}
-      </Modal>}
+      {modalOpen && (
+        <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>
+      )}
       <ProductDetailContainer>
         <CategoryP>{'SHOPPING  >  FOOD  >  강아지'}</CategoryP>
         <ProductSummaryContainer

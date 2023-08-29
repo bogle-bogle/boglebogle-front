@@ -11,7 +11,7 @@ import {
 import { MdOutlinePets } from 'react-icons/md';
 import dogToy from '../../assets/reivew/dog_toy_review.png';
 
-function Review({handleModalOpen}) {
+function Review({ handleModalOpen }) {
   return (
     <ReviewContainer>
       <ReviewBanner>
