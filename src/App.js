@@ -12,7 +12,6 @@ import ClubRegister from './components/club/ClubRegister';
 import CompleteClubRegister from './pages/CompleteClubRegister';
 import MyPet from './pages/MyPet';
 
-
 function App() {
   return (
     <div className="appContainer">
@@ -26,9 +25,12 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
-          <Route path="/clubregister" element={<ClubRegister/>}></Route>
-          <Route path="/completeclubregister" element={<CompleteClubRegister/>}></Route>
-          <Route path="/mypet/:memberId" element={<MyPet/>}></Route>
+          <Route path="/clubregister" element={<ClubRegister />}></Route>
+          <Route
+            path="/completeclubregister"
+            element={<CompleteClubRegister />}
+          ></Route>
+          <Route path="/mypet/:memberId" element={<MyPet />}></Route>
         </Routes>
       </Router>
     </div>

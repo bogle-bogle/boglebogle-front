@@ -21,45 +21,36 @@ export const PetPhoto = styled.div`
 
 export const PetName = styled.div`
   width: 100%;
-
 `;
 
 export const PetBirth = styled.div`
   width: 100%;
-
 `;
 
 export const PetProteinCodes = styled.div`
   width: 100%;
-
 `;
 
 export const PetMemberId = styled.div`
   width: 100%;
-
 `;
 
 export const PetFavoriteFoodIngredients = styled.div`
   width: 100%;
-
 `;
 
 export const PetImgUrl = styled.div`
   width: 100%;
-
 `;
 
 export const PetMbti = styled.div`
   width: 100%;
-
 `;
 
 export const PetBreedCode = styled.div`
   width: 100%;
-
 `;
 
 export const PetAnimalTypeCode = styled.div`
   width: 100%;
-
 `;

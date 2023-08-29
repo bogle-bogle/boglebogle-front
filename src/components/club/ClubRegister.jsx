@@ -1,6 +1,6 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import AWS from 'aws-sdk';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   ClubContainer,
   PetPhoto,
@@ -12,7 +12,7 @@ import {
   PetImgUrl,
   PetMbti,
   PetBreedCode,
-  PetAnimalTypeCode
+  PetAnimalTypeCode,
 } from './index.style';
 import axios from 'axios';
 
@@ -21,16 +21,16 @@ function ClubRegister() {
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
   const [selectedImgImage, setSelectedImgImage] = useState(null);
   const [formData, setFormData] = useState({
-      photo: '',
-      name: '',
-      birth: '',
-      proteinCodes: '',
-      memberId: 0,
-      favoriteFoodIngredients:'',
-      imgUrl: '',
-      mbti: '',
-      breedCode: '',
-      animalTypeCode: ''
+    photo: '',
+    name: '',
+    birth: '',
+    proteinCodes: '',
+    memberId: 0,
+    favoriteFoodIngredients: '',
+    imgUrl: '',
+    mbti: '',
+    breedCode: '',
+    animalTypeCode: '',
   });
 
   const photoInputRef = useRef(null);
@@ -57,12 +57,12 @@ function ClubRegister() {
       setSelectedImgImage(URL.createObjectURL(file));
     }
   };
-  
+
   const uploadToS3 = async () => {
     const s3 = new AWS.S3();
     const photo = photoInputRef.current.files[0];
-    const img =  imgInputRef.current.files[0];
-    console.log("photo",photo,"img",img);
+    const img = imgInputRef.current.files[0];
+    console.log('photo', photo, 'img', img);
     const uploadPromises = []; // 업로드 프로미스 배열
 
     if (photo) {
@@ -87,20 +87,22 @@ function ClubRegister() {
 
     try {
       const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
-      console.info('S3 object URLs:', uploadResults.map(result => result.Location));
-      return uploadResults.map(result => result.Location);
+      console.info(
+        'S3 object URLs:',
+        uploadResults.map((result) => result.Location),
+      );
+      return uploadResults.map((result) => result.Location);
     } catch (error) {
       console.error('Error uploading file:', error);
     }
   };
-  
+
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
-
   };
 
   const handleFormSubmit = async (event) => {
@@ -111,7 +113,10 @@ function ClubRegister() {
 
     const imgUrlPromise = uploadToS3(imgInputRef.current.files[1]);
 
-    const [photoUrl,imgUrl] = await Promise.all([photoUrlPromise, imgUrlPromise]);
+    const [photoUrl, imgUrl] = await Promise.all([
+      photoUrlPromise,
+      imgUrlPromise,
+    ]);
 
     const clubData = {
       photo: photoUrl,
@@ -119,23 +124,23 @@ function ClubRegister() {
       birth: formData.birth,
       proteinCode: formData.proteinCodes,
       memberId: formData.memberId,
-      favoriteFoodIngredients:formData.favoriteFoodIngredients,
+      favoriteFoodIngredients: formData.favoriteFoodIngredients,
       imgUrl: imgUrl,
       mbti: formData.mbti,
       breedCode: formData.breedCode,
-      animalTypeCode: formData.animalTypeCode
+      animalTypeCode: formData.animalTypeCode,
     };
 
-    if(photoUrl !==null){
-      clubData.photo=photoUrl[0];
+    if (photoUrl !== null) {
+      clubData.photo = photoUrl[0];
     }
-    if(imgUrl !==null){
-      clubData.imgUrl=imgUrl[1];
+    if (imgUrl !== null) {
+      clubData.imgUrl = imgUrl[1];
     }
 
     try {
       const response = await axios.post('api/club/', clubData);
-      
+
       console.log('클럽 등록 성공:', response.data);
       navigate('/completeclubregister');
     } catch (error) {
@@ -151,14 +156,19 @@ function ClubRegister() {
             className="image-preview"
             onClick={() => photoInputRef.current.click()}
           >
-            {selectedPhotoImage && <img src={selectedPhotoImage} alt="Uploaded" />}
+            {selectedPhotoImage && (
+              <img src={selectedPhotoImage} alt="Uploaded" />
+            )}
           </div>
           <input
             type="file"
             accept="image/*"
-            onChange={(event)=>{
+            onChange={(event) => {
               const photoUrl = handleFileInputChange('photo')(event);
-              photoUrl && setSelectedPhotoImage(URL.createObjectURL(event.target.files[0]));
+              photoUrl &&
+                setSelectedPhotoImage(
+                  URL.createObjectURL(event.target.files[0]),
+                );
             }}
             className="file-input"
             ref={photoInputRef}
@@ -189,7 +199,8 @@ function ClubRegister() {
             placeholder="단백질 코드"
             name="proteinCodes"
             value={formData.proteinCodes}
-            onChange={handleFormChange}s
+            onChange={handleFormChange}
+            s
           />
         </PetProteinCodes>
         <PetMemberId>
@@ -211,7 +222,7 @@ function ClubRegister() {
           />
         </PetFavoriteFoodIngredients>
         <PetImgUrl>
-        <p>이미지 (선택)</p>
+          <p>이미지 (선택)</p>
           <div
             className="image-preview"
             onClick={() => imgInputRef.current.click()}
@@ -221,9 +232,10 @@ function ClubRegister() {
           <input
             type="file"
             accept="image/*"
-            onChange={(event)=>{
+            onChange={(event) => {
               const imgUrl = handleFileInputChange('img')(event);
-              imgUrl && setSelectedImgImage(URL.createObjectURL(event.target.files[0]));
+              imgUrl &&
+                setSelectedImgImage(URL.createObjectURL(event.target.files[0]));
             }}
             className="file-input"
             ref={imgInputRef}
@@ -260,7 +272,6 @@ function ClubRegister() {
         <button type="submit">등록</button>
       </form>
     </ClubContainer>
-    
   );
 }
 export default ClubRegister;
