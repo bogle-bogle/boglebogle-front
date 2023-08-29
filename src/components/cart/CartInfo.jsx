@@ -1,10 +1,12 @@
-import React from 'react';
 import {
   CartInfoContainer,
   InfoTitle,
   Triangle,
   InfoBox,
   OrderAmountBox,
+  OrderTextBox,
+  OrderText,
+  Divider,
   OrderDiscountBox,
   OrderResultBox,
   OrderButton,
@@ -12,29 +14,51 @@ import {
   Circle,
 } from './CartInfo.style';
 
-function CartInfo() {
+function CartInfo({ totalAmount }) {
+  const formatPrice = (price) => {
+    return price.toLocaleString();
+  };
+
   return (
     <CartInfoContainer>
       <InfoTitle>결제금액</InfoTitle>
       <InfoBox>
         <Triangle />
         <OrderAmountBox>
-          <p>
-            <strong>총 주문금액</strong>
-          </p>
+          <OrderTextBox>
+            <OrderText>총 주문금액</OrderText>
+            <OrderText>{formatPrice(totalAmount)}</OrderText>
+          </OrderTextBox>
+          <Divider />
+          <OrderTextBox>
+            <OrderText>상품금액</OrderText>
+            <OrderText>{formatPrice(totalAmount)}</OrderText>
+          </OrderTextBox>
+          <OrderTextBox>
+            <OrderText>배송비</OrderText>
+            <OrderText>무료</OrderText>
+          </OrderTextBox>
           <Circle />
         </OrderAmountBox>
         <OrderDiscountBox>
-          <p>
-            <strong>총 할인금액</strong>
-          </p>
+          <OrderTextBox>
+            <OrderText>총 할인금액</OrderText>
+            <OrderText>0원</OrderText>
+          </OrderTextBox>
+          <OrderTextBox>
+            <OrderText>혜택할인가</OrderText>
+            <OrderText>-0원</OrderText>
+          </OrderTextBox>
         </OrderDiscountBox>
         <OrderResultBox>
           <p>
             <strong>결제 예정 금액</strong>
+            <strong>{formatPrice(totalAmount)}</strong>
           </p>
         </OrderResultBox>
-        <p>* 실제 결제 금액은 할인 및 추가혜택에 따라 달라질 수 있습니다.</p>
+        <p style={{ fontSize: '13px', color: '#888888' }}>
+          * 실제 결제 금액은 할인 및 추가혜택에 따라 달라질 수 있습니다.
+        </p>
         <OrderButton>
           <strong>주문하기</strong>
         </OrderButton>

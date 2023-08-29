@@ -38,6 +38,17 @@ export const OrderAmountBox = styled.div`
   padding-bottom: 10%;
 `;
 
+export const OrderTextBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const OrderText = styled.p`
+  margin: 0;
+`;
+
+export const Divider = styled.hr``;
+
 export const Circle = styled.div`
   background-color: #eeeeee;
   width: 30px;
@@ -66,6 +77,7 @@ export const OrderButton = styled.div`
   color: #fff;
   text-align: center;
   padding: 15px 15px;
+  cursor: pointer;
 `;
 
 export const CartGuideBox = styled.div`
