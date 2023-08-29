@@ -1,20 +1,13 @@
 import React from 'react';
-// import styled from "styled-components";
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import CartHeader from '../components/cart/CartHeader';
+import CartContainer from '../components/cart/CartContainer';
 
 function CartPage() {
   return (
-    <div className="cart-page">
-      <div className="cart-header">
-        <h1>장바구니</h1>
-        <AiOutlineShoppingCart className="cart-icon" />
-        <hr />
-      </div>
-      <div className="content-wrapper">
-        <div className="left-content">{/* 왼쪽 컨텐츠 내용 */}</div>
-        <div className="right-content">{/* 오른쪽 컨텐츠 내용 */}</div>
-      </div>
-    </div>
+    <>
+      <CartHeader></CartHeader>
+      <CartContainer></CartContainer>
+    </>
   );
 }
 
