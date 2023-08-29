@@ -5,9 +5,9 @@ import Main from './pages/Main';
 import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
-import Detail from './pages/Detail';
 import Header from './components/header/Header';
 import Cart from './pages/CartPage';
+import ProductDetail from './components/product/ProductDetail';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/second" element={<MainPage />}></Route>
           <Route path="/auth" element={<RedirectUrl />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
-          <Route path="/detail/:id" element={<Detail />}></Route>
+          <Route path="/product/:id" element={<ProductDetail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </Router>
