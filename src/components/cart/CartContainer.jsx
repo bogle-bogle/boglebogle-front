@@ -21,9 +21,8 @@ function CartContainer() {
   return (
     <CartContentContainer>
       <CartCardContainer>
-        {cart.length !== undefined && cart.map((item) => (
-          <CartCard cnt={item.cnt} />
-        ))}
+        {cart.length !== undefined &&
+          cart.map((item) => <CartCard cnt={item.cnt} />)}
       </CartCardContainer>
       <CartInfoContainer>
         <CartInfo />

@@ -70,3 +70,52 @@ export const ReviewRate = styled.p`
   width: 150px;
   height: 30px;
 `;
+
+export const ReviewCardContainer = styled.div`
+  width: 800px;
+  height: 800px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+`;
+
+export const ReviewModalCard = styled.div`
+  width: 700px;
+  height: 700px;
+
+  background-color: white;
+`;
+
+export const ReviewModarImgContainer = styled.div`
+  display: grid;
+
+  grid-template-columns: 0.2fr 1fr 0.2fr;
+  grid-template-rows: 0.2fr 0.5fr;
+
+  grid-template-areas:
+    'hl . hr'
+    '. ri .';
+
+  justify-items: center;
+`;
+
+export const ReviewHeendyLeft = styled.img`
+  width: 100%;
+  height: 100%;
+  grid-area: hl;
+`;
+
+export const ReviewHeendyRight = styled.img`
+  width: 100%;
+  height: 100%;
+  grid-area: hr;
+`;
+
+export const ReviewModalImg = styled.img`
+  width: 70%;
+  height: 80%;
+  grid-area: ri;
+`;

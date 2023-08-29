@@ -20,8 +20,8 @@ export const MenuContainer = styled.div`
   justify-content: space-around;
   width: 100%;
 
-  border-top : 1px solid #D4D4D4;
-  border-bottom : 1px solid #D4D4D4;
+  border-top: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
 
   padding-top: 1%;
   padding-bottom: 1%;
