@@ -23,7 +23,6 @@ function Header() {
         <LogoImg src={logo} alt="Logo" className="logo" onClick={goToHome} />
       </LogoContainer>
 
-      <Divider />
       <MenuContainer>
         {menuList.map((menuEle, idx) => (
           <MenuItem key={idx}>{menuEle}</MenuItem>
