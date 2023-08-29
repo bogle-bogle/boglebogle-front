@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   CartContentContainer,
   CartCardContainer,
@@ -11,35 +12,63 @@ import CartInfo from './CartInfo';
 
 function CartContainer() {
   const member = useSelector((state) => state.member);
-  const [cart, setCart] = useState([]);
+  const [cartProductInfo, setCartProductInfo] = useState({});
   const [totalAmount, setTotalAmount] = useState(0);
+  const navigate = useNavigate();
 
+  // 멤버 별 카트 정보 + 카트에 담긴 상품 정보 가져오기
   useEffect(() => {
     axios.get(`/api/cart/${member.id}`).then((res) => {
-      setCart(res.data);
+      const cart = res.data
+      const newCartProductInfo = {};
+      cart.forEach((cartItem) => {
+        axios.get(`/api/product/${cartItem.productId}`).then((res) => {
+          newCartProductInfo[cartItem.id] = {
+            id: cartItem.id,
+            cnt: cartItem.cnt,
+            productId: res.data.id,
+            name: res.data.name,
+            mainImgUrl: res.data.mainImgUrl,
+            price: res.data.price,
+          };
+          setTotalAmount((prevTotal) => prevTotal + cartItem.cnt * res.data.price);
+          setCartProductInfo(newCartProductInfo);
+        });
+      });
     });
   }, [member.id]);
 
   // 상품 삭제하면 카드 업데이트
   const handleDeleteItem = (itemId) => {
-    const updatedCartItems = cart.filter((item) => item.id !== itemId);
-    setCart(updatedCartItems);
+    const updatedCartItems = { ...cartProductInfo };
+    delete updatedCartItems[itemId];
+    setCartProductInfo(updatedCartItems);
   };
+
+  // 주문서 페이지로 이동
+  const handleOrderBtnClick = () => {
+    navigate('/ordersheet', {state: { cartProductInfo, totalAmount }});
+  }
+
+  // CartCard에 주기 위해 배열로 변경
+  const cartItemArray = Object.values(cartProductInfo);
 
   return (
     <CartContentContainer>
       <CartCardContainer>
-        {cart.map((cartItem) => (
+        {cartItemArray.map((cartItem) => (
           <CartCard
             key={cartItem.id}
-            cartItem={cartItem}
+            cartItemInfo = {cartItem}
             setTotalAmount={setTotalAmount}
             onDelete={handleDeleteItem}
           />
         ))}
       </CartCardContainer>
       <CartInfoContainer>
-        <CartInfo totalAmount={totalAmount} />
+        <CartInfo
+          totalAmount={totalAmount}
+          onOrderSheet={handleOrderBtnClick} />
       </CartInfoContainer>
     </CartContentContainer>
   );
