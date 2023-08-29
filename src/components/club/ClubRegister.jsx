@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker'; // react-datepicker를 import
+import 'react-datepicker/dist/react-datepicker.css';
 import {
-  ClubContainer,
+  StyledClubContainer,
   PetPhoto,
   PetName,
   PetBirth,
@@ -13,6 +15,7 @@ import {
   PetMbti,
   PetBreedCode,
   PetAnimalTypeCode,
+  StyledButton
 } from './index.style';
 import axios from 'axios';
 
@@ -20,6 +23,18 @@ function ClubRegister() {
   const navigate = useNavigate();
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
   const [selectedImgImage, setSelectedImgImage] = useState(null);
+
+  const [proteinCodes,setProteinCodes] = useState();
+  const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
+
+  const [animalTypeCodes, setAnimalTypeCodes] = useState([]);
+  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState('');
+
+  const [breedCodes,setBreedCodes] = useState();
+  const [selectedBreedCode, setSelectedBreedCode] = useState('');
+
+  const [selectedBirthDate, setSelectedBirthDate] = useState(null);
+
   const [formData, setFormData] = useState({
     photo: '',
     name: '',
@@ -35,6 +50,50 @@ function ClubRegister() {
 
   const photoInputRef = useRef(null);
   const imgInputRef = useRef(null);
+  useEffect(() => {
+    axios
+      .get(`/api/pet/code`)
+      .then((res) => {
+        const transformedData = res.data.map((item) => ({
+          codeValue: item.codeValue,
+          name: item.name,
+        }));
+
+        setProteinCodes(
+          transformedData.filter((item) => item.codeValue.includes('P'))
+        );
+
+        setAnimalTypeCodes(
+          transformedData.filter((item) =>
+            ["DOG", "CAT", "ETC"].some((pattern) =>
+              item.codeValue.includes(pattern)
+            )
+          )
+        );
+
+        setBreedCodes(
+          transformedData.filter((item) => item.codeValue.includes('D'))
+        );
+      })
+      .catch((Error) => {
+        console.log('Error fetching pet codes:', Error);
+      });
+  }, []);
+
+  const handleProteinCodeClick = (code) => {
+    const updatedSelectedProteinCodes = selectedProteinCodes.includes(code)
+      ? selectedProteinCodes.filter((c) => c !== code)
+      : [...selectedProteinCodes, code];
+    setSelectedProteinCodes(updatedSelectedProteinCodes);
+  };
+
+  const handleAnimalTypeCodeClick = (codeValue) => {
+    setSelectedAnimalTypeCode(codeValue);
+  };
+
+  const handleBreedCodeChange = (event) => {
+    setSelectedBreedCode(event.target.value);
+  };
 
   AWS.config.update({
     region: process.env.REACT_APP_AWS_REGION,
@@ -108,7 +167,6 @@ function ClubRegister() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // 이미지 업로드
     const photoUrlPromise = uploadToS3(photoInputRef.current.files[0]);
 
     const imgUrlPromise = uploadToS3(imgInputRef.current.files[1]);
@@ -118,19 +176,21 @@ function ClubRegister() {
       imgUrlPromise,
     ]);
 
+    const selectedCodesString = selectedProteinCodes.join(',');
+
     const clubData = {
       photo: photoUrl,
       name: formData.name,
-      birth: formData.birth,
-      proteinCode: formData.proteinCodes,
+      birth: selectedBirthDate ? selectedBirthDate.toISOString().split("T")[0] : null,
+      proteinCode: selectedCodesString,
       memberId: formData.memberId,
       favoriteFoodIngredients: formData.favoriteFoodIngredients,
       imgUrl: imgUrl,
       mbti: formData.mbti,
-      breedCode: formData.breedCode,
-      animalTypeCode: formData.animalTypeCode,
+      breedCode: selectedBreedCode,
+      animalTypeCode: selectedAnimalTypeCode,
     };
-
+    console.log(clubData);
     if (photoUrl !== null) {
       clubData.photo = photoUrl[0];
     }
@@ -139,7 +199,7 @@ function ClubRegister() {
     }
 
     try {
-      const response = await axios.post('api/club/', clubData);
+      const response = await axios.post('api/club', clubData);
 
       console.log('클럽 등록 성공:', response.data);
       navigate('/completeclubregister');
@@ -148,10 +208,24 @@ function ClubRegister() {
     }
   };
   return (
-    <ClubContainer>
+    <StyledClubContainer>
       <form onSubmit={handleFormSubmit}>
+        <PetAnimalTypeCode>
+          반려동물 종류
+          {animalTypeCodes.map((code) => (
+            <StyledButton
+              type="button"
+              key={code.codeValue}
+              onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
+              active={selectedAnimalTypeCode === code.codeValue}
+              className={selectedAnimalTypeCode === code.codeValue ? 'selected' : ''}
+            >
+              {code.name}
+            </StyledButton>
+          ))}
+        </PetAnimalTypeCode>
         <PetPhoto>
-          <p>이미지 (선택)</p>
+          <p>반려동물 사진 (선택)</p>
           <div
             className="image-preview"
             onClick={() => photoInputRef.current.click()}
@@ -185,24 +259,30 @@ function ClubRegister() {
           />
         </PetName>
         <PetBirth>
-          <input
-            type="text"
-            placeholder="생년월일"
-            name="birth"
-            value={formData.birth}
-            onChange={handleFormChange}
+          <p>생일</p>
+          <DatePicker // DatePicker 컴포넌트 추가
+            selected={selectedBirthDate}
+            shouldCloseOnSelect
+            onChange={(date) => setSelectedBirthDate(date)}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="생년월일"
           />
         </PetBirth>
         <PetProteinCodes>
-          <input
-            type="text"
-            placeholder="단백질 코드"
-            name="proteinCodes"
-            value={formData.proteinCodes}
-            onChange={handleFormChange}
-            s
-          />
+          <p>알러지</p>
+          {proteinCodes && proteinCodes.map((code) => (
+            <StyledButton
+              type="button"
+              key={code.codeValue}
+              onClick={() => handleProteinCodeClick(code.codeValue)}
+              active={selectedProteinCodes.includes(code.codeValue)}
+              className={selectedProteinCodes.includes(code.codeValue) ? 'selected' : ''}
+            >
+              {code.name}
+            </StyledButton>
+          ))}
         </PetProteinCodes>
+        
         <PetMemberId>
           <input
             type="number"
@@ -222,7 +302,7 @@ function ClubRegister() {
           />
         </PetFavoriteFoodIngredients>
         <PetImgUrl>
-          <p>이미지 (선택)</p>
+          <p>먹고있는 사료 사진(선택)</p>
           <div
             className="image-preview"
             onClick={() => imgInputRef.current.click()}
@@ -252,26 +332,24 @@ function ClubRegister() {
           />
         </PetMbti>
         <PetBreedCode>
-          <input
-            type="text"
-            placeholder="견종"
+          <p>견종</p>
+          <select
             name="breedCode"
-            value={formData.breedCode}
-            onChange={handleFormChange}
-          />
+            value={selectedBreedCode}
+            onChange={handleBreedCodeChange}
+          >
+            <option value="">견종 선택</option>
+            {breedCodes &&
+              breedCodes.map((code) => (
+                <option key={code.codeValue} value={code.codeValue}>
+                  {code.name}
+                </option>
+              ))}
+          </select>
         </PetBreedCode>
-        <PetAnimalTypeCode>
-          <input
-            type="text"
-            placeholder="동물코드"
-            name="animalTypeCode"
-            value={formData.animalTypeCode}
-            onChange={handleFormChange}
-          />
-        </PetAnimalTypeCode>
         <button type="submit">등록</button>
       </form>
-    </ClubContainer>
+    </StyledClubContainer>
   );
 }
 export default ClubRegister;
