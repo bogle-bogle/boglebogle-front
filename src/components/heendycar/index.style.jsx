@@ -169,8 +169,8 @@ export const HcContentTitle = styled.div`
 
 export const HcBtn = styled.button`
   border-radius: 0;
-  background-color: ${props => props.isActive ? 'black' : 'white' };
-  color: ${props => props.isActive ? 'white' : 'black' };
+  background-color: ${(props) => (props.isActive ? 'black' : 'white')};
+  color: ${(props) => (props.isActive ? 'white' : 'black')};
   font-weight: bold;
   padding: 0.6vw 1vw;
   border: 1px solid black;

@@ -1,7 +1,13 @@
 import React from 'react';
-import { Divider, LogoContainer, LogoDescr, LogoImg, MenuContainer, MenuItem } from './index.style';
+import {
+  Divider,
+  LogoContainer,
+  LogoDescr,
+  LogoImg,
+  MenuContainer,
+  MenuItem,
+} from './index.style';
 import logo from '../../assets/thepet_logo_img.png';
-
 
 function Header() {
   const menuList = ['구독', '맞춤 추천', '쇼핑', '흰디카 예약', '흰디 놀이터'];
@@ -9,7 +15,6 @@ function Header() {
   function goToHome() {
     window.location.href = '/';
   }
-  
 
   return (
     <div>

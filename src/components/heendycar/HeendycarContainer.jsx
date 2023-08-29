@@ -10,7 +10,7 @@ import {
   HcContent2,
   HcContent3,
   HcContentDescr,
-  HcContentImg,                                                                                                                                
+  HcContentImg,
   HcContentTitle,
   HcDescr2,
   HcDescription,
@@ -115,35 +115,43 @@ function HeendycarInfo() {
 
   const convertReservationTime = (simpleTime) => {
     const currDate = new Date();
-    const hour = parseInt(simpleTime.split(":")[0]);
-    const min = parseInt(simpleTime.split(":")[1]);
-    return new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate(), hour, min);
-  }
+    const hour = parseInt(simpleTime.split(':')[0]);
+    const min = parseInt(simpleTime.split(':')[1]);
+    return new Date(
+      currDate.getFullYear(),
+      currDate.getMonth(),
+      currDate.getDate(),
+      hour,
+      min,
+    );
+  };
 
   const handleMainBtnClick = () => {
-    alert("예약하시겠습니까?");
+    alert('예약하시겠습니까?');
     const data = {
       branchCode: selectedBranchCode,
-      reservationTime: convertReservationTime(selectedTime)
+      reservationTime: convertReservationTime(selectedTime),
     };
-    
+
     console.log(member);
 
     axios
-      .post(`/api/hc/reservation`, data,
-        {
-          headers: {
-            Authorization: `Bearer ${member.jwt.accessToken}`
-          },
+      .post(`/api/hc/reservation`, data, {
+        headers: {
+          Authorization: `Bearer ${member.jwt.accessToken}`,
         },
-      )
+      })
       .then((res) => {
-        const formattedTime = new Date(res.data.reservationTime).toISOString().split('T').join(' ').slice(0,16);
+        const formattedTime = new Date(res.data.reservationTime)
+          .toISOString()
+          .split('T')
+          .join(' ')
+          .slice(0, 16);
         alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
         console.log(res.data);
       })
       .catch((Error) => {
-        alert("예약에 실패하였습니다.");
+        alert('예약에 실패하였습니다.');
         console.info('Error');
       });
   };
@@ -240,11 +248,10 @@ function HeendycarInfo() {
           {deptBranches.map((branch) => (
             <HcBtn
               key={branch.branchCode}
-              isActive = {branch.branchCode === selectedBranchCode}
+              isActive={branch.branchCode === selectedBranchCode}
               onClick={() => {
                 setSelectedBranchCode(branch.branchCode);
-              }
-            }
+              }}
             >
               {branch.name}
             </HcBtn>
@@ -257,7 +264,7 @@ function HeendycarInfo() {
           {outletBranches.map((branch) => (
             <HcBtn
               key={branch.branchCode}
-              isActive = {branch.branchCode === selectedBranchCode}
+              isActive={branch.branchCode === selectedBranchCode}
               onClick={() => {
                 setSelectedBranchCode(branch.branchCode);
               }}
@@ -271,9 +278,9 @@ function HeendycarInfo() {
 
           <HcContentTitle>픽업 시간</HcContentTitle>
           {reservationTimes.map((time) => (
-            <HcBtn 
-              key={time.text} 
-              isActive = {time.text === selectedTime}
+            <HcBtn
+              key={time.text}
+              isActive={time.text === selectedTime}
               onClick={() => {
                 setSelectednTime(time.text);
               }}
