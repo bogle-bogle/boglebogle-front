@@ -11,6 +11,7 @@ import ClubRegister from './components/club/ClubRegister';
 import CompleteClubRegister from './pages/CompleteClubRegister';
 import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
+import HyundaiCard from './pages/HyundaiCard';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/card" element={<HyundaiCard />}></Route>
           <Route path="/clubregister" element={<ClubRegister />}></Route>
           <Route
             path="/completeclubregister"
