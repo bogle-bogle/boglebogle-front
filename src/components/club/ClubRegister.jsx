@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; // react-datepicker를 import
@@ -15,7 +15,7 @@ import {
   PetMbti,
   PetBreedCode,
   PetAnimalTypeCode,
-  StyledButton
+  StyledButton,
 } from './index.style';
 import axios from 'axios';
 
@@ -24,13 +24,13 @@ function ClubRegister() {
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
   const [selectedImgImage, setSelectedImgImage] = useState(null);
 
-  const [proteinCodes,setProteinCodes] = useState();
+  const [proteinCodes, setProteinCodes] = useState();
   const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
 
   const [animalTypeCodes, setAnimalTypeCodes] = useState([]);
   const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState('');
 
-  const [breedCodes,setBreedCodes] = useState();
+  const [breedCodes, setBreedCodes] = useState();
   const [selectedBreedCode, setSelectedBreedCode] = useState('');
 
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
@@ -60,19 +60,19 @@ function ClubRegister() {
         }));
 
         setProteinCodes(
-          transformedData.filter((item) => item.codeValue.includes('P'))
+          transformedData.filter((item) => item.codeValue.includes('P')),
         );
 
         setAnimalTypeCodes(
           transformedData.filter((item) =>
-            ["DOG", "CAT", "ETC"].some((pattern) =>
-              item.codeValue.includes(pattern)
-            )
-          )
+            ['DOG', 'CAT', 'ETC'].some((pattern) =>
+              item.codeValue.includes(pattern),
+            ),
+          ),
         );
 
         setBreedCodes(
-          transformedData.filter((item) => item.codeValue.includes('D'))
+          transformedData.filter((item) => item.codeValue.includes('D')),
         );
       })
       .catch((Error) => {
@@ -181,7 +181,9 @@ function ClubRegister() {
     const clubData = {
       photo: photoUrl,
       name: formData.name,
-      birth: selectedBirthDate ? selectedBirthDate.toISOString().split("T")[0] : null,
+      birth: selectedBirthDate
+        ? selectedBirthDate.toISOString().split('T')[0]
+        : null,
       proteinCode: selectedCodesString,
       memberId: formData.memberId,
       favoriteFoodIngredients: formData.favoriteFoodIngredients,
@@ -218,7 +220,9 @@ function ClubRegister() {
               key={code.codeValue}
               onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
               active={selectedAnimalTypeCode === code.codeValue}
-              className={selectedAnimalTypeCode === code.codeValue ? 'selected' : ''}
+              className={
+                selectedAnimalTypeCode === code.codeValue ? 'selected' : ''
+              }
             >
               {code.name}
             </StyledButton>
@@ -270,19 +274,24 @@ function ClubRegister() {
         </PetBirth>
         <PetProteinCodes>
           <p>알러지</p>
-          {proteinCodes && proteinCodes.map((code) => (
-            <StyledButton
-              type="button"
-              key={code.codeValue}
-              onClick={() => handleProteinCodeClick(code.codeValue)}
-              active={selectedProteinCodes.includes(code.codeValue)}
-              className={selectedProteinCodes.includes(code.codeValue) ? 'selected' : ''}
-            >
-              {code.name}
-            </StyledButton>
-          ))}
+          {proteinCodes &&
+            proteinCodes.map((code) => (
+              <StyledButton
+                type="button"
+                key={code.codeValue}
+                onClick={() => handleProteinCodeClick(code.codeValue)}
+                active={selectedProteinCodes.includes(code.codeValue)}
+                className={
+                  selectedProteinCodes.includes(code.codeValue)
+                    ? 'selected'
+                    : ''
+                }
+              >
+                {code.name}
+              </StyledButton>
+            ))}
         </PetProteinCodes>
-        
+
         <PetMemberId>
           <input
             type="number"
