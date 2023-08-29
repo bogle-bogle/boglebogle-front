@@ -14,7 +14,6 @@ import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
 import HyundaiCard from './pages/HyundaiCard';
 
-
 function App() {
   return (
     <div className="appContainer">
