@@ -17,7 +17,6 @@ import {
 } from './CartInfo.style';
 
 function CartInfo({ totalAmount }) {
-
   const formatPrice = (price) => {
     return price.toLocaleString();
   };
@@ -29,29 +28,29 @@ function CartInfo({ totalAmount }) {
         <Triangle />
         <OrderAmountBox>
           <OrderTextBox>
-           <OrderText>총 주문금액</OrderText>
-           <OrderText>{formatPrice(totalAmount)}</OrderText>
+            <OrderText>총 주문금액</OrderText>
+            <OrderText>{formatPrice(totalAmount)}</OrderText>
           </OrderTextBox>
           <Divider />
           <OrderTextBox>
-           <OrderText>상품금액</OrderText>
-           <OrderText>{formatPrice(totalAmount)}</OrderText>
+            <OrderText>상품금액</OrderText>
+            <OrderText>{formatPrice(totalAmount)}</OrderText>
           </OrderTextBox>
           <OrderTextBox>
-           <OrderText>배송비</OrderText>
-           <OrderText>무료</OrderText>
+            <OrderText>배송비</OrderText>
+            <OrderText>무료</OrderText>
           </OrderTextBox>
           <Circle />
-      </OrderAmountBox>
+        </OrderAmountBox>
         <OrderDiscountBox>
           <OrderTextBox>
             <OrderText>총 할인금액</OrderText>
             <OrderText>0원</OrderText>
-            </OrderTextBox>
-            <OrderTextBox>
+          </OrderTextBox>
+          <OrderTextBox>
             <OrderText>혜택할인가</OrderText>
             <OrderText>-0원</OrderText>
-            </OrderTextBox>
+          </OrderTextBox>
         </OrderDiscountBox>
         <OrderResultBox>
           <p>

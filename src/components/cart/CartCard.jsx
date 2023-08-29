@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {
   CardBox,
-  // DeleteIcon,
+  DeleteIcon,
   ProductInfoContainer,
   ProductImage,
   ProductDetails,
@@ -15,19 +15,18 @@ import {
   CounterBtn,
 } from './CartCard.style';
 
-function CartCard({ cartItem, setTotalAmount }) {
+function CartCard({ cartItem, setTotalAmount, onDelete }) {
   const [product, setProduct] = useState([]);
   const [count, setCount] = useState(cartItem.cnt);
-  
 
   // 장바구니에 담긴 상품 정보들 가져오기
   useEffect(() => {
     axios.get(`/api/product/${cartItem.productId}`).then((res) => {
       setProduct(res.data);
-      console.info(res.data)
+      console.info(res.data);
       setTotalAmount((prev) => {
-        return prev + cartItem.cnt * res.data.price
-      })
+        return prev + cartItem.cnt * res.data.price;
+      });
     });
   }, []);
 
@@ -38,8 +37,8 @@ function CartCard({ cartItem, setTotalAmount }) {
       setCount(newCount);
       updateCartCount(newCount);
       setTotalAmount((prev) => {
-        return prev - product.price
-      })
+        return prev - product.price;
+      });
     }
   };
 
@@ -48,8 +47,8 @@ function CartCard({ cartItem, setTotalAmount }) {
     setCount(newCount);
     updateCartCount(newCount);
     setTotalAmount((prev) => {
-      return prev + product.price
-    })
+      return prev + product.price;
+    });
   };
 
   const updateCartCount = (newCount) => {
@@ -60,7 +59,6 @@ function CartCard({ cartItem, setTotalAmount }) {
     axios
       .patch(`/api/cart`, updatedCartItem)
       .then((res) => {
-        
         console.info('개수 변경 성공', res.data);
       })
       .catch((error) => {
@@ -79,22 +77,21 @@ function CartCard({ cartItem, setTotalAmount }) {
     return price.toLocaleString();
   };
 
-//  const deleteCart = 
-
-  // // 장바구니에서 상품 삭제하기
-  // useEffect(() => {
-  //   axios.delete(`/api/cart/${cartItem.id}`).then((res) => {
-  //     setTotalAmount((prev) => {
-  //       return prev - cartItem.id * product.price
-  //     })
-  //   })
-  // });
+  // 상품 삭제하기
+  const handleDelete = () => {
+    axios.delete(`/api/cart/${cartItem.id}`).then((res) => {
+      setTotalAmount((prev) => {
+        return prev - product.price * count;
+      });
+      onDelete(cartItem.id);
+    })
+  }
 
   return (
     <CardBox key={cartItem.id}>
       <ProductSelect>
         <input type="checkbox" />
-        {/* <DeleteIcon onClick={deleteCart} /> */}
+        <DeleteIcon onClick={handleDelete} />
       </ProductSelect>
       <ProductInfoContainer>
         <ProductImage src={product.mainImgUrl} alt={product.name} />

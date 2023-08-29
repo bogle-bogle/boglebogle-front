@@ -20,20 +20,26 @@ function CartContainer() {
     });
   }, [member.id]);
 
+  // 상품 삭제하면 카드 업데이트
+  const handleDeleteItem = (itemId) => {
+    const updatedCartItems = cart.filter(item => item.id !== itemId)
+    setCart(updatedCartItems)
+  }
 
   return (
     <CartContentContainer>
       <CartCardContainer>
         {cart.map((cartItem) => (
-          <CartCard 
+          <CartCard
             key={cartItem.id}
             cartItem={cartItem}
             setTotalAmount={setTotalAmount}
-            />
+            onDelete={handleDeleteItem}
+          />
         ))}
       </CartCardContainer>
       <CartInfoContainer>
-        <CartInfo totalAmount={totalAmount}/>
+        <CartInfo totalAmount={totalAmount} />
       </CartInfoContainer>
     </CartContentContainer>
   );

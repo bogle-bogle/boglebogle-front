@@ -39,17 +39,15 @@ export const OrderAmountBox = styled.div`
 `;
 
 export const OrderTextBox = styled.div`
-    display: flex;
-    justify-content: space-between;
-`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export const OrderText = styled.p`
   margin: 0;
 `;
 
-export const Divider = styled.hr`
-  
-`
+export const Divider = styled.hr``;
 
 export const Circle = styled.div`
   background-color: #eeeeee;
