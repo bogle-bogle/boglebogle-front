@@ -15,8 +15,7 @@ import {
   CounterBtn,
 } from './CartCard.style';
 
-function CartCard({ cartItemInfo, setTotalAmount, onDelete }) {
-
+function CartCard({handleCount, cartItemInfo, setTotalAmount, onDelete }) {
   const [count, setCount] = useState(cartItemInfo.cnt);
 
   // 상품 개수 변경
@@ -28,6 +27,7 @@ function CartCard({ cartItemInfo, setTotalAmount, onDelete }) {
       setTotalAmount((prev) => {
         return prev - cartItemInfo.price;
       });
+      handleCount(cartItemInfo.id, newCount);
     }
   };
 
@@ -38,6 +38,7 @@ function CartCard({ cartItemInfo, setTotalAmount, onDelete }) {
     setTotalAmount((prev) => {
       return prev + cartItemInfo.price;
     });
+    handleCount(cartItemInfo.id, newCount);
   };
 
   const updateCartCount = (newCount) => {

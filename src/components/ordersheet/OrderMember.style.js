@@ -15,19 +15,22 @@ export const Td1 = styled.td`
   border: 1px solid #ccc;
   text-align: left;
 
-  ${props => props.noBorderLeft && `
+  ${(props) =>
+    props.noBorderLeft &&
+    `
     &:first-child {
       border-left: none;
     }
   `}
 
-  ${props => props.noBorderRight && `
+  ${(props) =>
+    props.noBorderRight &&
+    `
     &:last-child {
       border-right: none;
     }
   `}
 `;
-
 
 export const TableContainer2 = styled.div`
   display: flex;
@@ -42,24 +45,31 @@ export const Table2 = styled.table`
 export const Th2 = styled.th`
   text-align: left;
 
-  ${props => props.BorderTop && `
+  ${(props) =>
+    props.BorderTop &&
+    `
     border-top: 1px solid #ccc;
   `}
 
-  ${props => props.BorderBottom && `
+  ${(props) =>
+    props.BorderBottom &&
+    `
     border-bottom: 1px solid #ccc;
   `}
-
 `;
 
 export const Td2 = styled.td`
   padding: 10px;
 
-  ${props => props.BorderTop && `
+  ${(props) =>
+    props.BorderTop &&
+    `
     border-top: 1px solid #ccc;
   `}
 
-  ${props => props.BorderBottom && `
+  ${(props) =>
+    props.BorderBottom &&
+    `
     border-bottom: 1px solid #ccc;
   `}
 `;

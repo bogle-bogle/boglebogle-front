@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 export const TableContainer1 = styled.div`
-
   table {
     width: 100%;
 
     th {
-      background-color: #F6F6F6;
+      background-color: #f6f6f6;
       font-weight: bold;
       text-align: center;
     }
-/* 
+    /* 
     th:first-child,
     td:first-child {
       border-left: 2px solid #000;
