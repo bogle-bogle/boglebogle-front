@@ -8,6 +8,7 @@ import Shop from './pages/Shop';
 import Header from './components/header/Header';
 import Cart from './pages/CartPage';
 import ProductDetail from './components/product/ProductDetail';
+import HyundaiCard from './pages/HyundaiCard';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/card" element={<HyundaiCard />}></Route>
         </Routes>
       </Router>
     </div>

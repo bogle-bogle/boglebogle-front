@@ -11,6 +11,7 @@ import CartInfo from './CartInfo';
 
 function CartContainer() {
   const member = useSelector((state) => state.member);
+  console.log(member);
   const [cart, setCart] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
