@@ -169,11 +169,10 @@ export const HcContentTitle = styled.div`
 
 export const HcBtn = styled.button`
   border-radius: 0;
-  background-color: white;
-  color: white;
+  background-color: ${props => props.isActive ? 'black' : 'white' };
+  color: ${props => props.isActive ? 'white' : 'black' };
   font-weight: bold;
   padding: 0.6vw 1vw;
-  color: black;
   border: 1px solid black;
   margin-left: 1vw;
   margin-bottom: 0.5vw;
@@ -183,12 +182,6 @@ export const HcBtn = styled.button`
 
   &:hover {
     background-color: lightgray;
-  }
-
-  &:active,
-  &:focus {
-    background-color: black;
-    color: white;
   }
 `;
 

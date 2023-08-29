@@ -24,3 +24,16 @@ export const MenuContainer = styled.div`
 export const MenuItem = styled.p`
   margin: 10px;
 `;
+
+export const LogoDescr = styled.div`
+  font-size: 0.6vw;
+  color: gray;
+  margin-top: 1vw;
+  margin-bottom: 0.5vw;
+`;
+
+export const LogoImg = styled.img`
+  width: 12vw;
+  margin-bottom: 1vw;
+  cursor: pointer;
+`;
