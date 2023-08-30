@@ -57,5 +57,4 @@ export const TpbCardImg = styled.img`
   height: 13vw;
   border-radius: 2vw;
   box-shadow: 0 0.3vw 0.3vw rgba(0, 0, 0, 0.3);
-
 `;
