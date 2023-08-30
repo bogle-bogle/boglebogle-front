@@ -48,7 +48,7 @@ function HeendycarInfo() {
     axios
       .get(`/api/hc/branch`)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         const transformedData = res.data.map((item) => ({
           branchCode: item.branchCode,
           name: item.name,

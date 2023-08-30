@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk'
+import React, { useEffect, useRef, useState } from 'react';
+import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
 import { TableContainer1, OrderButton } from './OrderProducts.style';
-
 
 function OrderProducts({ cartItemArray, totalAmount }) {
   console.log('order', cartItemArray);
@@ -11,54 +10,54 @@ function OrderProducts({ cartItemArray, totalAmount }) {
   const [price, setPrice] = useState(totalAmount);
 
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
-  const clientKey = "test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE"
-  const customerKey = "YbX2HuSlsC9uVJW6NMRMj"
+  const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
+  const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
 
   useEffect(() => {
-      (async () => {
-          const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
-          const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget",
-              { value: price }
-          );
-
-          paymentWidget.renderAgreement("#agreement");
-      
-          paymentWidgetRef.current = paymentWidget;
-          paymentMethodsWidgetRef.current = paymentMethodsWidget;
-      })();
-    }, []);
-  
-    useEffect(() => {
-      const paymentMethodsWidget = paymentMethodsWidgetRef.current;
-  
-      if (paymentMethodsWidget == null) {
-        return;
-      }
-
-      paymentMethodsWidget.updateAmount(
-        price,
-        paymentMethodsWidget.UPDATE_REASON.COUPON
+    (async () => {
+      const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
+      const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+        '#payment-widget',
+        { value: price },
       );
-    }, [price]);
 
-    const handleOrder = async () => {
-      const paymentWidget = paymentWidgetRef.current;
-  
-      try {
-        await paymentWidget?.requestPayment({
-          orderId: customerKey,
-          orderName: "토스 티셔츠 외 2건",
-          customerName: "김토스",
-          customerEmail: "customer123@gmail.com",
-          successUrl: `${window.location.origin}/success`,
-          failUrl: `${window.location.origin}/fail`,
-        });
-      } catch (error) {
-        // 에러 처리하기
-        console.error(error);
-      }
-    };
-  
+      paymentWidget.renderAgreement('#agreement');
+
+      paymentWidgetRef.current = paymentWidget;
+      paymentMethodsWidgetRef.current = paymentMethodsWidget;
+    })();
+  }, []);
+
+  useEffect(() => {
+    const paymentMethodsWidget = paymentMethodsWidgetRef.current;
+
+    if (paymentMethodsWidget == null) {
+      return;
+    }
+
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON,
+    );
+  }, [price]);
+
+  const handleOrder = async () => {
+    const paymentWidget = paymentWidgetRef.current;
+
+    try {
+      await paymentWidget?.requestPayment({
+        orderId: customerKey,
+        orderName: '토스 티셔츠 외 2건',
+        customerName: '김토스',
+        customerEmail: 'customer123@gmail.com',
+        successUrl: `${window.location.origin}/success`,
+        failUrl: `${window.location.origin}/fail`,
+      });
+    } catch (error) {
+      // 에러 처리하기
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -85,7 +84,6 @@ function OrderProducts({ cartItemArray, totalAmount }) {
           ))}
         </tbody>
       </TableContainer1>
-
       <span>{`${price.toLocaleString()}원`}</span>
       <div>
         <label>

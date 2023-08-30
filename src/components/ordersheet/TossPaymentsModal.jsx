@@ -1,45 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react'
-import {   
-        loadPaymentWidget
-} from '@tosspayments/payment-widget-sdk'
-import {
-    ModalContainer
-} from './TossPaymentsModal.style'
+import React, { useEffect, useRef, useState } from 'react';
+import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
+import { ModalContainer } from './TossPaymentsModal.style';
 
 function TossPaymentsModal({ totalAmount }) {
-    const paymentWidgetRef = useRef(null);
-    const paymentMethodsWidgetRef = useRef(null);
-    const [price, setPrice] = useState(totalAmount);
+  const paymentWidgetRef = useRef(null);
+  const paymentMethodsWidgetRef = useRef(null);
+  const [price, setPrice] = useState(totalAmount);
 
-    const clientKey = "test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE"
-    const customerKey = "YbX2HuSlsC9uVJW6NMRMj"
+  const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
+  const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
 
-    useEffect(() => {
-        (async () => {
-            const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
-            const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget",
-                { value: price }
-            );
+  useEffect(() => {
+    (async () => {
+      const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
+      const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+        '#payment-widget',
+        { value: price },
+      );
 
-            paymentWidget.renderAgreement("#agreement");
-        
-            paymentWidgetRef.current = paymentWidget;
-            paymentMethodsWidgetRef.current = paymentMethodsWidget;
-        })();
-      }, []);
-    
-      useEffect(() => {
-        const paymentMethodsWidget = paymentMethodsWidgetRef.current;
-    
-        if (paymentMethodsWidget == null) {
-          return;
-        }
+      paymentWidget.renderAgreement('#agreement');
 
-        paymentMethodsWidget.updateAmount(
-          price,
-          paymentMethodsWidget.UPDATE_REASON.COUPON
-        );
-      }, [price]);
+      paymentWidgetRef.current = paymentWidget;
+      paymentMethodsWidgetRef.current = paymentMethodsWidget;
+    })();
+  }, []);
+
+  useEffect(() => {
+    const paymentMethodsWidget = paymentMethodsWidgetRef.current;
+
+    if (paymentMethodsWidget == null) {
+      return;
+    }
+
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON,
+    );
+  }, [price]);
 
   return (
     <ModalContainer>
@@ -65,9 +62,9 @@ function TossPaymentsModal({ totalAmount }) {
           try {
             await paymentWidget?.requestPayment({
               orderId: 1,
-              orderName: "토스 티셔츠 외 2건",
-              customerName: "김토스",
-              customerEmail: "customer123@gmail.com",
+              orderName: '토스 티셔츠 외 2건',
+              customerName: '김토스',
+              customerEmail: 'customer123@gmail.com',
               successUrl: `${window.location.origin}/success`,
               failUrl: `${window.location.origin}/fail`,
             });
@@ -80,7 +77,7 @@ function TossPaymentsModal({ totalAmount }) {
         결제하기
       </button>
     </ModalContainer>
-  )
+  );
 }
 
-export default TossPaymentsModal
+export default TossPaymentsModal;
