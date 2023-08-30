@@ -2,7 +2,7 @@ import React from 'react';
 import { TableContainer1, OrderButton } from './OrderProducts.style';
 
 function OrderProducts({ cartItemArray, totalAmount }) {
-    console.log('order', cartItemArray)
+  console.log('order', cartItemArray);
   return (
     <div>
       <TableContainer1>

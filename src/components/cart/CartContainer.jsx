@@ -41,12 +41,11 @@ function CartContainer() {
   }, [member.id]);
   const handleCount = (id, cnt) => {
     setCartProductInfo((prev) => {
-      const newObj = {...prev};
+      const newObj = { ...prev };
       newObj[id].cnt = cnt;
       return newObj;
-    })
-  }
-
+    });
+  };
 
   // 상품 삭제하면 카드 업데이트
   const handleDeleteItem = (itemId) => {
@@ -57,7 +56,6 @@ function CartContainer() {
 
   // 주문서 페이지로 이동
   const handleOrderBtnClick = () => {
-    
     navigate('/ordersheet', { state: { cartItemArray, totalAmount } });
   };
 

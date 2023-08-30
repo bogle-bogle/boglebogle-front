@@ -15,7 +15,7 @@ import {
   CounterBtn,
 } from './CartCard.style';
 
-function CartCard({handleCount, cartItemInfo, setTotalAmount, onDelete }) {
+function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
   const [count, setCount] = useState(cartItemInfo.cnt);
 
   // 상품 개수 변경
