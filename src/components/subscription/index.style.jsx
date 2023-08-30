@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SubGrid = styled.div`
   display: grid;
-  grid-template-areas:'';
+  grid-template-areas: '';
   /* max-width: 100%; */
   /* position: relative; */
   /* overflow: hidden; */
