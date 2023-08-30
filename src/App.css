@@ -1,5 +1,5 @@
 .appContainer {
-  border: 1px solid green;
+  border: 1px solid transparent;
   width: 65%;
   @media (max-width: 768px) {
     width: 100%;

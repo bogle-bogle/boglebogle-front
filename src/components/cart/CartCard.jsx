@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   CardBox,
   DeleteIcon,
@@ -15,20 +15,8 @@ import {
   CounterBtn,
 } from './CartCard.style';
 
-function CartCard({ cartItem, setTotalAmount, onDelete }) {
-  const [product, setProduct] = useState([]);
-  const [count, setCount] = useState(cartItem.cnt);
-
-  // 장바구니에 담긴 상품 정보들 가져오기
-  useEffect(() => {
-    axios.get(`/api/product/${cartItem.productId}`).then((res) => {
-      setProduct(res.data);
-      console.info(res.data);
-      setTotalAmount((prev) => {
-        return prev + cartItem.cnt * res.data.price;
-      });
-    });
-  }, []);
+function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
+  const [count, setCount] = useState(cartItemInfo.cnt);
 
   // 상품 개수 변경
   const handleDecrease = () => {
@@ -37,8 +25,9 @@ function CartCard({ cartItem, setTotalAmount, onDelete }) {
       setCount(newCount);
       updateCartCount(newCount);
       setTotalAmount((prev) => {
-        return prev - product.price;
+        return prev - cartItemInfo.price;
       });
+      handleCount(cartItemInfo.id, newCount);
     }
   };
 
@@ -47,13 +36,14 @@ function CartCard({ cartItem, setTotalAmount, onDelete }) {
     setCount(newCount);
     updateCartCount(newCount);
     setTotalAmount((prev) => {
-      return prev + product.price;
+      return prev + cartItemInfo.price;
     });
+    handleCount(cartItemInfo.id, newCount);
   };
 
   const updateCartCount = (newCount) => {
     const updatedCartItem = {
-      id: cartItem.id,
+      id: cartItemInfo.id,
       cnt: newCount,
     };
     axios
@@ -68,7 +58,7 @@ function CartCard({ cartItem, setTotalAmount, onDelete }) {
 
   // 상품 개수 * 상품 가격
   const calProductPrice = () => {
-    const price = product.price * count;
+    const price = cartItemInfo.price * count;
     return price;
   };
 
@@ -79,24 +69,26 @@ function CartCard({ cartItem, setTotalAmount, onDelete }) {
 
   // 상품 삭제하기
   const handleDelete = () => {
-    axios.delete(`/api/cart/${cartItem.id}`).then((res) => {
+    axios.delete(`/api/cart/${cartItemInfo.id}`).then((res) => {
       setTotalAmount((prev) => {
-        return prev - product.price * count;
+        return prev - cartItemInfo.price * count;
       });
-      onDelete(cartItem.id);
+      onDelete(cartItemInfo.id);
     });
   };
 
+  console.log('cartItemInfo:', cartItemInfo);
+
   return (
-    <CardBox key={cartItem.id}>
+    <CardBox key={cartItemInfo.id}>
       <ProductSelect>
         <input type="checkbox" />
         <DeleteIcon onClick={handleDelete} />
       </ProductSelect>
       <ProductInfoContainer>
-        <ProductImage src={product.mainImgUrl} alt={product.name} />
+        <ProductImage src={cartItemInfo.mainImgUrl} alt={cartItemInfo.name} />
         <ProductDetails>
-          <ProductName>{product.name}</ProductName>
+          <ProductName>{cartItemInfo.name}</ProductName>
           <ProductCount>
             <CounterBtn onClick={handleDecrease}>-</CounterBtn>
             {count}
