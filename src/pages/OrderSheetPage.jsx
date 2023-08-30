@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import OrderSheetHeader from '../components/ordersheet/OrderSheetHeader';
 import OrderMember from '../components/ordersheet/OrderMember';
 import OrderProducts from '../components/ordersheet/OrderProducts';
 
@@ -9,6 +10,7 @@ function OrdersheetPage() {
 
   return (
     <div>
+      <OrderSheetHeader />
       <OrderMember />
       <OrderProducts cartItemArray={cartItemArray} totalAmount={totalAmount} />
     </div>
