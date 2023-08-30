@@ -85,7 +85,6 @@ export const ReviewCardContainer = styled.div`
 export const ReviewModalCard = styled.div`
   width: 700px;
   height: 700px;
-
   background-color: white;
 `;
 
