@@ -39,7 +39,7 @@ export const HcHeaderText = styled.div`
 
 export const HcSubTitle = styled.div`
   width: 100%;
-  font-size: 1.4vw;
+  font-size: 1vw;
   text-align: center;
   font-weight: bold;
   text-shadow: 2px 2px 2px gray;

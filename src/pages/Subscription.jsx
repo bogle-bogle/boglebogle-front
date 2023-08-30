@@ -1,8 +1,8 @@
 import React from 'react';
-import SubMainContainer from '../components/subscription/SubMainContainer';
+import SubContainer from '../components/subscription/SubContainer';
 
 function Subscription() {
-  return <SubMainContainer />;
+  return <SubContainer />;
 }
 
 export default Subscription;
