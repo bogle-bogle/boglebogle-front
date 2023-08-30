@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 import ModalContainer from './ModalContainer';
 
 function Modal({ children, handleModalClose }) {
   return (
     <>
-      {ReactDom.createPortal(
+      {ReactDOM.createPortal(
         <ModalContainer handleModalClose={handleModalClose}>
           {children}
         </ModalContainer>,
