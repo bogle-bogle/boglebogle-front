@@ -3,6 +3,7 @@ import {
   BagIcon,
   ReceiptIcon,
   CheckboxIcon,
+  ArrowIcon,
   StepContainer,
   StepText,
   CartHeaderContainer,
@@ -17,25 +18,31 @@ function CartHeader() {
     <CartHeaderContainer>
       <CartTextContainer>
         <HeaderTitle>장바구니</HeaderTitle>
+
         <HeaderContent>
           <BagIcon />
           <StepContainer>
-            <StepText>step 01</StepText>
+            <StepText>STEP 01</StepText>
             <StepText>장바구니</StepText>
           </StepContainer>
+          <ArrowIcon />
           <ReceiptIcon />
           <StepContainer>
-            <StepText>step 02</StepText>
+            <StepText>STEP 02</StepText>
             <StepText>주문서 작성</StepText>
           </StepContainer>
+          <ArrowIcon />
           <CheckboxIcon />
           <StepContainer>
-            <StepText>step 03</StepText>
+            <StepText>STEP 03</StepText>
             <StepText>주문완료</StepText>
           </StepContainer>
         </HeaderContent>
+
       </CartTextContainer>
+
       <Divider />
+
     </CartHeaderContainer>
   );
 }

@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoReceiptOutline } from 'react-icons/io5';
 import { IoCheckboxOutline } from 'react-icons/io5';
+import { SlArrowRight } from 'react-icons/sl';
 
 export const CartHeaderContainer = styled.div`
-  display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-direction: column;
+  margin-top: 60px;
   margin-bottom: 30px;
 `;
 
@@ -16,10 +16,11 @@ export const CartTextContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  height: 100px;
 `;
 
-export const HeaderTitle = styled.h1`
-  font-size: 24px;
+export const HeaderTitle = styled.p`
+  font-size: 38px;
   color: #333;
   margin-right: 250px;
 `;
@@ -31,31 +32,46 @@ export const HeaderContent = styled.div`
 `;
 
 export const BagIcon = styled(HiOutlineShoppingBag)`
-  font-size: 30px;
+  width: 37px;
+  height: 37px;
 `;
 
 export const ReceiptIcon = styled(IoReceiptOutline)`
-  font-size: 27px;
+  width: 37px;
+  height: 37px;
+  color: #8E8E8E;
 `;
 
 export const CheckboxIcon = styled(IoCheckboxOutline)`
-  font-size: 27px;
+  width: 37px;
+  height: 37px;
+  color: #8E8E8E;
+`;
+
+export const ArrowIcon = styled(SlArrowRight)`
+  width: 37px;
+  height: 37px;
+  color: #ededed;
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 export const StepContainer = styled.div`
-  display: flex;
   flex-direction: column; /* 요소들을 수직으로 정렬 */
   align-items: center; /* 수평 가운데 정렬 */
+  justify-content: space-between;
+  margin-left: 10px;
 `;
 
 export const StepText = styled.p`
-  font-size: 10px;
+  font-size: 13px;
   margin: 0px 0;
+  color: #666666;
 `;
 
 export const Divider = styled.div`
   width: 100%;
-  height: 15px;
+  height: 17px;
   background: repeating-linear-gradient(
     -45deg,
     #fff,
