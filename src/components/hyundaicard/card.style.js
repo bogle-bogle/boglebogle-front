@@ -61,6 +61,8 @@ export const HCard = styled.div`
   position: relative;
   transition: 0.4s;
   transform-style: preserve-3d;
+
+  transform: ${(props) => props.reverse && `rotateY(180deg)`};
 `;
 
 export const CardFront = styled.img`
@@ -93,7 +95,7 @@ export const CardInfoContainer = styled.div`
 
 export const SelectButton = styled.button`
   width: 250px;
-  height: 70px;
+  height: 50px;
   color: white;
   background-color: #376558;
   border: 1px solid #376558;
