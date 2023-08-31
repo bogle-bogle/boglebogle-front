@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function CustomCard() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default CustomCard
+export default CustomCard;

@@ -17,7 +17,11 @@ function Example() {
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={(e) => setInputImage(URL.createObjectURL(e.target.files[0]))} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setInputImage(URL.createObjectURL(e.target.files[0]))}
+      />
       <Cropper src={inputImage} crop={onCrop} ref={cropperRef} />
       <img src={croppedImage} />
     </div>
