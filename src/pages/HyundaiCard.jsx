@@ -20,14 +20,14 @@ import selectCardHeendy from '../assets/card/hyundai_card_heendy.png';
 import selectCardCustom from '../assets/card/hyundai_card_custom.png';
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
-import HeendyCardBack from '../assets/card/hyundai_card_heendy_front.png'
+import HeendyCardBack from '../assets/card/hyundai_card_heendy_front.png';
 
 function HyundaiCard() {
-    const [reverse, setReverse] = useState(false);
+  const [reverse, setReverse] = useState(false);
 
-    const handleReverse = () => {
-        setReverse((prev) => !prev);
-    }
+  const handleReverse = () => {
+    setReverse((prev) => !prev);
+  };
 
   return (
     <HyundaiCardContainer>
@@ -39,19 +39,19 @@ function HyundaiCard() {
               <h1>빼꼼 흰디</h1>
               <h4>깔끔한 화이트 컬러에 흰디로 포인트를 준 디자인</h4>
             </CardInfoContainer>
-            <BackButton style={{visibility:"hidden"}}></BackButton>
+            <BackButton style={{ visibility: 'hidden' }}></BackButton>
           </CardInfoCol>
           <CardInfoCol>
             {/* <CardFront src={selectCardHeendy} /> */}
             <CardFlip>
-                <HCard>
-                    <CardFront src={selectCardHeendy}></CardFront>
-                    <CardBack src={HeendyCardBack}></CardBack>
-                </HCard>
+              <HCard>
+                <CardFront src={selectCardHeendy}></CardFront>
+                <CardBack src={HeendyCardBack}></CardBack>
+              </HCard>
             </CardFlip>
             <BackButton onClick={handleReverse}>
               <img src={rotateArrow} alt="" />
-              {reverse ? "뒷면보기" : "앞면보기"}
+              {reverse ? '뒷면보기' : '앞면보기'}
             </BackButton>
           </CardInfoCol>
         </CardViewContainer>
