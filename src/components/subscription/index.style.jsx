@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-export const SubGrid = styled.div`
-  /* max-width: 100%; */
-  /* position: relative; */
-  /* overflow: hidden; */
-`;
+export const SubGrid = styled.div``;
 
 export const SubMainAdv = styled.div`
   position: relative;
@@ -28,7 +24,6 @@ export const AdvOverlayButton = styled.button`
   font-size: 1vw;
   margin-top: 0.6vw;
   padding: 1vw 1.5vw;
-  /* transform: translate(-50%, -50%); 버튼 중앙 정렬 */
 `;
 
 export const TpbHistoryTitle = styled.div`
@@ -108,12 +103,11 @@ export const TpbMainContentBox = styled.div`
   width: 100%;
   height: 3vw;
   color: gray;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   border-radius: 0.8vw;
-  /* font-weight: bold; */
   font-size: 0.8vw;
-  display: flex;           // Flexbox 활성화
-  align-items: center;     // 수직 중앙 정렬
+  display: flex;
+  align-items: center;
 `;
 
 export const TpbMiniIcon = styled.img`
