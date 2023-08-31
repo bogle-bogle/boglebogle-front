@@ -18,6 +18,10 @@ export const CardViewContainer = styled.div`
   width: 100%;
   height: 400px;
   border: 1px solid blue;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CardInfoCol = styled.div`
@@ -26,6 +30,8 @@ export const CardInfoCol = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BackButton = styled.div`
@@ -39,6 +45,40 @@ export const BackButton = styled.div`
   height: 30px;
 
   border-radius: 20px;
+
+  cursor: pointer;
+`;
+
+export const CardFlip = styled.div`
+  width: 323.52755906px;
+  height: 204.01889764px;
+  perspective: 1100px;
+`;
+
+export const HCard = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: 0.4s;
+  transform-style: preserve-3d;
+`;
+
+export const CardFront = styled.img`
+  width: 323.52755906px;
+  height: 204.01889764px;
+
+  position: absolute;
+  backface-visibility: hidden;
+`;
+
+export const CardBack = styled.img`
+  width: 323.52755906px;
+  height: 204.01889764px;
+
+  position: absolute;
+  backface-visibility: hidden;
+
+  transform: rotateY(180deg);
 `;
 
 export const CardInfoContainer = styled.div`
@@ -47,11 +87,6 @@ export const CardInfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid burlywood;
-  width: 323.52755906px;
-  height: 204.01889764px;
-`;
-
-export const CardFront = styled.img`
   width: 323.52755906px;
   height: 204.01889764px;
 `;
@@ -82,4 +117,6 @@ export const CardList = styled.div`
 export const CardCandidate = styled.img`
   width: 161.76377953px;
   height: 102.00944882;
+
+  cursor: pointer;
 `;

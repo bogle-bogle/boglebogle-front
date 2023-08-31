@@ -42,7 +42,6 @@ export const ProductSummary = styled.p`
   font-size: 15px;
   height: 10%;
   margin: 0;
-
   display: flex;
   align-items: center;
 `;

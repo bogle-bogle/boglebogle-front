@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   CartInfoContainer,
   InfoTitle,
@@ -14,7 +15,7 @@ import {
   Circle,
 } from './CartInfo.style';
 
-function CartInfo({ totalAmount }) {
+function CartInfo({ totalAmount, onOrderSheet }) {
   const formatPrice = (price) => {
     return price.toLocaleString();
   };
@@ -59,7 +60,7 @@ function CartInfo({ totalAmount }) {
         <p style={{ fontSize: '13px', color: '#888888' }}>
           * 실제 결제 금액은 할인 및 추가혜택에 따라 달라질 수 있습니다.
         </p>
-        <OrderButton>
+        <OrderButton onClick={onOrderSheet}>
           <strong>주문하기</strong>
         </OrderButton>
       </InfoBox>
