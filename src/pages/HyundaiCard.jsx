@@ -5,6 +5,7 @@ import {
   CardCandidate,
   CardFlip,
   CardFront,
+  CardImg,
   CardInfoCol,
   CardInfoContainer,
   CardList,
@@ -33,11 +34,13 @@ import cardBackDefault from '../assets/card/card_back.png';
 
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
+
 import Modal from '../components/modal/Modal';
 import {
   CroppedImg,
   CustomCardContainer,
   SelectCustomCardContainer,
+  SelectCustomDesignBtn
 } from '../components/hyundaicard/custom.style';
 import Cropper from 'react-cropper';
 import useSound from 'use-sound';
@@ -61,7 +64,7 @@ const cardDict = {
 
 function HyundaiCard() {
   const [openModal, setOpenModal] = useState(false);
-
+  const [isCustom, setIsCustom] = useState(false);
   const [play] = useSound(flipSound);
   const [reverse, setReverse] = useState(false);
   const [cardDesign, setCardDesign] = useState({
@@ -85,6 +88,7 @@ function HyundaiCard() {
 
   const handleCardDesign = (e) => {
     setCardDesign(() => {
+      setIsCustom(false);
       return cardDict[e.target.name];
     });
   };
@@ -112,6 +116,7 @@ function HyundaiCard() {
       };
     });
     handleCloseModal();
+    setIsCustom(true);
   };
 
   const handleOpenModal = () => {
@@ -181,9 +186,9 @@ function HyundaiCard() {
               <CroppedImg src={backCropData} alt="cropped" />
             </SelectCustomCardContainer>
           </CustomCardContainer>
-          <selectCustomDesignBtn onClick={handleCustomDesign}>
+          <SelectCustomDesignBtn onClick={handleCustomDesign}>
             선택하기
-          </selectCustomDesignBtn>
+          </SelectCustomDesignBtn>
         </Modal>
       )}
       <HyundaiCardContainer>
@@ -200,15 +205,17 @@ function HyundaiCard() {
               <BackButton style={{ visibility: 'hidden' }}></BackButton>
             </CardInfoCol>
             <CardInfoCol>
-              <CardFlip style={{ position: 'relative' }}>
-                <HCard style={{ position: 'absolute' }} reverse={reverse}>
-                  <CardFront src={cardDesign.front}></CardFront>
-                  <CardBack src={cardDesign.back}></CardBack>
+              <CardFlip>
+                <HCard reverse={reverse}>
+                    <CardFront>
+                      <CardImg src={cardDesign.front}></CardImg>
+                      {isCustom && <CardImg src={cardFrontDefault}></CardImg>}
+                    </CardFront>
+                    <CardBack>
+                      <CardImg src={cardDesign.back}></CardImg>
+                      {isCustom && <CardImg src={cardBackDefault}></CardImg>}
+                    </CardBack>
                 </HCard>
-                <CroppedImg
-                  style={{ position: 'absolute' }}
-                  src={reverse ? cardBackDefault : cardFrontDefault}
-                />
               </CardFlip>
               <BackButton onClick={handleReverse}>
                 <img src={rotateArrow} alt="" />
