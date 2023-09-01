@@ -12,7 +12,7 @@ import {
 } from './history.style';
 import { useNavigate } from 'react-router-dom';
 
-function TpbModal({ tpbItem }) {
+function TpbHistoryModal({ tpbItem }) {
   const navigate = useNavigate();
   const products = tpbItem.products || [];
 
@@ -51,4 +51,4 @@ function TpbModal({ tpbItem }) {
   );
 }
 
-export default TpbModal;
+export default TpbHistoryModal;

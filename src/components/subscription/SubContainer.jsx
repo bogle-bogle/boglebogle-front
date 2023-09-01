@@ -20,6 +20,7 @@ import {
   TpbMiniIcon,
   TpbHistoryMonth,
   TpbHistoryName,
+  TpbOrderBtn,
 } from './index.style';
 
 import Modal from '../modal/Modal';
@@ -31,10 +32,12 @@ import subFoodIcon from '../../assets/subscription/sub_food_icon.png';
 import subToyIcon from '../../assets/subscription/sub_toy_icon.png';
 import subLivingIcon from '../../assets/subscription/sub_living_icon.png';
 import subDiyIcon from '../../assets/subscription/sub_diy_icon.png';
-import TpbModal from './TpbModal';
+import TpbSubModal from './TpbSubModal';
+import TpbHistoryModal from './TpbHistoryModal';
 
 function SubContainer({ handleModalOpen }) {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [tpbHistoryModalOpen, setTpbHistoryModalOpen] = useState(false);
+  const [tpbSubModalOpen, setTpbSubModalOpen] = useState(false);
   const [tpbHistory, setTpbHistory] = useState([]);
   const [selectedTpb, setSelectedTpb] = useState(null);
 
@@ -49,23 +52,30 @@ function SubContainer({ handleModalOpen }) {
       });
   }, []);
 
-  function handleModalClose() {
-    setModalOpen(false);
+  function handleTpbModalOpen(tpbItem) {
+    setSelectedTpb(tpbItem);
+    setTpbHistoryModalOpen(true);
+  }
+  
+  function handleTpbSubModalOpen() {
+    setTpbSubModalOpen(true);
   }
 
-  function handleModalOpen(tpbItem) {
-    setSelectedTpb(tpbItem);
-    setModalOpen(true);
+  function handleTpbModalClose() {
+    setTpbHistoryModalOpen(false);
+  }
+  
+  function handleTpbSubModalClose() {
+    setTpbSubModalOpen(false);
   }
 
   return (
     <SubGrid>
-      {modalOpen && (
-        <Modal handleModalClose={handleModalClose}>
-          <TpbModal tpbItem={selectedTpb} />
-        </Modal>
-      )}
-
+    {tpbHistoryModalOpen && (
+      <Modal handleModalClose={handleTpbModalClose}>
+        <TpbHistoryModal tpbItem={selectedTpb} />
+      </Modal>
+    )}
       <SubMainAdv>
         <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
         <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton>
@@ -77,11 +87,13 @@ function SubContainer({ handleModalOpen }) {
       </TpbHistoryTitle>
 
       <TpbHistoryContainer>
+      
+
         {tpbHistory.map((tpb) => {
           const date = tpb.paymentDate.split('-');
           const formattedDate = `${date[0]}.${date[1]}`;
           return (
-            <TpbCard key={tpb.id} onClick={() => handleModalOpen(tpb)}>
+            <TpbCard key={tpb.id} onClick={() => handleTpbModalOpen(tpb)}>
               <TpbCardImg
                 src={tpb.thumbnailImgUrl}
                 alt={`Subscription image for ${tpb.id}`}
@@ -96,6 +108,12 @@ function SubContainer({ handleModalOpen }) {
       <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
 
       <TpbMainSect>
+      {tpbSubModalOpen && (
+        <Modal handleModalClose={handleTpbSubModalClose}>
+          <TpbSubModal />
+        </Modal>
+      )}
+
         <TpbMainSectBox>
           <TpbMainBox>
             <TpbMainBoxTitle>월간 큐레이션</TpbMainBoxTitle>
@@ -116,6 +134,7 @@ function SubContainer({ handleModalOpen }) {
               <TpbMiniIcon src={subLivingIcon} />
               테마 리빙용품 1종＞
             </TpbMainContentBox>
+            <TpbOrderBtn onClick={handleTpbSubModalOpen}>바로 구독하기</TpbOrderBtn>
           </TpbMainBox>
         </TpbMainSectBox>
         <TpbMainSectBox>
@@ -126,11 +145,12 @@ function SubContainer({ handleModalOpen }) {
               내가 필요한 제품만 직접 선택하여 정기적으로 받아볼 수 있는 실속형
               서비스
             </TpbMainBoxDescr>
-
             <TpbMainContentBox>
               <TpbMiniIcon src={subDiyIcon} />
               내가 선택한 상품 (최소 1개) ＞
             </TpbMainContentBox>
+            <br/><br/><br/><br/>
+            <TpbOrderBtn>정기배송 담기</TpbOrderBtn>
           </TpbMainBox>
         </TpbMainSectBox>
       </TpbMainSect>

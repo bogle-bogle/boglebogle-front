@@ -70,6 +70,7 @@ export const TpbMainSectBox = styled.div`
 
 export const TpbMainBox = styled.div`
   margin: 2.5vw 3vw;
+  text-align: center;
 `;
 
 export const TpbMainSectDescr = styled.img`
@@ -91,9 +92,9 @@ export const TpbMiniMark = styled.img`
 `;
 
 export const TpbMainBoxDescr = styled.div`
-  font-size: 0.4vw;
+  font-size: 0.9vw;
   color: darkgray;
-  margin-bottom: 3vw;
+  margin-bottom: 2.2vw;
 `;
 
 export const TpbMainContentBox = styled.div`
@@ -106,7 +107,20 @@ export const TpbMainContentBox = styled.div`
   border-radius: 0.8vw;
   font-size: 0.8vw;
   display: flex;
+  box-shadow: 0 0.2vw 0.2vw rgba(0, 0, 0, 0.3);
   align-items: center;
+`;
+
+export const TpbOrderBtn = styled.button`
+  margin: 2vw auto;
+  padding: 0.5vw 1.2vw;
+  font-size: 1.1vw;
+  font-weight: 500;
+  border: 0.5px solid gray;
+  color: #ffffff;
+  background-color: #5f1f1f;
+  cursor: pointer;
+  border-radius: 0.3vw;
   box-shadow: 0 0.2vw 0.2vw rgba(0, 0, 0, 0.3);
 `;
 
