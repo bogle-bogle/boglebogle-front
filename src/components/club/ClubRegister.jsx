@@ -22,7 +22,7 @@ import {
   PetImgUrl,
   PetBreedCode,
   PetAnimalTypeCode,
-  StyledButton
+  StyledButton,
 } from './index.style';
 import axios from 'axios';
 
@@ -216,31 +216,15 @@ function ClubRegister() {
   };
   return (
     <StyledClubContainer>
-      <Title>
-        클럽가입
-      </Title>
+      <Title>클럽가입</Title>
       <SideBox>
-        <Sidebar1>
-          반려동물 종류
-        </Sidebar1>
-        <Sidebar2>
-          반려동물 사진
-        </Sidebar2>
-        <Sidebar3>
-          반려동물 이름
-        </Sidebar3>
-        <Sidebar4>
-          반려동물 생일
-        </Sidebar4>
-        <Sidebar5>
-          반려동물 알러지
-        </Sidebar5>
-        <Sidebar6>
-          반려동물 사료
-        </Sidebar6>
-        <Sidebar7>
-          반려동물 견종
-        </Sidebar7>
+        <Sidebar1>반려동물 종류</Sidebar1>
+        <Sidebar2>반려동물 사진</Sidebar2>
+        <Sidebar3>반려동물 이름</Sidebar3>
+        <Sidebar4>반려동물 생일</Sidebar4>
+        <Sidebar5>반려동물 알러지</Sidebar5>
+        <Sidebar6>반려동물 사료</Sidebar6>
+        <Sidebar7>반려동물 견종</Sidebar7>
       </SideBox>
       <form onSubmit={handleFormSubmit}>
         <PetAnimalTypeCode>

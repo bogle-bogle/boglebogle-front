@@ -21,13 +21,9 @@ export const StyledClubContainer = styled.div`
 `;
 
 export const SideBox = styled.div`
-
-  grid-area : sidebar;
-
+  grid-area: sidebar;
 `;
-export const Sidebar1 = styled.div`
-
-`;
+export const Sidebar1 = styled.div``;
 
 export const Sidebar2 = styled(Sidebar1)``;
 export const Sidebar3 = styled(Sidebar1)``;
