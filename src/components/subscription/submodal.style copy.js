@@ -4,7 +4,6 @@ export const CurationContainer = styled.div`
   width: 20vw;
   height: fit-content;
   padding: 1.5vw;
-
 `;
 
 export const CurationTitle = styled.div`
@@ -14,9 +13,9 @@ export const CurationTitle = styled.div`
 `;
 
 export const CurationMiniTitle = styled.div`
-font-size: 0.8vw;
-padding-top: 1.5vw;
-margin-bottom: 0.5vw;
+  font-size: 0.8vw;
+  padding-top: 1.5vw;
+  margin-bottom: 0.5vw;
 `;
 
 export const CurationSelect = styled.select`
@@ -32,15 +31,15 @@ export const CurationSelect = styled.select`
   background-position: 90% center;
   padding-right: 1vw;
 
-&:hover {
-  border-color: gray;
-}
+  &:hover {
+    border-color: gray;
+  }
 
-&:focus {
-  outline: none;
-  border-color: #656565;
-  box-shadow: 0 0 5px rgba(100,100,100, 0.5);
-}
+  &:focus {
+    outline: none;
+    border-color: #656565;
+    box-shadow: 0 0 5px rgba(100, 100, 100, 0.5);
+  }
 `;
 
 export const CurationOption = styled.option`
@@ -87,7 +86,7 @@ export const CurationStyledCheckbox = styled.div`
   background: ${(props) => (props.checked ? '#726a95' : '#FFF')};
   transition: background 150ms;
   font-size: 0.8vw;
-  
+
   ${CurationCheckboxWrapper}:hover & {
     border-color: #9e9e9e;
   }

@@ -56,7 +56,7 @@ function SubContainer({ handleModalOpen }) {
     setSelectedTpb(tpbItem);
     setTpbHistoryModalOpen(true);
   }
-  
+
   function handleTpbSubModalOpen() {
     setTpbSubModalOpen(true);
   }
@@ -64,18 +64,18 @@ function SubContainer({ handleModalOpen }) {
   function handleTpbModalClose() {
     setTpbHistoryModalOpen(false);
   }
-  
+
   function handleTpbSubModalClose() {
     setTpbSubModalOpen(false);
   }
 
   return (
     <SubGrid>
-    {tpbHistoryModalOpen && (
-      <Modal handleModalClose={handleTpbModalClose}>
-        <TpbHistoryModal tpbItem={selectedTpb} />
-      </Modal>
-    )}
+      {tpbHistoryModalOpen && (
+        <Modal handleModalClose={handleTpbModalClose}>
+          <TpbHistoryModal tpbItem={selectedTpb} />
+        </Modal>
+      )}
       <SubMainAdv>
         <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
         <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton>
@@ -87,8 +87,6 @@ function SubContainer({ handleModalOpen }) {
       </TpbHistoryTitle>
 
       <TpbHistoryContainer>
-      
-
         {tpbHistory.map((tpb) => {
           const date = tpb.paymentDate.split('-');
           const formattedDate = `${date[0]}.${date[1]}`;
@@ -108,11 +106,11 @@ function SubContainer({ handleModalOpen }) {
       <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
 
       <TpbMainSect>
-      {tpbSubModalOpen && (
-        <Modal handleModalClose={handleTpbSubModalClose}>
-          <TpbSubModal />
-        </Modal>
-      )}
+        {tpbSubModalOpen && (
+          <Modal handleModalClose={handleTpbSubModalClose}>
+            <TpbSubModal />
+          </Modal>
+        )}
 
         <TpbMainSectBox>
           <TpbMainBox>
@@ -134,7 +132,9 @@ function SubContainer({ handleModalOpen }) {
               <TpbMiniIcon src={subLivingIcon} />
               테마 리빙용품 1종＞
             </TpbMainContentBox>
-            <TpbOrderBtn onClick={handleTpbSubModalOpen}>바로 구독하기</TpbOrderBtn>
+            <TpbOrderBtn onClick={handleTpbSubModalOpen}>
+              바로 구독하기
+            </TpbOrderBtn>
           </TpbMainBox>
         </TpbMainSectBox>
         <TpbMainSectBox>
@@ -149,7 +149,10 @@ function SubContainer({ handleModalOpen }) {
               <TpbMiniIcon src={subDiyIcon} />
               내가 선택한 상품 (최소 1개) ＞
             </TpbMainContentBox>
-            <br/><br/><br/><br/>
+            <br />
+            <br />
+            <br />
+            <br />
             <TpbOrderBtn>정기배송 담기</TpbOrderBtn>
           </TpbMainBox>
         </TpbMainSectBox>
