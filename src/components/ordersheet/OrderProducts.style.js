@@ -42,3 +42,18 @@ export const OrderButton = styled.div`
   padding: 15px 15px;
   cursor: pointer;
 `;
+
+export const DiscountTable = styled.table`
+  border-collapse: collapse;
+  width: 100%;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+`;
+
+export const SelectTd = styled.td`
+  width: 80%;
+`;
+
+export const DiscountboxTd = styled.td`
+  width: 20%;
+`;
