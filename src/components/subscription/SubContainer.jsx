@@ -60,7 +60,6 @@ function SubContainer({ handleModalOpen }) {
 
   return (
     <SubGrid>
-
       {modalOpen && (
         <Modal handleModalClose={handleModalClose}>
           <TpbModal tpbItem={selectedTpb} />
@@ -79,21 +78,20 @@ function SubContainer({ handleModalOpen }) {
 
       <TpbHistoryContainer>
         {tpbHistory.map((tpb) => {
-            const date = tpb.paymentDate.split('-');
-            const formattedDate = `${date[0]}.${date[1]}`;
-            return (
-                <TpbCard key={tpb.id} onClick={() => handleModalOpen(tpb)}>
-                    <TpbCardImg
-                        src={tpb.thumbnailImgUrl}
-                        alt={`Subscription image for ${tpb.id}`}
-                    />
-                    <TpbHistoryMonth>{formattedDate}</TpbHistoryMonth>
-                    <TpbHistoryName>{tpb.name}</TpbHistoryName>
-                </TpbCard>
-            );
+          const date = tpb.paymentDate.split('-');
+          const formattedDate = `${date[0]}.${date[1]}`;
+          return (
+            <TpbCard key={tpb.id} onClick={() => handleModalOpen(tpb)}>
+              <TpbCardImg
+                src={tpb.thumbnailImgUrl}
+                alt={`Subscription image for ${tpb.id}`}
+              />
+              <TpbHistoryMonth>{formattedDate}</TpbHistoryMonth>
+              <TpbHistoryName>{tpb.name}</TpbHistoryName>
+            </TpbCard>
+          );
         })}
-    </TpbHistoryContainer>
-
+      </TpbHistoryContainer>
 
       <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
 
