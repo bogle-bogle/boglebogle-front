@@ -38,13 +38,11 @@ export const TpbHistoryContainer = styled.div`
   white-space: nowrap;
 `;
 export const TpbCard = styled.div`
-  /* width: 15vw;
-  height: 15vw; */
   margin: 1vw;
   display: inline-block;
-  display: flex;
   justify-content: center;
-  align-items: center;
+  text-align: center;
+  cursor: pointer;
 `;
 
 export const TpbCardImg = styled.img`
@@ -102,12 +100,14 @@ export const TpbMainContentBox = styled.div`
   margin-top: 1vw;
   width: 100%;
   height: 3vw;
+  font-weight: bold;
   color: gray;
-  background-color: #ebebeb;
+  background-color: #f3f3f3;
   border-radius: 0.8vw;
   font-size: 0.8vw;
   display: flex;
   align-items: center;
+  box-shadow: 0 0.2vw 0.2vw rgba(0, 0, 0, 0.3);
 `;
 
 export const TpbMiniIcon = styled.img`
@@ -116,4 +116,18 @@ export const TpbMiniIcon = styled.img`
   padding-left: 1vw;
   margin-right: 0.7vw;
   object-fit: contain;
+`;
+
+export const TpbHistoryMonth = styled.div`
+  padding-top: 0.5vw;
+  font-size: 1vw;
+  font-weight: bold;
+  margin-bottom: 0.4vw;
+  color: #3e3e3e;
+`;
+
+export const TpbHistoryName = styled.div`
+  font-size: 1vw;
+  font-weight: bolder;
+  margin-bottom: 0.7vw;
 `;
