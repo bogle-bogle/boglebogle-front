@@ -8,7 +8,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import Modal from '../modal/Modal';
 import ReviewModal from './ReviewModal';
-// import axios from 'axios';
 
 function ProductDetail() {
   const [modalOpen, setModalOpen] = useState(false);

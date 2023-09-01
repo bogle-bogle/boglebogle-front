@@ -1,33 +1,16 @@
 import styled from 'styled-components';
 
 export const ReviewContainer = styled.div`
-  border: 1px solid black;
   height: 300px;
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid #888888;
 `;
 
 export const ReviewBanner = styled.div`
   display: flex;
 `;
 
-export const ReviewCardList = styled.div`
-  display: flex;
-  overflow-x: scroll;
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: grey;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
-`;
+export const ReviewCardList = styled.div``;
 
 export const ReviewCard = styled.div`
   border: 1px solid gray;
@@ -35,7 +18,7 @@ export const ReviewCard = styled.div`
   border-top-right-radius: 7%;
   width: 150px;
   height: 220px;
-  margin-left: 2%;
+  margin-left: 10%;
   margin-bottom: 1%;
 `;
 
@@ -118,4 +101,9 @@ export const ReviewModalImg = styled.img`
   width: 70%;
   height: 80%;
   grid-area: ri;
+`;
+
+export const ReviewDetailButton = styled.div`
+  display: flex;
+  justify-content: end;
 `;

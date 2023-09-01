@@ -15,6 +15,8 @@ import CompleteClubRegister from './pages/CompleteClubRegister';
 import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
 import HyundaiCard from './pages/HyundaiCard';
+import MbtiTest from './pages/MbtiTest';
+import Example from './pages/Example';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
             element={<CompleteClubRegister />}
           ></Route>
           <Route path="/mypet/:memberId" element={<MyPet />}></Route>
+          <Route path="/mbti" element={<MbtiTest />}></Route>
+          <Route path="/ex" element={<Example />}></Route>
         </Routes>
       </Router>
     </div>

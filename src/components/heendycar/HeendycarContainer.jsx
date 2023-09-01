@@ -42,7 +42,6 @@ import qrIcon from '../../assets/heendycar/qr_hand_icon_img.png';
 
 function HeendycarInfo() {
   const member = useSelector((state) => state.member);
-  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     axios
