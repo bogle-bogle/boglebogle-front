@@ -4,18 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; // react-datepicker를 import
 import 'react-datepicker/dist/react-datepicker.css';
 import {
+  Title,
   StyledClubContainer,
+  SideBox,
+  Sidebar1,
+  Sidebar2,
+  Sidebar3,
+  Sidebar4,
+  Sidebar5,
+  Sidebar6,
+  Sidebar7,
   PetPhoto,
   PetName,
   PetBirth,
   PetProteinCodes,
-  PetMemberId,
   PetFavoriteFoodIngredients,
   PetImgUrl,
-  PetMbti,
   PetBreedCode,
   PetAnimalTypeCode,
-  StyledButton,
+  StyledButton
 } from './index.style';
 import axios from 'axios';
 
@@ -188,11 +195,9 @@ function ClubRegister() {
       memberId: formData.memberId,
       favoriteFoodIngredients: formData.favoriteFoodIngredients,
       imgUrl: imgUrl,
-      mbti: formData.mbti,
       breedCode: selectedBreedCode,
       animalTypeCode: selectedAnimalTypeCode,
     };
-    console.log(clubData);
     if (photoUrl !== null) {
       clubData.photo = photoUrl[0];
     }
@@ -211,9 +216,34 @@ function ClubRegister() {
   };
   return (
     <StyledClubContainer>
+      <Title>
+        클럽가입
+      </Title>
+      <SideBox>
+        <Sidebar1>
+          반려동물 종류
+        </Sidebar1>
+        <Sidebar2>
+          반려동물 사진
+        </Sidebar2>
+        <Sidebar3>
+          반려동물 이름
+        </Sidebar3>
+        <Sidebar4>
+          반려동물 생일
+        </Sidebar4>
+        <Sidebar5>
+          반려동물 알러지
+        </Sidebar5>
+        <Sidebar6>
+          반려동물 사료
+        </Sidebar6>
+        <Sidebar7>
+          반려동물 견종
+        </Sidebar7>
+      </SideBox>
       <form onSubmit={handleFormSubmit}>
         <PetAnimalTypeCode>
-          반려동물 종류
           {animalTypeCodes.map((code) => (
             <StyledButton
               type="button"
@@ -229,7 +259,6 @@ function ClubRegister() {
           ))}
         </PetAnimalTypeCode>
         <PetPhoto>
-          <p>반려동물 사진 (선택)</p>
           <div
             className="image-preview"
             onClick={() => photoInputRef.current.click()}
@@ -291,16 +320,6 @@ function ClubRegister() {
               </StyledButton>
             ))}
         </PetProteinCodes>
-
-        <PetMemberId>
-          <input
-            type="number"
-            placeholder="회원 ID"
-            name="memberId"
-            value={formData.memberId}
-            onChange={handleFormChange}
-          />
-        </PetMemberId>
         <PetFavoriteFoodIngredients>
           <input
             type="text"
@@ -331,15 +350,6 @@ function ClubRegister() {
             style={{ display: 'none' }} // 숨김 처리
           />
         </PetImgUrl>
-        <PetMbti>
-          <input
-            type="text"
-            placeholder="mbti"
-            name="mbti"
-            value={formData.mbti}
-            onChange={handleFormChange}
-          />
-        </PetMbti>
         <PetBreedCode>
           <p>견종</p>
           <select

@@ -4,20 +4,37 @@ export const StyledClubContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-areas:
-    'animalTypeCode'
-    'photo'
-    'name'
-    'birth'
-    'proteinCodes'
-    'memberId'
-    'favoriteFoodIngredients'
-    'imgUrl'
-    'mbti'
-    'breedCode'
-    'button';
+    'title title title title title'
+    'sidebar . animalTypeCode animalTypeCode animalTypeCode'
+    'sidebar . photo photo photo photo'
+    'sidebar . photo photo photo photo'
+    'sidebar . name name name'
+    'sidebar . birth birth birth'
+    'sidebar . proteinCodes proteinCodes proteinCodes'
+    'sidebar . proteinCodes proteinCodes proteinCodes'
+    'sidebar . imgUrl imgUrl favoriteFoodIngredients'
+    'sidebar . imgUrl imgUrl favoriteFoodIngredients'
+    'sidebar . breedCode breedCode breedCode'
+    'button . button button button';
   text-align: center;
   gap: 10px;
 `;
+
+export const SideBox = styled.div`
+
+  grid-area : sidebar;
+
+`;
+export const Sidebar1 = styled.div`
+
+`;
+
+export const Sidebar2 = styled(Sidebar1)``;
+export const Sidebar3 = styled(Sidebar1)``;
+export const Sidebar4 = styled(Sidebar1)``;
+export const Sidebar5 = styled(Sidebar1)``;
+export const Sidebar6 = styled(Sidebar1)``;
+export const Sidebar7 = styled(Sidebar1)``;
 
 export const PetPhoto = styled.div`
   width: 350px;
@@ -50,10 +67,6 @@ export const PetProteinCodes = styled.div`
   width: 100%;
 `;
 
-export const PetMemberId = styled.div`
-  width: 100%;
-`;
-
 export const PetFavoriteFoodIngredients = styled.div`
   width: 100%;
 `;
@@ -73,6 +86,12 @@ export const PetBreedCode = styled.div`
 export const PetAnimalTypeCode = styled.div`
   grid-area: animalTypeCode;
   display: flex;
+`;
+
+export const Title = styled.div`
+  width: 100%;
+  text-align: left;
+  font-size: 4vw;
 `;
 
 export const StyledButton = styled.button`
