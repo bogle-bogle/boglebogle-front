@@ -26,7 +26,7 @@ export const CroppedImg = styled.img`
   border: 1px solid black;
 `;
 
-export const selectCustomDesignBtn = styled.button`
+export const SelectCustomDesignBtn = styled.button`
   width: 200px;
   height: 70px;
 

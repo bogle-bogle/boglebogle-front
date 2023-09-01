@@ -15,14 +15,25 @@ import {
   SelectCardContainer,
 } from '../components/hyundaicard/card.style';
 import selectCardGreen from '../assets/card/hyundai_card_green.png';
-import greenCardFront from '../assets/card/hyundai_card_green_front.png';
 import selectCardPink from '../assets/card/hyundai_card_pink.png';
-import pinkCardFront from '../assets/card/hyundai_card_pink_front.png';
 import selectCardHeendy from '../assets/card/hyundai_card_heendy.png';
 import selectCardCustom from '../assets/card/hyundai_card_custom.png';
+
+import greenCardFront from '../assets/card/card_green_front.png';
+import greenCardBack from '../assets/card/card_green_back.png';
+
+import pinkCardFront from '../assets/card/card_pink_front.png';
+import pinkCardBack from '../assets/card/card_pink_back.png';
+
+import heendyCardFront from '../assets/card/card_heendy_front.png';
+import heendyCardBack from '../assets/card/card_heendy_back.png';
+
+import cardFrontDefault from '../assets/card/card_front.png';
+import cardBackDefault from '../assets/card/card_back.png';
+
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
-import heendyCardFront from '../assets/card/hyundai_card_heendy_front.png';
+
 import Modal from '../components/modal/Modal';
 import {
   CroppedImg,
@@ -37,15 +48,15 @@ import nonImg from '../assets/card/non_img.PNG';
 const cardDict = {
   green: {
     front: greenCardFront,
-    back: selectCardGreen,
+    back: greenCardBack,
   },
   pink: {
     front: pinkCardFront,
-    back: selectCardPink,
+    back: pinkCardBack,
   },
   heendy: {
     front: heendyCardFront,
-    back: selectCardHeendy,
+    back: heendyCardBack,
   },
 };
 
@@ -56,7 +67,7 @@ function HyundaiCard() {
   const [reverse, setReverse] = useState(false);
   const [cardDesign, setCardDesign] = useState({
     front: greenCardFront,
-    back: selectCardGreen,
+    back: greenCardBack,
   });
 
   const [frontInputImage, setFrontInputImage] = useState();
@@ -190,11 +201,12 @@ function HyundaiCard() {
               <BackButton style={{ visibility: 'hidden' }}></BackButton>
             </CardInfoCol>
             <CardInfoCol>
-              <CardFlip>
-                <HCard reverse={reverse}>
-                  <CardFront src={cardDesign.front}></CardFront>
-                  <CardBack src={cardDesign.back}></CardBack>
+              <CardFlip style={{position:"relative"}} >
+                <HCard style={{position:"absolute"}} reverse={reverse}>
+                    <CardFront src={cardDesign.front}></CardFront>
+                    <CardBack src={cardDesign.back}></CardBack>
                 </HCard>
+                <CroppedImg style={{position:"absolute"}} src={reverse ? cardBackDefault : cardFrontDefault}/>
               </CardFlip>
               <BackButton onClick={handleReverse}>
                 <img src={rotateArrow} alt="" />
