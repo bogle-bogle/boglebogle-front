@@ -34,12 +34,12 @@ export const HeaderContent = styled.div`
 export const BagIcon = styled(HiOutlineShoppingBag)`
   width: 37px;
   height: 37px;
+  color: #8e8e8e;
 `;
 
 export const ReceiptIcon = styled(IoReceiptOutline)`
   width: 37px;
   height: 37px;
-  color: #8e8e8e;
 `;
 
 export const CheckboxIcon = styled(IoCheckboxOutline)`
@@ -69,7 +69,7 @@ export const StepText = styled.p`
   color: #666666;
 
   ${(props) =>
-    props.step === 1 &&
+    props.step === 2 &&
     `
     color: #222222;
     font-weight: bold;

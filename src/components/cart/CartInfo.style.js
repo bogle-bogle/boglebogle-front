@@ -34,8 +34,9 @@ export const Triangle = styled.div`
 export const OrderAmountBox = styled.div`
   background-color: #fff;
   margin-bottom: 10px;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding: 15px;
+  padding-top: 35px;
+  padding-bottom: 35px;
 `;
 
 export const OrderTextBox = styled.div`
@@ -47,7 +48,9 @@ export const OrderText = styled.p`
   margin: 0;
 `;
 
-export const Divider = styled.hr``;
+export const Divider = styled.hr`
+  border: 1.5px solid #eeeeee;
+`;
 
 export const Circle = styled.div`
   background-color: #eeeeee;
@@ -62,14 +65,16 @@ export const Circle = styled.div`
 export const OrderDiscountBox = styled.div`
   background-color: #fff;
   margin-bottom: 10px;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding: 15px;
+  padding-top: 35px;
+  padding-bottom: 35px;
 `;
 
 export const OrderResultBox = styled.div`
   background-color: #fff;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding: 15px;
+  padding-top: 35px;
+  padding-bottom: 35px;
 `;
 
 export const OrderButton = styled.div`

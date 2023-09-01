@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
-import { TableContainer1, OrderButton } from './OrderProducts.style';
+import {
+  TableContainer1,
+  OrderButton,
+  DiscountTable
+} from './OrderProducts.style';
 
 function OrderProducts({ cartItemArray, totalAmount }) {
-  console.log('order', cartItemArray);
+  console.log('order', cartItemArray[0].name);
 
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
@@ -84,18 +88,19 @@ function OrderProducts({ cartItemArray, totalAmount }) {
           ))}
         </tbody>
       </TableContainer1>
-      <span>{`${price.toLocaleString()}원`}</span>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            onChange={(event) => {
-              setPrice(event.target.checked ? price - 5000 : price + 5000);
-            }}
-          />
-          5,000원 할인 쿠폰 적용
-        </label>
-      </div>
+
+      <h2>할인 및 적립</h2>
+      <DiscountTable>
+          <tbody>
+            <tr>
+              <selectTd>이름</selectTd>
+              <discountboxTd>전화번호 010-1234-5678</discountboxTd>
+            </tr>
+          </tbody>
+      </DiscountTable>
+
+      <h1>최종가격 : {price} 원</h1>
+
       <div id="payment-widget" />
       <div id="agreement" />
       주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에 동의합니다.

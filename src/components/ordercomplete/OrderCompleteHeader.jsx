@@ -11,19 +11,19 @@ import {
   Divider,
   HeaderTitle,
   HeaderContent,
-} from './CartHeader.style';
+} from './OrderCompleteHeader.style';
 
-function CartHeader() {
+function OrderCompleteHeader() {
   return (
     <CartHeaderContainer>
       <CartTextContainer>
-        <HeaderTitle>장바구니</HeaderTitle>
+        <HeaderTitle>주문완료</HeaderTitle>
 
         <HeaderContent>
           <BagIcon />
           <StepContainer>
-            <StepText step={1}>STEP 01</StepText>
-            <StepText step={1}>장바구니</StepText>
+            <StepText>STEP 01</StepText>
+            <StepText>장바구니</StepText>
           </StepContainer>
           <ArrowIcon />
           <ReceiptIcon />
@@ -34,8 +34,8 @@ function CartHeader() {
           <ArrowIcon />
           <CheckboxIcon />
           <StepContainer>
-            <StepText>STEP 03</StepText>
-            <StepText>주문완료</StepText>
+            <StepText step={3}>STEP 03</StepText>
+            <StepText step={3}>주문완료</StepText>
           </StepContainer>
         </HeaderContent>
       </CartTextContainer>
@@ -45,4 +45,4 @@ function CartHeader() {
   );
 }
 
-export default CartHeader;
+export default OrderCompleteHeader;
