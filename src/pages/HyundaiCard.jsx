@@ -34,13 +34,12 @@ import cardBackDefault from '../assets/card/card_back.png';
 
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
-
 import Modal from '../components/modal/Modal';
 import {
   CroppedImg,
   CustomCardContainer,
   SelectCustomCardContainer,
-  SelectCustomDesignBtn
+  SelectCustomDesignBtn,
 } from '../components/hyundaicard/custom.style';
 import Cropper from 'react-cropper';
 import useSound from 'use-sound';
@@ -207,14 +206,14 @@ function HyundaiCard() {
             <CardInfoCol>
               <CardFlip>
                 <HCard reverse={reverse}>
-                    <CardFront>
-                      <CardImg src={cardDesign.front}></CardImg>
-                      {isCustom && <CardImg src={cardFrontDefault}></CardImg>}
-                    </CardFront>
-                    <CardBack>
-                      <CardImg src={cardDesign.back}></CardImg>
-                      {isCustom && <CardImg src={cardBackDefault}></CardImg>}
-                    </CardBack>
+                  <CardFront>
+                    <CardImg src={cardDesign.front}></CardImg>
+                    {isCustom && <CardImg src={cardFrontDefault}></CardImg>}
+                  </CardFront>
+                  <CardBack>
+                    <CardImg src={cardDesign.back}></CardImg>
+                    {isCustom && <CardImg src={cardBackDefault}></CardImg>}
+                  </CardBack>
                 </HCard>
               </CardFlip>
               <BackButton onClick={handleReverse}>
