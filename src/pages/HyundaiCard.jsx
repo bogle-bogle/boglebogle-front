@@ -126,7 +126,11 @@ function HyundaiCard() {
             <SelectCustomCardContainer>
               <Cropper
                 src={frontInputImage}
-                style={{ height: 306.02834646, width: 485.29133859, border : '1px solid black'}}
+                style={{
+                  height: 306.02834646,
+                  width: 485.29133859,
+                  border: '1px solid black',
+                }}
                 dragMode={'none'}
                 cropBoxResizable={false}
                 checkOrientation={false}
@@ -149,7 +153,11 @@ function HyundaiCard() {
             <SelectCustomCardContainer>
               <Cropper
                 src={backInputImage}
-                style={{ height: 306.02834646, width: 485.29133859, border : '1px solid black' }}
+                style={{
+                  height: 306.02834646,
+                  width: 485.29133859,
+                  border: '1px solid black',
+                }}
                 dragMode={'none'}
                 cropBoxResizable={false}
                 checkOrientation={false}

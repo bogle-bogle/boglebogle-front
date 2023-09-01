@@ -9,8 +9,6 @@ import { useState } from 'react';
 import Modal from '../modal/Modal';
 import ReviewModal from './ReviewModal';
 
-
-
 function ProductDetail() {
   const [modalOpen, setModalOpen] = useState(false);
   const [ingredients, setIngredients] = useState([]);
@@ -48,7 +46,7 @@ function ProductDetail() {
         <ProductSummaryContainer
           productInfo={productInfo}
         ></ProductSummaryContainer>
-          <Review handleModalOpen={handleModalOpen}></Review>
+        <Review handleModalOpen={handleModalOpen}></Review>
         <ProductIngredient ingredients={ingredients}></ProductIngredient>
       </ProductDetailContainer>
     </>
