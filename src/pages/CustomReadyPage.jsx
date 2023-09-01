@@ -7,7 +7,7 @@ import { PiBoneLight } from 'react-icons/pi';
 import '../styles/CustomReadyPage.css';
 import AWS from 'aws-sdk';
 import Modal from '../components/modal/Modal';
-import loadingVideo from '../assets/card/loading.mp4'
+import loadingVideo from '../assets/card/loading.mp4';
 import loadingSound from '../assets/card/loading_sound.mp3';
 import useSound from 'use-sound';
 // import { LogoContainer } from './index.style';
@@ -48,24 +48,26 @@ function CustomReadyPage() {
       }
     }
   };
-  
+
   const handleOpenModal = () => {
     setOpenModal(true);
     play();
-  }
+  };
 
   const handleModalClose = () => {
     setOpenModal(false);
     stop();
-  }
+  };
 
   return (
     <>
-      {openModal && <Modal handleModalClose={handleModalClose}>
-        <video width='310' height='550' autoPlay loop muted >
-          <source src={loadingVideo} type="video/mp4"/>
-        </video>
-      </Modal>}
+      {openModal && (
+        <Modal handleModalClose={handleModalClose}>
+          <video width="310" height="550" autoPlay loop muted>
+            <source src={loadingVideo} type="video/mp4" />
+          </video>
+        </Modal>
+      )}
       <div className="custom-ready-page">
         {/* 흰디 안내말 */}
         <div className="heendy-say" onClick={handleOpenModal}>
@@ -84,8 +86,8 @@ function CustomReadyPage() {
           <hr className="divider" />
           <hr className="divider" />
           <p className="step-title">
-            <PiBoneLight /> STEP 2. 현재 잘 섭취하고 있는 사료가 있다면, 해당 상품
-            표지와 성분표를 찍어 올려주세요.
+            <PiBoneLight /> STEP 2. 현재 잘 섭취하고 있는 사료가 있다면, 해당
+            상품 표지와 성분표를 찍어 올려주세요.
           </p>
           <hr className="divider" />
           {/* 사료 업로드 박스 */}

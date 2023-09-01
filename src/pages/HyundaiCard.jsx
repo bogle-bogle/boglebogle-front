@@ -33,7 +33,6 @@ import cardBackDefault from '../assets/card/card_back.png';
 
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
-
 import Modal from '../components/modal/Modal';
 import {
   CroppedImg,
@@ -201,12 +200,15 @@ function HyundaiCard() {
               <BackButton style={{ visibility: 'hidden' }}></BackButton>
             </CardInfoCol>
             <CardInfoCol>
-              <CardFlip style={{position:"relative"}} >
-                <HCard style={{position:"absolute"}} reverse={reverse}>
-                    <CardFront src={cardDesign.front}></CardFront>
-                    <CardBack src={cardDesign.back}></CardBack>
+              <CardFlip style={{ position: 'relative' }}>
+                <HCard style={{ position: 'absolute' }} reverse={reverse}>
+                  <CardFront src={cardDesign.front}></CardFront>
+                  <CardBack src={cardDesign.back}></CardBack>
                 </HCard>
-                <CroppedImg style={{position:"absolute"}} src={reverse ? cardBackDefault : cardFrontDefault}/>
+                <CroppedImg
+                  style={{ position: 'absolute' }}
+                  src={reverse ? cardBackDefault : cardFrontDefault}
+                />
               </CardFlip>
               <BackButton onClick={handleReverse}>
                 <img src={rotateArrow} alt="" />
