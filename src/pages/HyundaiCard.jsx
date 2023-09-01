@@ -30,10 +30,10 @@ import {
   SelectCustomCardContainer,
 } from '../components/hyundaicard/custom.style';
 import Cropper from 'react-cropper';
-import customCardFront from '../assets/card/frontdog.jpeg';
 import useSound from 'use-sound';
 import flipSound from '../assets/card/cardSlide3.mp3';
 import nonImg from '../assets/card/non_img.PNG';
+
 const cardDict = {
   green: {
     front: greenCardFront,
@@ -59,8 +59,8 @@ function HyundaiCard() {
     back: selectCardGreen,
   });
 
-  const [frontInputImage, setFrontInputImage] = useState(nonImg);
-  const [backInputImage, setBackInputImage] = useState(nonImg);
+  const [frontInputImage, setFrontInputImage] = useState();
+  const [backInputImage, setBackInputImage] = useState();
 
   const frontCropperRef = useRef(null);
   const backCropperRef = useRef(null);
@@ -126,7 +126,7 @@ function HyundaiCard() {
             <SelectCustomCardContainer>
               <Cropper
                 src={frontInputImage}
-                style={{ height: 300, width: 500 }}
+                style={{ height: 306.02834646, width: 485.29133859, border : '1px solid black'}}
                 dragMode={'none'}
                 cropBoxResizable={false}
                 checkOrientation={false}
@@ -149,7 +149,7 @@ function HyundaiCard() {
             <SelectCustomCardContainer>
               <Cropper
                 src={backInputImage}
-                style={{ height: 300, width: 500 }}
+                style={{ height: 306.02834646, width: 485.29133859, border : '1px solid black' }}
                 dragMode={'none'}
                 cropBoxResizable={false}
                 checkOrientation={false}

@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import Modal from '../modal/Modal';
 import ReviewModal from './ReviewModal';
-// import axios from 'axios';
+
+
 
 function ProductDetail() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,7 +48,7 @@ function ProductDetail() {
         <ProductSummaryContainer
           productInfo={productInfo}
         ></ProductSummaryContainer>
-        <Review handleModalOpen={handleModalOpen}></Review>
+          <Review handleModalOpen={handleModalOpen}></Review>
         <ProductIngredient ingredients={ingredients}></ProductIngredient>
       </ProductDetailContainer>
     </>
