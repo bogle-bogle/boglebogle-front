@@ -7,8 +7,26 @@ import {
   MbtiMainText,
   MbtiStartButton,
   QuestionBox,
+  MbtiResultContainer,
+  MbtiResultContentContainer,
+  MbtiResultDogImg,
+  SelectDogImgContainer,
+  MbtiH1,
+  MbtiDescription,
+  MbtiCompatibilityContainer,
+  MbtiCompatibilityImg,
+  MbtiResultInfoContainer,
 } from './mbti.style';
+
+import defaultDog from '../../assets/mbti/default_dog_img.png';
+
 import mainText from '../../assets/mbti/mbti_main_text.png';
+
+import mbtiGood from '../../assets/mbti/istj_good.png';
+import mbtiBad from '../../assets/mbti/enfp_bad.png';
+
+import { BsFillCameraFill } from 'react-icons/bs';
+import { useRef } from 'react';
 
 const mbtiQuestion = [
   {},
@@ -20,17 +38,17 @@ const mbtiQuestion = [
     ],
   },
   {
-    question: '집사가 오늘따라 기운이 없어보인다. 나는?',
-    answer: [
-      ['F', '무슨 일 있나? 나도 같이 슬퍼.. 옆에 가서 위로해준다'],
-      ['T', '힘없을 땐 맛있는 게 최고야. 내 최애 개껌 가져다줘야지'],
-    ],
-  },
-  {
     question: '나의 산책길은?',
     answer: [
       ['S', '익숙한 길! 산책 좋아'],
       ['N', '우와 나비다! 저 꽃은 뭐지? 어? 저기는 지렁이다!'],
+    ],
+  },
+  {
+    question: '집사가 오늘따라 기운이 없어보인다. 나는?',
+    answer: [
+      ['F', '무슨 일 있나? 나도 같이 슬퍼.. 옆에 가서 위로해준다'],
+      ['T', '힘없을 땐 맛있는 게 최고야. 내 최애 개껌 가져다줘야지'],
     ],
   },
   {
@@ -48,6 +66,10 @@ function MbtiGame() {
   const [curQuestion, setCurQuestion] = useState();
   const [result, setResult] = useState(false);
   const [count, setCount] = useState(1);
+  const [dogProfileImg, setDogProfileImg] = useState(defaultDog);
+
+  const fileInputRef = useRef(null);
+
   const handleGameStart = () => {
     setStart(true);
     setCurQuestion(mbtiQuestion[count]);
@@ -56,11 +78,12 @@ function MbtiGame() {
   const handleSelectAnswer = (e) => {
     if (count === 4) {
       setResult(true);
-    } else {
-      console.log(e);
-      console.log(e.target.name);
       setMbti((prev) => {
-        return prev + e.target.getAttribute('name');
+        return prev + e.target.id;
+      });
+    } else {
+      setMbti((prev) => {
+        return prev + e.target.id;
       });
       setCurQuestion(mbtiQuestion[count + 1]);
       setCount((prev) => {
@@ -69,17 +92,46 @@ function MbtiGame() {
     }
   };
 
+  const handleImageUpload = (event) => {
+    const file = URL.createObjectURL(event.target.files[0]);
+    setDogProfileImg(file);
+  };
+
   return (
     <MbtiGameContainer>
       {result ? (
-        <h1>{mbti}</h1>
+        <MbtiResultContainer>
+          <MbtiResultContentContainer>
+            <MbtiResultDogImg src={dogProfileImg}></MbtiResultDogImg>
+            <SelectDogImgContainer onClick={() => fileInputRef.current.click()}>
+              <BsFillCameraFill style={{ fontSize: 15 }} />
+              <span>반려동물 사진 선택하기</span>
+            </SelectDogImgContainer>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="file-input"
+              ref={fileInputRef}
+              style={{ display: 'none' }} // 숨김 처리
+            />
+          </MbtiResultContentContainer>
+          <MbtiResultInfoContainer>
+            <MbtiH1>{mbti}</MbtiH1>
+            <MbtiDescription>독립적이고 시크한 차도멍</MbtiDescription>
+            <MbtiCompatibilityContainer>
+              <MbtiCompatibilityImg src={mbtiGood} />
+              <MbtiCompatibilityImg src={mbtiBad} />
+            </MbtiCompatibilityContainer>
+          </MbtiResultInfoContainer>
+        </MbtiResultContainer>
       ) : (
         <>
           {start ? (
             <GameContainer>
               <QuestionBox>{curQuestion.question}</QuestionBox>
               {curQuestion.answer.map((ele) => (
-                <AnswerBox onClick={handleSelectAnswer} name={ele[0]}>
+                <AnswerBox onClick={handleSelectAnswer} id={ele[0]}>
                   {ele[1]}
                 </AnswerBox>
               ))}

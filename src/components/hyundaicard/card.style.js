@@ -93,6 +93,8 @@ export const CardImg = styled.img`
   position: absolute;
 
   border-radius: 11px;
+
+  box-shadow: 3px 3px 5px gray;
 `;
 
 // export const CardFront = styled.img`

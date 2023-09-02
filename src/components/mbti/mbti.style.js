@@ -93,3 +93,80 @@ export const AnswerBox = styled.div`
 
   cursor: pointer;
 `;
+
+export const MbtiResultContainer = styled.div`
+  width: 100%;
+  height: 80%;
+
+  display: flex;
+
+  border: 1px solid black;
+`;
+
+export const MbtiResultContentContainer = styled.div`
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid red;
+`;
+
+export const MbtiResultDogImg = styled.img`
+  width: 300px;
+  height: 300px;
+
+  border: 1px solid blue;
+`;
+
+export const SelectDogImgContainer = styled.div`
+  width: auto;
+  height: auto;
+  overflow: auto;
+
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid orange;
+`;
+
+export const MbtiResultInfoContainer = styled.div`
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid red;
+`;
+
+export const MbtiH1 = styled.p`
+  font-weight: bold;
+  font-size: 70px;
+  color: #538acd;
+`;
+
+export const MbtiDescription = styled.p`
+  font-weight: bold;
+  font-size: 40px;
+  color: #7b7b7b;
+`;
+
+export const MbtiCompatibilityContainer = styled.div`
+  display: flex;
+
+  justify-content: center;
+
+  width: auto;
+  height: auto;
+  overflow: auto;
+
+  border: 1px solid green;
+`;
+
+export const MbtiCompatibilityImg = styled.img`
+  width: 200px;
+  height: 200px;
+`;

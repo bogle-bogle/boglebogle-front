@@ -19,7 +19,7 @@ function CustomReadyPage() {
   const fileInputRef = useRef(null);
 
   const handleImageUpload = (event, imageKey) => {
-    const file = event.target.f0iles[0];
+    const file = event.target.files[0];
     setSelectedImage(URL.createObjectURL(file));
   };
 

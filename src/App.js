@@ -18,13 +18,16 @@ import ProductDetail from './components/product/ProductDetail';
 import HyundaiCard from './pages/HyundaiCard';
 import MbtiTest from './pages/MbtiTest';
 import Example from './pages/Example';
+import Admin from './pages/Admin';
+import MainLayout from './pages/MainLayout';
 
 function App() {
   return (
-    <div className="appContainer">
-      <Router>
-        <Header />
-        <Routes>
+    // <div className="appContainer">
+    <Router>
+      {/* <Header /> */}
+      <Routes>
+        <Route element={<MainLayout />}>
           <Route path="/customready" element={<CustomReadyPage />} />
           <Route path="/" element={<Main />}></Route>
           <Route path="/second" element={<MainPage />}></Route>
@@ -45,9 +48,11 @@ function App() {
           <Route path="/mypet/:memberId" element={<MyPet />}></Route>
           <Route path="/mbti" element={<MbtiTest />}></Route>
           <Route path="/ex" element={<Example />}></Route>
-        </Routes>
-      </Router>
-    </div>
+        </Route>
+        <Route path="/admin" element={<Admin />}></Route>
+      </Routes>
+    </Router>
+    // </div>
   );
 }
 
