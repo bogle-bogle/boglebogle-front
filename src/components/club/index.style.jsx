@@ -23,45 +23,44 @@ export const StyledClubContainer = styled.div`
   gap: 3vw;
 `;
 
-
 export const Sidebar1 = styled.div`
-  text-align:left;
-  grid-area:Sidebar1;
+  text-align: left;
+  grid-area: Sidebar1;
   font-weight: bold;
 `;
 export const Sidebar2 = styled(Sidebar1)`
-  text-align:left;
-  grid-area:Sidebar2;
+  text-align: left;
+  grid-area: Sidebar2;
   font-weight: bold;
 `;
 export const Sidebar3 = styled(Sidebar1)`
-  text-align:left;
-  grid-area:Sidebar3;
+  text-align: left;
+  grid-area: Sidebar3;
   font-weight: bold;
 `;
 export const Sidebar4 = styled(Sidebar1)`
-  text-align:left;
-  grid-area:Sidebar4;
+  text-align: left;
+  grid-area: Sidebar4;
   font-weight: bold;
 `;
 export const Sidebar5 = styled(Sidebar1)`
-  text-align:left;
-  grid-area:Sidebar5;
+  text-align: left;
+  grid-area: Sidebar5;
   font-weight: bold;
 `;
 export const Sidebar6 = styled(Sidebar1)`
-  text-align:left;
-  grid-area:Sidebar6;
+  text-align: left;
+  grid-area: Sidebar6;
   font-weight: bold;
 `;
 export const Sidebar7 = styled(Sidebar1)`
-  text-align:left;
-  grid-area:Sidebar7;
+  text-align: left;
+  grid-area: Sidebar7;
   font-weight: bold;
 `;
 export const Guide = styled(Sidebar1)`
-  text-align:left;
-  grid-area:guide;
+  text-align: left;
+  grid-area: guide;
 
   /* 기본 텍스트 스타일 */
   color: grey; /* 텍스트 색상을 회색으로 설정 */
@@ -75,11 +74,11 @@ export const Guide = styled(Sidebar1)`
 `;
 
 export const PetPhoto = styled.div`
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  grid-area:photo;
-    justify-content:flex-start;
+  grid-area: photo;
+  justify-content: flex-start;
 `;
 
 export const PetName = styled.div`
@@ -90,10 +89,10 @@ export const PetName = styled.div`
 `;
 
 export const PetBirth = styled.div`
-  grid-area:birth;
+  grid-area: birth;
   width: 100%;
-  display:flex;
-    justify-content:flex-start;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const StyledButton = styled.button`
@@ -103,48 +102,45 @@ export const StyledButton = styled.button`
   padding: 5px 10px;
   cursor: pointer;
   margin-right: 5px;
-  flex:1;
-
+  flex: 1;
 `;
 
 export const PetProteinCodes = styled.div`
   grid-area: proteinCodes;
   width: 100%;
-  display:flex;
-  justify-content:flex-start;
-
-
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const PetFavoriteFoodIngredients = styled.div`
-  grid-area:favoriteFoodIngredients;
+  grid-area: favoriteFoodIngredients;
   width: 100%;
-  display:flex;
-    justify-content:flex-start;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const PetImgUrl = styled.div`
-  grid-area:imgUrl;
+  grid-area: imgUrl;
   width: 100%;
-    justify-content:flex-start;
+  justify-content: flex-start;
 `;
 
 export const PetBreedCode = styled.div`
-  grid-area:breedCode;
+  grid-area: breedCode;
   width: 100%;
-    justify-content:flex-start;
-    display:flex;
-    align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
 `;
 
 export const PetAnimalTypeCode = styled.div`
   grid-area: animalTypeCode;
   display: flex;
-    justify-content:flex-start;
+  justify-content: flex-start;
 `;
 
 export const Title = styled.div`
-  grid-area:title;
+  grid-area: title;
   width: 100%;
   text-align: left;
   font-size: 4vw;
@@ -152,7 +148,7 @@ export const Title = styled.div`
 
 export const Button = styled.div`
   grid-area: button;
-  justify-content:center;
+  justify-content: center;
   display: flex;
 `;
 
@@ -173,7 +169,7 @@ export const SidebarItem = styled.div`
   color: black; /* 텍스트 색상은 기본 값으로 설정 */
   font-weight: bold;
 
-   /* 별 모양 스타일 */
+  /* 별 모양 스타일 */
   &::after {
     content: '*'; /* 가상 요소의 내용을 별 모양으로 설정 */
     color: red; /* 별의 색상을 빨간색으로 설정 */
@@ -238,7 +234,6 @@ export const LogoImg = styled.img`
   width: 100%;
   margin-bottom: 1vw;
   cursor: pointer;
-
 `;
 
 export const MGuide = styled.div`
@@ -287,7 +282,7 @@ export const MPetProteinCodes = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 10px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 `;
 
 export const MPetPhoto = styled.div`
@@ -354,20 +349,19 @@ export const MPetFavoriteFoodIngredients = styled.div`
   padding: 10px;
 `;
 
-
 export const AgreementSection1 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 10px;
-  grid-area:agreement1;
+  grid-area: agreement1;
 `;
 export const AgreementSection2 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 10px;
-  grid-area:agreement2;
+  grid-area: agreement2;
 `;
 export const AgreementLabel = styled.label`
   margin-bottom: 5px;
