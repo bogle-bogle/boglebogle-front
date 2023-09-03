@@ -9,8 +9,12 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductCard = styled.div`
-  width: 350px;
-  height: 400px;
+  width: 280px;
+  height: 330px;
+
+  @media (min-width: 768px) {
+    max-width: 50%;
+  }
 
   display: flex;
   flex-direction: column;
