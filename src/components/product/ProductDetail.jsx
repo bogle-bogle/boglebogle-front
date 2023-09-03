@@ -16,9 +16,13 @@ function ProductDetail() {
   useEffect(() => {
     const params = new URL(document.location.toString());
     const productId = params.pathname.split('/').at(-1);
+    console.log(productId);
 
     axios.get(`/api/product/${productId}`).then((res) => {
       setIngredients(() => {
+        if (res.data.ingredients === null) {
+          return [];
+        }
         return [...res.data.ingredients.split(',')];
       });
       setProductInfo(() => {
