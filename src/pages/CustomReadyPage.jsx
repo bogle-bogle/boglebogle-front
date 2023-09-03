@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 // import logo from '../assets/logo.png';
 import heendycustomready from '../assets/custom/heendycustomready.png';
@@ -16,7 +16,7 @@ function CustomReadyPage() {
 
   const [selectedFeedImage, setSelectedFeedImage] = useState(null);
   const [selectedIngredientImage, setSelectedIngredientImage] = useState(null);
-  
+
   const feedInputRef = useRef(null);
   const ingredientInputRef = useRef(null);
 
@@ -29,7 +29,7 @@ function CustomReadyPage() {
           codeValue: item.codeValue,
           name: item.name,
           photo: item.photo,
-          img: item.img
+          img: item.img,
         }));
         setPetData(transformedData);
       })
@@ -37,7 +37,6 @@ function CustomReadyPage() {
         console.log('Error fetching pet codes:', Error);
       });
   }, []);
-
 
   const handleFileInputChange = (imageKey) => (event) => {
     handleImageUpload(event, imageKey);
@@ -106,7 +105,9 @@ function CustomReadyPage() {
 
     const feedUrlPromise = uploadToS3(feedInputRef.current.files[0]);
 
-    const ingredientUrlPromise = uploadToS3(ingredientInputRef.current.files[1]);
+    const ingredientUrlPromise = uploadToS3(
+      ingredientInputRef.current.files[1],
+    );
 
     const [feedUrl, ingredientUrl] = await Promise.all([
       feedUrlPromise,
@@ -115,7 +116,7 @@ function CustomReadyPage() {
 
     const customData = {
       feed: feedUrl,
-      ingredientUrl: ingredientUrl
+      ingredientUrl: ingredientUrl,
     };
     if (feedUrl !== null) {
       customData.feed = feedUrl[0];
@@ -174,18 +175,18 @@ function CustomReadyPage() {
           <hr className="divider" />
           <div className="myPet-box">
             {petData.map((pet) => (
-            <div key={pet.codeValue} className="pet-info">
-              <div className="pet-photo">
-                <img src={pet.photo} alt={pet.name} />
+              <div key={pet.codeValue} className="pet-info">
+                <div className="pet-photo">
+                  <img src={pet.photo} alt={pet.name} />
+                </div>
+                <div className="pet-name">{pet.name}</div>
               </div>
-              <div className="pet-name">{pet.name}</div>
-            </div>
             ))}
           </div>
           <hr className="divider" />
           <p className="step-title">
-            <PiBoneLight /> STEP 2. 현재 잘 섭취하고 있는 사료가 있다면, 해당 상품
-            표지와 성분표를 찍어 올려주세요.
+            <PiBoneLight /> STEP 2. 현재 잘 섭취하고 있는 사료가 있다면, 해당
+            상품 표지와 성분표를 찍어 올려주세요.
           </p>
           <hr className="divider" />
           {/* 사료 업로드 박스 */}
@@ -232,7 +233,8 @@ function CustomReadyPage() {
                 type="file"
                 accept="image/*"
                 onChange={(event) => {
-                  const ingredientUrl = handleFileInputChange('ingredient')(event);
+                  const ingredientUrl =
+                    handleFileInputChange('ingredient')(event);
                   ingredientUrl &&
                     setSelectedIngredientImage(
                       URL.createObjectURL(event.target.files[0]),
