@@ -205,7 +205,8 @@ export const MobileMedia = styled.div`
     'MImgUrl MImgUrl MImgUrl'
     'MfavoriteFoodIngredient MfavoriteFoodIngredient MfavoriteFoodIngredient'
     'MfavoriteFoodIngredient MfavoriteFoodIngredient MfavoriteFoodIngredient'
-    'MSidebar7 MBreedCode MBreedCode'
+    'MSidebar7 MSidebar7 MSidebar7'
+    'MBreedCode MBreedCode MBreedCode'
     'agreement1 agreement1 agreement1'
     'agreement2 agreement2 agreement2'
     'MButton MButton MButton';

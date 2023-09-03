@@ -92,7 +92,6 @@ function ClubRegister() {
     name: '',
     birth: '',
     proteinCodes: '',
-    memberId: 0,
     favoriteFoodIngredients: '',
     imgUrl: '',
     mbti: '',
@@ -102,6 +101,8 @@ function ClubRegister() {
 
   const photoInputRef = useRef(null);
   const imgInputRef = useRef(null);
+
+  /*단백질 코드 및 견종, 동물 분류 가져오기*/
   useEffect(() => {
     axios
       .get(`/api/pet/code`)
@@ -132,6 +133,7 @@ function ClubRegister() {
       });
   }, []);
 
+  /*여러개 선택될때마다 저장*/
   const handleProteinCodeClick = (code) => {
     const updatedSelectedProteinCodes = selectedProteinCodes.includes(code)
       ? selectedProteinCodes.filter((c) => c !== code)
@@ -262,7 +264,6 @@ function ClubRegister() {
         ? selectedBirthDate.toISOString().split('T')[0]
         : null,
       proteinCode: selectedCodesString,
-      memberId: formData.memberId,
       favoriteFoodIngredients: formData.favoriteFoodIngredients,
       imgUrl: imgUrl,
       breedCode: selectedBreedCode,
