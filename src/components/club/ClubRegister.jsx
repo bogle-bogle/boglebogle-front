@@ -2,25 +2,77 @@ import React, { useState, useRef, useEffect } from 'react';
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; // react-datepicker를 import
+import { useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
+import infoImg from '../../assets/club/클럽 가입하기.png';
+import AgreementPopup from '../modal/Modal.jsx';
+
 import {
+  Title,
+  LogoContainer,
+  LogoImg,
+  Guide,
   StyledClubContainer,
+  Sidebar2,
+  Sidebar5,
+  Sidebar6,
   PetPhoto,
   PetName,
   PetBirth,
   PetProteinCodes,
-  PetMemberId,
   PetFavoriteFoodIngredients,
   PetImgUrl,
-  PetMbti,
   PetBreedCode,
   PetAnimalTypeCode,
   StyledButton,
+  Button,
+  ImagePreview,
+  SidebarItem,
+  BlackButton,
+  MobileMedia,
+  MTitle,
+  MGuide,
+  MSidebar2,
+  MSidebar5,
+  MSidebar6,
+  MPetPhoto,
+  MPetName,
+  MPetBirth,
+  MPetProteinCodes,
+  MPetImgUrl,
+  MPetFavoriteFoodIngredients,
+  MPetBreedCode,
+  MPetAnimalTypeCode,
+  MButton,
+  AgreementSection1,
+  AgreementSection2,
+  AgreementLabel,
+  AgreementRadioGroup,
+  AgreementRadio,
 } from './index.style';
 import axios from 'axios';
 
 function ClubRegister() {
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // 화면 크기가 변경될 때마다 windowWidth 상태 업데이트
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const [showAgreementPopup, setShowAgreementPopup] = useState(false);
+  const member = useSelector((state) => state.member);
+
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
   const [selectedImgImage, setSelectedImgImage] = useState(null);
 
@@ -40,7 +92,6 @@ function ClubRegister() {
     name: '',
     birth: '',
     proteinCodes: '',
-    memberId: 0,
     favoriteFoodIngredients: '',
     imgUrl: '',
     mbti: '',
@@ -50,6 +101,8 @@ function ClubRegister() {
 
   const photoInputRef = useRef(null);
   const imgInputRef = useRef(null);
+
+  /*단백질 코드 및 견종, 동물 분류 가져오기*/
   useEffect(() => {
     axios
       .get(`/api/pet/code`)
@@ -80,6 +133,7 @@ function ClubRegister() {
       });
   }, []);
 
+  /*여러개 선택될때마다 저장*/
   const handleProteinCodeClick = (code) => {
     const updatedSelectedProteinCodes = selectedProteinCodes.includes(code)
       ? selectedProteinCodes.filter((c) => c !== code)
@@ -93,6 +147,25 @@ function ClubRegister() {
 
   const handleBreedCodeChange = (event) => {
     setSelectedBreedCode(event.target.value);
+  };
+
+  const [agreed1, setAgreed1] = useState(true); // 첫 번째 그룹의 상태
+  const [agreed2, setAgreed2] = useState(true); // 두 번째 그룹의 상태
+
+  // 첫 번째 그룹 라디오 버튼 이벤트 핸들러
+  const handleAgreementChange1 = (event) => {
+    setAgreed1(event.target.value === 'yes');
+  };
+
+  // 두 번째 그룹 라디오 버튼 이벤트 핸들러
+  const handleAgreementChange2 = (event) => {
+    setAgreed2(event.target.value === 'yes');
+  };
+
+  const handleAgreementButtonClick = () => {
+    if (!agreed1) {
+      setShowAgreementPopup(true);
+    }
   };
 
   AWS.config.update({
@@ -167,6 +240,12 @@ function ClubRegister() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    if (!agreed1) {
+      // 동의하지 않았을 때 모달을 표시
+      setShowAgreementPopup(true);
+      return; // 이후 로직을 실행하지 않음
+    }
+
     const photoUrlPromise = uploadToS3(photoInputRef.current.files[0]);
 
     const imgUrlPromise = uploadToS3(imgInputRef.current.files[1]);
@@ -185,14 +264,11 @@ function ClubRegister() {
         ? selectedBirthDate.toISOString().split('T')[0]
         : null,
       proteinCode: selectedCodesString,
-      memberId: formData.memberId,
       favoriteFoodIngredients: formData.favoriteFoodIngredients,
       imgUrl: imgUrl,
-      mbti: formData.mbti,
       breedCode: selectedBreedCode,
       animalTypeCode: selectedAnimalTypeCode,
     };
-    console.log(clubData);
     if (photoUrl !== null) {
       clubData.photo = photoUrl[0];
     }
@@ -201,7 +277,11 @@ function ClubRegister() {
     }
 
     try {
-      const response = await axios.post('api/club', clubData);
+      const response = await axios.post('api/club', clubData, {
+        headers: {
+          Authorizations: `Bearer ${member.jwt.accessToken}`,
+        },
+      });
 
       console.log('클럽 등록 성공:', response.data);
       navigate('/completeclubregister');
@@ -210,155 +290,406 @@ function ClubRegister() {
     }
   };
   return (
-    <StyledClubContainer>
-      <form onSubmit={handleFormSubmit}>
-        <PetAnimalTypeCode>
-          반려동물 종류
-          {animalTypeCodes.map((code) => (
-            <StyledButton
-              type="button"
-              key={code.codeValue}
-              onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
-              active={selectedAnimalTypeCode === code.codeValue}
-              className={
-                selectedAnimalTypeCode === code.codeValue ? 'selected' : ''
-              }
-            >
-              {code.name}
-            </StyledButton>
-          ))}
-        </PetAnimalTypeCode>
-        <PetPhoto>
-          <p>반려동물 사진 (선택)</p>
-          <div
-            className="image-preview"
-            onClick={() => photoInputRef.current.click()}
-          >
-            {selectedPhotoImage && (
-              <img src={selectedPhotoImage} alt="Uploaded" />
-            )}
-          </div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(event) => {
-              const photoUrl = handleFileInputChange('photo')(event);
-              photoUrl &&
-                setSelectedPhotoImage(
-                  URL.createObjectURL(event.target.files[0]),
-                );
-            }}
-            className="file-input"
-            ref={photoInputRef}
-            style={{ display: 'none' }} // 숨김 처리
-          />
-        </PetPhoto>
-        <PetName>
-          <input
-            type="text"
-            placeholder="이름"
-            name="name"
-            value={formData.name}
-            onChange={handleFormChange}
-          />
-        </PetName>
-        <PetBirth>
-          <p>생일</p>
-          <DatePicker // DatePicker 컴포넌트 추가
-            selected={selectedBirthDate}
-            shouldCloseOnSelect
-            onChange={(date) => setSelectedBirthDate(date)}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="생년월일"
-          />
-        </PetBirth>
-        <PetProteinCodes>
-          <p>알러지</p>
-          {proteinCodes &&
-            proteinCodes.map((code) => (
+    <form onSubmit={handleFormSubmit}>
+      {windowWidth <= 768 ? (
+        <MobileMedia>
+          <MTitle>클럽가입</MTitle>
+          <LogoContainer>
+            <LogoImg src={infoImg} alt="Logo" className="logo" />
+          </LogoContainer>
+          <MGuide>
+            맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
+          </MGuide>
+          <SidebarItem gridArea="MSidebar1">반려동물 종류</SidebarItem>
+          <MSidebar2>반려동물 사진</MSidebar2>
+          <SidebarItem gridArea="MSidebar3">반려동물 이름</SidebarItem>
+          <SidebarItem gridArea="MSidebar4">반려동물 생일</SidebarItem>
+          <MSidebar5>반려동물 알러지</MSidebar5>
+          <MSidebar6>반려동물 사료</MSidebar6>
+          <SidebarItem gridArea="MSidebar7">반려동물 견종</SidebarItem>
+
+          <MPetAnimalTypeCode>
+            {animalTypeCodes.map((code) => (
               <StyledButton
                 type="button"
                 key={code.codeValue}
-                onClick={() => handleProteinCodeClick(code.codeValue)}
-                active={selectedProteinCodes.includes(code.codeValue)}
+                onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
+                active={selectedAnimalTypeCode === code.codeValue}
                 className={
-                  selectedProteinCodes.includes(code.codeValue)
-                    ? 'selected'
-                    : ''
+                  selectedAnimalTypeCode === code.codeValue ? 'selected' : ''
                 }
               >
                 {code.name}
               </StyledButton>
             ))}
-        </PetProteinCodes>
-
-        <PetMemberId>
-          <input
-            type="number"
-            placeholder="회원 ID"
-            name="memberId"
-            value={formData.memberId}
-            onChange={handleFormChange}
-          />
-        </PetMemberId>
-        <PetFavoriteFoodIngredients>
-          <input
-            type="text"
-            placeholder="선호 음식 성분"
-            name="favoriteFoodIngredients"
-            value={formData.favoriteFoodIngredients}
-            onChange={handleFormChange}
-          />
-        </PetFavoriteFoodIngredients>
-        <PetImgUrl>
-          <p>먹고있는 사료 사진(선택)</p>
-          <div
-            className="image-preview"
-            onClick={() => imgInputRef.current.click()}
-          >
-            {selectedImgImage && <img src={selectedImgImage} alt="Uploaded" />}
-          </div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(event) => {
-              const imgUrl = handleFileInputChange('img')(event);
-              imgUrl &&
-                setSelectedImgImage(URL.createObjectURL(event.target.files[0]));
-            }}
-            className="file-input"
-            ref={imgInputRef}
-            style={{ display: 'none' }} // 숨김 처리
-          />
-        </PetImgUrl>
-        <PetMbti>
-          <input
-            type="text"
-            placeholder="mbti"
-            name="mbti"
-            value={formData.mbti}
-            onChange={handleFormChange}
-          />
-        </PetMbti>
-        <PetBreedCode>
-          <p>견종</p>
-          <select
-            name="breedCode"
-            value={selectedBreedCode}
-            onChange={handleBreedCodeChange}
-          >
-            <option value="">견종 선택</option>
-            {breedCodes &&
-              breedCodes.map((code) => (
-                <option key={code.codeValue} value={code.codeValue}>
+          </MPetAnimalTypeCode>
+          <MPetPhoto>
+            <ImagePreview
+              className="image-preview"
+              onClick={() => photoInputRef.current.click()}
+            >
+              {selectedPhotoImage && (
+                <img src={selectedPhotoImage} alt="Uploaded" />
+              )}
+            </ImagePreview>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => {
+                const photoUrl = handleFileInputChange('photo')(event);
+                photoUrl &&
+                  setSelectedPhotoImage(
+                    URL.createObjectURL(event.target.files[0]),
+                  );
+              }}
+              className="file-input"
+              ref={photoInputRef}
+              style={{ display: 'none' }} // 숨김 처리
+            />
+          </MPetPhoto>
+          <MPetName>
+            <input
+              type="text"
+              placeholder="이름"
+              name="name"
+              value={formData.name}
+              onChange={handleFormChange}
+            />
+          </MPetName>
+          <MPetBirth>
+            <DatePicker // DatePicker 컴포넌트 추가
+              className={StyleSheet.datePicker}
+              selected={selectedBirthDate}
+              shouldCloseOnSelect
+              onChange={(date) => setSelectedBirthDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="생년월일"
+            />
+          </MPetBirth>
+          <MPetProteinCodes>
+            {proteinCodes &&
+              proteinCodes.map((code) => (
+                <StyledButton
+                  type="button"
+                  key={code.codeValue}
+                  onClick={() => handleProteinCodeClick(code.codeValue)}
+                  active={selectedProteinCodes.includes(code.codeValue)}
+                  className={
+                    selectedProteinCodes.includes(code.codeValue)
+                      ? 'selected'
+                      : ''
+                  }
+                >
                   {code.name}
-                </option>
+                </StyledButton>
               ))}
-          </select>
-        </PetBreedCode>
-        <button type="submit">등록</button>
-      </form>
-    </StyledClubContainer>
+          </MPetProteinCodes>
+          <MPetFavoriteFoodIngredients>
+            <textarea
+              placeholder="선호 음식 성분"
+              name="favoriteFoodIngredients"
+              value={formData.favoriteFoodIngredients}
+              onChange={handleFormChange}
+              style={{
+                width: '180%',
+                resize: 'none', // 사용자 크기 조절 비활성화
+              }}
+            />
+          </MPetFavoriteFoodIngredients>
+          <MPetImgUrl>
+            <ImagePreview
+              className="image-preview"
+              onClick={() => imgInputRef.current.click()}
+            >
+              {selectedImgImage && (
+                <img src={selectedImgImage} alt="Uploaded" />
+              )}
+            </ImagePreview>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => {
+                const imgUrl = handleFileInputChange('img')(event);
+                imgUrl &&
+                  setSelectedImgImage(
+                    URL.createObjectURL(event.target.files[0]),
+                  );
+              }}
+              className="file-input"
+              ref={imgInputRef}
+              style={{ display: 'none' }} // 숨김 처리
+            />
+          </MPetImgUrl>
+          <MPetBreedCode>
+            <select
+              name="breedCode"
+              value={selectedBreedCode}
+              onChange={handleBreedCodeChange}
+            >
+              <option value="">견종 선택</option>
+              {breedCodes &&
+                breedCodes.map((code) => (
+                  <option key={code.codeValue} value={code.codeValue}>
+                    {code.name}
+                  </option>
+                ))}
+            </select>
+          </MPetBreedCode>
+          <AgreementSection1>
+            <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
+            <AgreementRadioGroup>
+              <AgreementRadio
+                name="agreement1"
+                value="yes"
+                checked={agreed1}
+                onChange={handleAgreementChange1}
+              />
+              <span>동의</span>
+              <AgreementRadio
+                name="agreement1"
+                value="no"
+                checked={!agreed1}
+                onChange={handleAgreementChange1}
+              />
+              <span>거부</span>
+            </AgreementRadioGroup>
+          </AgreementSection1>
+          <AgreementSection2>
+            <AgreementLabel>
+              개인정보 마케팅 활용동의(혜택알림) (선택)
+            </AgreementLabel>
+            <AgreementRadioGroup>
+              <AgreementRadio
+                name="agreement2"
+                value="yes"
+                checked={agreed2}
+                onChange={handleAgreementChange2}
+              />
+              <span>동의</span>
+              <AgreementRadio
+                name="agreement2"
+                value="no"
+                checked={!agreed2}
+                onChange={handleAgreementChange2}
+              />
+              <span>거부</span>
+            </AgreementRadioGroup>
+          </AgreementSection2>
+          <MButton>
+            <BlackButton
+              type="submit"
+              disabled={!agreed1}
+              onClick={handleAgreementButtonClick}
+            >
+              가입하기
+            </BlackButton>
+          </MButton>
+          {showAgreementPopup && (
+            <AgreementPopup onClose={() => setShowAgreementPopup(false)}>
+              message="필수 사항을 모두 체크해야 합니다."
+            </AgreementPopup>
+          )}
+        </MobileMedia>
+      ) : (
+        <StyledClubContainer>
+          <Title>클럽가입</Title>
+          <LogoContainer>
+            <LogoImg src={infoImg} alt="Logo" className="logo" />
+          </LogoContainer>
+          <Guide>
+            맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
+          </Guide>
+          <SidebarItem gridArea="Sidebar1">반려동물 종류</SidebarItem>
+          <Sidebar2>반려동물 사진</Sidebar2>
+          <SidebarItem gridArea="Sidebar3">반려동물 이름</SidebarItem>
+          <SidebarItem gridArea="Sidebar4">반려동물 생일</SidebarItem>
+          <Sidebar5>반려동물 알러지</Sidebar5>
+          <Sidebar6>반려동물 사료</Sidebar6>
+          <SidebarItem gridArea="Sidebar7">반려동물 견종</SidebarItem>
+
+          <PetAnimalTypeCode>
+            {animalTypeCodes.map((code) => (
+              <StyledButton
+                type="button"
+                key={code.codeValue}
+                onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
+                active={selectedAnimalTypeCode === code.codeValue}
+                className={
+                  selectedAnimalTypeCode === code.codeValue ? 'selected' : ''
+                }
+              >
+                {code.name}
+              </StyledButton>
+            ))}
+          </PetAnimalTypeCode>
+          <PetPhoto>
+            <ImagePreview
+              className="image-preview"
+              onClick={() => photoInputRef.current.click()}
+            >
+              {selectedPhotoImage && (
+                <img src={selectedPhotoImage} alt="Uploaded" />
+              )}
+            </ImagePreview>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => {
+                const photoUrl = handleFileInputChange('photo')(event);
+                photoUrl &&
+                  setSelectedPhotoImage(
+                    URL.createObjectURL(event.target.files[0]),
+                  );
+              }}
+              className="file-input"
+              ref={photoInputRef}
+              style={{ display: 'none' }} // 숨김 처리
+            />
+          </PetPhoto>
+          <PetName>
+            <input
+              type="text"
+              placeholder="이름"
+              name="name"
+              value={formData.name}
+              onChange={handleFormChange}
+            />
+          </PetName>
+          <PetBirth>
+            <DatePicker // DatePicker 컴포넌트 추가
+              selected={selectedBirthDate}
+              shouldCloseOnSelect
+              onChange={(date) => setSelectedBirthDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="생년월일"
+            />
+          </PetBirth>
+          <PetProteinCodes>
+            {proteinCodes &&
+              proteinCodes.map((code) => (
+                <StyledButton
+                  type="button"
+                  key={code.codeValue}
+                  onClick={() => handleProteinCodeClick(code.codeValue)}
+                  active={selectedProteinCodes.includes(code.codeValue)}
+                  className={
+                    selectedProteinCodes.includes(code.codeValue)
+                      ? 'selected'
+                      : ''
+                  }
+                >
+                  {code.name}
+                </StyledButton>
+              ))}
+          </PetProteinCodes>
+          <PetFavoriteFoodIngredients>
+            <textarea
+              placeholder="선호 음식 성분"
+              name="favoriteFoodIngredients"
+              value={formData.favoriteFoodIngredients}
+              onChange={handleFormChange}
+              style={{
+                width: '180%',
+                resize: 'none', // 사용자 크기 조절 비활성화
+              }}
+            />
+          </PetFavoriteFoodIngredients>
+          <PetImgUrl>
+            <ImagePreview
+              className="image-preview"
+              onClick={() => imgInputRef.current.click()}
+            >
+              {selectedImgImage && (
+                <img src={selectedImgImage} alt="Uploaded" />
+              )}
+            </ImagePreview>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => {
+                const imgUrl = handleFileInputChange('img')(event);
+                imgUrl &&
+                  setSelectedImgImage(
+                    URL.createObjectURL(event.target.files[0]),
+                  );
+              }}
+              className="file-input"
+              ref={imgInputRef}
+              style={{ display: 'none' }} // 숨김 처리
+            />
+          </PetImgUrl>
+          <PetBreedCode>
+            <select
+              name="breedCode"
+              value={selectedBreedCode}
+              onChange={handleBreedCodeChange}
+            >
+              <option value="">견종 선택</option>
+              {breedCodes &&
+                breedCodes.map((code) => (
+                  <option key={code.codeValue} value={code.codeValue}>
+                    {code.name}
+                  </option>
+                ))}
+            </select>
+          </PetBreedCode>
+          <AgreementSection1>
+            <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
+            <AgreementRadioGroup>
+              <AgreementRadio
+                name="agreement1"
+                value="yes"
+                checked={agreed1}
+                onChange={handleAgreementChange1}
+              />
+              <span>동의</span>
+              <AgreementRadio
+                name="agreement1"
+                value="no"
+                checked={!agreed1}
+                onChange={handleAgreementChange1}
+              />
+              <span>거부</span>
+            </AgreementRadioGroup>
+          </AgreementSection1>
+          <AgreementSection2>
+            <AgreementLabel>
+              개인정보 마케팅 활용동의(혜택알림) (선택)
+            </AgreementLabel>
+            <AgreementRadioGroup>
+              <AgreementRadio
+                name="agreement2"
+                value="yes"
+                checked={agreed2}
+                onChange={handleAgreementChange2}
+              />
+              <span>동의</span>
+              <AgreementRadio
+                name="agreement2"
+                value="no"
+                checked={!agreed2}
+                onChange={handleAgreementChange2}
+              />
+              <span>거부</span>
+            </AgreementRadioGroup>
+          </AgreementSection2>
+          <Button>
+            <BlackButton
+              type="submit"
+              disabled={!agreed1}
+              onClick={handleAgreementButtonClick}
+            >
+              가입하기
+            </BlackButton>
+          </Button>
+          {showAgreementPopup && (
+            <AgreementPopup onClose={() => setShowAgreementPopup(false)}>
+              message="필수 사항을 모두 체크해야 합니다."
+            </AgreementPopup>
+          )}
+        </StyledClubContainer>
+      )}
+    </form>
   );
 }
 export default ClubRegister;

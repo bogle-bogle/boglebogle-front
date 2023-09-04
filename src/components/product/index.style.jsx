@@ -1,22 +1,26 @@
 import styled from 'styled-components';
 
 export const ProductContainer = styled.div`
-  border: 1px solid black;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const ProductCard = styled.div`
-  width: 350px;
+  width: 300px;
   height: 400px;
 
   display: flex;
   flex-direction: column;
 
+  justify-content: center;
+
   margin-left: 2%;
   margin-bottom: 2%;
+
+  padding: 0;
+  margin: 0;
 `;
 
 export const ProductImg = styled.img`
@@ -67,4 +71,11 @@ export const PageNumber = styled.div`
   align-items: center;
 
   background-color: ${(props) => (props.flag ? 'gray' : 'white')};
+`;
+
+export const CategoryP = styled.p`
+  width: 100%;
+  height: auto;
+
+  font-size: 17px;
 `;

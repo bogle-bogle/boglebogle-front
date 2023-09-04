@@ -12,7 +12,7 @@ import OrderComplete from './pages/OrderComplete';
 import Subscription from './pages/Subscription';
 import Heendycar from './pages/Heendycar';
 import ClubRegister from './components/club/ClubRegister';
-import CompleteClubRegister from './pages/CompleteClubRegister';
+import CompleteClubRegister from './components/club/CompleteClubRegister';
 import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
 import HyundaiCard from './pages/HyundaiCard';
@@ -21,6 +21,8 @@ import Example from './pages/Example';
 import { Helmet } from 'react-helmet-async';
 import Header2 from './components/header/Header2';
 import GlobalStyle from './styles/GlobalStyle';
+import Admin from './pages/Admin';
+import MainLayout from './pages/MainLayout';
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
             <Route path="/mypet/:memberId" element={<MyPet />}></Route>
             <Route path="/mbti" element={<MbtiTest />}></Route>
             <Route path="/ex" element={<Example />}></Route>
+            <Route path="/admin" element={<Admin />}></Route>
           </Routes>
         </div>
       </Router>

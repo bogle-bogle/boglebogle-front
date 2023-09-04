@@ -64,6 +64,8 @@ function RedirectUrl() {
       <h1>로그인 중</h1>
       <button onClick={() => navigate('/cart')}>장바구니 이동</button>
       <button onClick={() => navigate('/heendycar')}>흰디카 이동</button>
+      <button onClick={() => navigate('/customready')}>커스텀 이동</button>
+      <button onClick={() => navigate('/clubregister')}>클럽가입 이동</button>
     </div>
   );
 }
