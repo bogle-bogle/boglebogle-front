@@ -28,17 +28,20 @@ function CustomReadyPage() {
         },
       })
       .then((res) => {
-         // HTTP 상태 코드 확인
+        // HTTP 상태 코드 확인
         console.log('HTTP Status Code:', res.status);
 
-          // 서버에서 반환한 데이터 확인
+        // 서버에서 반환한 데이터 확인
         console.log('Data from the server:', res.data);
         const authorizationHeader = res.headers.authorization;
-        console.log('Authorization Token from the server:', authorizationHeader);
+        console.log(
+          'Authorization Token from the server:',
+          authorizationHeader,
+        );
         const transformedData = res.data.map((item) => ({
           codeValue: item.codeValue,
           name: item.name,
-          photo: item.photo
+          photo: item.photo,
         }));
         setPetData(transformedData);
       })
@@ -46,7 +49,6 @@ function CustomReadyPage() {
         console.log('Error fetching pet codes:', Error);
       });
   }, []);
-
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
@@ -195,7 +197,9 @@ function CustomReadyPage() {
             {petData.map((pet) => (
               <div key={pet.codeValue} className="pet-info">
                 <div
-                  className={`pet-card ${selectedPet === pet ? 'selected' : ''}`}
+                  className={`pet-card ${
+                    selectedPet === pet ? 'selected' : ''
+                  }`}
                   onClick={() => handlePetClick(pet)}
                 >
                   <div className="pet-photo">
@@ -216,7 +220,6 @@ function CustomReadyPage() {
                     )}
                     {pet.name}
                   </div>
-                  
                 </div>
               </div>
             ))}
