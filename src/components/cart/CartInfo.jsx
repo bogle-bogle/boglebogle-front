@@ -28,12 +28,12 @@ function CartInfo({ totalAmount, onOrderSheet }) {
         <OrderAmountBox>
           <OrderTextBox>
             <OrderText>총 주문금액</OrderText>
-            <OrderText>{formatPrice(totalAmount)}</OrderText>
+            <OrderText>{formatPrice(totalAmount)} 원</OrderText>
           </OrderTextBox>
           <Divider />
           <OrderTextBox>
             <OrderText>상품금액</OrderText>
-            <OrderText>{formatPrice(totalAmount)}</OrderText>
+            <OrderText>{formatPrice(totalAmount)} 원</OrderText>
           </OrderTextBox>
           <OrderTextBox>
             <OrderText>배송비</OrderText>
@@ -44,17 +44,19 @@ function CartInfo({ totalAmount, onOrderSheet }) {
         <OrderDiscountBox>
           <OrderTextBox>
             <OrderText>총 할인금액</OrderText>
-            <OrderText>0원</OrderText>
+            <OrderText>0 원</OrderText>
           </OrderTextBox>
           <OrderTextBox>
             <OrderText>혜택할인가</OrderText>
-            <OrderText>-0원</OrderText>
+            <OrderText>-0 원</OrderText>
           </OrderTextBox>
         </OrderDiscountBox>
         <OrderResultBox>
           <p>
             <strong>결제 예정 금액</strong>
-            <strong>{formatPrice(totalAmount)}</strong>
+          </p>
+          <p>
+            <strong>{formatPrice(totalAmount)} 원</strong>
           </p>
         </OrderResultBox>
         <p style={{ fontSize: '13px', color: '#888888' }}>

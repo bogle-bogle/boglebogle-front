@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {
+  CategoryP,
   PageNationContainer,
   PageNumber,
   ProductCard,
@@ -53,29 +54,36 @@ function ProductList() {
   }
 
   return (
-    <ProductContainer>
-      {productList.map((product, idx) => (
-        <ProductCard
-          key={idx}
-          onClick={() => navigate(`/detail/${product.id}`)}
-        >
-          <ProductImg
-            src={
-              'https://tohomeimage.thehyundai.com/PD/PDImages/S/5/7/2/0093766001275_01.jpg?RS=720x864'
-            }
-          ></ProductImg>
-          <ProductPrice>{product.price}원</ProductPrice>
-          <ProductSummary>{product.name}</ProductSummary>
-        </ProductCard>
-      ))}
-      <PageNationContainer>
-        {count.map((c, idx) => (
-          <PageNumber flag={c} onClick={() => handlePage(idx + 1)}>
-            {idx + 1}
-          </PageNumber>
+    <div>
+      <CategoryP>{'SHOPPING  >  식품  >  강아지'}</CategoryP>
+      <ProductContainer>
+        {productList.map((product, idx) => (
+          <ProductCard
+            key={idx}
+            onClick={() => navigate(`/detail/${product.id}`)}
+          >
+            <ProductImg
+              src={
+                'https://tohomeimage.thehyundai.com/PD/PDImages/S/5/7/2/0093766001275_01.jpg?RS=720x864'
+              }
+            ></ProductImg>
+            <ProductPrice>{product.price}원</ProductPrice>
+            <ProductSummary>{product.name}</ProductSummary>
+          </ProductCard>
         ))}
-      </PageNationContainer>
-    </ProductContainer>
+        {productList.length < 20 &&
+          Array(4 - (productList.length % 4))
+            .fill()
+            .map(() => <ProductCard></ProductCard>)}
+        <PageNationContainer>
+          {count.map((c, idx) => (
+            <PageNumber flag={c} onClick={() => handlePage(idx + 1)}>
+              {idx + 1}
+            </PageNumber>
+          ))}
+        </PageNationContainer>
+      </ProductContainer>
+    </div>
   );
 }
 

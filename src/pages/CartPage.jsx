@@ -5,8 +5,8 @@ import CartContainer from '../components/cart/CartContainer';
 function CartPage() {
   return (
     <>
-      <CartHeader></CartHeader>
-      <CartContainer></CartContainer>
+      <CartHeader />
+      <CartContainer />
     </>
   );
 }
