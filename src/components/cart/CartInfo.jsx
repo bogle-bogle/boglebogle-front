@@ -52,8 +52,12 @@ function CartInfo({ totalAmount, onOrderSheet }) {
           </OrderTextBox>
         </OrderDiscountBox>
         <OrderResultBox>
-          <p><strong>결제 예정 금액</strong></p>
-          <p><strong>{formatPrice(totalAmount)} 원</strong></p>
+          <p>
+            <strong>결제 예정 금액</strong>
+          </p>
+          <p>
+            <strong>{formatPrice(totalAmount)} 원</strong>
+          </p>
         </OrderResultBox>
         <p style={{ fontSize: '13px', color: '#888888' }}>
           * 실제 결제 금액은 할인 및 추가혜택에 따라 달라질 수 있습니다.

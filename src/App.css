@@ -1,7 +1,14 @@
 .appContainer {
-  border: 1px solid transparent;
-  width: 65%;
-  @media (max-width: 768px) {
-    width: 100%;
+  width: 100%;
+  justify-items: center;
+}
+
+.contentsContainer {
+  margin-top: 1rem;
+  margin-left: 15vw;
+  margin-right: 15vw;
+
+  @media (max-width: 1100px) {
+    margin: 0;
   }
 }

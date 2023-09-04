@@ -3,7 +3,7 @@ import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
 import {
   TableContainer1,
   OrderButton,
-  DiscountTable
+  DiscountTable,
 } from './OrderProducts.style';
 
 function OrderProducts({ cartItemArray, totalAmount }) {
@@ -88,19 +88,16 @@ function OrderProducts({ cartItemArray, totalAmount }) {
           ))}
         </tbody>
       </TableContainer1>
-
       <h2>할인 및 적립</h2>
       <DiscountTable>
-          <tbody>
-            <tr>
-              <selectTd>이름</selectTd>
-              <discountboxTd>전화번호 010-1234-5678</discountboxTd>
-            </tr>
-          </tbody>
+        <tbody>
+          <tr>
+            <selectTd>이름</selectTd>
+            <discountboxTd>전화번호 010-1234-5678</discountboxTd>
+          </tr>
+        </tbody>
       </DiscountTable>
-
       <h1>최종가격 : {price} 원</h1>
-
       <div id="payment-widget" />
       <div id="agreement" />
       주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에 동의합니다.
