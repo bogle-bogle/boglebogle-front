@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker'; // react-datepicker를 import
 import { useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import infoImg from '../../assets/club/클럽 가입하기.png';
-import AgreementPopup from '../modal/Modal.jsx';
+import Modal from '../modal/Modal.jsx';
 
 import {
   Title,
@@ -23,6 +23,7 @@ import {
   PetFavoriteFoodIngredients,
   PetImgUrl,
   PetBreedCode,
+  AnimalSize,
   PetAnimalTypeCode,
   StyledButton,
   Button,
@@ -85,6 +86,9 @@ function ClubRegister() {
   const [breedCodes, setBreedCodes] = useState();
   const [selectedBreedCode, setSelectedBreedCode] = useState('');
 
+  const [animalSizes, setAnimalSizes] = useState();
+  const [selectedAnimalSize, setSelectedAnimalSize] = useState('');
+
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -125,8 +129,17 @@ function ClubRegister() {
         );
 
         setBreedCodes(
-          transformedData.filter((item) => item.codeValue.includes('D')),
+          transformedData.filter((item) =>  /^D\d+/.test(item.codeValue)),
         );
+
+        setAnimalSizes(
+          transformedData.filter((item) =>
+            ['D-BG', 'D-MD', 'D-SM'].some((pattern) =>
+              item.codeValue.includes(pattern),
+            ),
+          ),
+        );
+        
       })
       .catch((Error) => {
         console.log('Error fetching pet codes:', Error);
@@ -147,6 +160,10 @@ function ClubRegister() {
 
   const handleBreedCodeChange = (event) => {
     setSelectedBreedCode(event.target.value);
+  };
+
+  const handleAnimalSizeClick = (codeValue) => {
+    setSelectedAnimalSize(codeValue);
   };
 
   const [agreed1, setAgreed1] = useState(true); // 첫 번째 그룹의 상태
@@ -239,8 +256,13 @@ function ClubRegister() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     if (!agreed1) {
+      // 동의하지 않았을 때 모달을 표시
+      setShowAgreementPopup(true);
+      return; // 이후 로직을 실행하지 않음
+    }
+
+    if (!agreed2) {
       // 동의하지 않았을 때 모달을 표시
       setShowAgreementPopup(true);
       return; // 이후 로직을 실행하지 않음
@@ -268,6 +290,7 @@ function ClubRegister() {
       imgUrl: imgUrl,
       breedCode: selectedBreedCode,
       animalTypeCode: selectedAnimalTypeCode,
+      animalSizes: selectedAnimalSize
     };
     if (photoUrl !== null) {
       clubData.photo = photoUrl[0];
@@ -279,7 +302,7 @@ function ClubRegister() {
     try {
       const response = await axios.post('api/club', clubData, {
         headers: {
-          Authorizations: `Bearer ${member.jwt.accessToken}`,
+          Authorization: `Bearer ${member.jwt.accessToken}`,
         },
       });
 
@@ -290,8 +313,16 @@ function ClubRegister() {
     }
   };
   return (
+    
     <form onSubmit={handleFormSubmit}>
       {windowWidth <= 768 ? (
+        <>
+        {showAgreementPopup && (
+          <Modal>
+          <p>필수 사항을 모두 체크해야 합니다.</p>
+          <button onClick={() => setShowAgreementPopup(false)}>닫기</button>
+        </Modal>
+        )}
         <MobileMedia>
           <MTitle>클럽가입</MTitle>
           <LogoContainer>
@@ -306,7 +337,7 @@ function ClubRegister() {
           <SidebarItem gridArea="MSidebar4">반려동물 생일</SidebarItem>
           <MSidebar5>반려동물 알러지</MSidebar5>
           <MSidebar6>반려동물 사료</MSidebar6>
-          <SidebarItem gridArea="MSidebar7">반려동물 견종</SidebarItem>
+          <SidebarItem gridArea="MSidebar7">반려동물 견종 및 크기</SidebarItem>
 
           <MPetAnimalTypeCode>
             {animalTypeCodes.map((code) => (
@@ -478,19 +509,21 @@ function ClubRegister() {
           <MButton>
             <BlackButton
               type="submit"
-              disabled={!agreed1}
               onClick={handleAgreementButtonClick}
             >
               가입하기
             </BlackButton>
           </MButton>
-          {showAgreementPopup && (
-            <AgreementPopup onClose={() => setShowAgreementPopup(false)}>
-              message="필수 사항을 모두 체크해야 합니다."
-            </AgreementPopup>
-          )}
         </MobileMedia>
+        </>
       ) : (
+        <>
+        {showAgreementPopup && (
+          <Modal>
+          <p>필수 사항을 모두 체크해야 합니다.</p>
+          <button onClick={() => setShowAgreementPopup(false)}>닫기</button>
+        </Modal>
+        )}
         <StyledClubContainer>
           <Title>클럽가입</Title>
           <LogoContainer>
@@ -505,7 +538,7 @@ function ClubRegister() {
           <SidebarItem gridArea="Sidebar4">반려동물 생일</SidebarItem>
           <Sidebar5>반려동물 알러지</Sidebar5>
           <Sidebar6>반려동물 사료</Sidebar6>
-          <SidebarItem gridArea="Sidebar7">반려동물 견종</SidebarItem>
+          <SidebarItem gridArea="Sidebar7">반려동물 견종 및 크기</SidebarItem>
 
           <PetAnimalTypeCode>
             {animalTypeCodes.map((code) => (
@@ -633,6 +666,21 @@ function ClubRegister() {
                 ))}
             </select>
           </PetBreedCode>
+          {/* <AnimalSize>
+            {animalSizes.map((code) => (
+              <StyledButton
+                type="button"
+                key={code.codeValue}
+                onClick={() => handleAnimalSizeClick(code.codeValue)}
+                active={selectedAnimalSize === code.codeValue}
+                className={
+                  selectedAnimalSize === code.codeValue ? 'selected' : ''
+                }
+              >
+                {code.name}
+              </StyledButton>
+            ))}
+          </AnimalSize> */}
           <AgreementSection1>
             <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
             <AgreementRadioGroup>
@@ -676,18 +724,14 @@ function ClubRegister() {
           <Button>
             <BlackButton
               type="submit"
-              disabled={!agreed1}
               onClick={handleAgreementButtonClick}
             >
               가입하기
             </BlackButton>
           </Button>
-          {showAgreementPopup && (
-            <AgreementPopup onClose={() => setShowAgreementPopup(false)}>
-              message="필수 사항을 모두 체크해야 합니다."
-            </AgreementPopup>
-          )}
+          
         </StyledClubContainer>
+        </>
       )}
     </form>
   );
