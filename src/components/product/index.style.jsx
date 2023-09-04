@@ -79,3 +79,134 @@ export const CategoryP = styled.p`
 
   font-size: 17px;
 `;
+
+export const FilterCategoryContainer = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+`;
+
+export const FilterCategoryRow = styled.div`
+  width: 100%;
+  height: auto;
+
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+
+  display: flex;
+`;
+
+export const FilterCategoryTitle = styled.div`
+  width: 20%;
+  height: auto;
+
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 1vh;
+`;
+
+export const CategoryElementContainer = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+
+  flex-wrap: wrap;
+`;
+
+export const CategoryElement = styled.div`
+  width: 170px;
+  height: auto;
+
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+
+  margin: 1vh;
+
+  color: ${(props) => (props.isChecked ? '#2F9861' : 'black')};
+
+  cursor: pointer;
+`;
+
+export const MiddleContainer = styled.div`
+  width: 100%;
+  height: 50px;
+
+  margin: 3vh 0 3vh 0;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const MiddleCategoryContainer = styled.div`
+  width: 40%;
+  height: 100%;
+
+  display: flex;
+`;
+
+export const MiddleCategoryElement = styled.div`
+  width: 25%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  border: 1px solid lightgray;
+`;
+
+export const MiddlePagenationContainer = styled.div`
+  width: 10%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MiddlePageContainer = styled.div`
+  width: 40%;
+  height: 100%;
+
+  display: flex;
+  justify-content: end;
+`;
+
+export const PageArrow = styled.div`
+  width: 10%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  border: 1px solid lightgray;
+`;
+
+export const PageState = styled.div`
+  width: 20%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
+
+  border: 1px solid lightgray;
+`;
