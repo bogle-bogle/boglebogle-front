@@ -12,7 +12,7 @@ import OrderComplete from './pages/OrderComplete';
 import Subscription from './pages/Subscription';
 import Heendycar from './pages/Heendycar';
 import ClubRegister from './components/club/ClubRegister';
-import CompleteClubRegister from './pages/CompleteClubRegister';
+import CompleteClubRegister from './components/club/CompleteClubRegister';
 import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
 import HyundaiCard from './pages/HyundaiCard';
