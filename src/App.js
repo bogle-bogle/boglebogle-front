@@ -5,7 +5,6 @@ import Main from './pages/Main';
 import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
-import Header from './components/header/Header';
 import Cart from './pages/CartPage';
 import Ordersheet from './pages/OrderSheetPage';
 import OrderComplete from './pages/OrderComplete';
@@ -23,9 +22,7 @@ import MainLayout from './pages/MainLayout';
 
 function App() {
   return (
-    // <div className="appContainer">
     <Router>
-      {/* <Header /> */}
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/customready" element={<CustomReadyPage />} />
@@ -52,7 +49,6 @@ function App() {
         <Route path="/admin" element={<Admin />}></Route>
       </Routes>
     </Router>
-    // </div>
   );
 }
 
