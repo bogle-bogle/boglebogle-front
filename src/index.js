@@ -7,14 +7,17 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import { HelmetProvider } from 'react-helmet-async';
 
 let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
+    <HelmetProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </HelmetProvider>
   </Provider>,
 );
 
