@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { HiMenu } from 'react-icons/hi';
@@ -6,9 +6,11 @@ import { IoClose } from 'react-icons/io5';
 import logo from '../../assets/thepet_logo_img.png';
 import { BiSolidUser } from 'react-icons/bi';
 import { Header, StyledNavLink } from './Header2.style';
+import { useSelector } from 'react-redux';
 
 function Header2() {
   const navigate = useNavigate();
+  const member = useSelector((state) => state.member); // 추가
   const menuList = [
     {
       title: '구독',
@@ -36,6 +38,14 @@ function Header2() {
   const [isToggled, setIsToggled] = useState(false);
   // 사용자 toggle state
   const [userToggled, setUserToggled] = useState(false);
+
+  // 로그인 설정
+  const Rest_api_key = process.env.REACT_APP_KAKAO_REST_API_KEY; //REST API KEY
+  const redirect_uri = 'http://localhost:3000/auth'; //Redirect URI
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+  const handleLogin = () => {
+    window.location.href = kakaoURL;
+  };
 
   return (
     <Header isToggled={isToggled} userToggled={userToggled}>
@@ -83,10 +93,13 @@ function Header2() {
       {/* User 메뉴 리스트 */}
       <div className="header__right">
         <div className="list__container">
-          <StyledNavLink to="/login">로그인</StyledNavLink>
+          {/* <StyledNavLink to="/login">로그인</StyledNavLink> */}
+          <StyledNavLink to="" onClick={handleLogin}>
+            {member.name ? `${member.name}님` : '로그인'}
+          </StyledNavLink>{' '}
         </div>
         <div className="list__container">
-          <StyledNavLink to="/join">회원가입</StyledNavLink>
+          <StyledNavLink to="/clubregister">클럽 흰디 가입</StyledNavLink>
         </div>
       </div>
     </Header>
