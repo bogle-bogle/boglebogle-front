@@ -11,12 +11,15 @@ import OrderComplete from './pages/OrderComplete';
 import Subscription from './pages/Subscription';
 import Heendycar from './pages/Heendycar';
 import ClubRegister from './components/club/ClubRegister';
-import CompleteClubRegister from './pages/CompleteClubRegister';
+import CompleteClubRegister from './components/club/CompleteClubRegister';
 import MyPet from './pages/MyPet';
 import ProductDetail from './components/product/ProductDetail';
 import HyundaiCard from './pages/HyundaiCard';
 import MbtiTest from './pages/MbtiTest';
 import Example from './pages/Example';
+import { Helmet } from 'react-helmet-async';
+import Header2 from './components/header/Header2';
+import GlobalStyle from './styles/GlobalStyle';
 import Admin from './pages/Admin';
 import MainLayout from './pages/MainLayout';
 

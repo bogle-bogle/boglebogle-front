@@ -1,8 +1,26 @@
+@font-face {
+  font-family: 'HappinessSansRegular';
+  src: local('HappinessSansRegular'),
+    url('./fonts/Happiness-Sans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'HappinessSansBold';
+  src: local('HappinessSansBold'),
+    url('./fonts/Happiness-Sans-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'HappinessSansTitle';
+  src: local('HappinessSansTitle'),
+    url('./fonts/Happiness-Sans-Title.woff2') format('woff2');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: HappinessSansRegular, HappinessSansBold, HappinessSansTitle,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
