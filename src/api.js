@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const serverUrl = 'http://localhost:8080/';
-// const serverUrl = 'http://52.78.209.66:8080/';
+const serverUrl = 'http://52.78.209.66:8080/';
 
 async function get(endpoint, params = '') {
   return axios.get(serverUrl + endpoint + '/' + params);

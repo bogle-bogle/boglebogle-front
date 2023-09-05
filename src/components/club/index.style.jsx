@@ -15,7 +15,7 @@ export const StyledClubContainer = styled.div`
     'Sidebar5 Sidebar5 proteinCodes proteinCodes proteinCodes'
     'Sidebar6 Sidebar6 imgUrl favoriteFoodIngredients favoriteFoodIngredients'
     'Sidebar6 Sidebar6 imgUrl favoriteFoodIngredients favoriteFoodIngredients'
-    'Sidebar7 Sidebar7 breedCode breedCode breedCode'
+    'Sidebar7 Sidebar7 breedCode animalSize animalSize'
     'agreement1 agreement1 agreement1 agreement1 agreement1'
     'agreement2 agreement2 agreement2 agreement2 agreement2'
     'button button button button button';
@@ -132,6 +132,12 @@ export const PetBreedCode = styled.div`
   display: flex;
   align-items: center;
 `;
+export const AnimalSize = styled.div`
+  grid-area: animalSize;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+`;
 
 export const PetAnimalTypeCode = styled.div`
   grid-area: animalTypeCode;
@@ -206,7 +212,7 @@ export const MobileMedia = styled.div`
     'MfavoriteFoodIngredient MfavoriteFoodIngredient MfavoriteFoodIngredient'
     'MfavoriteFoodIngredient MfavoriteFoodIngredient MfavoriteFoodIngredient'
     'MSidebar7 MSidebar7 MSidebar7'
-    'MBreedCode MBreedCode MBreedCode'
+    'MBreedCode ManimalSize ManimalSize'
     'agreement1 agreement1 agreement1'
     'agreement2 agreement2 agreement2'
     'MButton MButton MButton';
@@ -214,6 +220,12 @@ export const MobileMedia = styled.div`
   gap: 10px;
 `;
 
+export const MAnimalSize = styled.div`
+  grid-area: ManimalSize;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+`;
 export const MTitle = styled.div`
   grid-area: MTitle;
   width: 100%;

@@ -11,6 +11,8 @@ import axios from 'axios';
 function CustomReadyPage() {
   const member = useSelector((state) => state.member);
 
+  const [selectedPet, setSelectedPet] = useState(null);
+
   const [selectedFeedImage, setSelectedFeedImage] = useState(null);
   const [selectedIngredientImage, setSelectedIngredientImage] = useState(null);
 
@@ -20,13 +22,26 @@ function CustomReadyPage() {
   const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
   useEffect(() => {
     axios
-      .get(`/api/pet`)
+      .get(`/api/pet`, {
+        headers: {
+          Authorization: `Bearer ${member.jwt.accessToken}`, // 토큰을 Authorization 헤더에 추가
+        },
+      })
       .then((res) => {
+        // HTTP 상태 코드 확인
+        console.log('HTTP Status Code:', res.status);
+
+        // 서버에서 반환한 데이터 확인
+        console.log('Data from the server:', res.data);
+        const authorizationHeader = res.headers.authorization;
+        console.log(
+          'Authorization Token from the server:',
+          authorizationHeader,
+        );
         const transformedData = res.data.map((item) => ({
           codeValue: item.codeValue,
           name: item.name,
           photo: item.photo,
-          img: item.img,
         }));
         setPetData(transformedData);
       })
@@ -35,6 +50,14 @@ function CustomReadyPage() {
       });
   }, []);
 
+  const handlePetClick = (pet) => {
+    // 현재 선택된 펫을 업데이트
+    setSelectedPet(pet);
+  };
+  const handlePlaceholderClick = (pet) => {
+    // 현재 선택된 펫을 null로 설정하여 테두리 제거
+    setSelectedPet(pet);
+  };
   const handleFileInputChange = (imageKey) => (event) => {
     handleImageUpload(event, imageKey);
   };
@@ -173,10 +196,31 @@ function CustomReadyPage() {
           <div className="myPet-box">
             {petData.map((pet) => (
               <div key={pet.codeValue} className="pet-info">
-                <div className="pet-photo">
-                  <img src={pet.photo} alt={pet.name} />
+                <div
+                  className={`pet-card ${
+                    selectedPet === pet ? 'selected' : ''
+                  }`}
+                  onClick={() => handlePetClick(pet)}
+                >
+                  <div className="pet-photo">
+                    {pet.photo ? (
+                      <img src={pet.photo} alt={pet.name} />
+                    ) : (
+                      <div
+                        className={`placeholder ${
+                          selectedPet === pet ? 'selected' : ''
+                        }`}
+                        onClick={() => handlePlaceholderClick(pet)}
+                      ></div>
+                    )}
+                  </div>
+                  <div className="pet-name">
+                    {selectedPet === pet && (
+                      <span className="check-mark">&#10003;</span>
+                    )}
+                    {pet.name}
+                  </div>
                 </div>
-                <div className="pet-name">{pet.name}</div>
               </div>
             ))}
           </div>
