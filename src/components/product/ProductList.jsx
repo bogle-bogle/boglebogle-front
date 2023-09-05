@@ -18,6 +18,7 @@ import {
   ProductImg,
   ProductPrice,
   ProductSummary,
+  TestInput,
 } from './index.style';
 import { useNavigate } from 'react-router-dom';
 import CategoryFilterButton from './CategoryFilterButton';
@@ -123,14 +124,10 @@ function ProductList() {
         {productList.map((product, idx) => (
           <ProductCard
             key={idx}
-            onClick={() => navigate(`/detail/${product.id}`)}
+            onClick={() => navigate(`/product/${product.id}`)}
           >
-            <ProductImg
-              src={
-                'https://tohomeimage.thehyundai.com/PD/PDImages/S/5/7/2/0093766001275_01.jpg?RS=720x864'
-              }
-            ></ProductImg>
-            <ProductPrice>{product.price}원</ProductPrice>
+            <ProductImg src={`${product.mainImgUrl}`}></ProductImg>
+            <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
             <ProductSummary>{product.name}</ProductSummary>
           </ProductCard>
         ))}

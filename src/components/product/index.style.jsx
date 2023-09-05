@@ -21,6 +21,8 @@ export const ProductCard = styled.div`
 
   padding: 0;
   margin: 0;
+
+  cursor: pointer;
 `;
 
 export const ProductImg = styled.img`
