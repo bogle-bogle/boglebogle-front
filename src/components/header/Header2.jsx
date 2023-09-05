@@ -96,7 +96,8 @@ function Header2() {
           {/* <StyledNavLink to="/login">로그인</StyledNavLink> */}
           <StyledNavLink to="" onClick={handleLogin}>
             {member.name ? `${member.name}님` : '로그인'}
-          </StyledNavLink>        </div>
+          </StyledNavLink>{' '}
+        </div>
         <div className="list__container">
           <StyledNavLink to="/clubregister">클럽 흰디 가입</StyledNavLink>
         </div>

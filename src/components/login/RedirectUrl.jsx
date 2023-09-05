@@ -64,8 +64,10 @@ function RedirectUrl() {
   }, [dispatch]);
 
   return (
-    <div style={{margin: '200px', textAlign: 'center'}} >
-      <h1>{member.name}님 <br/> 로그인되었습니다.</h1>
+    <div style={{ margin: '200px', textAlign: 'center' }}>
+      <h1>
+        {member.name}님 <br /> 로그인되었습니다.
+      </h1>
       <button onClick={() => navigate('/')}>메인페이지로 이동하기</button>
     </div>
   );
