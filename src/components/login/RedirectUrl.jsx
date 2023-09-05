@@ -3,8 +3,11 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { memberAction } from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { margin, textAlign } from '@mui/system';
 
 function RedirectUrl() {
+  const member = useSelector((state) => state.member);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -41,6 +44,7 @@ function RedirectUrl() {
           )
           .then((res) => {
             const { kakao_account, id } = res.data;
+            console.info(res.data);
             const data = {
               socialId: id,
               name: kakao_account.profile.nickname,
@@ -49,7 +53,7 @@ function RedirectUrl() {
               imgUrl: kakao_account.profile.profile_image_url,
             };
             axios.post(`/api/member/login`, data).then((res) => {
-              console.info(data);
+              console.info(res.data);
               dispatch(memberAction.setMemeber(res.data));
             });
           });
@@ -60,12 +64,11 @@ function RedirectUrl() {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>로그인 중</h1>
-      <button onClick={() => navigate('/cart')}>장바구니 이동</button>
-      <button onClick={() => navigate('/heendycar')}>흰디카 이동</button>
-      <button onClick={() => navigate('/customready')}>커스텀 이동</button>
-      <button onClick={() => navigate('/clubregister')}>클럽가입 이동</button>
+    <div style={{ margin: '200px', textAlign: 'center' }}>
+      <h1>
+        {member.name}님 <br /> 로그인되었습니다.
+      </h1>
+      <button onClick={() => navigate('/')}>메인페이지로 이동하기</button>
     </div>
   );
 }
