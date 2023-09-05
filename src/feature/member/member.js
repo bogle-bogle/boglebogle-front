@@ -22,7 +22,8 @@ const memberSlice = createSlice({
   initialState: initialMemberState,
   reducers: {
     setMemeber: (state, action) => {
-      state = { ...state, ...action.payload };
+      console.log(action.payload);
+      state = { ...action.payload.member, pet: [...action.payload.pets] };
       return state;
     },
   },

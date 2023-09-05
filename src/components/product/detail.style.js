@@ -172,3 +172,56 @@ export const DescImg = styled.img`
   width: auto;
   height: auto;
 `;
+
+export const CartModalContainer = styled.div`
+  width: 500px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CartModalP = styled.p`
+  font-size: 16px;
+  margin: 0;
+`;
+
+export const CartModalButtonContainer = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 5vh;
+`;
+
+export const CoutinueShopButton = styled.button`
+  width: 200px;
+  height: 70px;
+
+  border: 1px solid lightgray;
+  background-color: white;
+  color: black;
+
+  font-weight: bold;
+  font-size: 18px;
+
+  cursor: pointer;
+`;
+
+export const MoveCartButton = styled.button`
+  width: 200px;
+  height: 70px;
+
+  border: 1px solid #a5a12f;
+  background-color: #918c00;
+  color: white;
+
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+`;
