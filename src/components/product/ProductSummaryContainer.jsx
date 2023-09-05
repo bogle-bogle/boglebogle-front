@@ -20,7 +20,7 @@ import {
 import { AiOutlineGift, AiOutlineHeart } from 'react-icons/ai';
 import { BsShare } from 'react-icons/bs';
 import clubHeendy from '../../assets/detail/club_heendy.png';
-function ProductSummaryContainer({ productInfo }) {
+function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
   return (
     <ProductSummary>
       <ProductDetailImg src={`${productInfo.mainImgUrl}`}></ProductDetailImg>
@@ -73,7 +73,9 @@ function ProductSummaryContainer({ productInfo }) {
           <ClubHeendyDiscount>흰디클럽 할인10%</ClubHeendyDiscount>
         </ClubHeendyContainer>
         <ButtonContainer>
-          <DetailButton flag={true}>장바구니</DetailButton>
+          <DetailButton flag={true} onClick={handleShoppingBasket}>
+            장바구니
+          </DetailButton>
           <DetailButton flag={false}>바로구매</DetailButton>
         </ButtonContainer>
       </ProductInfoContainer>
