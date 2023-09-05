@@ -30,7 +30,7 @@ function ProductRecommendation() {
   return (
     <RcContainer>
       <RcTitle>
-        {}와 같은 {}연령의 {}들은 주로 이런 상품을 구매했어요.
+        ${}와 같은 {}연령의 {}들은 주로 이런 상품을 구매했어요.
       </RcTitle>
 
       <ProductContainer>
