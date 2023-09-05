@@ -1,17 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
+import { nanoid } from 'nanoid';
+import { useSelector } from 'react-redux';
 import {
-  TableContainer1,
+  OrderItemsTable,
   OrderButton,
   DiscountTable,
 } from './OrderProducts.style';
+import axios from 'axios';
 
 function OrderProducts({ cartItemArray, totalAmount }) {
   console.log('order', cartItemArray[0].name);
+  console.log('order', cartItemArray.length);
 
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
+  const member = useSelector((state) => state.member);
+  const navigate = useNavigate();
 
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
   const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
@@ -50,24 +57,25 @@ function OrderProducts({ cartItemArray, totalAmount }) {
 
     try {
       await paymentWidget?.requestPayment({
-        orderId: customerKey,
-        orderName: '토스 티셔츠 외 2건',
-        customerName: '김토스',
-        customerEmail: 'customer123@gmail.com',
-        successUrl: `${window.location.origin}/success`,
+        orderId: nanoid(),
+        orderName: `${cartItemArray[0].name} 외 ${cartItemArray.length}건`,
+        customerName: `${member.name}`,
+        customerEmail: `${member.email}`,
+        successUrl: `${window.location.origin}/ordercomplete`,
         failUrl: `${window.location.origin}/fail`,
       });
     } catch (error) {
-      // 에러 처리하기
       console.error(error);
     }
   };
 
   return (
     <div>
-      <TableContainer1>
-        <h2>주문상품</h2>
+      <OrderItemsTable>
         <thead>
+          <tr>
+            <h2>주문상품</h2>
+          </tr>
           <tr>
             <th>상품정보/옵션정보</th>
             <th>수량</th>
@@ -78,16 +86,19 @@ function OrderProducts({ cartItemArray, totalAmount }) {
         </thead>
         <tbody>
           {cartItemArray.map((cartItem) => (
-            <tr key={cartItem.id}>
-              <td>{cartItem.name}</td>
-              <td>{cartItem.cnt}</td>
-              <td>{cartItem.price}</td>
+            <tr>
+              <td>
+                <img src={cartItem.mainImgUrl} alt={cartItem.name} />
+                <p>{cartItem.name}</p>
+              </td>
+              <td>{cartItem.cnt}개</td>
+              <td>{cartItem.price}원</td>
               <td>0원</td>
               <td>무료배송</td>
             </tr>
           ))}
         </tbody>
-      </TableContainer1>
+      </OrderItemsTable>
       <h2>할인 및 적립</h2>
       <DiscountTable>
         <tbody>
