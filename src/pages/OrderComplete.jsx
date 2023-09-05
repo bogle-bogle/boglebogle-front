@@ -32,7 +32,9 @@ function OrderComplete() {
     <div>
       <OrderCompleteHeader />
       <CompleteMessage />
-      {orderItemsData!==null && <OrderInfo member={member} orderItemsData={orderItemsData} />}
+      {orderItemsData !== null && (
+        <OrderInfo member={member} orderItemsData={orderItemsData} />
+      )}
     </div>
   );
 }

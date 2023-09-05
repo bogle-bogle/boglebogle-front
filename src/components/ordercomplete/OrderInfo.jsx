@@ -118,7 +118,6 @@ function OrderInfo({ member, orderItemsData }) {
         </ConfirmButton>
         <MainButton>쇼핑 계속하기</MainButton>
       </ButtonContainer>
-
     </div>
   );
 }
