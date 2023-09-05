@@ -24,6 +24,7 @@ import {
   PetImgUrl,
   PetBreedCode,
   AnimalSize,
+  MAnimalSize,
   PetAnimalTypeCode,
   StyledButton,
   Button,
@@ -86,7 +87,7 @@ function ClubRegister() {
   const [breedCodes, setBreedCodes] = useState();
   const [selectedBreedCode, setSelectedBreedCode] = useState('');
 
-  const [animalSizes, setAnimalSizes] = useState();
+  const [animalSizes, setAnimalSizes] = useState([]);
   const [selectedAnimalSize, setSelectedAnimalSize] = useState('');
 
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
@@ -279,25 +280,22 @@ function ClubRegister() {
     const selectedCodesString = selectedProteinCodes.join(',');
 
     const clubData = {
-      photo: photoUrl,
+      petImgUrl: photoUrl,
       name: formData.name,
       birth: selectedBirthDate
         ? selectedBirthDate.toISOString().split('T')[0]
         : null,
-      proteinCode: selectedCodesString,
-      favoriteFoodIngredients: formData.favoriteFoodIngredients,
-      imgUrl: imgUrl,
+      allergyCode: selectedCodesString,
       breedCode: selectedBreedCode,
       animalTypeCode: selectedAnimalTypeCode,
-      animalSizes: selectedAnimalSize,
+      sizeCode: selectedAnimalSize,
     };
     if (photoUrl !== null) {
-      clubData.photo = photoUrl[0];
+      clubData.petImgUrl = photoUrl[0];
+    }else{
+      clubData.petImgUrl = null;
     }
-    if (imgUrl !== null) {
-      clubData.imgUrl = imgUrl[1];
-    }
-
+    console.log(clubData)
     try {
       const response = await axios.post('api/club', clubData, {
         headers: {
@@ -466,6 +464,21 @@ function ClubRegister() {
                   ))}
               </select>
             </MPetBreedCode>
+            <MAnimalSize>
+              {animalSizes.map((code) => (
+                <StyledButton
+                  type="button"
+                  key={code.codeValue}
+                  onClick={() => handleAnimalSizeClick(code.codeValue)}
+                  active={selectedAnimalSize === code.codeValue}
+                  className={
+                    selectedAnimalSize === code.codeValue ? 'selected' : ''
+                  }
+                >
+                  {code.name}
+                </StyledButton>
+              ))}
+            </MAnimalSize>
             <AgreementSection1>
               <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
               <AgreementRadioGroup>
@@ -663,21 +676,21 @@ function ClubRegister() {
                   ))}
               </select>
             </PetBreedCode>
-            {/* <AnimalSize>
-            {animalSizes.map((code) => (
-              <StyledButton
-                type="button"
-                key={code.codeValue}
-                onClick={() => handleAnimalSizeClick(code.codeValue)}
-                active={selectedAnimalSize === code.codeValue}
-                className={
-                  selectedAnimalSize === code.codeValue ? 'selected' : ''
-                }
-              >
-                {code.name}
-              </StyledButton>
-            ))}
-          </AnimalSize> */}
+            <AnimalSize>
+              {animalSizes.map((code) => (
+                <StyledButton
+                  type="button"
+                  key={code.codeValue}
+                  onClick={() => handleAnimalSizeClick(code.codeValue)}
+                  active={selectedAnimalSize === code.codeValue}
+                  className={
+                    selectedAnimalSize === code.codeValue ? 'selected' : ''
+                  }
+                >
+                  {code.name}
+                </StyledButton>
+              ))}
+            </AnimalSize>
             <AgreementSection1>
               <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
               <AgreementRadioGroup>
