@@ -1,12 +1,20 @@
 import React from 'react';
-import Header from '../components/header/Header';
 import { Outlet } from 'react-router-dom';
+import Header2 from '../components/header/Header2';
+import { Helmet } from 'react-helmet-async';
+import GlobalStyle from '../styles/GlobalStyle';
 
 function MainLayout() {
   return (
     <div className="appContainer">
-      <Header></Header>
-      <Outlet />
+      <div className="contentsContainer">
+        <GlobalStyle />
+        <Helmet>
+          <title>THEPET</title>
+        </Helmet>
+        <Header2></Header2>
+        <Outlet />
+      </div>
     </div>
   );
 }
