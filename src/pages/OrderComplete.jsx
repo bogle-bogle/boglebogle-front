@@ -23,16 +23,16 @@ function OrderComplete() {
         },
       )
       .then((res) => {
-        console.log(res);
+        console.log('주문완료 상품들', res.data);
         setOrderItemsData(res.data);
       });
-  }, []);
+  }, [member.jwt.accessToken]);
 
   return (
     <div>
       <OrderCompleteHeader />
       <CompleteMessage />
-      <OrderInfo member={member} orderItemsData={orderItemsData} />
+      {orderItemsData!==null && <OrderInfo member={member} orderItemsData={orderItemsData} />}
     </div>
   );
 }

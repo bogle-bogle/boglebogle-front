@@ -13,16 +13,6 @@ import {
   MainButton,
   ArrowIcon,
 } from './OrderInfo.style';
-  MemberInfoTable,
-  OrderItemsTable,
-  PaymentInfoTable,
-  PlusIcon,
-  MinusIcon,
-  ButtonContainer,
-  ConfirmButton,
-  MainButton,
-  ArrowIcon,
-} from './OrderInfo.style';
 
 function OrderInfo({ member, orderItemsData }) {
   return (
@@ -128,17 +118,9 @@ function OrderInfo({ member, orderItemsData }) {
         </ConfirmButton>
         <MainButton>쇼핑 계속하기</MainButton>
       </ButtonContainer>
-      <ButtonContainer>
-        <ConfirmButton>
-          주문내역 확인
-          <ArrowIcon />
-        </ConfirmButton>
-        <MainButton>쇼핑 계속하기</MainButton>
-      </ButtonContainer>
+
     </div>
-  );
   );
 }
 
-export default OrderInfo;
 export default OrderInfo;
