@@ -11,23 +11,28 @@ function OrderComplete() {
 
   const [orderItemsData, setOrderItemsData] = useState(null);
 
-  useEffect(() =>{
-    axios.post(`/api/order/cart`, {}, {
-      headers : {
-        Authorization : 'Bearer ' + member.jwt.accessToken
-      }
-    }).then((res) => {
-      console.log(res);
-      setOrderItemsData(res.data);
-    })
-  }, [])
-
+  useEffect(() => {
+    axios
+      .post(
+        `/api/order/cart`,
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + member.jwt.accessToken,
+          },
+        },
+      )
+      .then((res) => {
+        console.log(res);
+        setOrderItemsData(res.data);
+      });
+  }, []);
 
   return (
     <div>
       <OrderCompleteHeader />
-      <CompleteMessage/>
-      <OrderInfo member={ member } orderItemsData={ orderItemsData } />
+      <CompleteMessage />
+      <OrderInfo member={member} orderItemsData={orderItemsData} />
     </div>
   );
 }

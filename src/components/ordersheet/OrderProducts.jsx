@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import {
   OrderItemsTable,
   OrderButton,
-  DiscountTable
+  DiscountTable,
 } from './OrderProducts.style';
 import axios from 'axios';
 
@@ -64,58 +64,51 @@ function OrderProducts({ cartItemArray, totalAmount }) {
         successUrl: `${window.location.origin}/ordercomplete`,
         failUrl: `${window.location.origin}/fail`,
       });
-
-      
     } catch (error) {
       console.error(error);
     }
-
-    
   };
 
   return (
     <div>
       <OrderItemsTable>
-            <thead>
-                <tr>
-                    <h2>주문상품</h2>
-                </tr>
-                <tr>
-                    <th>상품정보/옵션정보</th>
-                    <th>수량</th>
-                    <th>상품금액</th>
-                    <th>할인금액</th>
-                    <th>배송정보</th>
-                </tr>
-            </thead>
-            <tbody>
-                {cartItemArray.map((cartItem) => (
-                <tr>
-                    <td>
-                      <img src={cartItem.mainImgUrl} alt={cartItem.name} />
-                      <p>{cartItem.name}</p>
-                    </td>
-                    <td>{cartItem.cnt}개</td>
-                    <td>{cartItem.price}원</td>
-                    <td>0원</td>
-                    <td>무료배송</td>
-                </tr>
-                ))}
-            </tbody>
-        </OrderItemsTable>
-
+        <thead>
+          <tr>
+            <h2>주문상품</h2>
+          </tr>
+          <tr>
+            <th>상품정보/옵션정보</th>
+            <th>수량</th>
+            <th>상품금액</th>
+            <th>할인금액</th>
+            <th>배송정보</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cartItemArray.map((cartItem) => (
+            <tr>
+              <td>
+                <img src={cartItem.mainImgUrl} alt={cartItem.name} />
+                <p>{cartItem.name}</p>
+              </td>
+              <td>{cartItem.cnt}개</td>
+              <td>{cartItem.price}원</td>
+              <td>0원</td>
+              <td>무료배송</td>
+            </tr>
+          ))}
+        </tbody>
+      </OrderItemsTable>
       <h2>할인 및 적립</h2>
       <DiscountTable>
-          <tbody>
-            <tr>
-              <selectTd>이름</selectTd>
-              <discountboxTd>전화번호 010-1234-5678</discountboxTd>
-            </tr>
-          </tbody>
+        <tbody>
+          <tr>
+            <selectTd>이름</selectTd>
+            <discountboxTd>전화번호 010-1234-5678</discountboxTd>
+          </tr>
+        </tbody>
       </DiscountTable>
-
       <h1>최종가격 : {price} 원</h1>
-
       <div id="payment-widget" />
       <div id="agreement" />
       주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에 동의합니다.
