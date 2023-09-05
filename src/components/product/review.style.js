@@ -4,6 +4,8 @@ export const ReviewContainer = styled.div`
   height: 300px;
   border-top: 1px solid #888888;
   border-bottom: 1px solid #888888;
+
+  margin-top: 5vh;
 `;
 
 export const ReviewBanner = styled.div`

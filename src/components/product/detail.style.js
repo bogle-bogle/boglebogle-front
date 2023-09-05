@@ -12,13 +12,13 @@ export const CategoryP = styled.p`
 `;
 
 export const ProductSummary = styled.div`
-  /* display: flex; */
-  /* justify-content: space-between; */
   display: grid;
   grid-template-columns: 1fr 0.1fr 1.2fr;
   grid-template-areas: 'pimg . info';
+  grid-auto-rows: auto;
 
   width: 100%;
+  height: auto;
 `;
 
 export const ProductDetailImg = styled.img`
@@ -156,4 +156,19 @@ export const IngredientElement = styled.div`
   padding: 0.8%;
 
   margin: 0.5%;
+`;
+
+export const DescImgContainer = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+
+  margin-top: 3vh;
+`;
+
+export const DescImg = styled.img`
+  width: auto;
+  height: auto;
 `;

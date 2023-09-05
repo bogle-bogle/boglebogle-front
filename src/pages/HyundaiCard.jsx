@@ -5,6 +5,7 @@ import {
   CardCandidate,
   CardFlip,
   CardFront,
+  CardImg,
   CardInfoCol,
   CardInfoContainer,
   CardList,
@@ -15,48 +16,79 @@ import {
   SelectCardContainer,
 } from '../components/hyundaicard/card.style';
 import selectCardGreen from '../assets/card/hyundai_card_green.png';
-import greenCardFront from '../assets/card/hyundai_card_green_front.png';
 import selectCardPink from '../assets/card/hyundai_card_pink.png';
-import pinkCardFront from '../assets/card/hyundai_card_pink_front.png';
 import selectCardHeendy from '../assets/card/hyundai_card_heendy.png';
 import selectCardCustom from '../assets/card/hyundai_card_custom.png';
+
+import greenCardFront from '../assets/card/card_green_front.png';
+import greenCardBack from '../assets/card/card_green_back.png';
+
+import pinkCardFront from '../assets/card/card_pink_front.png';
+import pinkCardBack from '../assets/card/card_pink_back.png';
+
+import heendyCardFront from '../assets/card/card_heendy_front.png';
+import heendyCardBack from '../assets/card/card_heendy_back.png';
+
+import cardFrontDefault from '../assets/card/card_front.png';
+import cardBackDefault from '../assets/card/card_back.png';
+
+import selectFrontDefault from '../assets/card/select_front_default.png';
+import selectBackDefault from '../assets/card/select_back_default.png';
+
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
-import heendyCardFront from '../assets/card/hyundai_card_heendy_front.png';
 import Modal from '../components/modal/Modal';
 import {
   CroppedImg,
   CustomCardContainer,
+  CustomCardModalContainer,
   SelectCustomCardContainer,
+  SelectCustomDesignBtn,
+  SelectImgDefault,
+  SelectImgDiv,
+  CustomSelectButtonContainer,
+  CutButton,
+  CutButtonContainer,
+  InitialButton,
+  ResultH2,
 } from '../components/hyundaicard/custom.style';
 import Cropper from 'react-cropper';
 import useSound from 'use-sound';
 import flipSound from '../assets/card/cardSlide3.mp3';
 import nonImg from '../assets/card/non_img.PNG';
 
+import { GrPowerReset } from 'react-icons/gr';
+import { BiCut } from 'react-icons/bi';
+
 const cardDict = {
   green: {
     front: greenCardFront,
-    back: selectCardGreen,
+    back: greenCardBack,
   },
   pink: {
     front: pinkCardFront,
-    back: selectCardPink,
+    back: pinkCardBack,
   },
   heendy: {
     front: heendyCardFront,
-    back: selectCardHeendy,
+    back: heendyCardBack,
   },
 };
 
 function HyundaiCard() {
-  const [openModal, setOpenModal] = useState(false);
+  const [isFrontCrop, setIsFrontCrop] = useState(false);
+  const [isBackCrop, setIsBackCrop] = useState(false);
 
+  const frontSelectRef = useRef(null);
+  const backSelectRef = useRef(null);
+
+  const [openModal, setOpenModal] = useState(true);
+  const [isCustom, setIsCustom] = useState(false);
   const [play] = useSound(flipSound);
   const [reverse, setReverse] = useState(false);
   const [cardDesign, setCardDesign] = useState({
     front: greenCardFront,
-    back: selectCardGreen,
+    back: greenCardBack,
   });
 
   const [frontInputImage, setFrontInputImage] = useState();
@@ -75,6 +107,7 @@ function HyundaiCard() {
 
   const handleCardDesign = (e) => {
     setCardDesign(() => {
+      setIsCustom(false);
       return cardDict[e.target.name];
     });
   };
@@ -102,6 +135,16 @@ function HyundaiCard() {
       };
     });
     handleCloseModal();
+    setIsCustom(true);
+
+    setIsFrontCrop(false);
+    setIsBackCrop(false);
+
+    setFrontInputImage();
+    setBackInputImage();
+
+    setFrontCropData(nonImg);
+    setBackCropData(nonImg);
   };
 
   const handleOpenModal = () => {
@@ -115,65 +158,139 @@ function HyundaiCard() {
     <>
       {openModal && (
         <Modal>
-          <CustomCardContainer>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) =>
-                setFrontInputImage(URL.createObjectURL(e.target.files[0]))
-              }
-            />
-            <SelectCustomCardContainer>
-              <Cropper
-                src={frontInputImage}
-                style={{
-                  height: 306.02834646,
-                  width: 485.29133859,
-                  border: '1px solid black',
+          <CustomCardModalContainer>
+            <CustomCardContainer>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files[0] === undefined) {
+                    setIsFrontCrop(false);
+                  } else {
+                    setFrontInputImage(URL.createObjectURL(e.target.files[0]));
+                    setIsFrontCrop(true);
+                    e.target.value = '';
+                  }
                 }}
-                dragMode={'none'}
-                cropBoxResizable={false}
-                checkOrientation={false}
-                guides={true}
-                initialAspectRatio={1.5858 / 1}
-                ref={frontCropperRef}
+                style={{ display: 'none' }}
+                ref={frontSelectRef}
               />
-              <button style={{ float: 'right' }} onClick={getFrontCropData}>
-                잘라내기
-              </button>
-              <CroppedImg src={frontCropData} alt="cropped" />
-            </SelectCustomCardContainer>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) =>
-                setBackInputImage(URL.createObjectURL(e.target.files[0]))
-              }
-            />
-            <SelectCustomCardContainer>
-              <Cropper
-                src={backInputImage}
-                style={{
-                  height: 306.02834646,
-                  width: 485.29133859,
-                  border: '1px solid black',
+              <SelectCustomCardContainer>
+                {isFrontCrop ? (
+                  <Cropper
+                    src={frontInputImage}
+                    style={{
+                      height: 306.02834646,
+                      width: 485.29133859,
+                    }}
+                    dragMode={'none'}
+                    cropBoxResizable={false}
+                    checkOrientation={false}
+                    guides={true}
+                    initialAspectRatio={1.5858 / 1}
+                    ref={frontCropperRef}
+                  />
+                ) : (
+                  <SelectImgDiv
+                    onClick={() => {
+                      frontSelectRef.current.click();
+                    }}
+                  >
+                    <SelectImgDefault
+                      src={selectFrontDefault}
+                    ></SelectImgDefault>
+                  </SelectImgDiv>
+                )}
+                <CutButtonContainer>
+                  <CutButton onClick={getFrontCropData}>
+                    <BiCut />
+                    잘라내기
+                  </CutButton>
+                  <InitialButton
+                    onClick={() => {
+                      setIsFrontCrop(false);
+                      setFrontCropData(nonImg);
+                      setFrontInputImage();
+                    }}
+                  >
+                    <GrPowerReset style={{ color: 'white' }} />
+                    앞면 초기화
+                  </InitialButton>
+                </CutButtonContainer>
+                <div>
+                  <ResultH2>앞면 결과</ResultH2>
+                  <CroppedImg src={frontCropData} alt="cropped" />
+                </div>
+              </SelectCustomCardContainer>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files[0] === undefined) {
+                    setIsBackCrop(false);
+                  } else {
+                    setBackInputImage(URL.createObjectURL(e.target.files[0]));
+                    setIsBackCrop(true);
+                    e.target.value = '';
+                  }
                 }}
-                dragMode={'none'}
-                cropBoxResizable={false}
-                checkOrientation={false}
-                guides={true}
-                initialAspectRatio={1.5858 / 1}
-                ref={backCropperRef}
+                ref={backSelectRef}
+                style={{ display: 'none' }}
               />
-              <button style={{ float: 'right' }} onClick={getBackCropData}>
-                잘라내기
-              </button>
-              <CroppedImg src={backCropData} alt="cropped" />
-            </SelectCustomCardContainer>
-          </CustomCardContainer>
-          <selectCustomDesignBtn onClick={handleCustomDesign}>
-            선택하기
-          </selectCustomDesignBtn>
+              <SelectCustomCardContainer>
+                {isBackCrop ? (
+                  <Cropper
+                    src={backInputImage}
+                    style={{
+                      height: 306.02834646,
+                      width: 485.29133859,
+                    }}
+                    dragMode={'none'}
+                    cropBoxResizable={false}
+                    checkOrientation={false}
+                    guides={true}
+                    initialAspectRatio={1.5858 / 1}
+                    ref={backCropperRef}
+                  />
+                ) : (
+                  <SelectImgDiv
+                    onClick={() => {
+                      backSelectRef.current.click();
+                    }}
+                  >
+                    <SelectImgDefault
+                      src={selectBackDefault}
+                    ></SelectImgDefault>
+                  </SelectImgDiv>
+                )}
+                <CutButtonContainer>
+                  <CutButton onClick={getBackCropData}>
+                    <BiCut />
+                    잘라내기
+                  </CutButton>
+                  <InitialButton
+                    onClick={() => {
+                      setIsBackCrop(false);
+                      setBackCropData(nonImg);
+                      setBackInputImage();
+                    }}
+                  >
+                    <GrPowerReset color="white" />
+                    뒷면 초기화
+                  </InitialButton>
+                </CutButtonContainer>
+                <div>
+                  <ResultH2>뒷면 결과</ResultH2>
+                  <CroppedImg src={backCropData} alt="cropped" />
+                </div>
+              </SelectCustomCardContainer>
+            </CustomCardContainer>
+            <CustomSelectButtonContainer>
+              <SelectCustomDesignBtn onClick={handleCustomDesign}>
+                선택하기
+              </SelectCustomDesignBtn>
+            </CustomSelectButtonContainer>
+          </CustomCardModalContainer>
         </Modal>
       )}
       <HyundaiCardContainer>
@@ -192,13 +309,19 @@ function HyundaiCard() {
             <CardInfoCol>
               <CardFlip>
                 <HCard reverse={reverse}>
-                  <CardFront src={cardDesign.front}></CardFront>
-                  <CardBack src={cardDesign.back}></CardBack>
+                  <CardFront>
+                    <CardImg src={cardDesign.front}></CardImg>
+                    {isCustom && <CardImg src={cardFrontDefault}></CardImg>}
+                  </CardFront>
+                  <CardBack>
+                    <CardImg src={cardDesign.back}></CardImg>
+                    {isCustom && <CardImg src={cardBackDefault}></CardImg>}
+                  </CardBack>
                 </HCard>
               </CardFlip>
               <BackButton onClick={handleReverse}>
                 <img src={rotateArrow} alt="" />
-                {reverse ? '뒷면보기' : '앞면보기'}
+                {reverse ? '앞면보기' : '뒷면보기'}
               </BackButton>
             </CardInfoCol>
           </CardViewContainer>
