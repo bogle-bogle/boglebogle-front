@@ -13,6 +13,8 @@ import {
   ProductPrice,
   ProductSelect,
   CounterBtn,
+  PlusIcon,
+  MinusIcon
 } from './CartCard.style';
 
 function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
@@ -90,9 +92,9 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
         <ProductDetails>
           <ProductName>{cartItemInfo.name}</ProductName>
           <ProductCount>
-            <CounterBtn onClick={handleDecrease}>-</CounterBtn>
+            <MinusIcon onClick={handleDecrease}/>
             {count}
-            <CounterBtn onClick={handleIncrease}>+</CounterBtn>
+            <PlusIcon onClick={handleIncrease}/>
           </ProductCount>
           <ShippingFee>배송비 3000원 (30,000원 이상 무료배송)</ShippingFee>
           <Divider />
