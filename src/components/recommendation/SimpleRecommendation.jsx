@@ -30,7 +30,8 @@ function ProductRecommendation() {
   return (
     <RcContainer>
       <RcTitle>
-        {member.pets[0].name}와 같은 {member.pets[0].ageCode}연령의 반려동물들은 주로 이런 상품을 구매했어요.
+        {member.pets[0].name}와 같은 {member.pets[0].ageCode}연령의 반려동물들은
+        주로 이런 상품을 구매했어요.
       </RcTitle>
 
       <ProductContainer>
