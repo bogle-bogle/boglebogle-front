@@ -292,10 +292,10 @@ function ClubRegister() {
     };
     if (photoUrl !== null) {
       clubData.petImgUrl = photoUrl[0];
-    }else{
+    } else {
       clubData.petImgUrl = null;
     }
-    console.log(clubData)
+    console.log(clubData);
     try {
       const response = await axios.post('api/club', clubData, {
         headers: {
