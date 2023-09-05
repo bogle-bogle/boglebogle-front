@@ -1,15 +1,16 @@
 import React from 'react';
 // import KakaoLoginButton from '../components/login/KakaoLoginButton';
 import MainSlider from '../components/main/MainSlider';
-import ProductRecommendation from '../components/recommendation/ProductRecommendation';
+import SimpleRecommendation from '../components/recommendation/SimpleRecommendation';
+import DetailRecommendation from '../components/recommendation/DetailRecommendation';
 
 function Main() {
   return (
     <div>
       {/* <KakaoLoginButton /> */}
       <MainSlider />
-
-      <ProductRecommendation></ProductRecommendation>
+      <SimpleRecommendation></SimpleRecommendation>
+      <DetailRecommendation></DetailRecommendation>
     </div>
   );
 }
