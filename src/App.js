@@ -5,7 +5,6 @@ import Main from './pages/Main';
 import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
 import Shop from './pages/Shop';
-import Header from './components/header/Header';
 import Cart from './pages/CartPage';
 import Ordersheet from './pages/OrderSheetPage';
 import OrderComplete from './pages/OrderComplete';
@@ -26,41 +25,33 @@ import MainLayout from './pages/MainLayout';
 
 function App() {
   return (
-    <div className="appContainer">
-      <GlobalStyle />
-      <Helmet>
-        <title>THEPET</title>
-      </Helmet>
-      <Router>
-        {/* <Header /> */}
-        <Header2 />
-        <div className="contentsContainer">
-          <Routes>
-            <Route path="/customready" element={<CustomReadyPage />} />
-            <Route path="/" element={<Main />}></Route>
-            <Route path="/second" element={<MainPage />}></Route>
-            <Route path="/auth" element={<RedirectUrl />}></Route>
-            <Route path="/shop" element={<Shop />}></Route>
-            <Route path="/product/:id" element={<ProductDetail />}></Route>
-            <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/ordersheet" element={<Ordersheet />}></Route>
-            <Route path="/ordercomplete" element={<OrderComplete />}></Route>
-            <Route path="/sub" element={<Subscription />} />
-            <Route path="/heendycar" element={<Heendycar />}></Route>
-            <Route path="/card" element={<HyundaiCard />}></Route>
-            <Route path="/clubregister" element={<ClubRegister />}></Route>
-            <Route
-              path="/completeclubregister"
-              element={<CompleteClubRegister />}
-            ></Route>
-            <Route path="/mypet/:memberId" element={<MyPet />}></Route>
-            <Route path="/mbti" element={<MbtiTest />}></Route>
-            <Route path="/ex" element={<Example />}></Route>
-            <Route path="/admin" element={<Admin />}></Route>
-          </Routes>
-        </div>
-      </Router>
-    </div>
+    <Router>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/customready" element={<CustomReadyPage />} />
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/second" element={<MainPage />}></Route>
+          <Route path="/auth" element={<RedirectUrl />}></Route>
+          <Route path="/shop" element={<Shop />}></Route>
+          <Route path="/product/:id" element={<ProductDetail />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/ordersheet" element={<Ordersheet />}></Route>
+          <Route path="/ordercomplete" element={<OrderComplete />}></Route>
+          <Route path="/sub" element={<Subscription />} />
+          <Route path="/heendycar" element={<Heendycar />}></Route>
+          <Route path="/card" element={<HyundaiCard />}></Route>
+          <Route path="/clubregister" element={<ClubRegister />}></Route>
+          <Route
+            path="/completeclubregister"
+            element={<CompleteClubRegister />}
+          ></Route>
+          <Route path="/mypet/:memberId" element={<MyPet />}></Route>
+          <Route path="/mbti" element={<MbtiTest />}></Route>
+          <Route path="/ex" element={<Example />}></Route>
+        </Route>
+        <Route path="/admin" element={<Admin />}></Route>
+      </Routes>
+    </Router>
   );
 }
 

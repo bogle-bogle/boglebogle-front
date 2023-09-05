@@ -1,5 +1,10 @@
 import React from 'react';
-import { CategoryP, ProductDetailContainer } from './detail.style';
+import {
+  CategoryP,
+  DescImg,
+  DescImgContainer,
+  ProductDetailContainer,
+} from './detail.style';
 import ProductSummaryContainer from './ProductSummaryContainer';
 import Review from './Review';
 import ProductIngredient from './ProductIngredient';
@@ -16,6 +21,7 @@ function ProductDetail() {
   useEffect(() => {
     const params = new URL(document.location.toString());
     const productId = params.pathname.split('/').at(-1);
+
     console.log(productId);
 
     axios.get(`/api/product/${productId}`).then((res) => {
@@ -47,11 +53,18 @@ function ProductDetail() {
       )}
       <ProductDetailContainer>
         <CategoryP>{'SHOPPING  >  FOOD  >  강아지'}</CategoryP>
-        <ProductSummaryContainer
-          productInfo={productInfo}
-        ></ProductSummaryContainer>
+        {productInfo !== undefined && (
+          <ProductSummaryContainer
+            productInfo={productInfo}
+          ></ProductSummaryContainer>
+        )}
         <Review handleModalOpen={handleModalOpen}></Review>
         <ProductIngredient ingredients={ingredients}></ProductIngredient>
+        <DescImgContainer>
+          {productInfo !== undefined && (
+            <DescImg src={productInfo.descImgUrl} alt="" />
+          )}
+        </DescImgContainer>
       </ProductDetailContainer>
     </>
   );
