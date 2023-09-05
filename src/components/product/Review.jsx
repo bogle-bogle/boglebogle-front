@@ -32,7 +32,7 @@ function Review({ handleModalOpen }) {
         <MdOutlinePets style={{ fontSize: '40px' }}></MdOutlinePets>
         <p>다른 강아지 친구들은 이렇게 가지고 놀았어요!</p>
       </ReviewBanner>
-      <ReviewCardList>
+      <ReviewCardList className="review-slick-container">
         <Slider {...settings}>
           {Array(20)
             .fill()

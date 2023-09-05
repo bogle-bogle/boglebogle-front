@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {
   AdvOverlayButton,
@@ -35,11 +35,38 @@ import subDiyIcon from '../../assets/subscription/sub_diy_icon.png';
 import TpbSubModal from './TpbSubModal';
 import TpbHistoryModal from './TpbHistoryModal';
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './sub-custom-slick.css';
+
 function SubContainer({ handleModalOpen }) {
   const [tpbHistoryModalOpen, setTpbHistoryModalOpen] = useState(false);
   const [tpbSubModalOpen, setTpbSubModalOpen] = useState(false);
   const [tpbHistory, setTpbHistory] = useState([]);
   const [selectedTpb, setSelectedTpb] = useState(null);
+
+  const [dragging, setDragging] = useState(false);
+
+  const handleBeforeChange = useCallback(() => {
+    setDragging(true);
+  }, [setDragging]);
+
+  const handleAfterChange = useCallback(() => {
+    setDragging(false);
+  }, [setDragging]);
+
+  const settings = {
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 1000,
+    autoplaySpeed: 2000,
+    draggable: true,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
+  };
 
   useEffect(() => {
     axios
@@ -52,7 +79,11 @@ function SubContainer({ handleModalOpen }) {
       });
   }, []);
 
-  function handleTpbModalOpen(tpbItem) {
+  function handleTpbModalOpen(e, tpbItem) {
+    if (dragging) {
+      e.stopPropagation();
+      return;
+    }
     setSelectedTpb(tpbItem);
     setTpbHistoryModalOpen(true);
   }
@@ -70,7 +101,7 @@ function SubContainer({ handleModalOpen }) {
   }
 
   return (
-    <SubGrid>
+    <SubGrid className="sub-container">
       {tpbHistoryModalOpen && (
         <Modal handleModalClose={handleTpbModalClose}>
           <TpbHistoryModal tpbItem={selectedTpb} />
@@ -86,12 +117,15 @@ function SubContainer({ handleModalOpen }) {
         다양한 구성으로 만나요
       </TpbHistoryTitle>
 
-      <TpbHistoryContainer>
+      <Slider {...settings}>
         {tpbHistory.map((tpb) => {
           const date = tpb.paymentDate.split('-');
           const formattedDate = `${date[0]}.${date[1]}`;
           return (
-            <TpbCard key={tpb.id} onClick={() => handleTpbModalOpen(tpb)}>
+            <TpbCard
+              key={tpb.id}
+              onClick={(event) => handleTpbModalOpen(event, tpb)}
+            >
               <TpbCardImg
                 src={tpb.thumbnailImgUrl}
                 alt={`Subscription image for ${tpb.id}`}
@@ -101,7 +135,7 @@ function SubContainer({ handleModalOpen }) {
             </TpbCard>
           );
         })}
-      </TpbHistoryContainer>
+      </Slider>
 
       <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
 

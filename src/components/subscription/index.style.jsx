@@ -34,11 +34,12 @@ export const TpbHistoryTitle = styled.div`
 
 export const TpbHistoryContainer = styled.div`
   display: flex;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   white-space: nowrap;
 `;
 export const TpbCard = styled.div`
-  margin: 1vw;
+  /* margin: 1vw; */
+  margin: 0;
   display: inline-block;
   justify-content: center;
   text-align: center;

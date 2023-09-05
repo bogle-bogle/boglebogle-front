@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BenefitContainer,
   BenefitContent,
@@ -20,15 +20,14 @@ import {
 import { AiOutlineGift, AiOutlineHeart } from 'react-icons/ai';
 import { BsShare } from 'react-icons/bs';
 import clubHeendy from '../../assets/detail/club_heendy.png';
-function ProductSummaryContainer({ productInfo }) {
-  console.log(productInfo);
+function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
   return (
     <ProductSummary>
-      <ProductDetailImg src="https://image.thehyundai.com/static/4/5/8/47/A1/40A1478545_0_600.jpg"></ProductDetailImg>
+      <ProductDetailImg src={`${productInfo.mainImgUrl}`}></ProductDetailImg>
       <ProductInfoContainer>
-        <ProductName>{`테스트`}</ProductName>
+        <ProductName>{`${productInfo.name}`}</ProductName>
         <ProductPriceContainer>
-          <ProductName>{`테스트원`}</ProductName>
+          <ProductName>{`${productInfo.price.toLocaleString()}원`}</ProductName>
           <InfoIconContainer>
             <AiOutlineGift style={{ fontSize: '40px' }} />
             <BsShare style={{ fontSize: '40px' }} />
@@ -74,7 +73,9 @@ function ProductSummaryContainer({ productInfo }) {
           <ClubHeendyDiscount>흰디클럽 할인10%</ClubHeendyDiscount>
         </ClubHeendyContainer>
         <ButtonContainer>
-          <DetailButton flag={true}>장바구니</DetailButton>
+          <DetailButton flag={true} onClick={handleShoppingBasket}>
+            장바구니
+          </DetailButton>
           <DetailButton flag={false}>바로구매</DetailButton>
         </ButtonContainer>
       </ProductInfoContainer>

@@ -72,6 +72,24 @@
   }
 }
 
+.myPet-box {
+  padding: 5px;
+  background-color: #fff;
+  width: 50vw;
+  /* Set the desired width */
+  height: 200px;
+  /* Set the desired height */
+  margin-top: 10px;
+  /* Adjust margin for spacing */
+  border: 1px solid #ccc;
+  /* Add a border for visualization */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* Hide overflow if the image is larger */
+}
+
 .upload-box {
   background-color: #ecf7f5;
   display: flex; /* Flexbox 사용 */
