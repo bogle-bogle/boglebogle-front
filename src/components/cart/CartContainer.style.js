@@ -9,6 +9,7 @@ export const CartContentContainer = styled.div`
 `;
 
 export const CartCardContainer = styled.div`
+  margin-top: 40px;
   flex: 75%;
 `;
 

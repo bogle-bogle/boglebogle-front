@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { margin, textAlign } from '@mui/system';
 
 function RedirectUrl() {
-  const member = useSelector((state) => state.member);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -62,6 +61,8 @@ function RedirectUrl() {
         console.info('Error');
       });
   }, [dispatch]);
+
+  const member = useSelector((state) => state.member);
 
   return (
     <div style={{ margin: '200px', textAlign: 'center' }}>

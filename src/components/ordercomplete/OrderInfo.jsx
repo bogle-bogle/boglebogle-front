@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import {
   MemberInfoTable,
   OrderItemsTable,
@@ -12,10 +14,7 @@ import {
   ArrowIcon,
 } from './OrderInfo.style';
 
-function OrderInfo() {
-  const member = useSelector((state) => state.member);
-  console.info('오더 멤버', member);
-
+function OrderInfo({ member, orderItemsData }) {
   return (
     <div>
       <MemberInfoTable>
@@ -44,15 +43,17 @@ function OrderInfo() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <img src="https://tohomeimage.thehyundai.com/PD/PDImages/S/5/7/2/0093766001275_01.jpg?RS=720x864" />
-              <p>상품 제목입니당</p>
-            </td>
-            <td>개</td>
-            <td>원</td>
-            <td>무료배송</td>
-          </tr>
+          {orderItemsData.orderDetails.map((cartItem) => (
+            <tr>
+              <td>
+                <img src={cartItem.productImgUrl} alt={cartItem.productName} />
+                <p>{cartItem.productName}</p>
+              </td>
+              <td>{cartItem.cnt}개</td>
+              <td>{cartItem.productPrice}원</td>
+              <td>무료배송</td>
+            </tr>
+          ))}
         </tbody>
       </OrderItemsTable>
 
@@ -104,7 +105,7 @@ function OrderInfo() {
             <th>같다</th>
             <th>
               <p>총 결제금액</p>
-              <p>원</p>
+              {/* <p>{totalAmount}원</p>   */}
             </th>
           </tr>
         </tbody>
