@@ -58,4 +58,3 @@ export const breedCode = {
   D29: '퍼그',
   D30: '믹스',
 };
-
