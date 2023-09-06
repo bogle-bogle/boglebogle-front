@@ -42,9 +42,11 @@ function CustomReadyPage() {
           authorizationHeader,
         );
         const transformedData = res.data.map((item) => ({
-          codeValue: item.codeValue,
+          codeValue: item.id,
           name: item.name,
-          photo: item.petImgUrl,
+          petImgUrl: item.petImgUrl,
+          feedMainImgUrl : item.feedMainImgUrl,
+          feedDescImgUrl: item.feedDescImgUrl
         }));
         setPetData(transformedData);
       })
@@ -55,6 +57,7 @@ function CustomReadyPage() {
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
+    console.log("선택된거 맞아?",pet);
     setSelectedPet(pet);
   };
   const handlePlaceholderClick = (pet) => {
@@ -131,23 +134,33 @@ function CustomReadyPage() {
     const ingredientUrlPromise = uploadToS3(
       ingredientInputRef.current.files[1],
     );
-
+    const selectedPetId = selectedPet.codeValue;
+    
     const [feedUrl, ingredientUrl] = await Promise.all([
       feedUrlPromise,
       ingredientUrlPromise,
     ]);
-
     const customData = {
-      feed: feedUrl,
-      ingredientUrl: ingredientUrl,
+      feedMainImgUrl: '',
+      feedDescImgUrl: '',
     };
-    if (feedUrl !== null) {
-      customData.feed = feedUrl[0];
+
+
+    if (feedUrl.length !== 0) {
+      customData.feedMainImgUrl = feedUrl[0];
+    }else{
+      console.log("이쪽으로 빠짐");
+      customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
     }
-    if (ingredientUrl !== null) {
-      customData.ingredientUrl = ingredientUrl[1];
+    if (ingredientUrl.length !== 0) {
+      customData.feedDescImgUrl = ingredientUrl[1];
+    }else{
+      customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
     }
+    console.log(customData);
     try {
+      const response = await axios.put(`api/pet/feed/${selectedPetId}`, customData);
+      console.log(response);
       // 페이지 전환 및 데이터 전달
       navigate('/customresult', { state: { customData,selectedPet } });
     } catch (error) {
@@ -202,8 +215,8 @@ function CustomReadyPage() {
                   onClick={() => handlePetClick(pet)}
                 >
                   <div className="pet-photo">
-                    {pet.photo ? (
-                      <img src={pet.photo} alt={pet.name} />
+                    {pet.petImgUrl ? (
+                      <img src={pet.petImgUrl} alt={pet.name} />
                     ) : (
                       <div
                         className={`placeholder ${
@@ -238,8 +251,14 @@ function CustomReadyPage() {
                 className="image-preview"
                 onClick={() => feedInputRef.current.click()}
               >
-                {selectedFeedImage && (
+                {selectedFeedImage ? (
                   <img src={selectedFeedImage} alt="Uploaded" />
+                ) : (
+                  (selectedPet && selectedPet.feedMainImgUrl) ? (
+                    <img src={selectedPet.feedMainImgUrl} alt="Uploaded" />
+                  ) : (
+                    <div className="default-image">No Image</div>
+                  )
                 )}
               </div>
               <input
@@ -265,16 +284,21 @@ function CustomReadyPage() {
                 className="image-preview"
                 onClick={() => ingredientInputRef.current.click()}
               >
-                {selectedIngredientImage && (
+                {selectedIngredientImage ? (
                   <img src={selectedIngredientImage} alt="Uploaded" />
+                ) : (
+                  (selectedPet && selectedPet.feedDescImgUrl) ? (
+                    <img src={selectedPet.feedDescImgUrl} alt="Uploaded" />
+                  ) : (
+                    <div className="default-image">No Image</div>
+                  )
                 )}
               </div>
               <input
                 type="file"
                 accept="image/*"
                 onChange={(event) => {
-                  const ingredientUrl =
-                    handleFileInputChange('ingredient')(event);
+                  const ingredientUrl = handleFileInputChange('ingredient')(event);
                   ingredientUrl &&
                     setSelectedIngredientImage(
                       URL.createObjectURL(event.target.files[0]),
@@ -286,7 +310,6 @@ function CustomReadyPage() {
               />
             </div>
           </div>
-
           <hr className="divider" />
           <p className="step-title">
             <PiBoneLight /> STEP 3. 현대 더펫의 OCR 시스템과 AI 기반으로 상품
@@ -302,6 +325,7 @@ function CustomReadyPage() {
         <p>위에 입력하시는 정보에 따라</p>
         <p> 상품을 추천해드릴게요.</p>
       </div>
+      
     </form>
   );
 }
