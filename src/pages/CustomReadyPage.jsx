@@ -149,11 +149,10 @@ function CustomReadyPage() {
     }
     try {
       // 페이지 전환 및 데이터 전달
-      navigate('/customresult', { state: { customData,selectedPet } });
+      navigate('/customresult', { state: { customData, selectedPet } });
     } catch (error) {
       // 에러 처리 로직
     }
-    
   };
 
   return (

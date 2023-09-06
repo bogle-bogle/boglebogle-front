@@ -250,9 +250,7 @@ function ClubRegister() {
 
     const photoUrlPromise = uploadToS3(photoInputRef.current.files[0]);
 
-    const [photoUrl] = await Promise.all([
-      photoUrlPromise,
-    ]);
+    const [photoUrl] = await Promise.all([photoUrlPromise]);
 
     const selectedCodesString = selectedProteinCodes.join(',');
 
