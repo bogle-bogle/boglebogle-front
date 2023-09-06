@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import CustomReadyPage from './pages/CustomReadyPage';
+import CustomReadyResult from './pages/CustomReadyResult';
 import Main from './pages/Main';
 import RedirectUrl from './components/login/RedirectUrl';
 import MainPage from './pages/MainPage';
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/customready" element={<CustomReadyPage />} />
+            <Route path="/customresult" element={<CustomReadyResult />} />
             <Route path="/" element={<Main />}></Route>
             <Route path="/second" element={<MainPage />}></Route>
             <Route path="/auth" element={<RedirectUrl />}></Route>
