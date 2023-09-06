@@ -75,11 +75,34 @@ export const PageNumber = styled.div`
   background-color: ${(props) => (props.flag ? 'gray' : 'white')};
 `;
 
-export const CategoryP = styled.p`
+export const CategoryContainer = styled.div`
   width: 100%;
   height: auto;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const CategoryP = styled.p`
+  width: auto;
+  height: auto;
+  overflow: auto;
+
   font-size: 17px;
+`;
+
+export const InitialButton = styled.button`
+  width: 150px;
+  height: 40px;
+
+  border: 1px solid lightgray;
+  background-color: white;
+
+  font-weight: 600;
+  font-size: 18px;
+
+  cursor: pointer;
 `;
 
 export const FilterCategoryContainer = styled.div`

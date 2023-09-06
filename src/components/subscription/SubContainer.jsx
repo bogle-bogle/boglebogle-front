@@ -40,6 +40,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './sub-custom-slick.css';
 
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+
+const boxVariant = {
+  visible: { opacity: 1, scale: 1, transition: { duration: 1 } },
+  hidden: { opacity: 0, scale: 0 },
+};
+
 function SubContainer({ handleModalOpen }) {
   const [tpbHistoryModalOpen, setTpbHistoryModalOpen] = useState(false);
   const [tpbSubModalOpen, setTpbSubModalOpen] = useState(false);
@@ -48,6 +56,18 @@ function SubContainer({ handleModalOpen }) {
 
   const [dragging, setDragging] = useState(false);
 
+  /////////////////////////////
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start('visible');
+    } else {
+      control.start('hidden');
+    }
+  }, [control, inView]);
+  /////////////////////////////
   const handleBeforeChange = useCallback(() => {
     setDragging(true);
   }, [setDragging]);
@@ -107,10 +127,19 @@ function SubContainer({ handleModalOpen }) {
           <TpbHistoryModal tpbItem={selectedTpb} />
         </Modal>
       )}
-      <SubMainAdv>
-        <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
-        <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton>
-      </SubMainAdv>
+
+      <motion.div
+        className="box"
+        ref={ref}
+        variants={boxVariant}
+        initial="hidden"
+        animate={control}
+      >
+        <SubMainAdv>
+          <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
+          <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton>
+        </SubMainAdv>
+      </motion.div>
 
       <TpbHistoryTitle>
         매달 새로운 즐거움, <br />
@@ -145,7 +174,6 @@ function SubContainer({ handleModalOpen }) {
             <TpbSubModal />
           </Modal>
         )}
-
         <TpbMainSectBox>
           <TpbMainBox>
             <TpbMainBoxTitle>월간 큐레이션</TpbMainBoxTitle>
