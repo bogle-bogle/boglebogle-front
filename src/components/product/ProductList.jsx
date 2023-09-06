@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {
+  CategoryContainer,
   CategoryElementContainer,
   CategoryP,
   FilterCategoryContainer,
   FilterCategoryRow,
   FilterCategoryTitle,
+  InitialButton,
   MiddleCategoryContainer,
   MiddleCategoryElement,
   MiddleContainer,
@@ -36,6 +38,28 @@ function ProductList() {
   const [filterProductSub, setFilterProductSub] = useState([]);
   const [filterAnimal, setFilterAnimal] = useState([]);
   const [filterProtein, setFilterProtein] = useState([]);
+
+  const [animalFilterCheck, setAnimalFilterCheck] = useState(() => {
+    const newObj = {};
+    Object.entries(animalCode).forEach(([key, value]) => {
+      newObj[key] = false;
+    });
+    return newObj;
+  });
+  const [productSubFilterCheck, setProductSubFilterCheck] = useState(() => {
+    const newObj = {};
+    Object.entries(productSub).forEach(([key, value]) => {
+      newObj[key] = false;
+    });
+    return newObj;
+  });
+  const [proteinFilterCheck, setProteinFilterCheck] = useState(() => {
+    const newObj = {};
+    Object.entries(proteinCode).forEach(([key, value]) => {
+      newObj[key] = false;
+    });
+    return newObj;
+  });
 
   useEffect(() => {
     axios
@@ -74,54 +98,110 @@ function ProductList() {
     setCurPage(page);
   }
 
-  function handleAddProductSubFilter(id) {
-    setFilterProductSub((prev) => {
-      return [...prev, id];
-    });
+  function handleAnimalFilter(id) {
+    return () => {
+      if (animalFilterCheck[id]) {
+        setFilterAnimal((prev) => {
+          return prev.filter((element) => element !== id);
+        });
+        setAnimalFilterCheck((prev) => {
+          return { ...prev, [id]: false };
+        });
+      } else {
+        setFilterAnimal((prev) => {
+          return [...prev, id];
+        });
+        setAnimalFilterCheck((prev) => {
+          return { ...prev, [id]: true };
+        });
+      }
+    };
   }
 
-  function handleDelProductSubFilter(id) {
-    setFilterProductSub((prev) => {
-      return prev.filter((element) => element !== id);
-    });
+  function handleProductSubFilter(id) {
+    return () => {
+      if (productSubFilterCheck[id]) {
+        setFilterProductSub((prev) => {
+          return prev.filter((element) => element !== id);
+        });
+        setProductSubFilterCheck((prev) => {
+          return { ...prev, [id]: false };
+        });
+      } else {
+        setFilterProductSub((prev) => {
+          return [...prev, id];
+        });
+        setProductSubFilterCheck((prev) => {
+          return { ...prev, [id]: true };
+        });
+      }
+    };
   }
 
-  function handleAddAnimalFilter(id) {
-    setFilterAnimal((prev) => {
-      return [...prev, id];
-    });
+  function handleProteinFilter(id) {
+    return () => {
+      if (proteinFilterCheck[id]) {
+        setFilterProtein((prev) => {
+          return prev.filter((element) => element !== id);
+        });
+        setProteinFilterCheck((prev) => {
+          return { ...prev, [id]: false };
+        });
+      } else {
+        setFilterProtein((prev) => {
+          return [...prev, id];
+        });
+        setProteinFilterCheck((prev) => {
+          return { ...prev, [id]: true };
+        });
+      }
+    };
   }
 
-  function handleDelAnimalFilter(id) {
-    setFilterAnimal((prev) => {
-      return prev.filter((element) => element !== id);
-    });
-  }
+  function initialFilter() {
+    setFilterProductSub([]);
+    setFilterProtein([]);
+    setFilterAnimal([]);
 
-  function handleAddProteinFilter(id) {
-    setFilterProtein((prev) => {
-      return [...prev, id];
+    setAnimalFilterCheck(() => {
+      const newObj = {};
+      Object.entries(animalCode).forEach(([key, value]) => {
+        newObj[key] = false;
+      });
+      return newObj;
     });
-  }
-
-  function handleDelProteinFilter(id) {
-    setFilterProtein((prev) => {
-      return prev.filter((element) => element !== id);
+    setProductSubFilterCheck(() => {
+      const newObj = {};
+      Object.entries(productSub).forEach(([key, value]) => {
+        newObj[key] = false;
+      });
+      return newObj;
+    });
+    setProteinFilterCheck(() => {
+      const newObj = {};
+      Object.entries(proteinCode).forEach(([key, value]) => {
+        newObj[key] = false;
+      });
+      return newObj;
     });
   }
 
   return (
     <div>
-      <CategoryP>{'SHOPPING  >  식품  >  강아지'}</CategoryP>
+      <CategoryContainer>
+        <CategoryP>{'SHOPPING  >  식품  >  강아지'}</CategoryP>
+        <InitialButton onClick={initialFilter}>필터 초기화</InitialButton>
+      </CategoryContainer>
       <FilterCategoryContainer>
         <FilterCategoryRow>
           <FilterCategoryTitle>반려동물</FilterCategoryTitle>
           <CategoryElementContainer>
             {Object.entries(animalCode).map(([key, value]) => (
               <CategoryFilterButton
-                addFilter={handleAddAnimalFilter}
-                delFilter={handleDelAnimalFilter}
+                key={key + value}
                 id={key}
+                handleFilter={handleAnimalFilter}
+                isChecked={animalFilterCheck[key]}
               >
                 {value}
               </CategoryFilterButton>
@@ -133,9 +213,10 @@ function ProductList() {
           <CategoryElementContainer>
             {Object.entries(productSub).map(([key, value]) => (
               <CategoryFilterButton
-                addFilter={handleAddProductSubFilter}
-                delFilter={handleDelProductSubFilter}
+                key={key + value}
                 id={key}
+                handleFilter={handleProductSubFilter}
+                isChecked={productSubFilterCheck[key]}
               >
                 {value}
               </CategoryFilterButton>
@@ -147,9 +228,10 @@ function ProductList() {
           <CategoryElementContainer>
             {Object.entries(proteinCode).map(([key, value]) => (
               <CategoryFilterButton
-                addFilter={handleAddProteinFilter}
-                delFilter={handleDelProteinFilter}
+                key={key + value}
                 id={key}
+                handleFilter={handleProteinFilter}
+                isChecked={proteinFilterCheck[key]}
               >
                 {value}
               </CategoryFilterButton>
