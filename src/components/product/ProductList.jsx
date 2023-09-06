@@ -18,12 +18,13 @@ import {
   ProductImg,
   ProductPrice,
   ProductSummary,
-  TestInput,
 } from './index.style';
 import { useNavigate } from 'react-router-dom';
 import CategoryFilterButton from './CategoryFilterButton';
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+
+import { proteinCode, animalCode, productSub } from '../../commonCode';
 
 function ProductList() {
   const navigate = useNavigate();
@@ -32,32 +33,80 @@ function ProductList() {
   const [curPage, setCurPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
 
+  const [filterProductSub, setFilterProductSub] = useState([]);
+  const [filterAnimal, setFilterAnimal] = useState([]);
+  const [filterProtein, setFilterProtein] = useState([]);
+
   useEffect(() => {
-    axios.get('/api/product/list/1').then((res) => {
-      setProductList(() => {
-        const newProducts = [...res.data.products];
-        return newProducts;
+    axios
+      .post(`/api/product/list/${curPage}`, {
+        productSubFilter:
+          filterProductSub.length !== 0
+            ? filterProductSub
+            : Object.entries(productSub).map(([key, value]) => key),
+        animalFilter:
+          filterAnimal.length !== 0
+            ? filterAnimal
+            : Object.entries(animalCode).map(([key, value]) => key),
+        proteinFilter:
+          filterProtein.length !== 0
+            ? filterProtein
+            : Object.entries(proteinCode).map(([key, value]) => key),
+      })
+      .then((res) => {
+        setProductList(() => {
+          const newProducts = [...res.data.products];
+          return newProducts;
+        });
+        setTotalCount(res.data.count);
+        let cnt = parseInt(res.data.count / 20);
+        if (res.data.count % 20 > 0) {
+          cnt += 1;
+        }
+        setPageCount(cnt);
       });
-      setTotalCount(res.data.count);
-      let cnt = parseInt(res.data.count / 20);
-      if (res.data.count % 20 > 0) {
-        cnt += 1;
-      }
-      setPageCount(cnt);
-    });
-  }, []);
+  }, [curPage, filterProductSub, filterAnimal, filterProtein]);
 
   function handlePage(page) {
     if (page === 0 || page > pageCount) {
       return;
     }
+    setCurPage(page);
+  }
 
-    axios.get(`/api/product/list/${page}`).then((res) => {
-      setProductList(() => {
-        const newProducts = [...res.data.products];
-        return newProducts;
-      });
-      setCurPage(page);
+  function handleAddProductSubFilter(id) {
+    setFilterProductSub((prev) => {
+      return [...prev, id];
+    });
+  }
+
+  function handleDelProductSubFilter(id) {
+    setFilterProductSub((prev) => {
+      return prev.filter((element) => element !== id);
+    });
+  }
+
+  function handleAddAnimalFilter(id) {
+    setFilterAnimal((prev) => {
+      return [...prev, id];
+    });
+  }
+
+  function handleDelAnimalFilter(id) {
+    setFilterAnimal((prev) => {
+      return prev.filter((element) => element !== id);
+    });
+  }
+
+  function handleAddProteinFilter(id) {
+    setFilterProtein((prev) => {
+      return [...prev, id];
+    });
+  }
+
+  function handleDelProteinFilter(id) {
+    setFilterProtein((prev) => {
+      return prev.filter((element) => element !== id);
     });
   }
 
@@ -68,35 +117,43 @@ function ProductList() {
         <FilterCategoryRow>
           <FilterCategoryTitle>반려동물</FilterCategoryTitle>
           <CategoryElementContainer>
-            <CategoryFilterButton>강아지</CategoryFilterButton>
-            <CategoryFilterButton>고양이</CategoryFilterButton>
-            <CategoryFilterButton>기타</CategoryFilterButton>
+            {Object.entries(animalCode).map(([key, value]) => (
+              <CategoryFilterButton
+                addFilter={handleAddAnimalFilter}
+                delFilter={handleDelAnimalFilter}
+                id={key}
+              >
+                {value}
+              </CategoryFilterButton>
+            ))}
           </CategoryElementContainer>
         </FilterCategoryRow>
         <FilterCategoryRow>
           <FilterCategoryTitle>연령대별 추천</FilterCategoryTitle>
           <CategoryElementContainer>
-            <CategoryFilterButton>퍼피</CategoryFilterButton>
-            <CategoryFilterButton>시니어</CategoryFilterButton>
-            <CategoryFilterButton>전연령(어덜트)</CategoryFilterButton>
+            {Object.entries(productSub).map(([key, value]) => (
+              <CategoryFilterButton
+                addFilter={handleAddProductSubFilter}
+                delFilter={handleDelProductSubFilter}
+                id={key}
+              >
+                {value}
+              </CategoryFilterButton>
+            ))}
           </CategoryElementContainer>
         </FilterCategoryRow>
         <FilterCategoryRow>
           <FilterCategoryTitle>주재료별 추천</FilterCategoryTitle>
           <CategoryElementContainer>
-            <CategoryFilterButton>소고기</CategoryFilterButton>
-            <CategoryFilterButton>양고기</CategoryFilterButton>
-            <CategoryFilterButton>돼지고기</CategoryFilterButton>
-            <CategoryFilterButton>닭고기</CategoryFilterButton>
-            <CategoryFilterButton>오리고기</CategoryFilterButton>
-            <CategoryFilterButton>연어</CategoryFilterButton>
-            <CategoryFilterButton>생선</CategoryFilterButton>
-            <CategoryFilterButton>베지</CategoryFilterButton>
-            <CategoryFilterButton>혼합</CategoryFilterButton>
-            <CategoryFilterButton>돼지고기</CategoryFilterButton>
-            <CategoryFilterButton>돼지고기</CategoryFilterButton>
-            <CategoryFilterButton>돼지고기</CategoryFilterButton>
-            <CategoryFilterButton>기타</CategoryFilterButton>
+            {Object.entries(proteinCode).map(([key, value]) => (
+              <CategoryFilterButton
+                addFilter={handleAddProteinFilter}
+                delFilter={handleDelProteinFilter}
+                id={key}
+              >
+                {value}
+              </CategoryFilterButton>
+            ))}
           </CategoryElementContainer>
         </FilterCategoryRow>
       </FilterCategoryContainer>

@@ -82,7 +82,7 @@ function HyundaiCard() {
   const frontSelectRef = useRef(null);
   const backSelectRef = useRef(null);
 
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const [isCustom, setIsCustom] = useState(false);
   const [play] = useSound(flipSound);
   const [reverse, setReverse] = useState(false);
