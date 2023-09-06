@@ -45,8 +45,8 @@ function CustomReadyPage() {
           codeValue: item.id,
           name: item.name,
           petImgUrl: item.petImgUrl,
-          feedMainImgUrl : item.feedMainImgUrl,
-          feedDescImgUrl: item.feedDescImgUrl
+          feedMainImgUrl: item.feedMainImgUrl,
+          feedDescImgUrl: item.feedDescImgUrl,
         }));
         setPetData(transformedData);
       })
@@ -57,7 +57,7 @@ function CustomReadyPage() {
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
-    console.log("선택된거 맞아?",pet);
+    console.log('선택된거 맞아?', pet);
     setSelectedPet(pet);
   };
   const handlePlaceholderClick = (pet) => {
@@ -135,7 +135,7 @@ function CustomReadyPage() {
       ingredientInputRef.current.files[1],
     );
     const selectedPetId = selectedPet.codeValue;
-    
+
     const [feedUrl, ingredientUrl] = await Promise.all([
       feedUrlPromise,
       ingredientUrlPromise,
@@ -145,28 +145,29 @@ function CustomReadyPage() {
       feedDescImgUrl: '',
     };
 
-
     if (feedUrl.length !== 0) {
       customData.feedMainImgUrl = feedUrl[0];
-    }else{
-      console.log("이쪽으로 빠짐");
+    } else {
+      console.log('이쪽으로 빠짐');
       customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
     }
     if (ingredientUrl.length !== 0) {
       customData.feedDescImgUrl = ingredientUrl[1];
-    }else{
+    } else {
       customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
     }
     console.log(customData);
     try {
-      const response = await axios.put(`api/pet/feed/${selectedPetId}`, customData);
+      const response = await axios.put(
+        `api/pet/feed/${selectedPetId}`,
+        customData,
+      );
       console.log(response);
       // 페이지 전환 및 데이터 전달
-      navigate('/customresult', { state: { customData,selectedPet } });
+      navigate('/customresult', { state: { customData, selectedPet } });
     } catch (error) {
       // 에러 처리 로직
     }
-    
   };
 
   return (
@@ -253,12 +254,10 @@ function CustomReadyPage() {
               >
                 {selectedFeedImage ? (
                   <img src={selectedFeedImage} alt="Uploaded" />
+                ) : selectedPet && selectedPet.feedMainImgUrl ? (
+                  <img src={selectedPet.feedMainImgUrl} alt="Uploaded" />
                 ) : (
-                  (selectedPet && selectedPet.feedMainImgUrl) ? (
-                    <img src={selectedPet.feedMainImgUrl} alt="Uploaded" />
-                  ) : (
-                    <div className="default-image">No Image</div>
-                  )
+                  <div className="default-image">No Image</div>
                 )}
               </div>
               <input
@@ -286,19 +285,18 @@ function CustomReadyPage() {
               >
                 {selectedIngredientImage ? (
                   <img src={selectedIngredientImage} alt="Uploaded" />
+                ) : selectedPet && selectedPet.feedDescImgUrl ? (
+                  <img src={selectedPet.feedDescImgUrl} alt="Uploaded" />
                 ) : (
-                  (selectedPet && selectedPet.feedDescImgUrl) ? (
-                    <img src={selectedPet.feedDescImgUrl} alt="Uploaded" />
-                  ) : (
-                    <div className="default-image">No Image</div>
-                  )
+                  <div className="default-image">No Image</div>
                 )}
               </div>
               <input
                 type="file"
                 accept="image/*"
                 onChange={(event) => {
-                  const ingredientUrl = handleFileInputChange('ingredient')(event);
+                  const ingredientUrl =
+                    handleFileInputChange('ingredient')(event);
                   ingredientUrl &&
                     setSelectedIngredientImage(
                       URL.createObjectURL(event.target.files[0]),
@@ -325,7 +323,6 @@ function CustomReadyPage() {
         <p>위에 입력하시는 정보에 따라</p>
         <p> 상품을 추천해드릴게요.</p>
       </div>
-      
     </form>
   );
 }
