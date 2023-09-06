@@ -13,8 +13,6 @@ export const StyledClubContainer = styled.div`
     'Sidebar4 Sidebar4 birth birth birth'
     'Sidebar5 Sidebar5 proteinCodes proteinCodes proteinCodes'
     'Sidebar5 Sidebar5 proteinCodes proteinCodes proteinCodes'
-    'Sidebar6 Sidebar6 imgUrl favoriteFoodIngredients favoriteFoodIngredients'
-    'Sidebar6 Sidebar6 imgUrl favoriteFoodIngredients favoriteFoodIngredients'
     'Sidebar7 Sidebar7 breedCode animalSize animalSize'
     'agreement1 agreement1 agreement1 agreement1 agreement1'
     'agreement2 agreement2 agreement2 agreement2 agreement2'

@@ -15,13 +15,10 @@ import {
   StyledClubContainer,
   Sidebar2,
   Sidebar5,
-  Sidebar6,
   PetPhoto,
   PetName,
   PetBirth,
   PetProteinCodes,
-  PetFavoriteFoodIngredients,
-  PetImgUrl,
   PetBreedCode,
   AnimalSize,
   MAnimalSize,
@@ -36,13 +33,10 @@ import {
   MGuide,
   MSidebar2,
   MSidebar5,
-  MSidebar6,
   MPetPhoto,
   MPetName,
   MPetBirth,
   MPetProteinCodes,
-  MPetImgUrl,
-  MPetFavoriteFoodIngredients,
   MPetBreedCode,
   MPetAnimalTypeCode,
   MButton,
@@ -105,7 +99,6 @@ function ClubRegister() {
   });
 
   const photoInputRef = useRef(null);
-  const imgInputRef = useRef(null);
 
   /*단백질 코드 및 견종, 동물 분류 가져오기*/
   useEffect(() => {
@@ -210,8 +203,6 @@ function ClubRegister() {
   const uploadToS3 = async () => {
     const s3 = new AWS.S3();
     const photo = photoInputRef.current.files[0];
-    const img = imgInputRef.current.files[0];
-    console.log('photo', photo, 'img', img);
     const uploadPromises = []; // 업로드 프로미스 배열
 
     if (photo) {
@@ -223,17 +214,6 @@ function ClubRegister() {
       const photoUploadPromise = s3.upload(photoParams).promise();
       uploadPromises.push(photoUploadPromise);
     }
-
-    if (img) {
-      const imgParams = {
-        Bucket: 'heendy-feed',
-        Key: img.name,
-        Body: img,
-      };
-      const imgUploadPromise = s3.upload(imgParams).promise();
-      uploadPromises.push(imgUploadPromise);
-    }
-
     try {
       const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
       console.info(
@@ -270,11 +250,8 @@ function ClubRegister() {
 
     const photoUrlPromise = uploadToS3(photoInputRef.current.files[0]);
 
-    const imgUrlPromise = uploadToS3(imgInputRef.current.files[1]);
-
-    const [photoUrl, imgUrl] = await Promise.all([
+    const [photoUrl] = await Promise.all([
       photoUrlPromise,
-      imgUrlPromise,
     ]);
 
     const selectedCodesString = selectedProteinCodes.join(',');
@@ -332,7 +309,6 @@ function ClubRegister() {
             <SidebarItem gridArea="MSidebar3">반려동물 이름</SidebarItem>
             <SidebarItem gridArea="MSidebar4">반려동물 생일</SidebarItem>
             <MSidebar5>반려동물 알러지</MSidebar5>
-            <MSidebar6>반려동물 사료</MSidebar6>
             <SidebarItem gridArea="MSidebar7">
               반려동물 견종 및 크기
             </SidebarItem>
@@ -413,42 +389,6 @@ function ClubRegister() {
                   </StyledButton>
                 ))}
             </MPetProteinCodes>
-            <MPetFavoriteFoodIngredients>
-              <textarea
-                placeholder="선호 음식 성분"
-                name="favoriteFoodIngredients"
-                value={formData.favoriteFoodIngredients}
-                onChange={handleFormChange}
-                style={{
-                  width: '180%',
-                  resize: 'none', // 사용자 크기 조절 비활성화
-                }}
-              />
-            </MPetFavoriteFoodIngredients>
-            <MPetImgUrl>
-              <ImagePreview
-                className="image-preview"
-                onClick={() => imgInputRef.current.click()}
-              >
-                {selectedImgImage && (
-                  <img src={selectedImgImage} alt="Uploaded" />
-                )}
-              </ImagePreview>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => {
-                  const imgUrl = handleFileInputChange('img')(event);
-                  imgUrl &&
-                    setSelectedImgImage(
-                      URL.createObjectURL(event.target.files[0]),
-                    );
-                }}
-                className="file-input"
-                ref={imgInputRef}
-                style={{ display: 'none' }} // 숨김 처리
-              />
-            </MPetImgUrl>
             <MPetBreedCode>
               <select
                 name="breedCode"
@@ -547,7 +487,6 @@ function ClubRegister() {
             <SidebarItem gridArea="Sidebar3">반려동물 이름</SidebarItem>
             <SidebarItem gridArea="Sidebar4">반려동물 생일</SidebarItem>
             <Sidebar5>반려동물 알러지</Sidebar5>
-            <Sidebar6>반려동물 사료</Sidebar6>
             <SidebarItem gridArea="Sidebar7">반려동물 견종 및 크기</SidebarItem>
 
             <PetAnimalTypeCode>
@@ -625,42 +564,6 @@ function ClubRegister() {
                   </StyledButton>
                 ))}
             </PetProteinCodes>
-            <PetFavoriteFoodIngredients>
-              <textarea
-                placeholder="선호 음식 성분"
-                name="favoriteFoodIngredients"
-                value={formData.favoriteFoodIngredients}
-                onChange={handleFormChange}
-                style={{
-                  width: '180%',
-                  resize: 'none', // 사용자 크기 조절 비활성화
-                }}
-              />
-            </PetFavoriteFoodIngredients>
-            <PetImgUrl>
-              <ImagePreview
-                className="image-preview"
-                onClick={() => imgInputRef.current.click()}
-              >
-                {selectedImgImage && (
-                  <img src={selectedImgImage} alt="Uploaded" />
-                )}
-              </ImagePreview>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => {
-                  const imgUrl = handleFileInputChange('img')(event);
-                  imgUrl &&
-                    setSelectedImgImage(
-                      URL.createObjectURL(event.target.files[0]),
-                    );
-                }}
-                className="file-input"
-                ref={imgInputRef}
-                style={{ display: 'none' }} // 숨김 처리
-              />
-            </PetImgUrl>
             <PetBreedCode>
               <select
                 name="breedCode"

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import heendycustomready from '../assets/custom/heendycustomready.png';
 import heendysay1 from '../assets/custom/heendysay1.png';
 import heendysay2 from '../assets/custom/heendysay2.png';
@@ -9,6 +10,7 @@ import AWS from 'aws-sdk';
 import axios from 'axios';
 
 function CustomReadyPage() {
+  const navigate = useNavigate();
   const member = useSelector((state) => state.member);
 
   const [selectedPet, setSelectedPet] = useState(null);
@@ -20,6 +22,7 @@ function CustomReadyPage() {
   const ingredientInputRef = useRef(null);
 
   const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
+
   useEffect(() => {
     axios
       .get(`/api/pet`, {
@@ -41,7 +44,7 @@ function CustomReadyPage() {
         const transformedData = res.data.map((item) => ({
           codeValue: item.codeValue,
           name: item.name,
-          photo: item.photo,
+          photo: item.petImgUrl,
         }));
         setPetData(transformedData);
       })
@@ -144,17 +147,13 @@ function CustomReadyPage() {
     if (ingredientUrl !== null) {
       customData.ingredientUrl = ingredientUrl[1];
     }
-
     try {
-      const response = await axios.post('api/club', customData, {
-        headers: {
-          Authorizations: `Bearer ${member.jwt.accessToken}`,
-        },
-      });
-      console.log(response);
+      // 페이지 전환 및 데이터 전달
+      navigate('/customresult', { state: { customData,selectedPet } });
     } catch (error) {
       // 에러 처리 로직
     }
+    
   };
 
   return (
