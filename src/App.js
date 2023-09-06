@@ -19,6 +19,8 @@ import MbtiTest from './pages/MbtiTest';
 import Example from './pages/Example';
 import Admin from './pages/Admin';
 import MainLayout from './pages/MainLayout';
+import PlayGround from './pages/PlayGround';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
             <Route path="/heendycar" element={<Heendycar />}></Route>
             <Route path="/card" element={<HyundaiCard />}></Route>
             <Route path="/clubregister" element={<ClubRegister />}></Route>
+            <Route path="/playground" element={<PlayGround />}></Route>
+            <Route path="/mypage" element={<MyPage />}></Route>
             <Route
               path="/completeclubregister"
               element={<CompleteClubRegister />}

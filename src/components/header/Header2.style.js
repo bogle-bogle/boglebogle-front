@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const Header = styled.div`
   margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
   padding: 15px;
   display: flex;
   justify-content: space-between;
@@ -30,7 +31,7 @@ export const Header = styled.div`
     display: flex;
     font-size: 16px;
 
-    @media screen and (max-width: 1100px) {
+    @media screen and (max-width: 1400px) {
       text-align: right;
     }
   }
@@ -46,8 +47,19 @@ export const Header = styled.div`
     font-size: 1.5rem;
     padding: 1rem 1rem;
   }
+  
+  .list__container {
+    .cart_icon {
+      padding: 0;
+      top: 50;
+    }
+    
+    .cart_text {
+      display: none;
+    }
+  }
 
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 1400px) {
     margin-top: 0;
     padding: 4px;
     flex-wrap: wrap;
@@ -76,6 +88,15 @@ export const Header = styled.div`
     .list__container {
       margin: 0 0 1rem 0;
       padding: 0;
+      
+      .cart_icon {
+        padding: 0 1.5rem;
+      }
+
+      .cart_text {
+        display: inline-block;
+        margin: 0 0 0 0.2rem;
+      }
     }
   }
 `;

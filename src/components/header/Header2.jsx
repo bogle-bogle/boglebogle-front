@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { HiMenu } from 'react-icons/hi';
+import { HiMenu, HiShoppingCart } from 'react-icons/hi';
 import { IoClose } from 'react-icons/io5';
 import logo from '../../assets/thepet_logo_img.png';
 import { BiSolidUser } from 'react-icons/bi';
@@ -92,11 +92,25 @@ function Header2() {
 
       {/* User 메뉴 리스트 */}
       <div className="header__right">
+        { 
+          member.name 
+          ?
+            <div className="list__container">
+              <StyledNavLink to="/cart" className="cart_icon"><HiShoppingCart></HiShoppingCart><p className="cart_text"> 장바구니</p></StyledNavLink>
+            </div> 
+          : 
+            <></>
+        }
         <div className="list__container">
-          {/* <StyledNavLink to="/login">로그인</StyledNavLink> */}
-          <StyledNavLink to="" onClick={handleLogin}>
-            {member.name ? `${member.name}님` : '로그인'}
-          </StyledNavLink>{' '}
+          {
+            member.name
+            ? 
+              <StyledNavLink to="/mypage">
+                {member.name}님
+              </StyledNavLink>
+            :
+              <StyledNavLink to="" onClick={handleLogin}>로그인</StyledNavLink>
+          }          
         </div>
         <div className="list__container">
           <StyledNavLink to="/clubregister">클럽 흰디 가입</StyledNavLink>
