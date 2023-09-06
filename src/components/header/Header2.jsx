@@ -92,25 +92,24 @@ function Header2() {
 
       {/* User 메뉴 리스트 */}
       <div className="header__right">
-        { 
-          member.name 
-          ?
-            <div className="list__container">
-              <StyledNavLink to="/cart" className="cart_icon"><HiShoppingCart></HiShoppingCart><p className="cart_text"> 장바구니</p></StyledNavLink>
-            </div> 
-          : 
-            <></>
-        }
+        {member.name ? (
+          <div className="list__container">
+            <StyledNavLink to="/cart" className="cart_icon">
+              <HiShoppingCart></HiShoppingCart>
+              <p className="cart_text"> 장바구니</p>
+            </StyledNavLink>
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="list__container">
-          {
-            member.name
-            ? 
-              <StyledNavLink to="/mypage">
-                {member.name}님
-              </StyledNavLink>
-            :
-              <StyledNavLink to="" onClick={handleLogin}>로그인</StyledNavLink>
-          }          
+          {member.name ? (
+            <StyledNavLink to="/mypage">{member.name}님</StyledNavLink>
+          ) : (
+            <StyledNavLink to="" onClick={handleLogin}>
+              로그인
+            </StyledNavLink>
+          )}
         </div>
         <div className="list__container">
           <StyledNavLink to="/clubregister">클럽 흰디 가입</StyledNavLink>

@@ -47,13 +47,13 @@ export const Header = styled.div`
     font-size: 1.5rem;
     padding: 1rem 1rem;
   }
-  
+
   .list__container {
     .cart_icon {
       padding: 0;
       top: 50;
     }
-    
+
     .cart_text {
       display: none;
     }
@@ -88,7 +88,7 @@ export const Header = styled.div`
     .list__container {
       margin: 0 0 1rem 0;
       padding: 0;
-      
+
       .cart_icon {
         padding: 0 1.5rem;
       }
