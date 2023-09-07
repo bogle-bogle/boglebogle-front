@@ -17,7 +17,7 @@ import {
   DiscountBox,
   Row,
   DiscountButton,
-  DiscountconfirmButton
+  DiscountconfirmButton,
 } from './OrderProducts.style';
 import axios from 'axios';
 
@@ -31,7 +31,6 @@ function OrderProducts({ cartItemArray, totalAmount }) {
   const [couponModalOpen, setCouponModalOpen] = useState(false);
   const member = useSelector((state) => state.member);
   const navigate = useNavigate();
-  
 
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
   const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
@@ -88,24 +87,24 @@ function OrderProducts({ cartItemArray, totalAmount }) {
 
   const handleCouponModalOpen = () => {
     setCouponModalOpen(true);
-  }
+  };
 
   const handleCouponModalClose = () => {
     setCouponModalOpen(false);
-  }
+  };
 
   const handleCouponConfirm = () => {
     setCouponModalOpen(false);
     applyCoupon();
-  }
+  };
 
   return (
     <div>
       {couponModalOpen && (
         <Modal handleModalClose={handleCouponModalClose}>
           <img src={CouponImg} />
-          <DiscountconfirmButton onClick={ handleCouponConfirm }>
-              쿠폰 적용
+          <DiscountconfirmButton onClick={handleCouponConfirm}>
+            쿠폰 적용
           </DiscountconfirmButton>
         </Modal>
       )}

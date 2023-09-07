@@ -114,7 +114,7 @@ export const DiscountconfirmButton = styled.div`
 `;
 
 export const FinalBox = styled.div`
-  background-color: #3BE1C7;
+  background-color: #3be1c7;
   padding: 15px;
   padding-top: 25px;
   padding-bottom: 25px;
