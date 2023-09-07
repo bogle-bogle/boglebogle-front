@@ -36,7 +36,7 @@ export const SubMainBox = styled.div`
 
 export const SubMainBoxTitle = styled.div`
   font-weight: bold;
-`
+`;
 
 export const SubMainBoxWithContent = styled.div`
   position: absolute;

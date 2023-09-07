@@ -40,7 +40,7 @@ import subLivingIcon from '../../assets/subscription/sub_living_icon.png';
 import subDiyIcon from '../../assets/subscription/sub_diy_icon.png';
 import TpbSubModal from './TpbSubModal';
 import TpbHistoryModal from './TpbHistoryModal';
-import PinkIcon from '../../assets/subscription/pink_plant_icon.png'
+import PinkIcon from '../../assets/subscription/pink_plant_icon.png';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -142,23 +142,22 @@ function SubContainer({ handleModalOpen }) {
         initial="hidden"
         animate={control}
       >
-	        <SubMainAdv>
-		        <SubMainAdvMovingImg src={subMainAdvGif} alt="mainAdvImg">
-		          <SubMainBoxWithContent>
-		            <SubMainBoxContent src={PinkIcon} />  
-		          </SubMainBoxWithContent> 
-		        </SubMainAdvMovingImg>
-		        <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
-		        {/* <SubMainBox>
+        <SubMainAdv>
+          <SubMainAdvMovingImg src={subMainAdvGif} alt="mainAdvImg">
+            <SubMainBoxWithContent>
+              <SubMainBoxContent src={PinkIcon} />
+            </SubMainBoxWithContent>
+          </SubMainAdvMovingImg>
+          <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
+          {/* <SubMainBox>
 		          <span>
 		          <img src={PinkIcon} />
 		          <SubMainBoxTitle>11월의 구성</SubMainBoxTitle>
 		          </span>
 		        </SubMainBox> */}
-	        	{/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
-	      </SubMainAdv>
+          {/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
+        </SubMainAdv>
       </motion.div>
-      
 
       <TpbHistoryTitle>
         매달 새로운 즐거움, <br />
