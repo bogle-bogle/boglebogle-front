@@ -14,6 +14,7 @@ import {
   Agreement,
   DiscountBox,
   Row,
+  DiscountButton,
 } from './OrderProducts.style';
 import axios from 'axios';
 
@@ -39,12 +40,10 @@ function OrderProducts({ cartItemArray, totalAmount }) {
         { value: price },
       );
 
-      paymentWidget.renderAgreement('#agreement');
-
       paymentWidgetRef.current = paymentWidget;
       paymentMethodsWidgetRef.current = paymentMethodsWidget;
     })();
-  }, []);
+  }, [price]);
 
   useEffect(() => {
     const paymentMethodsWidget = paymentMethodsWidgetRef.current;
@@ -61,7 +60,7 @@ function OrderProducts({ cartItemArray, totalAmount }) {
 
   const handleOrder = async () => {
     const paymentWidget = paymentWidgetRef.current;
-
+    
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
@@ -74,6 +73,12 @@ function OrderProducts({ cartItemArray, totalAmount }) {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const applyCoupon = () => {
+    // 5% 할인을 계산합니다.
+    const discountAmount = totalAmount * (1 - 0.05);
+    setPrice(discountAmount);
   };
 
   return (
@@ -115,7 +120,7 @@ function OrderProducts({ cartItemArray, totalAmount }) {
             </Row>
             <Row>
               <p>쿠폰 적용하기</p>
-              <button>내가 가진 쿠폰 찾기</button>
+              <DiscountButton onClick={applyCoupon}>쿠폰 찾기</DiscountButton>
             </Row>
             <hr></hr>
             <Row>
@@ -146,12 +151,12 @@ function OrderProducts({ cartItemArray, totalAmount }) {
             </OrderInfo>
             <DiscountInfo>
               <p>할인 및 적립금액</p>
-              <p>0원</p>
+              <p>{(totalAmount * 0.05).toLocaleString()}원</p>
             </DiscountInfo>
           </InfoBox>
           <FinalBox>
             <p>결제금액</p>
-            <h1>{price}원</h1>
+            <h1>{price.toLocaleString()}원</h1>
           </FinalBox>
         </div>
       </DiscountContainer>

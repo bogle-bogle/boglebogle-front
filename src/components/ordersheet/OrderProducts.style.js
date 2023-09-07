@@ -44,6 +44,9 @@ export const OrderButton = styled.div`
   cursor: pointer;
   width: 30%;
   margin: auto;
+  &:hover {
+    background-color: #076355;
+  }
 `;
 
 export const DiscountContainer = styled.div`
@@ -68,23 +71,38 @@ export const InfoBox = styled.div`
 export const OrderInfo = styled.div`
   background-color: #fff;
   padding: 15px;
-  padding-top: 35px;
-  padding-bottom: 35px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   margin-bottom: 10px;
 `;
 
 export const DiscountInfo = styled.div`
   background-color: #fff;
   padding: 15px;
-  padding-top: 35px;
-  padding-bottom: 35px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+`;
+
+export const DiscountButton = styled.div`
+  display: flex;
+  align-items: center; // 수직 정렬
+  justify-content: center; // 수평 정렬
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #0a9882;
+  color: #fff;
+
+  &:hover {
+    background-color: #076355;
+  }
 `;
 
 export const FinalBox = styled.div`
   background-color: #a1fff0;
   padding: 15px;
-  padding-top: 35px;
-  padding-bottom: 35px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 `;
 
 export const SelectTd = styled.td`
