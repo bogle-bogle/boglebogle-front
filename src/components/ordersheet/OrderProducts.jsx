@@ -13,7 +13,7 @@ import {
   FinalBox,
   Agreement,
   DiscountBox,
-  Row
+  Row,
 } from './OrderProducts.style';
 import axios from 'axios';
 
@@ -78,10 +78,9 @@ function OrderProducts({ cartItemArray, totalAmount }) {
 
   return (
     <div>
-      
       <OrderItemsTable>
         <thead>
-        <h2>주문상품</h2>
+          <h2>주문상품</h2>
           <tr BorderTop>
             <th>상품정보/옵션정보</th>
             <th>수량</th>
@@ -105,64 +104,65 @@ function OrderProducts({ cartItemArray, totalAmount }) {
           ))}
         </tbody>
       </OrderItemsTable>
-      
+
       <h2>할인 및 적립</h2>
       <DiscountContainer>
-          <div>
-            <DiscountBox>
-                <Row>
-                  <p>즉시할인</p>
-                  <p>0원</p>
-                </Row>
-                <Row>
-                  <p>쿠폰 적용하기</p>
-                  <button>내가 가진 쿠폰 찾기</button>
-                </Row>
-                <hr></hr>
-                <Row>
-                  <p>H.Point</p>
-                  <p>0원</p>
-                </Row>
-                <Row>
-                  <p>더머니</p>
-                  <p>0원</p>
-                </Row>
-                <Row>
-                  <p>예치금</p>
-                  <p>0원</p>
-                </Row>
-                <hr></hr>
-                <Row>
-                  <p>H.Point 적립</p>
-                  <p>0원</p>
-                </Row>
-
-
-            </DiscountBox>
-          </div>
-          <div>
-            <InfoBox>
-              <OrderInfo>
-                <p>주문금액</p>
-                <p>상품금액</p>
-                <p>배송비 무료</p>
-              </OrderInfo>
-              <DiscountInfo>
-                <p>할인 및 적립금액</p>
-                <p>0원</p>
-              </DiscountInfo>
-
-            </InfoBox>
-            <FinalBox>
-                <p>결제금액</p>
-                <h1>{price}원</h1>
-            </FinalBox>
-          </div>
+        <div>
+          <DiscountBox>
+            <Row>
+              <p>즉시할인</p>
+              <p>0원</p>
+            </Row>
+            <Row>
+              <p>쿠폰 적용하기</p>
+              <button>내가 가진 쿠폰 찾기</button>
+            </Row>
+            <hr></hr>
+            <Row>
+              <p>H.Point</p>
+              <p>0원</p>
+            </Row>
+            <Row>
+              <p>더머니</p>
+              <p>0원</p>
+            </Row>
+            <Row>
+              <p>예치금</p>
+              <p>0원</p>
+            </Row>
+            <hr></hr>
+            <Row>
+              <p>H.Point 적립</p>
+              <p>0원</p>
+            </Row>
+          </DiscountBox>
+        </div>
+        <div>
+          <InfoBox>
+            <OrderInfo>
+              <p>주문금액</p>
+              <p>상품금액</p>
+              <p>배송비 무료</p>
+            </OrderInfo>
+            <DiscountInfo>
+              <p>할인 및 적립금액</p>
+              <p>0원</p>
+            </DiscountInfo>
+          </InfoBox>
+          <FinalBox>
+            <p>결제금액</p>
+            <h1>{price}원</h1>
+          </FinalBox>
+        </div>
       </DiscountContainer>
 
-
       <div id="payment-widget" />
-      <Agreement><strong>주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에 동의합니다.</strong></Agreement>
+      <Agreement>
+        <strong>
+          주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에
+          동의합니다.
+        </strong>
+      </Agreement>
       <OrderButton onClick={handleOrder}>
         <strong>{price.toLocaleString()} 원 결제하기</strong>
       </OrderButton>

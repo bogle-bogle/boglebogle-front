@@ -9,7 +9,6 @@ export const OrderItemsTable = styled.table`
 
   th,
   td {
-
     border-bottom: 1px solid #ccc;
     border-left: none; // 세로 테두리를 없앰
     border-right: none; // 세로 테두리를 없앰
@@ -35,8 +34,6 @@ export const OrderItemsTable = styled.table`
     align-items: center;
     justify-content: flex-start;
   }
-
-
 `;
 
 export const OrderButton = styled.div`
@@ -54,7 +51,7 @@ export const DiscountContainer = styled.div`
   justify-content: space-between;
   border-top: 1px solid #797979;
   border-bottom: 1px solid #797979;
-  
+
   > :first-child {
     flex: 0 0 75%;
   }
@@ -64,11 +61,9 @@ export const DiscountContainer = styled.div`
 `;
 
 export const InfoBox = styled.div`
-    background-color: #eeeeee;
-    padding: 10px;
-    
+  background-color: #eeeeee;
+  padding: 10px;
 `;
-
 
 export const OrderInfo = styled.div`
   background-color: #fff;
@@ -76,7 +71,6 @@ export const OrderInfo = styled.div`
   padding-top: 35px;
   padding-bottom: 35px;
   margin-bottom: 10px;
-  
 `;
 
 export const DiscountInfo = styled.div`
@@ -93,8 +87,6 @@ export const FinalBox = styled.div`
   padding-bottom: 35px;
 `;
 
-
-
 export const SelectTd = styled.td`
   width: 80%;
 `;
@@ -105,14 +97,13 @@ export const DiscountboxTd = styled.td`
 
 export const Agreement = styled.p`
   text-align: center;
-`
+`;
 
 export const DiscountBox = styled.div`
   padding: 30px;
-`
+`;
 
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
-  ;
-`
+`;

@@ -21,14 +21,18 @@ function OrderMember() {
         <Table1>
           <tbody>
             <tr>
-              <Td1 noBorderLeft>이름 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.name}</Td1>
+              <Td1 noBorderLeft>
+                이름 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.name}
+              </Td1>
               <Td1>전화번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;010-1234-5678</Td1>
-              <Td1 noBorderRight>이메일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.email}</Td1>
+              <Td1 noBorderRight>
+                이메일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.email}
+              </Td1>
             </tr>
           </tbody>
         </Table1>
       </TableContainer1>
-      
+
       <TableContainer2>
         <h2>배송지 정보</h2>
         <Table2>
