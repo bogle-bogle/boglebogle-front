@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const TableContainer1 = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 5%;
 `;
 
 export const Table1 = styled.table`
@@ -12,6 +13,8 @@ export const Table1 = styled.table`
 
 export const Td1 = styled.td`
   padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border: 1px solid #ccc;
   text-align: left;
 
@@ -44,6 +47,9 @@ export const Table2 = styled.table`
 
 export const Th2 = styled.th`
   text-align: left;
+  padding: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 
   ${(props) =>
     props.BorderTop &&
