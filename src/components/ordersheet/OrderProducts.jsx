@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
+import Modal from '../modal/Modal';
+import CouponImg from '../../assets/club/clubcoupon.png';
 import {
   OrderItemsTable,
   OrderButton,
@@ -15,6 +17,7 @@ import {
   DiscountBox,
   Row,
   DiscountButton,
+  DiscountconfirmButton
 } from './OrderProducts.style';
 import axios from 'axios';
 
@@ -25,8 +28,10 @@ function OrderProducts({ cartItemArray, totalAmount }) {
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
+  const [couponModalOpen, setCouponModalOpen] = useState(false);
   const member = useSelector((state) => state.member);
   const navigate = useNavigate();
+  
 
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
   const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
@@ -60,7 +65,7 @@ function OrderProducts({ cartItemArray, totalAmount }) {
 
   const handleOrder = async () => {
     const paymentWidget = paymentWidgetRef.current;
-    
+
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
@@ -81,8 +86,29 @@ function OrderProducts({ cartItemArray, totalAmount }) {
     setPrice(discountAmount);
   };
 
+  const handleCouponModalOpen = () => {
+    setCouponModalOpen(true);
+  }
+
+  const handleCouponModalClose = () => {
+    setCouponModalOpen(false);
+  }
+
+  const handleCouponConfirm = () => {
+    setCouponModalOpen(false);
+    applyCoupon();
+  }
+
   return (
     <div>
+      {couponModalOpen && (
+        <Modal handleModalClose={handleCouponModalClose}>
+          <img src={CouponImg} />
+          <DiscountconfirmButton onClick={ handleCouponConfirm }>
+              쿠폰 적용
+          </DiscountconfirmButton>
+        </Modal>
+      )}
       <OrderItemsTable>
         <thead>
           <h2>주문상품</h2>
@@ -120,7 +146,9 @@ function OrderProducts({ cartItemArray, totalAmount }) {
             </Row>
             <Row>
               <p>쿠폰 적용하기</p>
-              <DiscountButton onClick={applyCoupon}>쿠폰 찾기</DiscountButton>
+              <DiscountButton onClick={handleCouponModalOpen}>
+                쿠폰 찾기
+              </DiscountButton>
             </Row>
             <hr></hr>
             <Row>

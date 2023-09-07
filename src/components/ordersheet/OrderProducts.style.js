@@ -98,8 +98,23 @@ export const DiscountButton = styled.div`
   }
 `;
 
+export const DiscountconfirmButton = styled.div`
+  display: flex;
+  align-items: center; // 수직 정렬
+  justify-content: center; // 수평 정렬
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #0a9882;
+  color: #fff;
+
+  &:hover {
+    background-color: #076355;
+  }
+`;
+
 export const FinalBox = styled.div`
-  background-color: #a1fff0;
+  background-color: #3BE1C7;
   padding: 15px;
   padding-top: 25px;
   padding-bottom: 25px;
