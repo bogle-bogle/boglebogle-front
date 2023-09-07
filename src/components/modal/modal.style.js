@@ -6,7 +6,7 @@ export const ModalBackGround = styled.div`
   background-color: rgba(128, 128, 128, 0.5);
 
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
 
   display: flex;
   justify-content: center;
@@ -21,6 +21,8 @@ export const ModalMain = styled.div`
   width: auto;
   height: auto;
   overflow: auto;
+
+  z-index: 5;
 `;
 
 export const TestDiv = styled.div`
