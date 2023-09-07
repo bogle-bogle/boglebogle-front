@@ -5,10 +5,11 @@ export const OrderItemsTable = styled.table`
   margin-top: 50px;
   width: 100%; // 테이블 전체 너비를 부모 요소에 맞춤
   border-collapse: collapse; // 셀 사이의 간격을 없앰
+  margin-bottom: 5%;
 
   th,
   td {
-    border-top: 1px solid #ccc;
+
     border-bottom: 1px solid #ccc;
     border-left: none; // 세로 테두리를 없앰
     border-right: none; // 세로 테두리를 없앰
@@ -30,22 +31,12 @@ export const OrderItemsTable = styled.table`
 
   tbody tr td:first-child {
     text-align: left;
-    display: flex; /* Flexbox를 사용해서 */
-    align-items: center; /* 수직으로 중앙 정렬 */
-    justify-content: flex-start; /* 수평으로 왼쪽 정렬 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
-  // 첫 번째 행의 상단 테두리를 굵게 함
-  tr:first-child th,
-  tr:first-child td {
-    border-top: 1px solid #797979;
-  }
 
-  // 마지막 행의 하단 테두리를 없앰
-  tr:last-child th,
-  tr:last-child td {
-    border-bottom: none;
-  }
 `;
 
 export const OrderButton = styled.div`
@@ -54,14 +45,55 @@ export const OrderButton = styled.div`
   text-align: center;
   padding: 15px 15px;
   cursor: pointer;
+  width: 30%;
+  margin: auto;
 `;
 
-export const DiscountTable = styled.table`
-  border-collapse: collapse;
-  width: 100%;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+export const DiscountContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #797979;
+  border-bottom: 1px solid #797979;
+  
+  > :first-child {
+    flex: 0 0 75%;
+  }
+  > :last-child {
+    flex: 0 0 25%;
+  }
 `;
+
+export const InfoBox = styled.div`
+    background-color: #eeeeee;
+    padding: 10px;
+    
+`;
+
+
+export const OrderInfo = styled.div`
+  background-color: #fff;
+  padding: 15px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  margin-bottom: 10px;
+  
+`;
+
+export const DiscountInfo = styled.div`
+  background-color: #fff;
+  padding: 15px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+`;
+
+export const FinalBox = styled.div`
+  background-color: #a1fff0;
+  padding: 15px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+`;
+
+
 
 export const SelectTd = styled.td`
   width: 80%;
@@ -70,3 +102,17 @@ export const SelectTd = styled.td`
 export const DiscountboxTd = styled.td`
   width: 20%;
 `;
+
+export const Agreement = styled.p`
+  text-align: center;
+`
+
+export const DiscountBox = styled.div`
+  padding: 30px;
+`
+
+export const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ;
+`
