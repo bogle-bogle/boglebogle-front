@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker'; // react-datepicker를 import
 import { useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import infoImg from '../../assets/club/클럽 가입하기.png';
-import Modal from '../modal/Modal.jsx';
 
 import {
   Title,
@@ -40,11 +39,6 @@ import {
   MPetBreedCode,
   MPetAnimalTypeCode,
   MButton,
-  AgreementSection1,
-  AgreementSection2,
-  AgreementLabel,
-  AgreementRadioGroup,
-  AgreementRadio,
 } from './index.style';
 import axios from 'axios';
 
@@ -66,7 +60,6 @@ function ClubRegister() {
     };
   }, []);
 
-  const [showAgreementPopup, setShowAgreementPopup] = useState(false);
   const member = useSelector((state) => state.member);
 
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
@@ -159,25 +152,6 @@ function ClubRegister() {
     setSelectedAnimalSize(codeValue);
   };
 
-  const [agreed1, setAgreed1] = useState(true); // 첫 번째 그룹의 상태
-  const [agreed2, setAgreed2] = useState(true); // 두 번째 그룹의 상태
-
-  // 첫 번째 그룹 라디오 버튼 이벤트 핸들러
-  const handleAgreementChange1 = (event) => {
-    setAgreed1(event.target.value === 'yes');
-  };
-
-  // 두 번째 그룹 라디오 버튼 이벤트 핸들러
-  const handleAgreementChange2 = (event) => {
-    setAgreed2(event.target.value === 'yes');
-  };
-
-  const handleAgreementButtonClick = () => {
-    if (!agreed1) {
-      setShowAgreementPopup(true);
-    }
-  };
-
   AWS.config.update({
     region: process.env.REACT_APP_AWS_REGION,
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
@@ -236,17 +210,6 @@ function ClubRegister() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    if (!agreed1) {
-      // 동의하지 않았을 때 모달을 표시
-      setShowAgreementPopup(true);
-      return; // 이후 로직을 실행하지 않음
-    }
-
-    if (!agreed2) {
-      // 동의하지 않았을 때 모달을 표시
-      setShowAgreementPopup(true);
-      return; // 이후 로직을 실행하지 않음
-    }
 
     const photoUrlPromise = uploadToS3(photoInputRef.current.files[0]);
 
@@ -258,13 +221,14 @@ function ClubRegister() {
       petImgUrl: photoUrl,
       name: formData.name,
       birth: selectedBirthDate
-        ? selectedBirthDate.toISOString().split('T')[0]
+        ? selectedBirthDate.toISOString().split('T')[0].toString()
         : null,
       allergyCode: selectedCodesString,
       breedCode: selectedBreedCode,
       animalTypeCode: selectedAnimalTypeCode,
       sizeCode: selectedAnimalSize,
     };
+    console.log(selectedBirthDate.toISOString().split('T')[0]);
     if (photoUrl !== null) {
       clubData.petImgUrl = photoUrl[0];
     } else {
@@ -287,13 +251,6 @@ function ClubRegister() {
   return (
     <form onSubmit={handleFormSubmit}>
       {windowWidth <= 768 ? (
-        <>
-          {showAgreementPopup && (
-            <Modal>
-              <p>필수 사항을 모두 체크해야 합니다.</p>
-              <button onClick={() => setShowAgreementPopup(false)}>닫기</button>
-            </Modal>
-          )}
           <MobileMedia>
             <MTitle>클럽가입</MTitle>
             <LogoContainer>
@@ -417,61 +374,13 @@ function ClubRegister() {
                 </StyledButton>
               ))}
             </MAnimalSize>
-            <AgreementSection1>
-              <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
-              <AgreementRadioGroup>
-                <AgreementRadio
-                  name="agreement1"
-                  value="yes"
-                  checked={agreed1}
-                  onChange={handleAgreementChange1}
-                />
-                <span>동의</span>
-                <AgreementRadio
-                  name="agreement1"
-                  value="no"
-                  checked={!agreed1}
-                  onChange={handleAgreementChange1}
-                />
-                <span>거부</span>
-              </AgreementRadioGroup>
-            </AgreementSection1>
-            <AgreementSection2>
-              <AgreementLabel>
-                개인정보 마케팅 활용동의(혜택알림) (선택)
-              </AgreementLabel>
-              <AgreementRadioGroup>
-                <AgreementRadio
-                  name="agreement2"
-                  value="yes"
-                  checked={agreed2}
-                  onChange={handleAgreementChange2}
-                />
-                <span>동의</span>
-                <AgreementRadio
-                  name="agreement2"
-                  value="no"
-                  checked={!agreed2}
-                  onChange={handleAgreementChange2}
-                />
-                <span>거부</span>
-              </AgreementRadioGroup>
-            </AgreementSection2>
             <MButton>
-              <BlackButton type="submit" onClick={handleAgreementButtonClick}>
+              <BlackButton type="submit">
                 가입하기
               </BlackButton>
             </MButton>
           </MobileMedia>
-        </>
       ) : (
-        <>
-          {showAgreementPopup && (
-            <Modal>
-              <p>필수 사항을 모두 체크해야 합니다.</p>
-              <button onClick={() => setShowAgreementPopup(false)}>닫기</button>
-            </Modal>
-          )}
           <StyledClubContainer>
             <Title>클럽가입</Title>
             <LogoContainer>
@@ -592,53 +501,12 @@ function ClubRegister() {
                 </StyledButton>
               ))}
             </AnimalSize>
-            <AgreementSection1>
-              <AgreementLabel>개인정보 수집 및 이용동의 (필수)</AgreementLabel>
-              <AgreementRadioGroup>
-                <AgreementRadio
-                  name="agreement1"
-                  value="yes"
-                  checked={agreed1}
-                  onChange={handleAgreementChange1}
-                />
-                <span>동의</span>
-                <AgreementRadio
-                  name="agreement1"
-                  value="no"
-                  checked={!agreed1}
-                  onChange={handleAgreementChange1}
-                />
-                <span>거부</span>
-              </AgreementRadioGroup>
-            </AgreementSection1>
-            <AgreementSection2>
-              <AgreementLabel>
-                개인정보 마케팅 활용동의(혜택알림) (선택)
-              </AgreementLabel>
-              <AgreementRadioGroup>
-                <AgreementRadio
-                  name="agreement2"
-                  value="yes"
-                  checked={agreed2}
-                  onChange={handleAgreementChange2}
-                />
-                <span>동의</span>
-                <AgreementRadio
-                  name="agreement2"
-                  value="no"
-                  checked={!agreed2}
-                  onChange={handleAgreementChange2}
-                />
-                <span>거부</span>
-              </AgreementRadioGroup>
-            </AgreementSection2>
             <Button>
-              <BlackButton type="submit" onClick={handleAgreementButtonClick}>
+              <BlackButton type="submit">
                 가입하기
               </BlackButton>
             </Button>
           </StyledClubContainer>
-        </>
       )}
     </form>
   );
