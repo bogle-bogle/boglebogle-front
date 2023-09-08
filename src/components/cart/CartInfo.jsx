@@ -15,6 +15,8 @@ import {
   Circle,
 } from './CartInfo.style';
 
+import { FaPlus } from 'react-icons/fa';
+
 function CartInfo({ totalAmount, onOrderSheet }) {
   const formatPrice = (price) => {
     return price.toLocaleString();
@@ -39,7 +41,9 @@ function CartInfo({ totalAmount, onOrderSheet }) {
             <OrderText>배송비</OrderText>
             <OrderText>무료</OrderText>
           </OrderTextBox>
-          <Circle />
+          <Circle>
+            <FaPlus style={{ fontSize: '22px' }} />
+          </Circle>
         </OrderAmountBox>
         <OrderDiscountBox>
           <OrderTextBox>

@@ -92,3 +92,9 @@ export const breedCode = {
   D30: '퍼그',
   D99: '믹스',
 };
+
+export const sizeCode = {
+  'D-BG': '대형견',
+  'D-MD': '중형견',
+  'D-SM': '소형견',
+};

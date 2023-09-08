@@ -15,11 +15,8 @@ import {
   MiddlePagenationContainer,
   PageArrow,
   PageState,
-  ProductCard,
+  ProductCardContainer,
   ProductContainer,
-  ProductImg,
-  ProductPrice,
-  ProductSummary,
 } from './index.style';
 import { useNavigate } from 'react-router-dom';
 import CategoryFilterButton from './CategoryFilterButton';
@@ -27,6 +24,7 @@ import CategoryFilterButton from './CategoryFilterButton';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 import { proteinCode, animalCode, productSub } from '../../commonCode';
+import ProductCard from './ProductCard';
 
 function ProductList() {
   const navigate = useNavigate();
@@ -79,6 +77,7 @@ function ProductList() {
       })
       .then((res) => {
         setProductList(() => {
+          console.log(res.data.products);
           const newProducts = [...res.data.products];
           return newProducts;
         });
@@ -260,20 +259,14 @@ function ProductList() {
         </MiddlePageContainer>
       </MiddleContainer>
       <ProductContainer>
-        {productList.map((product, idx) => (
-          <ProductCard
-            key={idx}
-            onClick={() => navigate(`/product/${product.id}`)}
-          >
-            <ProductImg src={`${product.mainImgUrl}`}></ProductImg>
-            <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
-            <ProductSummary>{product.name}</ProductSummary>
-          </ProductCard>
-        ))}
+        {productList !== undefined &&
+          productList.map((product, idx) => (
+            <ProductCard key={idx} product={product}></ProductCard>
+          ))}
         {productList.length < 20 &&
           Array(4 - (productList.length % 4))
             .fill()
-            .map(() => <ProductCard></ProductCard>)}
+            .map(() => <ProductCardContainer></ProductCardContainer>)}
       </ProductContainer>
     </div>
   );

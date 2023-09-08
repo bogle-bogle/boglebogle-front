@@ -157,7 +157,7 @@ function HyundaiCard() {
   return (
     <>
       {openModal && (
-        <Modal>
+        <Modal handleModalClose={handleCloseModal}>
           <CustomCardModalContainer>
             <CustomCardContainer>
               <input
