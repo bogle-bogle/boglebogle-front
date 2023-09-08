@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import MovingHeendy from '../../assets/subscription/pink_muhly_heendy.gif';
 
 export const SubGrid = styled.div``;
 
@@ -6,9 +7,46 @@ export const SubMainAdv = styled.div`
   position: relative;
 `;
 
+export const SubMainAdvMovingImg = styled.div`
+  position: relative;
+  opacity: 0;
+
+  &:hover > img {
+    opacity: 1;
+  }
+`;
+
 export const SubMainAdvImg = styled.img`
   width: 100%;
   height: auto;
+`;
+
+export const SubMainBox = styled.div`
+  position: absolute;
+  width: 30%;
+  height: 55%;
+  top: 30%;
+  right: 5%;
+  border-radius: 15px;
+  background-color: white;
+  font-size: 1vw;
+  margin-top: 0.6vw;
+  padding: 1vw 1.5vw;
+`;
+
+export const SubMainBoxTitle = styled.div`
+  font-weight: bold;
+`;
+
+export const SubMainBoxWithContent = styled.div`
+  position: absolute;
+  top: 10%;
+  left: 60%;
+`;
+
+export const SubMainBoxContent = styled.img`
+  object-fit: contain;
+  width: 80%;
 `;
 
 export const AdvOverlayButton = styled.button`

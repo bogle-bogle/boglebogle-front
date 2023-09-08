@@ -21,10 +21,16 @@ import {
   TpbHistoryMonth,
   TpbHistoryName,
   TpbOrderBtn,
+  SubMainBox,
+  SubMainBoxTitle,
+  SubMainBoxWithContent,
+  SubMainBoxContent,
+  SubMainAdvMovingImg,
 } from './index.style';
 
 import Modal from '../modal/Modal';
-import subMainAdvImg from '../../assets/subscription/thepetbox_adv_img_smaller.png';
+import subMainAdvGif from '../../assets/subscription/pink_muhly_heendy.gif';
+import subMainAdvImg from '../../assets/subscription/pink_muhly_heendy.png';
 import subMainInfoImg from '../../assets/subscription/sub_info_img.png';
 import subDescrImg from '../../assets/subscription/sub_info_detail_img.png';
 import subFreeDeliveryIcon from '../../assets/subscription/sub_free_delivery_icon.png';
@@ -34,6 +40,7 @@ import subLivingIcon from '../../assets/subscription/sub_living_icon.png';
 import subDiyIcon from '../../assets/subscription/sub_diy_icon.png';
 import TpbSubModal from './TpbSubModal';
 import TpbHistoryModal from './TpbHistoryModal';
+import PinkIcon from '../../assets/subscription/pink_plant_icon.png';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -136,8 +143,19 @@ function SubContainer({ handleModalOpen }) {
         animate={control}
       >
         <SubMainAdv>
+          <SubMainAdvMovingImg src={subMainAdvGif} alt="mainAdvImg">
+            <SubMainBoxWithContent>
+              <SubMainBoxContent src={PinkIcon} />
+            </SubMainBoxWithContent>
+          </SubMainAdvMovingImg>
           <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
-          <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton>
+          {/* <SubMainBox>
+		          <span>
+		          <img src={PinkIcon} />
+		          <SubMainBoxTitle>11월의 구성</SubMainBoxTitle>
+		          </span>
+		        </SubMainBox> */}
+          {/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
         </SubMainAdv>
       </motion.div>
 
