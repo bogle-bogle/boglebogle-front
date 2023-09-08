@@ -14,8 +14,6 @@ export const StyledClubContainer = styled.div`
     'Sidebar5 Sidebar5 proteinCodes proteinCodes proteinCodes'
     'Sidebar5 Sidebar5 proteinCodes proteinCodes proteinCodes'
     'Sidebar7 Sidebar7 breedCode animalSize animalSize'
-    'agreement1 agreement1 agreement1 agreement1 agreement1'
-    'agreement2 agreement2 agreement2 agreement2 agreement2'
     'button button button button button';
   text-align: center;
   gap: 3vw;
@@ -211,8 +209,6 @@ export const MobileMedia = styled.div`
     'MfavoriteFoodIngredient MfavoriteFoodIngredient MfavoriteFoodIngredient'
     'MSidebar7 MSidebar7 MSidebar7'
     'MBreedCode ManimalSize ManimalSize'
-    'agreement1 agreement1 agreement1'
-    'agreement2 agreement2 agreement2'
     'MButton MButton MButton';
   text-align: center;
   gap: 10px;
@@ -358,33 +354,4 @@ export const MPetFavoriteFoodIngredients = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 10px;
-`;
-
-export const AgreementSection1 = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  grid-area: agreement1;
-`;
-export const AgreementSection2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  grid-area: agreement2;
-`;
-export const AgreementLabel = styled.label`
-  margin-bottom: 5px;
-  font-weight: bold;
-`;
-
-export const AgreementRadioGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-export const AgreementRadio = styled.input.attrs({ type: 'radio' })`
-  margin-right: 5px;
 `;
