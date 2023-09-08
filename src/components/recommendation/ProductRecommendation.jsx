@@ -7,7 +7,6 @@ import {
   StyledSpanGreen,
 } from './index.style';
 import {
-  ProductCard,
   ProductContainer,
   ProductImg,
   ProductPrice,
@@ -16,7 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { productSub, proteinCode, breedCode } from '../../commonCode.js';
 import miniIconImg from '../../assets/recommendation/mini-text-icon-v2.png';
-
+import ProductCard from '../product/ProductCard';
 function ProductRecommendation({ type, petId }) {
   const [foodProductList, setFoodProductList] = useState([]);
   const [petInfo, setPetInfo] = useState({});
@@ -65,16 +64,18 @@ function ProductRecommendation({ type, petId }) {
         <hr style={{ color: 'lightgray' }} />
       </RcTitle>
       <ProductContainer>
-        {foodProductList.map((product, idx) => (
-          <ProductCard
-            key={idx}
-            onClick={() => navigate(`/product/${product.id}`)}
-          >
-            <ProductImg src={product.mainImgUrl} alt={product.name} />
-            <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
-            <ProductSummary>{product.name}</ProductSummary>
-          </ProductCard>
-        ))}
+        {foodProductList !== undefined &&
+          foodProductList.map((product, idx) => (
+            // <ProductCard
+            //   key={idx}
+            //   onClick={() => navigate(`/product/${product.id}`)}
+            // >
+            //   <ProductImg src={product.mainImgUrl} alt={product.name} />
+            //   <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
+            //   <ProductSummary>{product.name}</ProductSummary>
+            // </ProductCard>
+            <ProductCard key={idx} product={product}></ProductCard>
+          ))}
       </ProductContainer>
     </RcContainer>
   );

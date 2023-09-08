@@ -7,4 +7,11 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
   );
+
+  app.use(
+    createProxyMiddleware('/ai', {
+      target: 'http://localhost:8000',
+      changeOrigin: true,
+    }),
+  );
 };

@@ -7,7 +7,7 @@ export const ProductContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const ProductCard = styled.div`
+export const ProductCardContainer = styled.div`
   width: 300px;
   height: 400px;
 

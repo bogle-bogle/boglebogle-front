@@ -37,6 +37,8 @@ export const OrderAmountBox = styled.div`
   padding: 15px;
   padding-top: 35px;
   padding-bottom: 35px;
+
+  position: relative;
 `;
 
 export const OrderTextBox = styled.div`
@@ -60,6 +62,15 @@ export const Circle = styled.div`
 
   margin: 0 auto;
   margin-bottom: -35px;
+
+  position: absolute;
+
+  top: 137px;
+  left: 105px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const OrderDiscountBox = styled.div`
