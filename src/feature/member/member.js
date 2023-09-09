@@ -26,6 +26,9 @@ const memberSlice = createSlice({
       state = { ...action.payload.member, pet: [...action.payload.pets] };
       return state;
     },
+    clearMember: (state, action) => {
+      return initialMemberState;
+    },
   },
 });
 
