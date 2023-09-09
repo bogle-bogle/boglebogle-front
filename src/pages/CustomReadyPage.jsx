@@ -6,7 +6,6 @@ import heendysay1 from '../assets/custom/heendysay1.png';
 import heendysay2 from '../assets/custom/heendysay2.png';
 import { PiBoneLight } from 'react-icons/pi';
 import '../styles/CustomReadyPage.css';
-import AWS from 'aws-sdk';
 import axios from 'axios';
 import CustomResult from '../components/custom/CustomResult';
 import Modal from '../components/modal/Modal';
@@ -30,6 +29,8 @@ function CustomReadyPage() {
   const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
 
   const [recommendProduct, setRecommendProduct] = useState([]);
+
+  
 
   useEffect(() => {
     axios
@@ -89,106 +90,67 @@ function CustomReadyPage() {
     }
   };
 
-  AWS.config.update({
-    region: process.env.REACT_APP_AWS_REGION,
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
-  });
-
-  const uploadToS3 = async () => {
-    const s3 = new AWS.S3();
-    const feed = feedInputRef.current.files[0];
-    const ingredient = ingredientInputRef.current.files[0];
-
-    const uploadPromises = []; // 업로드 프로미스 배열
-
-    if (feed) {
-      const feedParams = {
-        Bucket: 'heendy-feed',
-        Key: feed.name,
-        Body: feed,
-      };
-      const feedUploadPromise = s3.upload(feedParams).promise();
-      uploadPromises.push(feedUploadPromise);
-    }
-
-    if (ingredient) {
-      const ingredientParams = {
-        Bucket: 'heendy-feed',
-        Key: ingredient.name,
-        Body: ingredient,
-      };
-      const ingredientUploadPromise = s3.upload(ingredientParams).promise();
-      uploadPromises.push(ingredientUploadPromise);
-    }
-
-    try {
-      const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
-      console.info(
-        'S3 object URLs:',
-        uploadResults.map((result) => result.Location),
-      );
-      return uploadResults.map((result) => result.Location);
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
-  };
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     handleOpenModal();
-    const feedUrlPromise = uploadToS3(feedInputRef.current.files[0]);
-
-    const ingredientUrlPromise = uploadToS3(
-      ingredientInputRef.current.files[1],
-    );
-    const selectedPetId = selectedPet.codeValue;
-
-    const [feedUrl, ingredientUrl] = await Promise.all([
-      feedUrlPromise,
-      ingredientUrlPromise,
-    ]);
-    const customData = {
-      feedMainImgUrl: '',
-      feedDescImgUrl: '',
-    };
-
-    if (feedUrl.length !== 0) {
-      customData.feedMainImgUrl = feedUrl[0];
-    } else {
-      console.log('이쪽으로 빠짐');
-      customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
+  
+    const feedFile = feedInputRef.current.files[0];
+    const ingredientFile = ingredientInputRef.current.files[0];
+  
+    if (!feedFile || !ingredientFile) {
+      alert('사료 표지 이미지와 성분 이미지를 모두 업로드해주세요.');
+      return;
     }
-    if (ingredientUrl.length !== 0) {
-      customData.feedDescImgUrl = ingredientUrl[1];
-    } else {
-      customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
-    }
-    console.log(customData);
+  
     try {
-      const response = await axios.put(
-        `api/pet/feed/${selectedPetId}`,
-        customData,
-      );
-      console.log(response);
+      // S3 이미지 업로드 함수 호출
+      // Promise.all을 사용하여 병렬로 처리
+      const [feedUrl, ingredientUrl] = await Promise.all([
+        uploadImages(feedFile),
+        uploadImages(ingredientFile),
+      ]);
+  
+      const customData = {
+        feedMainImgUrl: feedUrl || selectedPet.feedMainImgUrl,
+        feedDescImgUrl: ingredientUrl || selectedPet.feedDescImgUrl,
+      };
 
+      // DB 업데이트 함수 호출
+      await updateDatabase(selectedPet.codeValue, customData);
       const imgUrl = customData.feedDescImgUrl;
 
-      const searchRes = await axios.post('/ai/convert-to-similarity', {
-        imgUrl,
-      });
-      console.log(searchRes);
-
-      setRecommendProduct(() => {
-        return [...searchRes.data];
-      });
-      handleModalClose();
-
-      // 페이지 전환 및 데이터 전달
-      // navigate('/customresult', { state: { customData, selectedPet } });
+      try{
+        const searchRes = await axios.post('/ai/convert-to-similarity', { imgUrl });
+        setRecommendProduct(searchRes.data);
+        handleModalClose();
+      } catch (error) {
+        console.log('유사도 쪽 에러 : ', error)
+      }
+  
     } catch (error) {
-      // 에러 처리 로직
+      console.error('에러:', error);
     }
+  };
+  
+  // S3 이미지 업로드
+  const uploadImages = async (feedFile, ingredientFile) => {
+    const formData = new FormData();
+    formData.append('file', feedFile);
+    formData.append('file', ingredientFile);
+  
+    const response = await axios.post('/api/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  };
+  
+  // DB 업데이트
+  const updateDatabase = async (selectedPetId, customData) => {
+    const response = await axios.put(`api/pet/feed/${selectedPetId}`, customData);
+    console.log('db성공', response.data)
+    return response.data;
   };
 
   const handleOpenModal = () => {
