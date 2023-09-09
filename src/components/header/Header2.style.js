@@ -49,12 +49,12 @@ export const Header = styled.div`
   }
 
   .list__container {
-    .cart_icon {
+    .menu_icon {
       padding: 0;
       top: 50;
     }
 
-    .cart_text {
+    .menu_text {
       display: none;
     }
   }
@@ -89,11 +89,11 @@ export const Header = styled.div`
       margin: 0 0 1rem 0;
       padding: 0;
 
-      .cart_icon {
+      .menu_icon {
         padding: 0 1.5rem;
       }
 
-      .cart_text {
+      .menu_text {
         display: inline-block;
         margin: 0 0 0 0.2rem;
       }
