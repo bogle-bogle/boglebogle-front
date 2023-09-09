@@ -176,7 +176,7 @@ function ClubRegister() {
 
     try {
       const response = await axios.post('/api/upload', formData, { headers });
-      console.log('response.data', response.data)
+      console.log('response.data', response.data);
       return response.data;
     } catch (error) {
       console.error('파일 업로드 실패:', error);
@@ -195,7 +195,7 @@ function ClubRegister() {
     event.preventDefault();
 
     const photoUrl = await uploadImage(photoInputRef.current.files[0]);
-    console.log('사진 ', photoUrl)
+    console.log('사진 ', photoUrl);
     const selectedCodesString = selectedProteinCodes.join(',');
 
     const clubData = {
