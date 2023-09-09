@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; // react-datepicker를 import
 import { useSelector } from 'react-redux';
@@ -152,12 +151,6 @@ function ClubRegister() {
     setSelectedAnimalSize(codeValue);
   };
 
-  AWS.config.update({
-    region: process.env.REACT_APP_AWS_REGION,
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
-  });
-
   const handleFileInputChange = (imageKey) => (event) => {
     handleImageUpload(event, imageKey);
   };
@@ -174,29 +167,19 @@ function ClubRegister() {
     }
   };
 
-  const uploadToS3 = async () => {
-    const s3 = new AWS.S3();
-    const photo = photoInputRef.current.files[0];
-    const uploadPromises = []; // 업로드 프로미스 배열
+  const uploadImage = async (file) => {
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+    };
+    const formData = new FormData();
+    formData.append('file', file);
 
-    if (photo) {
-      const photoParams = {
-        Bucket: 'heendy-feed',
-        Key: photo.name,
-        Body: photo,
-      };
-      const photoUploadPromise = s3.upload(photoParams).promise();
-      uploadPromises.push(photoUploadPromise);
-    }
     try {
-      const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
-      console.info(
-        'S3 object URLs:',
-        uploadResults.map((result) => result.Location),
-      );
-      return uploadResults.map((result) => result.Location);
+      const response = await axios.post('/api/upload', formData, { headers });
+      console.log('response.data', response.data)
+      return response.data;
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error('파일 업로드 실패:', error);
     }
   };
 
@@ -211,10 +194,8 @@ function ClubRegister() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    const photoUrlPromise = uploadToS3(photoInputRef.current.files[0]);
-
-    const [photoUrl] = await Promise.all([photoUrlPromise]);
-
+    const photoUrl = await uploadImage(photoInputRef.current.files[0]);
+    console.log('사진 ', photoUrl)
     const selectedCodesString = selectedProteinCodes.join(',');
 
     const clubData = {
@@ -228,12 +209,7 @@ function ClubRegister() {
       animalTypeCode: selectedAnimalTypeCode,
       sizeCode: selectedAnimalSize,
     };
-    console.log(selectedBirthDate.toISOString().split('T')[0]);
-    if (photoUrl !== null) {
-      clubData.petImgUrl = photoUrl[0];
-    } else {
-      clubData.petImgUrl = null;
-    }
+
     console.log(clubData);
     try {
       const response = await axios.post('api/club', clubData, {
@@ -241,7 +217,6 @@ function ClubRegister() {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
       });
-
       console.log('클럽 등록 성공:', response.data);
       navigate('/completeclubregister');
     } catch (error) {
