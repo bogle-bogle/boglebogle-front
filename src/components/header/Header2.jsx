@@ -7,7 +7,8 @@ import { IoClose } from 'react-icons/io5';
 import logo from '../../assets/thepet_logo_img.png';
 import { BiSolidUser } from 'react-icons/bi';
 import { Header, StyledNavLink } from './Header2.style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { memberAction } from '../../feature/member/member';
 import LoginModal from '../login/LoginModal';
 import Modal from '../modal/Modal';
 
