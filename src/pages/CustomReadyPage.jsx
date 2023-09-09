@@ -30,8 +30,6 @@ function CustomReadyPage() {
 
   const [recommendProduct, setRecommendProduct] = useState([]);
 
-  
-
   useEffect(() => {
     axios
       .get(`/api/pet`, {
@@ -93,15 +91,15 @@ function CustomReadyPage() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     handleOpenModal();
-  
+
     const feedFile = feedInputRef.current.files[0];
     const ingredientFile = ingredientInputRef.current.files[0];
-  
+
     if (!feedFile || !ingredientFile) {
       alert('사료 표지 이미지와 성분 이미지를 모두 업로드해주세요.');
       return;
     }
-  
+
     try {
       // S3 이미지 업로드 함수 호출
       // Promise.all을 사용하여 병렬로 처리
@@ -109,7 +107,7 @@ function CustomReadyPage() {
         uploadImages(feedFile),
         uploadImages(ingredientFile),
       ]);
-  
+
       const customData = {
         feedMainImgUrl: feedUrl || selectedPet.feedMainImgUrl,
         feedDescImgUrl: ingredientUrl || selectedPet.feedDescImgUrl,
@@ -119,25 +117,26 @@ function CustomReadyPage() {
       await updateDatabase(selectedPet.codeValue, customData);
       const imgUrl = customData.feedDescImgUrl;
 
-      try{
-        const searchRes = await axios.post('/ai/convert-to-similarity', { imgUrl });
+      try {
+        const searchRes = await axios.post('/ai/convert-to-similarity', {
+          imgUrl,
+        });
         setRecommendProduct(searchRes.data);
         handleModalClose();
       } catch (error) {
-        console.log('유사도 쪽 에러 : ', error)
+        console.log('유사도 쪽 에러 : ', error);
       }
-  
     } catch (error) {
       console.error('에러:', error);
     }
   };
-  
+
   // S3 이미지 업로드
   const uploadImages = async (feedFile, ingredientFile) => {
     const formData = new FormData();
     formData.append('file', feedFile);
     formData.append('file', ingredientFile);
-  
+
     const response = await axios.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -145,11 +144,14 @@ function CustomReadyPage() {
     });
     return response.data;
   };
-  
+
   // DB 업데이트
   const updateDatabase = async (selectedPetId, customData) => {
-    const response = await axios.put(`api/pet/feed/${selectedPetId}`, customData);
-    console.log('db성공', response.data)
+    const response = await axios.put(
+      `api/pet/feed/${selectedPetId}`,
+      customData,
+    );
+    console.log('db성공', response.data);
     return response.data;
   };
 
