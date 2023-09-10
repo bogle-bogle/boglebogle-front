@@ -47,7 +47,6 @@ function HeendycarInfo() {
     axios
       .get(`/api/hc/branch`)
       .then((res) => {
-        console.log(res.data);
         const transformedData = res.data.map((item) => ({
           branchCode: item.branchCode,
           name: item.name,
@@ -69,7 +68,7 @@ function HeendycarInfo() {
   }, []);
 
   const [selectedBranchCode, setSelectedBranchCode] = useState('101');
-  const [selectedTime, setSelectednTime] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
 
   const [deptBranches, setDeptBranches] = useState([]);
   const [outletBranches, setOutletBranches] = useState([]);
@@ -114,9 +113,11 @@ function HeendycarInfo() {
   };
 
   const convertReservationTime = (simpleTime) => {
+
     const currDate = new Date();
     const hour = parseInt(simpleTime.split(':')[0]);
     const min = parseInt(simpleTime.split(':')[1]);
+    
     return new Date(
       currDate.getFullYear(),
       currDate.getMonth(),
@@ -124,37 +125,33 @@ function HeendycarInfo() {
       hour,
       min,
     );
+};
+
+const handleMainBtnClick = () => {
+  alert('예약하시겠습니까?');
+  const data = {
+    branchCode: selectedBranchCode,
+    reservationTime: convertReservationTime(selectedTime),
   };
 
-  const handleMainBtnClick = () => {
-    alert('예약하시겠습니까?');
-    const data = {
-      branchCode: selectedBranchCode,
-      reservationTime: convertReservationTime(selectedTime),
-    };
+  axios
+    .post(`/api/hc/reservation`, data, {
+      headers: {
+        Authorization: `Bearer ${member.jwt.accessToken}`,
+      },
+    })
+    .then((res) => {
 
-    console.log(member);
-
-    axios
-      .post(`/api/hc/reservation`, data, {
-        headers: {
-          Authorization: `Bearer ${member.jwt.accessToken}`,
-        },
-      })
-      .then((res) => {
-        const formattedTime = new Date(res.data.reservationTime)
-          .toISOString()
-          .split('T')
-          .join(' ')
-          .slice(0, 16);
-        alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
-        console.log(res.data);
-      })
-      .catch((Error) => {
-        alert('예약에 실패하였습니다.');
-        console.info('Error');
-      });
-  };
+      const dateObj = new Date(res.data.reservationTime);
+      const formattedTime = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')} ${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')}`;
+      alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
+    })
+    .catch((Error) => {
+      console.log(Error)
+      alert('예약에 실패하였습니다.');
+      console.info('Error');
+    });
+};
 
   return (
     <HcGrid>
@@ -282,7 +279,7 @@ function HeendycarInfo() {
               key={time.text}
               isActive={time.text === selectedTime}
               onClick={() => {
-                setSelectednTime(time.text);
+                setSelectedTime(time.text);
               }}
             >
               {time.text}
