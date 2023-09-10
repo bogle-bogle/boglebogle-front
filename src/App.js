@@ -22,6 +22,7 @@ import Admin from './pages/Admin';
 import MainLayout from './pages/MainLayout';
 import PlayGround from './pages/PlayGround';
 import MyPage from './pages/MyPage';
+import Suggestion from './pages/Suggestion';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Router>
         <Routes>
           <Route element={<MainLayout />}>
+            <Route path="/suggestion" element={<Suggestion />} />
             <Route path="/customready" element={<CustomReadyPage />} />
             <Route path="/customresult" element={<CustomReadyResult />} />
             <Route path="/" element={<Main />}></Route>

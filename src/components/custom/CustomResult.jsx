@@ -79,8 +79,8 @@ function CustomResult({ recommendProduct }) {
             </ResultPagenationContainer>
             <RecommentProductListContainer>
               {recommendProduct !== undefined &&
-                recommendProduct.map((rp) => (
-                  <ResultCardContainer>
+                recommendProduct.map((rp, idx) => (
+                  <ResultCardContainer key={idx}>
                     <ProductCard product={rp}></ProductCard>
                     {/* <SimilarityContainer>
                       <LinearProgress
