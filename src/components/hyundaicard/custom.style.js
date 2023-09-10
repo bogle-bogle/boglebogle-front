@@ -27,6 +27,8 @@ export const CroppedImg = styled.img`
   border-radius: 11px;
 
   box-shadow: 3px 3px 5px gray;
+
+  /* position: absolute; */
 `;
 
 export const SelectCustomDesignBtn = styled.button`

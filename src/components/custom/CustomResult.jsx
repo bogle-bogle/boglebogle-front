@@ -6,11 +6,15 @@ import {
   CompleteExplain,
   CompleteText,
   CustomResultContainer,
+  FlexContainer,
+  ProgressBar,
+  ProgressBarContainer,
   RecommendAnalyzeContainer,
-  RecommentProductListContainer,
+  RecommendProductListContainer,
   ResultCardContainer,
   ResultPagenationContainer,
   SimilarityContainer,
+  SimilarityPercentText,
   TotalCountText,
   UserAnalyzeContainer,
   UserRegisterResultContainer,
@@ -18,11 +22,7 @@ import {
   UserResultImg,
   UserResultText,
 } from './custom-result.style';
-import LinearProgress, {
-  LinearProgressProps,
-} from '@mui/material/LinearProgress';
 
-import feedImg from '../../assets/custom/feed_img.png';
 import {
   MiddlePageContainer,
   PageArrow,
@@ -31,8 +31,7 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import ProductCard from '../product/ProductCard';
 
-function CustomResult({ recommendProduct }) {
-  console.log(recommendProduct);
+function CustomResult({ recommendProduct, selectedFeedImage }) {
   return (
     <>
       <CompleteText>성분 분석 완료!</CompleteText>
@@ -48,16 +47,28 @@ function CustomResult({ recommendProduct }) {
               우리 ‘두리’가 잘 먹는 사료
             </AnalyzeResultExplain>
           </AnalyzeResultExplainContainer>
-          <UserAnalyzeContainer>
-            <UserResultCard>
-              <UserResultImg src={feedImg}></UserResultImg>
-              <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
-              <UserResultText isTitle={false}>
-                연어, 당근, 보리, 쌀, 호박, 블루베리, 쌀, 호박, 딸기, 토마토,
-                녹두
-              </UserResultText>
-            </UserResultCard>
-          </UserAnalyzeContainer>
+          <FlexContainer>
+            <UserAnalyzeContainer>
+              <UserResultCard>
+                <UserResultImg src={selectedFeedImage}></UserResultImg>
+                <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
+                <UserResultText isTitle={false}>
+                  연어, 당근, 보리, 쌀, 호박, 블루베리, 쌀, 호박, 딸기, 토마토,
+                  녹두
+                </UserResultText>
+              </UserResultCard>
+            </UserAnalyzeContainer>
+          </FlexContainer>
+          <AnalyzeResultExplainContainer style={{ display: 'none' }}>
+            <AnalyzeResultExplain>
+              우리 ‘두리’가 잘 먹는 사료
+            </AnalyzeResultExplain>
+          </AnalyzeResultExplainContainer>
+          <AnalyzeResultExplainContainer>
+            <AnalyzeResultExplain>
+              {/* 우리 ‘두리’가 잘 먹는 사료 */}
+            </AnalyzeResultExplain>
+          </AnalyzeResultExplainContainer>
         </UserRegisterResultContainer>
         <AnalyzeResultContainer>
           <AnalyzeResultExplainContainer>
@@ -66,31 +77,37 @@ function CustomResult({ recommendProduct }) {
           <RecommendAnalyzeContainer>
             <ResultPagenationContainer>
               <MiddlePageContainer></MiddlePageContainer>
-              <TotalCountText>86개</TotalCountText>
+              <TotalCountText>{`${recommendProduct.length}개`}</TotalCountText>
               <MiddlePageContainer>
                 <PageArrow>
-                  <AiOutlineLeft style={{ fontSize: '24px' }} />
+                  <AiOutlineLeft style={{ fontSize: '23px' }} />
                 </PageArrow>
                 <PageState>{`1/4`}</PageState>
                 <PageArrow>
-                  <AiOutlineRight />
+                  <AiOutlineRight style={{ fontSize: '23px' }} />
                 </PageArrow>
               </MiddlePageContainer>
             </ResultPagenationContainer>
-            <RecommentProductListContainer>
+            <RecommendProductListContainer>
               {recommendProduct !== undefined &&
                 recommendProduct.map((rp) => (
                   <ResultCardContainer>
                     <ProductCard product={rp}></ProductCard>
-                    {/* <SimilarityContainer>
-                      <LinearProgress
-                        value={20}
-                        color="#0A9882"
-                      ></LinearProgress>
-                    </SimilarityContainer> */}
+                    <SimilarityContainer percent={rp.similarity}>
+                      <ProgressBarContainer>
+                        <ProgressBar
+                          percent={rp.similarity}
+                          si={rp.similarity}
+                        ></ProgressBar>
+                      </ProgressBarContainer>
+                      <SimilarityPercentText>성분유사도</SimilarityPercentText>
+                      <SimilarityPercentText percent={rp.similarity}>
+                        {`${rp.similarity}%`}
+                      </SimilarityPercentText>
+                    </SimilarityContainer>
                   </ResultCardContainer>
                 ))}
-            </RecommentProductListContainer>
+            </RecommendProductListContainer>
           </RecommendAnalyzeContainer>
         </AnalyzeResultContainer>
       </CustomResultContainer>
