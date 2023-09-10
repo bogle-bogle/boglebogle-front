@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const serverUrl = 'http://localhost:8080';
+const serverUrl = `${process.env.REACT_APP_SERVER_URL}`;
 
 async function get(endpoint, params = '') {
   return axios.get(serverUrl + endpoint + '/' + params);
