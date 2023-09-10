@@ -145,3 +145,7 @@ export const FindAccountBtn = styled.div`
     font-weight: light;
     margin-top: 5px;
 `;
+
+export const LoginAdvImg = styled.img`
+    width: 100%;
+`;

@@ -5,6 +5,9 @@ import { memberAction } from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { margin, textAlign } from '@mui/system';
+import { MypageAdv, MypageAdvBtn, MypageAdvImg, MypageContent } from '../mypage/mypage.style';
+import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png'
+import { LoginAdvImg } from './login.style';
 
 function RedirectUrl() {
   const dispatch = useDispatch();
@@ -54,6 +57,8 @@ function RedirectUrl() {
             axios.post(`/api/member/login`, data).then((res) => {
               console.info(res.data);
               dispatch(memberAction.setMemeber(res.data));
+
+              navigate('/');
             });
           });
       })
@@ -65,12 +70,15 @@ function RedirectUrl() {
   const member = useSelector((state) => state.member);
 
   return (
-    <div style={{ margin: '200px', textAlign: 'center' }}>
-      <h1>
-        {member.name}님 <br /> 로그인되었습니다.
-      </h1>
-      <button onClick={() => navigate('/')}>메인페이지로 이동하기</button>
-    </div>
+    <>
+      <div style={{ margin: '110px', textAlign: 'center' }}>
+        <h3>
+          환영합니다, {member.name}회원님! <br />
+          정상적으로 로그인되었습니다.
+        </h3>
+      </div>
+      <LoginAdvImg src = {ClubAdvImg} />
+    </>
   );
 }
 

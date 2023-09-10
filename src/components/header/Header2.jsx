@@ -128,9 +128,6 @@ function Header2() {
             </StyledNavLink>
           )}
         </div>
-        <div className="list__container">
-          <StyledNavLink to="/clubregister">반려동물 등록하기</StyledNavLink>
-        </div>
       </div>
     </Header>
     </>

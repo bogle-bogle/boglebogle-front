@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MypageGrid = styled.div`
     display: grid;
     /* grid-template-rows: 25% 25% auto; */
-    margin: 3% 3.5%;
+    margin: 3% 0% 0% 3.5%;
     /* height: 100%; */
     @media (max-width: 1100px) {
         margin: 0 2%;
@@ -19,6 +19,7 @@ export const MypageGrid = styled.div`
 export const MypageSidebar = styled.div`
     grid-area: sidebar;
     width: 100%;
+    min-width: 200px;
 `;
 
 export const MypageTitle = styled.div`
@@ -39,7 +40,7 @@ export const MypageBoldBorder = styled.hr`
 `;
 
 export const MypageContent = styled.div`
-    max-width: 750px;
+    max-width: 100%;
     padding: 35px 20px;
 `;
 
