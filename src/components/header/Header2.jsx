@@ -9,6 +9,8 @@ import { BiSolidUser } from 'react-icons/bi';
 import { Header, StyledNavLink } from './Header2.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { memberAction } from '../../feature/member/member';
+import LoginModal from '../login/LoginModal';
+import Modal from '../modal/Modal';
 
 function Header2() {
   const navigate = useNavigate();
@@ -42,16 +44,21 @@ function Header2() {
   const [isToggled, setIsToggled] = useState(false);
   // 사용자 toggle state
   const [userToggled, setUserToggled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // 로그인 설정
-  const Rest_api_key = process.env.REACT_APP_KAKAO_REST_API_KEY; //REST API KEY
-  const redirect_uri = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`; //Redirect URI
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
-  const handleLogin = () => {
-    window.location.href = kakaoURL;
-  };
+  function handleModalClose() {
+    setModalOpen(false);
+  }
+
+  function handleModalOpen() {
+    setModalOpen(true);
+  }
 
   return (
+    <>
+    {modalOpen && (
+      <Modal handleModalClose={handleModalClose}>{<LoginModal />}</Modal>
+    )}
     <Header isToggled={isToggled} userToggled={userToggled}>
       {/* 햄버거 버튼(bar) */}
       <div
@@ -64,7 +71,7 @@ function Header2() {
         {!isToggled ? <HiMenu /> : <IoClose />}
       </div>
 
-      {/* Apple 로고 */}
+      {/* App 로고 */}
       <div className="logo">
         <img
           src={logo}
@@ -116,16 +123,14 @@ function Header2() {
               </StyledNavLink>
             </>
           ) : (
-            <StyledNavLink to="" onClick={handleLogin}>
+            <StyledNavLink to="" onClick={handleModalOpen}>
               로그인
             </StyledNavLink>
           )}
         </div>
-        <div className="list__container">
-          <StyledNavLink to="/clubregister">클럽 흰디 가입</StyledNavLink>
-        </div>
       </div>
     </Header>
+    </>
   );
 }
 
