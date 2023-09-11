@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Header = styled.div`
+export const HeaderContainer = styled.div`
   margin-top: 0.75rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   padding: 15px;
   display: flex;
   justify-content: space-between;
@@ -11,7 +11,6 @@ export const Header = styled.div`
   color: black;
 
   .logo {
-    margin: 0 1rem;
     width: 120px;
   }
 
@@ -61,6 +60,7 @@ export const Header = styled.div`
 
   @media screen and (max-width: 1400px) {
     margin-top: 0;
+    margin-bottom: 0.3rem;
     padding: 4px;
     flex-wrap: wrap;
     font-size: 15px;
@@ -111,7 +111,6 @@ export const StyledNavLink = styled(NavLink)`
   }
 
   &.active {
-    // 👏 이 부분!!!
     color: #2e775a;
   }
 `;

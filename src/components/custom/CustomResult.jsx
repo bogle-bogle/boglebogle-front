@@ -90,8 +90,8 @@ function CustomResult({ recommendProduct, selectedFeedImage }) {
             </ResultPagenationContainer>
             <RecommendProductListContainer>
               {recommendProduct !== undefined &&
-                recommendProduct.map((rp) => (
-                  <ResultCardContainer>
+                recommendProduct.map((rp, idx) => (
+                  <ResultCardContainer key={idx}>
                     <ProductCard product={rp}></ProductCard>
                     <SimilarityContainer percent={rp.similarity}>
                       <ProgressBarContainer>

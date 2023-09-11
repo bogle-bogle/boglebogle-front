@@ -135,13 +135,6 @@ function SubContainer({ handleModalOpen }) {
         </Modal>
       )}
 
-      <motion.div
-        className="box"
-        ref={ref}
-        variants={boxVariant}
-        initial="hidden"
-        animate={control}
-      >
         <SubMainAdv>
           <SubMainAdvMovingImg src={subMainAdvGif} alt="mainAdvImg">
             <SubMainBoxWithContent>
@@ -157,7 +150,6 @@ function SubContainer({ handleModalOpen }) {
 		        </SubMainBox> */}
           {/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
         </SubMainAdv>
-      </motion.div>
 
       <TpbHistoryTitle>
         매달 새로운 즐거움, <br />
@@ -183,6 +175,14 @@ function SubContainer({ handleModalOpen }) {
           );
         })}
       </Slider>
+
+<motion.div
+className="box"
+ref={ref}
+variants={boxVariant}
+initial="hidden"
+animate={control}
+>
 
       <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
 
@@ -238,6 +238,9 @@ function SubContainer({ handleModalOpen }) {
         </TpbMainSectBox>
       </TpbMainSect>
       <TpbMainSectDescr src={subDescrImg} />
+
+      </motion.div>
+
     </SubGrid>
   );
 }
