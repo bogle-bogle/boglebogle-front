@@ -24,14 +24,14 @@ const items = [
     title: '더펫이 새롭게 태어납니다!',
     desc: '더펫박스 정기 구독부터 우리 반려동물 맞춤 추천 상품까지!',
     img: 'slide1',
-    link: '/suggestion'
+    link: '/suggestion',
   },
   {
     id: 2,
     title: '더펫이 새롭게 태어납니다!',
     desc: '더펫박스 정기 구독부터 우리 반려동물 맞춤 추천 상품까지!',
     img: 'slide2',
-    link: '/suggestion'
+    link: '/suggestion',
   },
 ];
 
@@ -56,7 +56,9 @@ function MainSlider() {
               <SliderTitle>{item.title}</SliderTitle>
               <SliderDesc>{item.desc}</SliderDesc>
               <SliderBtnBox>
-                <SliderBtn onClick={() => navigate(item.link)}>자세히 보기</SliderBtn>
+                <SliderBtn onClick={() => navigate(item.link)}>
+                  자세히 보기
+                </SliderBtn>
               </SliderBtnBox>
               {/* <SliderBgImg src={require("" + item.url).default} alt='React'></SliderBgImg> */}
             </SlideContents>
