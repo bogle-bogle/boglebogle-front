@@ -5,7 +5,6 @@ import heendycustomready from '../assets/custom/heendycustomready.png';
 import heendysay1 from '../assets/custom/heendysay1.png';
 import heendysay2 from '../assets/custom/heendysay2.png';
 import { PiBoneLight } from 'react-icons/pi';
-import '../styles/CustomReadyPage.css';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 

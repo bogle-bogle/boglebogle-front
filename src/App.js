@@ -22,6 +22,8 @@ import Admin from './pages/Admin';
 import MainLayout from './pages/MainLayout';
 import PlayGround from './pages/PlayGround';
 import MyPage from './pages/MyPage';
+import Suggestion from './pages/Suggestion';
+import AddPet from './pages/AddPet';
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
       <Router>
         <Routes>
           <Route element={<MainLayout />}>
+            <Route path="/suggestion" element={<Suggestion />} />
             <Route path="/customready" element={<CustomReadyPage />} />
             <Route path="/customresult" element={<CustomReadyResult />} />
             <Route path="/" element={<Main />}></Route>
@@ -43,6 +46,7 @@ function App() {
             <Route path="/heendycar" element={<Heendycar />}></Route>
             <Route path="/card" element={<HyundaiCard />}></Route>
             <Route path="/clubregister" element={<ClubRegister />}></Route>
+            <Route path="/addpet" element={<AddPet />}></Route>
             <Route path="/playground" element={<PlayGround />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route
