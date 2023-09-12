@@ -135,21 +135,21 @@ function SubContainer({ handleModalOpen }) {
         </Modal>
       )}
 
-        <SubMainAdv>
-          <SubMainAdvMovingImg src={subMainAdvGif} alt="mainAdvImg">
-            <SubMainBoxWithContent>
-              <SubMainBoxContent src={PinkIcon} />
-            </SubMainBoxWithContent>
-          </SubMainAdvMovingImg>
-          <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
-          {/* <SubMainBox>
+      <SubMainAdv>
+        <SubMainAdvMovingImg src={subMainAdvGif} alt="mainAdvImg">
+          <SubMainBoxWithContent>
+            <SubMainBoxContent src={PinkIcon} />
+          </SubMainBoxWithContent>
+        </SubMainAdvMovingImg>
+        <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
+        {/* <SubMainBox>
 		          <span>
 		          <img src={PinkIcon} />
 		          <SubMainBoxTitle>11월의 구성</SubMainBoxTitle>
 		          </span>
 		        </SubMainBox> */}
-          {/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
-        </SubMainAdv>
+        {/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
+      </SubMainAdv>
 
       <TpbHistoryTitle>
         매달 새로운 즐거움, <br />
@@ -176,71 +176,68 @@ function SubContainer({ handleModalOpen }) {
         })}
       </Slider>
 
-<motion.div
-className="box"
-ref={ref}
-variants={boxVariant}
-initial="hidden"
-animate={control}
->
+      <motion.div
+        className="box"
+        ref={ref}
+        variants={boxVariant}
+        initial="hidden"
+        animate={control}
+      >
+        <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
 
-      <SubMainAdvImg src={subMainInfoImg} alt="mainAdvImg" />
-
-      <TpbMainSect>
-        {tpbSubModalOpen && (
-          <Modal handleModalClose={handleTpbSubModalClose}>
-            <TpbSubModal />
-          </Modal>
-        )}
-        <TpbMainSectBox>
-          <TpbMainBox>
-            <TpbMainBoxTitle>월간 큐레이션</TpbMainBoxTitle>
-            <TpbMiniMark src={subFreeDeliveryIcon} />
-            <TpbMainBoxDescr>
-              큐레이터가 선정한 다양한 장난감, 간식, 패션 용품을 매달 받아볼 수
-              있는 서비스
-            </TpbMainBoxDescr>
-            <TpbMainContentBox>
-              <TpbMiniIcon src={subFoodIcon} />
-              나의 반려동물 맞춤 간식 1종 ＞
-            </TpbMainContentBox>
-            <TpbMainContentBox>
-              <TpbMiniIcon src={subToyIcon} />
-              행동 발달 장난감 1종 ＞
-            </TpbMainContentBox>
-            <TpbMainContentBox>
-              <TpbMiniIcon src={subLivingIcon} />
-              테마 리빙용품 1종＞
-            </TpbMainContentBox>
-            <TpbOrderBtn onClick={handleTpbSubModalOpen}>
-              바로 구독하기
-            </TpbOrderBtn>
-          </TpbMainBox>
-        </TpbMainSectBox>
-        <TpbMainSectBox>
-          <TpbMainBox>
-            <TpbMainBoxTitle>DIY 정기 배송</TpbMainBoxTitle>
-            <TpbMiniMark src={subFreeDeliveryIcon} />
-            <TpbMainBoxDescr>
-              내가 필요한 제품만 직접 선택하여 정기적으로 받아볼 수 있는 실속형
-              서비스
-            </TpbMainBoxDescr>
-            <TpbMainContentBox>
-              <TpbMiniIcon src={subDiyIcon} />
-              내가 선택한 상품 (최소 1개) ＞
-            </TpbMainContentBox>
-            <br />
-            <br />
-            <br />
-            <br />
-            <TpbOrderBtn>정기배송 담기</TpbOrderBtn>
-          </TpbMainBox>
-        </TpbMainSectBox>
-      </TpbMainSect>
-      <TpbMainSectDescr src={subDescrImg} />
-
+        <TpbMainSect>
+          {tpbSubModalOpen && (
+            <Modal handleModalClose={handleTpbSubModalClose}>
+              <TpbSubModal />
+            </Modal>
+          )}
+          <TpbMainSectBox>
+            <TpbMainBox>
+              <TpbMainBoxTitle>월간 큐레이션</TpbMainBoxTitle>
+              <TpbMiniMark src={subFreeDeliveryIcon} />
+              <TpbMainBoxDescr>
+                큐레이터가 선정한 다양한 장난감, 간식, 패션 용품을 매달 받아볼
+                수 있는 서비스
+              </TpbMainBoxDescr>
+              <TpbMainContentBox>
+                <TpbMiniIcon src={subFoodIcon} />
+                나의 반려동물 맞춤 간식 1종 ＞
+              </TpbMainContentBox>
+              <TpbMainContentBox>
+                <TpbMiniIcon src={subToyIcon} />
+                행동 발달 장난감 1종 ＞
+              </TpbMainContentBox>
+              <TpbMainContentBox>
+                <TpbMiniIcon src={subLivingIcon} />
+                테마 리빙용품 1종＞
+              </TpbMainContentBox>
+              <TpbOrderBtn onClick={handleTpbSubModalOpen}>
+                바로 구독하기
+              </TpbOrderBtn>
+            </TpbMainBox>
+          </TpbMainSectBox>
+          <TpbMainSectBox>
+            <TpbMainBox>
+              <TpbMainBoxTitle>DIY 정기 배송</TpbMainBoxTitle>
+              <TpbMiniMark src={subFreeDeliveryIcon} />
+              <TpbMainBoxDescr>
+                내가 필요한 제품만 직접 선택하여 정기적으로 받아볼 수 있는
+                실속형 서비스
+              </TpbMainBoxDescr>
+              <TpbMainContentBox>
+                <TpbMiniIcon src={subDiyIcon} />
+                내가 선택한 상품 (최소 1개) ＞
+              </TpbMainContentBox>
+              <br />
+              <br />
+              <br />
+              <br />
+              <TpbOrderBtn>정기배송 담기</TpbOrderBtn>
+            </TpbMainBox>
+          </TpbMainSectBox>
+        </TpbMainSect>
+        <TpbMainSectDescr src={subDescrImg} />
       </motion.div>
-
     </SubGrid>
   );
 }

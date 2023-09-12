@@ -113,11 +113,10 @@ function HeendycarInfo() {
   };
 
   const convertReservationTime = (simpleTime) => {
-
     const currDate = new Date();
     const hour = parseInt(simpleTime.split(':')[0]);
     const min = parseInt(simpleTime.split(':')[1]);
-    
+
     return new Date(
       currDate.getFullYear(),
       currDate.getMonth(),
@@ -125,33 +124,45 @@ function HeendycarInfo() {
       hour,
       min,
     );
-};
-
-const handleMainBtnClick = () => {
-  alert('예약하시겠습니까?');
-  const data = {
-    branchCode: selectedBranchCode,
-    reservationTime: convertReservationTime(selectedTime),
   };
 
-  axios
-    .post(`/api/hc/reservation`, data, {
-      headers: {
-        Authorization: `Bearer ${member.jwt.accessToken}`,
-      },
-    })
-    .then((res) => {
+  const handleMainBtnClick = () => {
+    alert('예약하시겠습니까?');
+    const data = {
+      branchCode: selectedBranchCode,
+      reservationTime: convertReservationTime(selectedTime),
+    };
 
-      const dateObj = new Date(res.data.reservationTime);
-      const formattedTime = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')} ${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')}`;
-      alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
-    })
-    .catch((Error) => {
-      console.log(Error)
-      alert('예약에 실패하였습니다.');
-      console.info('Error');
-    });
-};
+    axios
+      .post(`/api/hc/reservation`, data, {
+        headers: {
+          Authorization: `Bearer ${member.jwt.accessToken}`,
+        },
+      })
+      .then((res) => {
+        const dateObj = new Date(res.data.reservationTime);
+        const formattedTime = `${dateObj.getFullYear()}-${(
+          dateObj.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, '0')}-${dateObj
+          .getDate()
+          .toString()
+          .padStart(2, '0')} ${dateObj
+          .getHours()
+          .toString()
+          .padStart(2, '0')}:${dateObj
+          .getMinutes()
+          .toString()
+          .padStart(2, '0')}`;
+        alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
+      })
+      .catch((Error) => {
+        console.log(Error);
+        alert('예약에 실패하였습니다.');
+        console.info('Error');
+      });
+  };
 
   return (
     <HcGrid>

@@ -90,7 +90,14 @@ function Header() {
       <div className="header__menulist">
         {menuList.map((menuEle, idx) => (
           <div className="list__container" key={idx}>
-            <StyledNavLink to={menuEle.link} onClick={() => {setIsToggled(!isToggled);}}>{menuEle.title}</StyledNavLink>
+            <StyledNavLink
+              to={menuEle.link}
+              onClick={() => {
+                setIsToggled(!isToggled);
+              }}
+            >
+              {menuEle.title}
+            </StyledNavLink>
           </div>
         ))}
       </div>
@@ -99,7 +106,13 @@ function Header() {
       <div className="header__right">
         {member.name ? (
           <div className="list__container">
-            <StyledNavLink to="/cart" className="menu_icon cart_icon" onClick={() => {setUserToggled(!userToggled);}}>
+            <StyledNavLink
+              to="/cart"
+              className="menu_icon cart_icon"
+              onClick={() => {
+                setUserToggled(!userToggled);
+              }}
+            >
               <HiShoppingCart></HiShoppingCart>
               <p className="menu_text cart_text"> 장바구니</p>
             </StyledNavLink>
@@ -107,27 +120,49 @@ function Header() {
         ) : (
           <></>
         )}
-          {member.name ? (
-            <>
-              <div className="list__container">
-                <StyledNavLink to="/mypage" onClick={() => {setUserToggled(!userToggled);}}>{member.name}님</StyledNavLink>
-              </div>
-              <div className="list__container">
-                <StyledNavLink to="/" className="menu_icon logout_icon" onClick={() => {setUserToggled(!userToggled); dispatch(memberAction.clearMember()); toast.success("로그아웃 되었습니다");}}>
-                  <FiLogOut></FiLogOut>
-                  <p className="menu_text cart_text"> 로그아웃</p>
-                </StyledNavLink>
-              </div>
-            </>
-          ) : (
+        {member.name ? (
+          <>
             <div className="list__container">
-              <StyledNavLink to="" onClick={handleLogin}>
-                로그인
+              <StyledNavLink
+                to="/mypage"
+                onClick={() => {
+                  setUserToggled(!userToggled);
+                }}
+              >
+                {member.name}님
               </StyledNavLink>
             </div>
-          )}
+            <div className="list__container">
+              <StyledNavLink
+                to="/"
+                className="menu_icon logout_icon"
+                onClick={() => {
+                  setUserToggled(!userToggled);
+                  dispatch(memberAction.clearMember());
+                  toast.success('로그아웃 되었습니다');
+                }}
+              >
+                <FiLogOut></FiLogOut>
+                <p className="menu_text cart_text"> 로그아웃</p>
+              </StyledNavLink>
+            </div>
+          </>
+        ) : (
+          <div className="list__container">
+            <StyledNavLink to="" onClick={handleLogin}>
+              로그인
+            </StyledNavLink>
+          </div>
+        )}
         <div className="list__container">
-          <StyledNavLink to="/clubregister" onClick={() => {setUserToggled(!userToggled);}}>클럽 흰디 가입</StyledNavLink>
+          <StyledNavLink
+            to="/clubregister"
+            onClick={() => {
+              setUserToggled(!userToggled);
+            }}
+          >
+            클럽 흰디 가입
+          </StyledNavLink>
         </div>
       </div>
     </HeaderContainer>
