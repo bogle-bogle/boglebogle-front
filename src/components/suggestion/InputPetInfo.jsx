@@ -23,7 +23,6 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import CustomResult from '../custom/CustomResult';
 import SuggestionResult from './SuggestionResult';
-import { StickyContainer } from '../custom/custom-result.style';
 
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
@@ -43,17 +42,8 @@ function InputPetInfo(props) {
     // 현재 선택된 펫을 업데이트
     console.log('선택된거 맞아?', pet);
     setSelectedPet(pet);
-
-    if (pet.feedDescImgUrl !== undefined && pet.feedDescImgUrl !== null) {
-      setSelectedFeedImage(pet.feedMainImgUrl);
-      setSelectedIngredientImage(pet.feedDescImgUrl);
-      // feedInputRef.current.files[0] = pet.feedDescImgUrl;
-      setActiveStep(2);
-      scrollTo('step3');
-    } else {
-      setActiveStep(1);
-      scrollTo('step2');
-    }
+    setActiveStep(1);
+    scrollTo('step2');
   };
   const handlePlaceholderClick = (pet) => {
     // 현재 선택된 펫을 null로 설정하여 테두리 제거
@@ -126,9 +116,6 @@ function InputPetInfo(props) {
     event.preventDefault();
 
     console.log('submit');
-    console.log(feedInputRef.current);
-    console.log(feedInputRef.current.files);
-    console.log(feedInputRef.current.files[0]);
     if (selectedPet == undefined) {
       toast.warn('반려동물을 선택해주세요');
       scrollToTop();
@@ -520,7 +507,6 @@ function InputPetInfo(props) {
             recommendProduct={recommendProduct}
           ></SuggestionResult>
           {/* <CustomResult recommendProduct={recommendProduct}></CustomResult>     */}
-
           <div
             className="btn btn-custom btn-reset"
             onClick={() => {
