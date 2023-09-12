@@ -23,7 +23,12 @@ import CategoryFilterButton from './CategoryFilterButton';
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
-import { proteinCode, animalCode, productSub } from '../../commonCode';
+import {
+  proteinCode,
+  animalCode,
+  productSub,
+  shopCategory,
+} from '../../commonCode';
 import ProductCard from './ProductCard';
 
 function ProductList() {
@@ -193,6 +198,16 @@ function ProductList() {
       </CategoryContainer>
       <FilterCategoryContainer>
         <FilterCategoryRow>
+          <FilterCategoryTitle>대분류</FilterCategoryTitle>
+          <CategoryElementContainer>
+            {Object.entries(shopCategory).map(([key, value]) => (
+              <CategoryFilterButton key={key + value} id={key}>
+                {value}
+              </CategoryFilterButton>
+            ))}
+          </CategoryElementContainer>
+        </FilterCategoryRow>
+        {/* <FilterCategoryRow>
           <FilterCategoryTitle>반려동물</FilterCategoryTitle>
           <CategoryElementContainer>
             {Object.entries(animalCode).map(([key, value]) => (
@@ -236,38 +251,8 @@ function ProductList() {
               </CategoryFilterButton>
             ))}
           </CategoryElementContainer>
-        </FilterCategoryRow>
+        </FilterCategoryRow> */}
       </FilterCategoryContainer>
-      <MiddleContainer>
-        <MiddleCategoryContainer>
-          <MiddleCategoryElement>신상품순</MiddleCategoryElement>
-          <MiddleCategoryElement>추천순</MiddleCategoryElement>
-          <MiddleCategoryElement>높은가격순</MiddleCategoryElement>
-          <MiddleCategoryElement>낮은가격순</MiddleCategoryElement>
-        </MiddleCategoryContainer>
-        <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
-          curPage === pageCount ? totalCount : curPage * 20
-        } / ${totalCount}개`}</MiddlePagenationContainer>
-        <MiddlePageContainer>
-          <PageArrow onClick={() => handlePage(curPage - 1)}>
-            <AiOutlineLeft />
-          </PageArrow>
-          <PageState>{`${curPage}/${pageCount}`}</PageState>
-          <PageArrow onClick={() => handlePage(curPage + 1)}>
-            <AiOutlineRight />
-          </PageArrow>
-        </MiddlePageContainer>
-      </MiddleContainer>
-      <ProductContainer>
-        {productList !== undefined &&
-          productList.map((product, idx) => (
-            <ProductCard key={idx} product={product}></ProductCard>
-          ))}
-        {productList.length < 20 &&
-          Array(4 - (productList.length % 4))
-            .fill()
-            .map(() => <ProductCardContainer></ProductCardContainer>)}
-      </ProductContainer>
     </div>
   );
 }

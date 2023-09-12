@@ -116,7 +116,6 @@ function InputPetInfo(props) {
     event.preventDefault();
 
     console.log('submit');
-
     if (selectedPet == undefined) {
       toast.warn('반려동물을 선택해주세요');
       scrollToTop();
@@ -159,17 +158,21 @@ function InputPetInfo(props) {
       props.handleOpenModal();
 
       try {
-        const response = await axios.put(
-          `api/pet/feed/${selectedPetId}`,
-          customData,
-        );
-        console.log(response);
-
+        // const response = await axios.put(
+        //   `api/pet/feed/${selectedPetId}`,
+        //   customData,
+        // );
+        // console.log(response);
+        // console.log(customData);
         const imgUrl = customData.feedDescImgUrl;
 
         const searchRes = await axios.post('/ai/convert-to-similarity', {
           imgUrl,
         });
+        // const response = await axios.put(
+        //   `api/pet/feed/${selectedPetId}`,
+        //   customData,
+        // );
         console.log(searchRes);
 
         setRecommendProduct(() => {
@@ -512,6 +515,11 @@ function InputPetInfo(props) {
           >
             새로운 추천 받기
           </div>
+
+          <CustomResult
+            recommendProduct={recommendProduct}
+            selectedFeedImage={selectedFeedImage}
+          ></CustomResult>
         </>
       )}
     </>

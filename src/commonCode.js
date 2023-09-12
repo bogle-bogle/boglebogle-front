@@ -98,3 +98,36 @@ export const sizeCode = {
   'D-MD': '중형견',
   'D-SM': '소형견',
 };
+
+export const shopCategory = {
+  FD: {
+    name: '식품',
+    subCategory: {
+      41: '퍼피',
+      42: '시니어',
+      43: '전연령(어덜트)',
+    },
+  },
+  TO: {
+    name: '장난감',
+    subCategory: {
+      21: '일반',
+      22: '공/원반',
+    },
+  },
+  SP: {
+    name: '용품',
+    subCategory: {
+      31: '위생',
+      32: '산책',
+      33: '펫가전',
+    },
+  },
+  FS: {
+    name: '의류',
+    subCategory: {
+      11: '대형견',
+      12: '중/소형견',
+    },
+  },
+};

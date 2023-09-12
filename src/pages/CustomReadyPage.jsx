@@ -305,7 +305,10 @@ function CustomReadyPage() {
           <img src={heendycustomready} alt=" " />
           <p>위에 입력하시는 정보에 따라</p>
           <p> 상품을 추천해드릴게요.</p> */}
-          <CustomResult recommendProduct={recommendProduct}></CustomResult>
+          <CustomResult
+            recommendProduct={recommendProduct}
+            selectedFeedImage={selectedFeedImage}
+          ></CustomResult>
         </div>
       </form>
     </>
