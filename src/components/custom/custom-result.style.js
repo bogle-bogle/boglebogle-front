@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import styled from 'styled-components';
 
 export const CompleteText = styled.p`
@@ -14,7 +13,7 @@ export const CompleteExplain = styled.p`
   color: #4f4f4f;
 `;
 
-///////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////
 
 export const CustomResultContainer = styled.div`
   width: 100%;

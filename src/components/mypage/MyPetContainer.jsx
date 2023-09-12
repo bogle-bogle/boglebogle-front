@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MyInfoElement,
   MypageCard,
   MypageCardDescr,
   MypageCardElement,

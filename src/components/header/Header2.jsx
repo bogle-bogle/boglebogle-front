@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { HiMenu, HiShoppingCart } from 'react-icons/hi';
 import { FiLogOut } from 'react-icons/fi';

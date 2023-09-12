@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import {
   FindAccountBtn,
   HpLoginBtn,
@@ -6,10 +6,6 @@ import {
   LoginContainer,
   LoginDescr,
   LoginInputBox,
-  LoginOptionBtn,
-  LoginOptionGroup,
-  LoginTab,
-  LoginTabBtn,
   LoginTitle,
   LogoImg,
   SocialLoginBtnGroup,

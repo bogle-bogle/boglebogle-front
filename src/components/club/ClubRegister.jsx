@@ -62,7 +62,7 @@ function ClubRegister() {
   const member = useSelector((state) => state.member);
 
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
-  const [selectedImgImage, setSelectedImgImage] = useState(null);
+  const [, setSelectedImgImage] = useState(null);
 
   const [proteinCodes, setProteinCodes] = useState();
   const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);

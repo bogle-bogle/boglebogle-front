@@ -4,13 +4,7 @@ import { useDispatch } from 'react-redux';
 import { memberAction } from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { margin, textAlign } from '@mui/system';
-import {
-  MypageAdv,
-  MypageAdvBtn,
-  MypageAdvImg,
-  MypageContent,
-} from '../mypage/mypage.style';
+
 import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
 import { LoginAdvImg } from './login.style';
 
