@@ -27,5 +27,4 @@ jobs:
         uses: lbertenasco/s3-deploy@v1
         with:
           folder: build
-          bucket: ${{ secrets.AWS_STAGING_BUCKET_NAME }}
           invalidation: / *
