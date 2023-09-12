@@ -19,7 +19,7 @@ export const CompleteExplain = styled.p`
 export const CustomResultContainer = styled.div`
   width: 100%;
   height: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   display: flex;
 `;
 
@@ -27,9 +27,9 @@ export const UserRegisterResultContainer = styled.div`
   width: 30%;
   height: auto;
   border-right: 2px solid gray;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; */
 `;
 
 export const AnalyzeResultContainer = styled.div`
@@ -101,7 +101,7 @@ export const UserResultText = styled.p`
 
 export const ResultPagenationContainer = styled.div`
   width: 100%;
-  height: 10%;
+  height: auto;
 
   display: flex;
   justify-content: space-between;
@@ -187,4 +187,9 @@ export const SimilarityPercentText = styled.p`
   }};
 
   margin-left: 1.5vh;
+`;
+
+export const StickyContainer = styled.div`
+  position: sticky;
+  top: 0;
 `;

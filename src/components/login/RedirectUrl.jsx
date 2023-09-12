@@ -5,8 +5,13 @@ import { memberAction } from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { margin, textAlign } from '@mui/system';
-import { MypageAdv, MypageAdvBtn, MypageAdvImg, MypageContent } from '../mypage/mypage.style';
-import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png'
+import {
+  MypageAdv,
+  MypageAdvBtn,
+  MypageAdvImg,
+  MypageContent,
+} from '../mypage/mypage.style';
+import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
 import { LoginAdvImg } from './login.style';
 
 function RedirectUrl() {
@@ -54,8 +59,11 @@ function RedirectUrl() {
               nickname: kakao_account.profile.nickname,
               imgUrl: kakao_account.profile.profile_image_url,
             };
-            axios.post(`/api/member/login`, data).then((res) => {
-              console.info(res.data);
+            axios.post(`/api/member/login`, { ...data }).then((res) => {
+              localStorage.setItem(
+                'userToken',
+                res.data.member.jwt.accessToken,
+              );
               dispatch(memberAction.setMemeber(res.data));
 
               navigate('/');
@@ -77,7 +85,7 @@ function RedirectUrl() {
           정상적으로 로그인되었습니다.
         </h3>
       </div>
-      <LoginAdvImg src = {ClubAdvImg} />
+      <LoginAdvImg src={ClubAdvImg} />
     </>
   );
 }
