@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
-export const AddPetBox = styled.div`
-  
-`
+export const AddPetBox = styled.div``;
 
 export const AddPetTitle = styled.div`
-  color:white;
+  color: white;
   position: relative;
 
   img {
@@ -29,10 +27,10 @@ export const AddPetTitle = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    top:0;
-    left:0;
-    bottom:30px;
-    right:0;
+    top: 0;
+    left: 0;
+    bottom: 30px;
+    right: 0;
 
     @media screen and (max-width: 1400px) {
       padding-left: 30px;
@@ -46,7 +44,7 @@ export const AddPetTitle = styled.div`
   }
 
   .title1 {
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     font-size: 40px;
     margin: 0;
 
@@ -61,7 +59,7 @@ export const AddPetTitle = styled.div`
 
   .title2 {
     margin-top: 12px;
-      
+
     @media screen and (max-width: 1400px) {
       margin-top: 10px;
       font-size: 13px;
@@ -72,29 +70,20 @@ export const AddPetTitle = styled.div`
       font-size: 7px;
     }
   }
-
-
-`
+`;
 
 export const InputBox = styled.div`
   padding: 40px;
 
   @media screen and (max-width: 1400px) {
-    
   }
 
   @media (max-width: 768px) {
     padding: 20px;
   }
-`
+`;
 
-
-////////////////////////// 
-
-
-
-
-
+//////////////////////////
 
 export const StyledClubContainer = styled.div`
   width: 100%;
@@ -174,10 +163,10 @@ export const PetPhoto = styled.div`
 `;
 
 export const PetName = styled.div`
-  grid-area:name;
+  grid-area: name;
   width: 100%;
-  display:flex;
-    justify-content:flex-start;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const PetBirth = styled.div`

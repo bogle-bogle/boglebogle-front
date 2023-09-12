@@ -56,80 +56,86 @@ function Header2() {
 
   return (
     <>
-    {modalOpen && (
-      <Modal handleModalClose={handleModalClose}>{<LoginModal />}</Modal>
-    )}
-    <Header isToggled={isToggled} userToggled={userToggled}>
-      {/* 햄버거 버튼(bar) */}
-      <div
-        className="toggle"
-        onClick={() => {
-          setIsToggled(!isToggled);
-          setUserToggled(false);
-        }}
-      >
-        {!isToggled ? <HiMenu /> : <IoClose />}
-      </div>
-
-      {/* App 로고 */}
-      <div className="logo">
-        <img
-          src={logo}
-          alt="Logo"
-          className="logo"
-          onClick={() => navigate('/')}
-        />
-      </div>
-
-      {/* User 버튼 */}
-      <div
-        className="user"
-        onClick={() => {
-          setUserToggled(!userToggled);
-          setIsToggled(false);
-        }}
-      >
-        {!userToggled ? <BiSolidUser /> : <IoClose />}
-      </div>
-
-      {/* 메뉴 리스트 */}
-      <div className="header__menulist">
-        {menuList.map((menuEle, idx) => (
-          <div className="list__container" key={idx}>
-            <StyledNavLink to={menuEle.link}>{menuEle.title}</StyledNavLink>
-          </div>
-        ))}
-      </div>
-
-      {/* User 메뉴 리스트 */}
-      <div className="header__right">
-        {member.name ? (
-          <div className="list__container">
-            <StyledNavLink to="/cart" className="menu_icon cart_icon">
-              <HiShoppingCart></HiShoppingCart>
-              <p className="menu_text cart_text"> 장바구니</p>
-            </StyledNavLink>
-          </div>
-        ) : (
-          <></>
-        )}
-        <div className="list__container">
-          {member.name ? (
-            <>
-              <StyledNavLink to="/mypage">{member.name}님</StyledNavLink>
-              <StyledNavLink to="/" className="menu_icon logout_icon" onClick={() => {dispatch(memberAction.clearMember());}}>
-                <FiLogOut></FiLogOut>
-                <p className="menu_text cart_text"> 로그아웃</p>
-              </StyledNavLink>
-            </>
-          ) : (
-            <StyledNavLink to="" onClick={handleModalOpen}>
-              로그인
-            </StyledNavLink>
-          )}
+      {modalOpen && (
+        <Modal handleModalClose={handleModalClose}>{<LoginModal />}</Modal>
+      )}
+      <Header isToggled={isToggled} userToggled={userToggled}>
+        {/* 햄버거 버튼(bar) */}
+        <div
+          className="toggle"
+          onClick={() => {
+            setIsToggled(!isToggled);
+            setUserToggled(false);
+          }}
+        >
+          {!isToggled ? <HiMenu /> : <IoClose />}
         </div>
-      </div>
-    </Header>
+
+        {/* App 로고 */}
+        <div className="logo">
+          <img
+            src={logo}
+            alt="Logo"
+            className="logo"
+            onClick={() => navigate('/')}
+          />
+        </div>
+
+        {/* User 버튼 */}
+        <div
+          className="user"
+          onClick={() => {
+            setUserToggled(!userToggled);
+            setIsToggled(false);
+          }}
+        >
+          {!userToggled ? <BiSolidUser /> : <IoClose />}
+        </div>
+
+        {/* 메뉴 리스트 */}
+        <div className="header__menulist">
+          {menuList.map((menuEle, idx) => (
+            <div className="list__container" key={idx}>
+              <StyledNavLink to={menuEle.link}>{menuEle.title}</StyledNavLink>
+            </div>
+          ))}
+        </div>
+
+        {/* User 메뉴 리스트 */}
+        <div className="header__right">
+          {member.name ? (
+            <div className="list__container">
+              <StyledNavLink to="/cart" className="menu_icon cart_icon">
+                <HiShoppingCart></HiShoppingCart>
+                <p className="menu_text cart_text"> 장바구니</p>
+              </StyledNavLink>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="list__container">
+            {member.name ? (
+              <>
+                <StyledNavLink to="/mypage">{member.name}님</StyledNavLink>
+                <StyledNavLink
+                  to="/"
+                  className="menu_icon logout_icon"
+                  onClick={() => {
+                    dispatch(memberAction.clearMember());
+                  }}
+                >
+                  <FiLogOut></FiLogOut>
+                  <p className="menu_text cart_text"> 로그아웃</p>
+                </StyledNavLink>
+              </>
+            ) : (
+              <StyledNavLink to="" onClick={handleModalOpen}>
+                로그인
+              </StyledNavLink>
+            )}
+          </div>
+        </div>
+      </Header>
     </>
   );
 }

@@ -219,6 +219,7 @@ function HyundaiCard() {
                 </CutButtonContainer>
                 <div>
                   <ResultH2>앞면 결과</ResultH2>
+                  <CardImg src={cardFrontDefault}></CardImg>
                   <CroppedImg src={frontCropData} alt="cropped" />
                 </div>
               </SelectCustomCardContainer>
@@ -281,6 +282,7 @@ function HyundaiCard() {
                 </CutButtonContainer>
                 <div>
                   <ResultH2>뒷면 결과</ResultH2>
+                  <CardImg src={cardBackDefault} alt=""></CardImg>
                   <CroppedImg src={backCropData} alt="cropped" />
                 </div>
               </SelectCustomCardContainer>

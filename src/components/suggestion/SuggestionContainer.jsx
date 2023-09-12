@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import sadheendy from '../../assets/custom/sadheendy.png'
+import sadheendy from '../../assets/custom/sadheendy.png';
 import axios from 'axios';
 import Modal from '../modal/Modal';
 import loadingVideo from '../../assets/card/loading.mp4';
@@ -9,7 +9,13 @@ import loadingSound from '../../assets/card/loading_sound.mp3';
 import useSound from 'use-sound';
 import { toast } from 'react-toastify';
 import InputPetInfo from './InputPetInfo';
-import { SuggestionContainer, AddBtn, NoPetBox, SadHeendy, SuggestBox } from './suggestion.style';
+import {
+  SuggestionContainer,
+  AddBtn,
+  NoPetBox,
+  SadHeendy,
+  SuggestBox,
+} from './suggestion.style';
 
 function Suggestion() {
   const [play, { stop }] = useSound(loadingSound);
@@ -73,17 +79,24 @@ function Suggestion() {
       )}
       {
         // petData가 비어있는 경우
-        petData.length === 0 
-        ?
+        petData.length === 0 ? (
           <NoPetBox>
             <SadHeendy src={sadheendy} alt=" " />
-            <p className='nopet-message'>저장된 반려동물 정보가 없네요 😥</p>
-            <AddBtn onClick={() => navigate('/clubregister')}>반려동물 저장하고 AI 추천 함께하기  &#62;</AddBtn>
+            <p className="nopet-message">저장된 반려동물 정보가 없네요 😥</p>
+            <AddBtn onClick={() => navigate('/clubregister')}>
+              반려동물 저장하고 AI 추천 함께하기 &#62;
+            </AddBtn>
           </NoPetBox>
-        :
+        ) : (
           <SuggestBox>
-            <InputPetInfo petData={petData} setOpenModal={setOpenModal} handleOpenModal={handleOpenModal} handleModalClose={handleModalClose}/>
+            <InputPetInfo
+              petData={petData}
+              setOpenModal={setOpenModal}
+              handleOpenModal={handleOpenModal}
+              handleModalClose={handleModalClose}
+            />
           </SuggestBox>
+        )
       }
     </SuggestionContainer>
   );

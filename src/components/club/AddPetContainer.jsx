@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'; // react-datepicker를 import
 import { useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import infoImg from '../../assets/club/클럽 가입하기.png';
-import bgheendy from '../../assets/club/bgheendy.png'
+import bgheendy from '../../assets/club/bgheendy.png';
 
 import {
   Title,
@@ -231,18 +231,13 @@ function AddPetContainer() {
   return (
     <AddPetBox>
       <AddPetTitle>
-        <div className='title-text'>
-          <p className='title1'>
-            반려동물 등록
-          </p>
-          <p className='title2'>
+        <div className="title-text">
+          <p className="title1">반려동물 등록</p>
+          <p className="title2">
             반려동물을 등록하고 AI 기반 맞춤 제품 추천을 받아보세요!
           </p>
         </div>
-        <img
-          src={bgheendy}
-          alt='background'
-        />
+        <img src={bgheendy} alt="background" />
       </AddPetTitle>
       <InputBox>
         <Guide>
@@ -250,7 +245,6 @@ function AddPetContainer() {
         </Guide>
         <form onSubmit={handleFormSubmit}>
           <StyledClubContainer>
-
             <SidebarItem gridArea="Sidebar1">반려동물 종류</SidebarItem>
             <Sidebar2>반려동물 사진</Sidebar2>
             <SidebarItem gridArea="Sidebar3">반려동물 이름</SidebarItem>

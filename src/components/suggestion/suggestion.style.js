@@ -95,13 +95,13 @@ export const SuggestionContainer = styled.div`
 
   .box-title {
     margin: 0px 0;
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
     color: #499878;
   }
 
   .req-title {
     color: red;
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
   }
 
   .image-preview {
@@ -115,7 +115,7 @@ export const SuggestionContainer = styled.div`
     overflow: hidden; /* Hide overflow if the image is larger */
     border-radius: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 6px 25px 0px;
-    background-color: #D1D1D1;
+    background-color: #d1d1d1;
   }
 
   .image-preview img {
@@ -132,15 +132,15 @@ export const SuggestionContainer = styled.div`
   }
 
   .btn-reset {
-    background-color: #A4A4A4;
+    background-color: #a4a4a4;
   }
 
   .btn-reset:hover {
-    background-color: #5E5E5E; /* 마우스 호버 시 배경색 변경 */
+    background-color: #5e5e5e; /* 마우스 호버 시 배경색 변경 */
   }
 
   .btn {
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
     margin: 5px;
     display: inline-block;
     padding: 10px 20px;
@@ -195,11 +195,11 @@ export const SuggestionContainer = styled.div`
     border-radius: 50%; /* 원 모양 스타일 */
     border: 1px solid transparent; /* 이미지의 초기 테두리 스타일을 설정 (투명) */
   }
-  
+
   .pet-card.selected .placeholder {
     border: 4px solid green; /* 선택된 펫의 이미지 경계에 초록색 테두리 추가 */
   }
-  
+
   .pet-name .check-mark {
     color: green; /* 원하는 색상으로 변경하세요 */
     margin-right: 5px; /* 체크 마크와 이름 사이의 간격을 조절하세요 */
@@ -279,21 +279,21 @@ export const StepArea = styled.div`
     margin-top: 30px;
     width: 100%;
   }
-  
+
   .stepper {
     width: 100%;
 
     .Mui-completed {
-      color: #A6C9BB
+      color: #a6c9bb;
     }
 
     .Mui-active {
-        color: #499878
+      color: #499878;
     }
   }
 
   .MuiStepLabel-label {
-    font-family: "HappinessSansRegular";
+    font-family: 'HappinessSansRegular';
   }
 `;
 
@@ -311,7 +311,7 @@ export const InputArea = styled.div`
   width: 100%;
   justify-content: center;
   margin-top: 30px;
-  
+
   .formBox {
     width: 100%;
   }
@@ -327,28 +327,28 @@ export const InputArea = styled.div`
   .step-box {
     margin-bottom: 25px;
   }
-  
+
   .badge {
     color: white;
     padding: 5px 10px;
     text-align: center;
     border-radius: 20px;
     width: fit-content;
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     font-size: 14px;
   }
-  
+
   .active-bg {
     background-color: #499878;
   }
-  
+
   .basic-bg {
-    background-color: #A6C9BB;
+    background-color: #a6c9bb;
   }
 
   .step-desc {
     margin-left: 15px;
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
     font-size: 18px;
   }
 `;
@@ -358,10 +358,10 @@ export const TitleBox = styled.div`
 
   .title1 {
     margin: 0 0 10px 0;
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     color: #499878;
     font-size: 25px;
-    
+
     @media (max-width: 1400px) {
       font-size: 20px;
       margin-top: 15px;
@@ -371,9 +371,9 @@ export const TitleBox = styled.div`
   .title2 {
     margin: 0;
     line-height: 160%;
-    color: #5F5F5F;
+    color: #5f5f5f;
     font-size: 15px;
-    
+
     @media (max-width: 1400px) {
       font-size: 12px;
     }
@@ -383,14 +383,13 @@ export const TitleBox = styled.div`
     display: inline-block;
     line-height: 0.2em;
     padding-bottom: 0.5em;
-    background-color: #C2F0DE;
+    background-color: #c2f0de;
   }
 `;
 
 export const ShopperHeendy = styled.img`
   width: 180px;
   height: auto;
-  
 
   @media (max-width: 1400px) {
     width: 100px;
@@ -404,10 +403,10 @@ export const SuggestBox = styled.div`
   @media (max-width: 1400px) {
     margin-top: 20px;
   }
-`
+`;
 
 export const InputBoxes = styled.div`
   ${({ show }) => {
     return show ? 'display: none' : null;
   }}
-`
+`;
