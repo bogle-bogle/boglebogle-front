@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React } from "react";
 import {
   FindAccountBtn,
   HpLoginBtn,
@@ -11,11 +11,11 @@ import {
   SocialLoginBtnGroup,
   SocialLoginIcon,
   SocialLoginTitle,
-} from './login.style';
-import logo from '../../assets/thepet_logo_img.png';
-import kakao from '../../assets/login/kakaotalk_icon.png';
-import naver from '../../assets/login/naver_icon.png';
-import google from '../../assets/login/google_gray_icon.png';
+} from "./login.style";
+import logo from "../../assets/thepet_logo_img.png";
+import kakao from "../../assets/login/kakaotalk_icon.png";
+import naver from "../../assets/login/naver_icon.png";
+import google from "../../assets/login/google_gray_icon.png";
 
 function LoginModal() {
   // const [selectedButton, setSelectedButton] = useState(1);
@@ -33,17 +33,6 @@ function LoginModal() {
 
       <LoginTitle>로그인</LoginTitle>
       <LoginDescr>로그인하고 더 많은 혜택을 누려보세요!</LoginDescr>
-
-      {/* <LoginOptionGroup>
-           <LoginOptionBtn 
-                onClick={() => setSelectedButton(1)}
-                selected={selectedButton === 1}
-            >H.Point 회원</LoginOptionBtn>
-           <LoginOptionBtn
-                onClick={() => setSelectedButton(2)}
-                selected={selectedButton === 2}
-           >더펫 회원</LoginOptionBtn>
-       </LoginOptionGroup> */}
 
       <LoginInputBox placeholder="아이디"></LoginInputBox>
       <LoginInputBox placeholder="비밀번호"></LoginInputBox>
