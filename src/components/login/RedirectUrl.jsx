@@ -18,7 +18,7 @@ function RedirectUrl() {
     const grantType = "authorization_code";
     const REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;
     const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
-
+    console.log(params);
     axios
       .post(
         `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,
