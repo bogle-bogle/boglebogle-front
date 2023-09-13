@@ -164,12 +164,15 @@ function InputPetInfo(props) {
           customData,
         );
         console.log(response);
-
         const imgUrl = customData.feedDescImgUrl;
 
         const searchRes = await axios.post('/ai/convert-to-similarity', {
           imgUrl,
         });
+        // const response = await axios.put(
+        //   `api/pet/feed/${selectedPetId}`,
+        //   customData,
+        // );
         console.log(searchRes);
 
         setRecommendProduct(() => {
@@ -512,6 +515,11 @@ function InputPetInfo(props) {
           >
             새로운 추천 받기
           </div>
+
+          <CustomResult
+            recommendProduct={recommendProduct}
+            selectedFeedImage={selectedFeedImage}
+          ></CustomResult>
         </>
       )}
     </>
