@@ -22,6 +22,7 @@ function RedirectUrl() {
     console.log(new URL(document.location.toString()));
     console.log(new URL(document.location.toString()).searchParams);
     console.log(params);
+    console.log(code);
     axios
       .post(
         `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,
