@@ -24,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        uses: jakejarvis/s3-sync-action@main
+        uses: lbertenasco/s3-deploy@v1.2.4
         with:
           folder: build
           bucket: ${{ secrets.S3_BUCKET }}
