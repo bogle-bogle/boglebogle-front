@@ -57,16 +57,21 @@ function RedirectUrl() {
               nickname: kakao_account.profile.nickname,
               imgUrl: kakao_account.profile.profile_image_url,
             };
-            axios.post(`/api/member/login`, { ...data }).then((res) => {
-              console.log(res);
-              localStorage.setItem(
-                "userToken",
-                res.data.member.jwt.accessToken
-              );
-              dispatch(memberAction.setMemeber(res.data));
+            axios
+              .post(`/api/member/login`, { ...data })
+              .then((res) => {
+                console.log(res);
+                localStorage.setItem(
+                  "userToken",
+                  res.data.member.jwt.accessToken
+                );
+                dispatch(memberAction.setMemeber(res.data));
 
-              navigate("/");
-            });
+                navigate("/");
+              })
+              .catch((reason) => {
+                console.log(reason);
+              });
           });
       })
       .catch((Error) => {
