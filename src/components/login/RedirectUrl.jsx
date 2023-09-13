@@ -58,7 +58,7 @@ function RedirectUrl() {
               imgUrl: kakao_account.profile.profile_image_url,
             };
             axios
-              .post(`http://api.thepet.thehyundai.site:8080/api/member/login`, {
+              .post(`/api/member/login`, {
                 ...data,
               })
               .then((res) => {
