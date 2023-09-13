@@ -18,7 +18,7 @@ function RedirectUrl() {
     const grantType = "authorization_code";
     const REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;
     const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
-    console.log(document.location.toString());
+
     console.log(new URL(document.location.toString()));
     console.log(new URL(document.location.toString()).searchParams);
     console.log(params);
