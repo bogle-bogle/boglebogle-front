@@ -31,9 +31,10 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        uses: lbertenasco/s3-deploy@v1.2.4
+        uses: jakejarvis/s3-sync-action@master
         with:
-          folder: build
-          bucket: ${{ secrets.S3_BUCKET }}
-          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-          invalidation: "/*"
+          args: --exclude '.git/*' # 이 부분은 필요에 따라 수정할 수 있습니다
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
