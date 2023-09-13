@@ -116,6 +116,7 @@ function InputPetInfo(props) {
     event.preventDefault();
 
     console.log('submit');
+
     if (selectedPet == undefined) {
       toast.warn('반려동물을 선택해주세요');
       scrollToTop();
@@ -158,12 +159,11 @@ function InputPetInfo(props) {
       props.handleOpenModal();
 
       try {
-        // const response = await axios.put(
-        //   `api/pet/feed/${selectedPetId}`,
-        //   customData,
-        // );
-        // console.log(response);
-        // console.log(customData);
+        const response = await axios.put(
+          `api/pet/feed/${selectedPetId}`,
+          customData,
+        );
+        console.log(response);
         const imgUrl = customData.feedDescImgUrl;
 
         const searchRes = await axios.post('/ai/convert-to-similarity', {

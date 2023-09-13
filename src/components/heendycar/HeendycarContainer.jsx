@@ -113,18 +113,17 @@ function HeendycarInfo() {
   };
 
   const convertReservationTime = (simpleTime) => {
-    const currDate = new Date();
-    const hour = parseInt(simpleTime.split(':')[0]);
-    const min = parseInt(simpleTime.split(':')[1]);
-
-    return new Date(
-      currDate.getFullYear(),
-      currDate.getMonth(),
-      currDate.getDate(),
-      hour,
-      min,
-    );
+    return getTodayDate() + 'T' + simpleTime;
   };
+
+  function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (1 + today.getMonth()).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+
+    return year + '-' + month + '-' + day;
+  }
 
   const handleMainBtnClick = () => {
     alert('예약하시겠습니까?');
