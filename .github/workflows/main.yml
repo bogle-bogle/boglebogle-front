@@ -40,6 +40,6 @@ jobs:
       #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Upload /build to S3
         env:
-          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
+          BUCKET_NAME: ${{ secrets.S3_BUCKET}}
         run: |
           aws s3 cp --recursive --region ap-northeast-2 build s3://$BUCKET_NAME
