@@ -24,6 +24,17 @@ jobs:
         with:
           node-version: 18.17.1
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo REACT_APP_AWS_REGION=${{ secrets.REACT_APP_AWS_REGION }} >> .env
+          echo REACT_APP_AWS_ACCESS_KEY=${{ secrets.REACT_APP_AWS_ACCESS_KEY }} >> .env
+          echo REACT_APP_AWS_SECRET_KEY=${{ secrets.REACT_APP_AWS_SECRET_KEY }} >> .env
+          echo REACT_APP_KAKAO_REST_API_KEY=${{ secrets.REACT_APP_KAKAO_REST_API_KEY }} >> .env
+          echo REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }} >> .env
+          echo REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }} >> .env
+          cat .env
+
       - name: Install dependencies
         run: npm install
 
