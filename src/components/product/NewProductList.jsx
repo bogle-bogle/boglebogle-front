@@ -27,7 +27,6 @@ import {
 } from "../../utils/productFilter";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProductCard from "./ProductCard";
-
 import * as Api from "../../api";
 
 function NewProductList() {
@@ -65,6 +64,7 @@ function NewProductList() {
       }
       setPageCount(cnt);
     });
+
   }, [curPage, subFilterList, mainCategory, proteinFilterList]);
 
   const handleMainChecked = (id) => {

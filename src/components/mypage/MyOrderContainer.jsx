@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MyInfoElement,
   MypageCard,
   MypageCardDescr,
   MypageCardElement,
@@ -10,7 +9,6 @@ import {
   MypageListIndex,
   MypageSubtitle,
 } from './mypage.style';
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector';
 
 function MyOrderContainer() {
   const orders = [

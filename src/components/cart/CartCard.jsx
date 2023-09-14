@@ -12,7 +12,6 @@ import {
   Divider,
   ProductPrice,
   ProductSelect,
-  CounterBtn,
   PlusIcon,
   MinusIcon,
 } from "./CartCard.style";

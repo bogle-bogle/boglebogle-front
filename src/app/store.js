@@ -1,14 +1,14 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import memberReducer from '../feature/member/member';
-import storage from 'redux-persist/lib/storage';
-import persistReducer from 'redux-persist/es/persistReducer';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import memberReducer from "../feature/member/member";
+import storage from "redux-persist/lib/storage";
+import persistReducer from "redux-persist/es/persistReducer";
 
 const reducers = combineReducers({
   member: memberReducer,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 

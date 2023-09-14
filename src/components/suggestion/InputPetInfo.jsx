@@ -133,7 +133,6 @@ function InputPetInfo(props) {
         ingredientInputRef.current.files[1]
       );
       const selectedPetId = selectedPet.codeValue;
-
       const [feedUrl, ingredientUrl] = await Promise.all([
         feedUrlPromise,
         ingredientUrlPromise,

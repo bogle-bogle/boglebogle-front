@@ -7,9 +7,6 @@ import infoImg from "../../assets/club/클럽 가입하기.png";
 import bgheendy from "../../assets/club/bgheendy.png";
 
 import {
-  Title,
-  LogoContainer,
-  LogoImg,
   Guide,
   StyledClubContainer,
   Sidebar2,
@@ -20,25 +17,12 @@ import {
   PetProteinCodes,
   PetBreedCode,
   AnimalSize,
-  MAnimalSize,
   PetAnimalTypeCode,
   StyledButton,
   Button,
   ImagePreview,
   SidebarItem,
   BlackButton,
-  MobileMedia,
-  MTitle,
-  MGuide,
-  MSidebar2,
-  MSidebar5,
-  MPetPhoto,
-  MPetName,
-  MPetBirth,
-  MPetProteinCodes,
-  MPetBreedCode,
-  MPetAnimalTypeCode,
-  MButton,
   AddPetBox,
   AddPetTitle,
   InputBox,
@@ -46,9 +30,10 @@ import {
 import * as Api from "../../api";
 import { pink } from "@mui/material/colors";
 
+
 function AddPetContainer() {
   const navigate = useNavigate();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     // 화면 크기가 변경될 때마다 windowWidth 상태 업데이트
@@ -67,7 +52,7 @@ function AddPetContainer() {
   const member = useSelector((state) => state.member);
 
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
-  const [selectedImgImage, setSelectedImgImage] = useState(null);
+  const [, setSelectedImgImage] = useState(null);
 
   const [proteinCodes, setProteinCodes] = useState();
   const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
