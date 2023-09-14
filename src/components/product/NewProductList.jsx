@@ -25,9 +25,9 @@ import {
   initialSubCategory,
   initialProteinCategory,
 } from "../../utils/productFilter";
-import axios from "axios";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProductCard from "./ProductCard";
+import * as Api from "../../api";
 
 function NewProductList() {
   const [mainCategory, setMainCategory] = useState("");
@@ -50,25 +50,21 @@ function NewProductList() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    axios
-      .post(
-        `http://api.thepet.thehyundai.site:8080/api/product/list/${curPage}`,
-        {
-          mainFilter: mainCategory,
-          subFilter: subFilterList,
-          proteinFilter: proteinFilterList,
-        }
-      )
-      .then((res) => {
-        setProductList([...res.data.products]);
-        setTotalCount(res.data.count);
+    Api.post(`/api/product/list/${curPage}`, {
+      mainFilter: mainCategory,
+      subFilter: subFilterList,
+      proteinFilter: proteinFilterList,
+    }).then((res) => {
+      setProductList([...res.data.products]);
+      setTotalCount(res.data.count);
 
-        let cnt = parseInt(res.data.count / 20);
-        if (res.data.count % 20 > 0) {
-          cnt += 1;
-        }
-        setPageCount(cnt);
-      });
+      let cnt = parseInt(res.data.count / 20);
+      if (res.data.count % 20 > 0) {
+        cnt += 1;
+      }
+      setPageCount(cnt);
+    });
+
   }, [curPage, subFilterList, mainCategory, proteinFilterList]);
 
   const handleMainChecked = (id) => {

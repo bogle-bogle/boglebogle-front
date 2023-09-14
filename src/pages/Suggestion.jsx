@@ -1,5 +1,5 @@
-import React from 'react';
-import SuggestionContainer from '../components/suggestion/SuggestionContainer';
+import React from "react";
+import SuggestionContainer from "../components/suggestion/SuggestionContainer";
 
 function Suggestion() {
   return <SuggestionContainer></SuggestionContainer>;

@@ -1,6 +1,5 @@
-import React from 'react';
-// import ProductList from '../components/product/ProductList';
-import NewProductList from '../components/product/NewProductList';
+import React from "react";
+import NewProductList from "../components/product/NewProductList";
 
 function Shop() {
   return (

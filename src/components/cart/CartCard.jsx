@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import * as Api from "../../api";
+import React, { useState } from "react";
 import {
   CardBox,
   DeleteIcon,
@@ -14,7 +14,7 @@ import {
   ProductSelect,
   PlusIcon,
   MinusIcon,
-} from './CartCard.style';
+} from "./CartCard.style";
 
 function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
   const [count, setCount] = useState(cartItemInfo.cnt);
@@ -47,13 +47,12 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
       id: cartItemInfo.id,
       cnt: newCount,
     };
-    axios
-      .patch(`/api/cart`, updatedCartItem)
+    Api.put(`/api/cart`, updatedCartItem)
       .then((res) => {
-        console.info('개수 변경 성공', res.data);
+        console.info("개수 변경 성공", res.data);
       })
       .catch((error) => {
-        console.error('개수 변경 실패', error);
+        console.error("개수 변경 실패", error);
       });
   };
 
@@ -70,7 +69,7 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
 
   // 상품 삭제하기
   const handleDelete = () => {
-    axios.delete(`/api/cart/${cartItemInfo.id}`).then((res) => {
+    Api.delete(`/api/cart/${cartItemInfo.id}`).then((res) => {
       setTotalAmount((prev) => {
         return prev - cartItemInfo.price * count;
       });
@@ -78,7 +77,7 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
     });
   };
 
-  console.log('cartItemInfo:', cartItemInfo);
+  console.log("cartItemInfo:", cartItemInfo);
 
   return (
     <CardBox key={cartItemInfo.id}>

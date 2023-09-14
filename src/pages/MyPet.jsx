@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import AWS from 'aws-sdk';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import AWS from "aws-sdk";
+import * as Api from "../api";
 
 function MyPet() {
   const { memberId } = useParams();
@@ -10,10 +10,10 @@ function MyPet() {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await axios.get('/api/pet/2');
+        const response = await Api.get("/api/pet/2");
         setPets(response.data);
       } catch (error) {
-        console.error('펫 목록 불러오기 에러:', error);
+        console.error("펫 목록 불러오기 에러:", error);
       }
     };
     fetchPets();
@@ -29,9 +29,9 @@ function MyPet() {
           pets.map(async (pet) => {
             try {
               if (pet.photo) {
-                const imageKey = pet.photo.split('/').pop();
+                const imageKey = pet.photo.split("/").pop();
                 const params = {
-                  Bucket: 'heendy-feed',
+                  Bucket: "heendy-feed",
                   Key: imageKey,
                 };
                 const data = await s3.getObject(params).promise();
@@ -41,10 +41,10 @@ function MyPet() {
                 return pet;
               }
             } catch (error) {
-              console.error('S3 이미지 불러오기 에러:', error);
+              console.error("S3 이미지 불러오기 에러:", error);
               return pet;
             }
-          }),
+          })
         );
 
         // 상태 변경을 한 번만 수행

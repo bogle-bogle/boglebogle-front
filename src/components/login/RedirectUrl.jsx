@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import * as Api from "../../api";
+
 import { useDispatch } from "react-redux";
 import { memberAction } from "../../feature/member/member";
 import { useNavigate } from "react-router-dom";
@@ -57,23 +58,15 @@ function RedirectUrl() {
               nickname: kakao_account.profile.nickname,
               imgUrl: kakao_account.profile.profile_image_url,
             };
-            axios
-              .post(`http://api.thepet.thehyundai.site:8080/api/member/login`, {
-                ...data,
-              })
-              .then((res) => {
-                console.log(res);
-                localStorage.setItem(
-                  "userToken",
-                  res.data.member.jwt.accessToken
-                );
-                dispatch(memberAction.setMemeber(res.data));
+            Api.post(`/api/member/login`, { ...data }).then((res) => {
+              localStorage.setItem(
+                "userToken",
+                res.data.member.jwt.accessToken
+              );
+              dispatch(memberAction.setMemeber(res.data));
 
-                navigate("/");
-              })
-              .catch((reason) => {
-                console.log(reason);
-              });
+              navigate("/");
+            });
           });
       })
       .catch((Error) => {

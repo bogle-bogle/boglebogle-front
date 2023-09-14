@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import heendycustomready from '../assets/custom/heendycustomready.png';
-import heendysay1 from '../assets/custom/heendysay1.png';
-import heendysay2 from '../assets/custom/heendysay2.png';
-import { PiBoneLight } from 'react-icons/pi';
-import AWS from 'aws-sdk';
-import axios from 'axios';
+import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import heendycustomready from "../assets/custom/heendycustomready.png";
+import heendysay1 from "../assets/custom/heendysay1.png";
+import heendysay2 from "../assets/custom/heendysay2.png";
+import { PiBoneLight } from "react-icons/pi";
+import AWS from "aws-sdk";
+import * as Api from "../api";
 
 function CustomReadyPage() {
   const navigate = useNavigate();
@@ -23,22 +23,17 @@ function CustomReadyPage() {
   const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
 
   useEffect(() => {
-    axios
-      .get(`/api/pet`, {
-        headers: {
-          Authorization: `Bearer ${member.jwt.accessToken}`, // 토큰을 Authorization 헤더에 추가
-        },
-      })
+    Api.get(`/api/pet`)
       .then((res) => {
         // HTTP 상태 코드 확인
-        console.log('HTTP Status Code:', res.status);
+        console.log("HTTP Status Code:", res.status);
 
         // 서버에서 반환한 데이터 확인
-        console.log('Data from the server:', res.data);
+        console.log("Data from the server:", res.data);
         const authorizationHeader = res.headers.authorization;
         console.log(
-          'Authorization Token from the server:',
-          authorizationHeader,
+          "Authorization Token from the server:",
+          authorizationHeader
         );
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
@@ -50,13 +45,13 @@ function CustomReadyPage() {
         setPetData(transformedData);
       })
       .catch((Error) => {
-        console.log('Error fetching pet codes:', Error);
+        console.log("Error fetching pet codes:", Error);
       });
   }, []);
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
-    console.log('선택된거 맞아?', pet);
+    console.log("선택된거 맞아?", pet);
     setSelectedPet(pet);
   };
   const handlePlaceholderClick = (pet) => {
@@ -70,12 +65,12 @@ function CustomReadyPage() {
   const handleImageUpload = (event, imageKey) => {
     const file = event.target.files[0];
     if (!file) {
-      console.error('No file selected.');
+      console.error("No file selected.");
       return;
     }
-    if (imageKey === 'feed') {
+    if (imageKey === "feed") {
       setSelectedFeedImage(URL.createObjectURL(file));
-    } else if (imageKey === 'ingredient') {
+    } else if (imageKey === "ingredient") {
       setSelectedIngredientImage(URL.createObjectURL(file));
     }
   };
@@ -95,7 +90,7 @@ function CustomReadyPage() {
 
     if (feed) {
       const feedParams = {
-        Bucket: 'heendy-feed',
+        Bucket: "heendy-feed",
         Key: feed.name,
         Body: feed,
       };
@@ -105,7 +100,7 @@ function CustomReadyPage() {
 
     if (ingredient) {
       const ingredientParams = {
-        Bucket: 'heendy-feed',
+        Bucket: "heendy-feed",
         Key: ingredient.name,
         Body: ingredient,
       };
@@ -116,12 +111,12 @@ function CustomReadyPage() {
     try {
       const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
       console.info(
-        'S3 object URLs:',
-        uploadResults.map((result) => result.Location),
+        "S3 object URLs:",
+        uploadResults.map((result) => result.Location)
       );
       return uploadResults.map((result) => result.Location);
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error("Error uploading file:", error);
     }
   };
 
@@ -131,7 +126,7 @@ function CustomReadyPage() {
     const feedUrlPromise = uploadToS3(feedInputRef.current.files[0]);
 
     const ingredientUrlPromise = uploadToS3(
-      ingredientInputRef.current.files[1],
+      ingredientInputRef.current.files[1]
     );
     const selectedPetId = selectedPet.codeValue;
 
@@ -140,14 +135,14 @@ function CustomReadyPage() {
       ingredientUrlPromise,
     ]);
     const customData = {
-      feedMainImgUrl: '',
-      feedDescImgUrl: '',
+      feedMainImgUrl: "",
+      feedDescImgUrl: "",
     };
 
     if (feedUrl.length !== 0) {
       customData.feedMainImgUrl = feedUrl[0];
     } else {
-      console.log('이쪽으로 빠짐');
+      console.log("이쪽으로 빠짐");
       customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
     }
     if (ingredientUrl.length !== 0) {
@@ -157,13 +152,13 @@ function CustomReadyPage() {
     }
     console.log(customData);
     try {
-      const response = await axios.put(
+      const response = await Api.put(
         `api/pet/feed/${selectedPetId}`,
-        customData,
+        customData
       );
       console.log(response);
       // 페이지 전환 및 데이터 전달
-      navigate('/customresult', { state: { customData, selectedPet } });
+      navigate("/customresult", { state: { customData, selectedPet } });
     } catch (error) {
       // 에러 처리 로직
     }
@@ -210,7 +205,7 @@ function CustomReadyPage() {
               <div key={pet.codeValue} className="pet-info">
                 <div
                   className={`pet-card ${
-                    selectedPet === pet ? 'selected' : ''
+                    selectedPet === pet ? "selected" : ""
                   }`}
                   onClick={() => handlePetClick(pet)}
                 >
@@ -220,7 +215,7 @@ function CustomReadyPage() {
                     ) : (
                       <div
                         className={`placeholder ${
-                          selectedPet === pet ? 'selected' : ''
+                          selectedPet === pet ? "selected" : ""
                         }`}
                         onClick={() => handlePlaceholderClick(pet)}
                       ></div>
@@ -263,15 +258,15 @@ function CustomReadyPage() {
                 type="file"
                 accept="image/*"
                 onChange={(event) => {
-                  const feedUrl = handleFileInputChange('feed')(event);
+                  const feedUrl = handleFileInputChange("feed")(event);
                   feedUrl &&
                     setSelectedFeedImage(
-                      URL.createObjectURL(event.target.files[0]),
+                      URL.createObjectURL(event.target.files[0])
                     );
                 }}
                 className="file-input"
                 ref={feedInputRef}
-                style={{ display: 'none' }} // 숨김 처리
+                style={{ display: "none" }} // 숨김 처리
               />
             </div>
 
@@ -295,15 +290,15 @@ function CustomReadyPage() {
                 accept="image/*"
                 onChange={(event) => {
                   const ingredientUrl =
-                    handleFileInputChange('ingredient')(event);
+                    handleFileInputChange("ingredient")(event);
                   ingredientUrl &&
                     setSelectedIngredientImage(
-                      URL.createObjectURL(event.target.files[0]),
+                      URL.createObjectURL(event.target.files[0])
                     );
                 }}
                 className="file-input"
                 ref={ingredientInputRef}
-                style={{ display: 'none' }} // 숨김 처리
+                style={{ display: "none" }} // 숨김 처리
               />
             </div>
           </div>
