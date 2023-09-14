@@ -7,7 +7,6 @@ import OrderInfo from "../components/ordercomplete/OrderInfo";
 
 function OrderComplete() {
   const member = useSelector((state) => state.member);
-  console.info("오더 멤버", member);
 
   const [orderItemsData, setOrderItemsData] = useState(null);
 
