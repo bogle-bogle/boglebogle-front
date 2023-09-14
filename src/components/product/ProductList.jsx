@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import * as Api from "../../api";
+import React, { useEffect, useState } from "react";
 import {
   CategoryContainer,
   CategoryElementContainer,
@@ -17,19 +17,19 @@ import {
   PageState,
   ProductCardContainer,
   ProductContainer,
-} from './index.style';
-import { useNavigate } from 'react-router-dom';
-import CategoryFilterButton from './CategoryFilterButton';
+} from "./index.style";
+import { useNavigate } from "react-router-dom";
+import CategoryFilterButton from "./CategoryFilterButton";
 
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 import {
   proteinCode,
   animalCode,
   productSub,
   shopCategory,
-} from '../../commonCode';
-import ProductCard from './ProductCard';
+} from "../../commonCode";
+import ProductCard from "./ProductCard";
 
 function ProductList() {
   const navigate = useNavigate();
@@ -65,34 +65,32 @@ function ProductList() {
   });
 
   useEffect(() => {
-    axios
-      .post(`/api/product/list/${curPage}`, {
-        productSubFilter:
-          filterProductSub.length !== 0
-            ? filterProductSub
-            : Object.entries(productSub).map(([key, value]) => key),
-        animalFilter:
-          filterAnimal.length !== 0
-            ? filterAnimal
-            : Object.entries(animalCode).map(([key, value]) => key),
-        proteinFilter:
-          filterProtein.length !== 0
-            ? filterProtein
-            : Object.entries(proteinCode).map(([key, value]) => key),
-      })
-      .then((res) => {
-        setProductList(() => {
-          console.log(res.data.products);
-          const newProducts = [...res.data.products];
-          return newProducts;
-        });
-        setTotalCount(res.data.count);
-        let cnt = parseInt(res.data.count / 20);
-        if (res.data.count % 20 > 0) {
-          cnt += 1;
-        }
-        setPageCount(cnt);
+    Api.post(`/api/product/list/${curPage}`, {
+      productSubFilter:
+        filterProductSub.length !== 0
+          ? filterProductSub
+          : Object.entries(productSub).map(([key, value]) => key),
+      animalFilter:
+        filterAnimal.length !== 0
+          ? filterAnimal
+          : Object.entries(animalCode).map(([key, value]) => key),
+      proteinFilter:
+        filterProtein.length !== 0
+          ? filterProtein
+          : Object.entries(proteinCode).map(([key, value]) => key),
+    }).then((res) => {
+      setProductList(() => {
+        console.log(res.data.products);
+        const newProducts = [...res.data.products];
+        return newProducts;
       });
+      setTotalCount(res.data.count);
+      let cnt = parseInt(res.data.count / 20);
+      if (res.data.count % 20 > 0) {
+        cnt += 1;
+      }
+      setPageCount(cnt);
+    });
   }, [curPage, filterProductSub, filterAnimal, filterProtein]);
 
   function handlePage(page) {
@@ -193,7 +191,7 @@ function ProductList() {
   return (
     <div>
       <CategoryContainer>
-        <CategoryP>{'SHOPPING  >  식품  >  강아지'}</CategoryP>
+        <CategoryP>{"SHOPPING  >  식품  >  강아지"}</CategoryP>
         <InitialButton onClick={initialFilter}>필터 초기화</InitialButton>
       </CategoryContainer>
       <FilterCategoryContainer>

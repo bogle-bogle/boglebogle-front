@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   CartModalButtonContainer,
   CartModalContainer,
@@ -9,18 +9,18 @@ import {
   DescImgContainer,
   MoveCartButton,
   ProductDetailContainer,
-} from './detail.style';
-import ProductSummaryContainer from './ProductSummaryContainer';
-import Review from './Review';
-import ProductIngredient from './ProductIngredient';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useState } from 'react';
-import Modal from '../modal/Modal';
-import ReviewModal from './ReviewModal';
-import FadeModal from '../modal/FadeModal';
-import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+} from "./detail.style";
+import ProductSummaryContainer from "./ProductSummaryContainer";
+import Review from "./Review";
+import ProductIngredient from "./ProductIngredient";
+import { useEffect } from "react";
+import * as Api from "../../api";
+import { useState } from "react";
+import Modal from "../modal/Modal";
+import ReviewModal from "./ReviewModal";
+import FadeModal from "../modal/FadeModal";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 function ProductDetail() {
   const member = useSelector((state) => state.member);
 
@@ -34,16 +34,16 @@ function ProductDetail() {
 
   useEffect(() => {
     const params = new URL(document.location.toString());
-    const productId = params.pathname.split('/').at(-1);
+    const productId = params.pathname.split("/").at(-1);
 
     console.log(productId);
 
-    axios.get(`/api/product/${productId}`).then((res) => {
+    Api.get(`/api/product/${productId}`).then((res) => {
       setIngredients(() => {
         if (res.data.ingredients === null) {
           return [];
         }
-        return [...res.data.ingredients.split(',')];
+        return [...res.data.ingredients.split(",")];
       });
       setProductInfo(() => {
         return { ...res.data };
@@ -62,7 +62,7 @@ function ProductDetail() {
 
   function handleOpenCartModal() {
     console.log(productInfo);
-    axios.post('/api/cart', {
+    Api.post("/api/cart", {
       cnt: 1,
       memberId: member.id,
       productId: productInfo.id,
@@ -85,7 +85,7 @@ function ProductDetail() {
               <CoutinueShopButton onClick={handleCloseCardModal}>
                 쇼핑 계속하기
               </CoutinueShopButton>
-              <MoveCartButton onClick={() => navigate('/cart')}>
+              <MoveCartButton onClick={() => navigate("/cart")}>
                 장바구니로 이동
               </MoveCartButton>
             </CartModalButtonContainer>
@@ -96,7 +96,7 @@ function ProductDetail() {
         <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>
       )}
       <ProductDetailContainer>
-        <CategoryP>{'SHOPPING  >  FOOD  >  강아지'}</CategoryP>
+        <CategoryP>{"SHOPPING  >  FOOD  >  강아지"}</CategoryP>
         {productInfo !== undefined && (
           <ProductSummaryContainer
             productInfo={productInfo}
