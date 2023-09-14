@@ -52,7 +52,7 @@ function NewProductList() {
   useEffect(() => {
     axios
       .post(
-        `http://jenkins.thepet.thehyundai.site:8080/api/product/list/${curPage}`,
+        `http://api.thepet.thehyundai.site:8080/api/product/list/${curPage}`,
         {
           mainFilter: mainCategory,
           subFilter: subFilterList,
