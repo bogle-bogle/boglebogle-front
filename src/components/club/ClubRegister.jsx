@@ -175,7 +175,6 @@ function ClubRegister() {
 
     try {
       const response = await Api.post("/api/upload", formData, { headers });
-      console.log("response.data", response.data);
       return response.data;
     } catch (error) {
       console.error("파일 업로드 실패:", error);
@@ -194,7 +193,6 @@ function ClubRegister() {
     event.preventDefault();
 
     const photoUrl = await uploadImage(photoInputRef.current.files[0]);
-    console.log("사진 ", photoUrl);
     const selectedCodesString = selectedProteinCodes.join(",");
 
     const clubData = {
@@ -210,12 +208,11 @@ function ClubRegister() {
     };
 
     try {
-      const response = await Api.post("api/club", clubData, {
+      const response = await Api.post("/api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
       });
-      console.log("클럽 등록 성공:", response.data);
       navigate("/completeclubregister");
     } catch (error) {
       // 에러 처리 로직

@@ -25,16 +25,8 @@ function CustomReadyPage() {
   useEffect(() => {
     Api.get(`/api/pet`)
       .then((res) => {
-        // HTTP 상태 코드 확인
-        console.log("HTTP Status Code:", res.status);
-
-        // 서버에서 반환한 데이터 확인
-        console.log("Data from the server:", res.data);
         const authorizationHeader = res.headers.authorization;
-        console.log(
-          "Authorization Token from the server:",
-          authorizationHeader
-        );
+
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
           name: item.name,
@@ -51,7 +43,6 @@ function CustomReadyPage() {
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
-    console.log("선택된거 맞아?", pet);
     setSelectedPet(pet);
   };
   const handlePlaceholderClick = (pet) => {
@@ -142,7 +133,6 @@ function CustomReadyPage() {
     if (feedUrl.length !== 0) {
       customData.feedMainImgUrl = feedUrl[0];
     } else {
-      console.log("이쪽으로 빠짐");
       customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
     }
     if (ingredientUrl.length !== 0) {
@@ -150,13 +140,11 @@ function CustomReadyPage() {
     } else {
       customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
     }
-    console.log(customData);
     try {
       const response = await Api.put(
         `api/pet/feed/${selectedPetId}`,
         customData
       );
-      console.log(response);
       // 페이지 전환 및 데이터 전달
       navigate("/customresult", { state: { customData, selectedPet } });
     } catch (error) {

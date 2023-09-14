@@ -77,8 +77,6 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
     });
   };
 
-  console.log("cartItemInfo:", cartItemInfo);
-
   return (
     <CardBox key={cartItemInfo.id}>
       <ProductSelect>

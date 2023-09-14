@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
 import { LoginAdvImg } from "./login.style";
-
+import axios from "axios";
 function RedirectUrl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,11 +20,6 @@ function RedirectUrl() {
     const REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;
     const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
 
-    console.log(new URL(document.location.toString()));
-    console.log(new URL(document.location.toString()).searchParams);
-    console.log(params);
-    console.log(code);
-    console.log(REDIRECT_URI);
     axios
       .post(
         `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,

@@ -20,7 +20,6 @@ function MyPet() {
   }, [memberId]);
 
   useEffect(() => {
-    console.log(pets);
     if (pets.length > 0) {
       const s3 = new AWS.S3();
 
