@@ -30,11 +30,7 @@ function CustomReadyPage() {
   const [recommendProduct, setRecommendProduct] = useState([]);
 
   useEffect(() => {
-    Api.get(`/api/pet`, {
-      headers: {
-        Authorization: `Bearer ${member.jwt.accessToken}`, // 토큰을 Authorization 헤더에 추가
-      },
-    })
+    Api.get(`/api/pet`)
       .then((res) => {
         // HTTP 상태 코드 확인
         console.log("HTTP Status Code:", res.status);
