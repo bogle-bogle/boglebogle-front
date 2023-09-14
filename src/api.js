@@ -3,7 +3,15 @@ import axios from "axios";
 const serverUrl = String(process.env.REACT_APP_SERVER_URL);
 
 async function get(endpoint, params = "") {
-  return axios.get(serverUrl + endpoint + "/" + params, {
+  let requestURL = "";
+
+  if (params === "") {
+    requestURL = serverUrl + endpoint;
+  } else {
+    requestURL = serverUrl + endpoint + "/" + params;
+  }
+
+  return axios.get(requestURL, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("userToken")}`,
     },

@@ -26,11 +26,8 @@ function Suggestion() {
   const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
 
   useEffect(() => {
-    Api.get(`/api/pet`, {
-      headers: {
-        Authorization: `Bearer ${member.jwt.accessToken}`, // 토큰을 Authorization 헤더에 추가
-      },
-    })
+    console.log("여기니");
+    Api.get(`/api/pet`)
       .then((res) => {
         // HTTP 상태 코드 확인
         console.log("HTTP Status Code:", res.status);

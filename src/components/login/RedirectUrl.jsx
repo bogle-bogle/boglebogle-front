@@ -4,15 +4,9 @@ import { useDispatch } from "react-redux";
 import { memberAction } from "../../feature/member/member";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { margin, textAlign } from "@mui/system";
-import {
-  MypageAdv,
-  MypageAdvBtn,
-  MypageAdvImg,
-  MypageContent,
-} from "../mypage/mypage.style";
 import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
 import { LoginAdvImg } from "./login.style";
+import axios from "axios";
 
 function RedirectUrl() {
   const dispatch = useDispatch();
@@ -25,43 +19,50 @@ function RedirectUrl() {
     const REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;
     const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
 
-    Api.post(
-      `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,
-      {},
-      {
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-        },
-      }
-    )
+    axios
+      .post(
+        `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,
+        {},
+        {
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          },
+        }
+      )
       .then((res) => {
         const { access_token } = res.data;
-        Api.post(
-          `https://kapi.kakao.com/v2/user/me`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-            },
-          }
-        ).then((res) => {
-          const { kakao_account, id } = res.data;
-          console.info(res.data);
-          const data = {
-            socialId: id,
-            name: kakao_account.profile.nickname,
-            email: kakao_account.email,
-            nickname: kakao_account.profile.nickname,
-            imgUrl: kakao_account.profile.profile_image_url,
-          };
-          Api.post(`/api/member/login`, { ...data }).then((res) => {
-            localStorage.setItem("userToken", res.data.member.jwt.accessToken);
-            dispatch(memberAction.setMemeber(res.data));
+        axios
+          .post(
+            `https://kapi.kakao.com/v2/user/me`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+                "Content-type":
+                  "application/x-www-form-urlencoded;charset=utf-8",
+              },
+            }
+          )
+          .then((res) => {
+            const { kakao_account, id } = res.data;
+            console.info(res.data);
+            const data = {
+              socialId: id,
+              name: kakao_account.profile.nickname,
+              email: kakao_account.email,
+              nickname: kakao_account.profile.nickname,
+              imgUrl: kakao_account.profile.profile_image_url,
+            };
+            Api.post(`/api/member/login`, { ...data }).then((res) => {
+              localStorage.setItem(
+                "userToken",
+                res.data.member.jwt.accessToken
+              );
+              dispatch(memberAction.setMemeber(res.data));
 
-            navigate("/");
+              navigate("/");
+            });
           });
-        });
       })
       .catch((Error) => {
         console.info("Error");
