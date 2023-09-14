@@ -210,7 +210,7 @@ function ClubRegister() {
     };
 
     try {
-      const response = await Api.post("api/club", clubData, {
+      const response = await Api.post("/api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
