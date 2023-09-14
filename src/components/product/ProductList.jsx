@@ -80,7 +80,6 @@ function ProductList() {
           : Object.entries(proteinCode).map(([key, value]) => key),
     }).then((res) => {
       setProductList(() => {
-        console.log(res.data.products);
         const newProducts = [...res.data.products];
         return newProducts;
       });

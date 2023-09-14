@@ -22,9 +22,6 @@ import {
 import * as Api from "../../api";
 
 function OrderProducts({ cartItemArray, totalAmount }) {
-  console.log("order", cartItemArray[0].name);
-  console.log("order", cartItemArray.length);
-
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);

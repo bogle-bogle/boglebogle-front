@@ -21,7 +21,6 @@ function OrderComplete() {
         },
       }
     ).then((res) => {
-      console.log("주문완료 상품들", res.data);
       setOrderItemsData(res.data);
     });
   }, [member.jwt.accessToken]);

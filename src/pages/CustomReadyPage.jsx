@@ -32,16 +32,8 @@ function CustomReadyPage() {
   useEffect(() => {
     Api.get(`/api/pet`)
       .then((res) => {
-        // HTTP 상태 코드 확인
-        console.log("HTTP Status Code:", res.status);
-
-        // 서버에서 반환한 데이터 확인
-        console.log("Data from the server:", res.data);
         const authorizationHeader = res.headers.authorization;
-        console.log(
-          "Authorization Token from the server:",
-          authorizationHeader
-        );
+
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
           name: item.name,
@@ -58,7 +50,6 @@ function CustomReadyPage() {
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
-    console.log("선택된거 맞아?", pet);
     setSelectedPet(pet);
   };
   const handlePlaceholderClick = (pet) => {
@@ -142,7 +133,7 @@ function CustomReadyPage() {
   // DB 업데이트
   const updateDatabase = async (selectedPetId, customData) => {
     const response = await Api.put(`api/pet/feed/${selectedPetId}`, customData);
-    console.log("db성공", response.data);
+
     return response.data;
   };
 
