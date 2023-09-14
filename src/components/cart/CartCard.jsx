@@ -48,7 +48,7 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
       id: cartItemInfo.id,
       cnt: newCount,
     };
-    Api.patch(`/api/cart`, updatedCartItem)
+    Api.put(`/api/cart`, updatedCartItem)
       .then((res) => {
         console.info("개수 변경 성공", res.data);
       })
