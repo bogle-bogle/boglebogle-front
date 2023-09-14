@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
 import { LoginAdvImg } from "./login.style";
-
+import axios from "axios";
 function RedirectUrl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
