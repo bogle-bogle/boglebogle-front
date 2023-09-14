@@ -20,6 +20,8 @@ async function get(endpoint, params = "") {
 
 async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
+  console.log(serverUrl);
+
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
       "Content-Type": "application/json",
