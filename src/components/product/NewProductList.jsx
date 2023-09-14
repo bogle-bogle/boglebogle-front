@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   CategoryContainer,
   CategoryElementContainer,
@@ -16,21 +16,22 @@ import {
   PageState,
   ProductCardContainer,
   ProductContainer,
-} from './index.style';
-import { shopCategory, proteinCode } from '../../commonCode';
-import CategoryFilterButton from './CategoryFilterButton';
-import { useState } from 'react';
+} from "./index.style";
+import { shopCategory, proteinCode } from "../../commonCode";
+import CategoryFilterButton from "./CategoryFilterButton";
+import { useState } from "react";
 import {
   initialMainCategory,
   initialSubCategory,
   initialProteinCategory,
-} from '../../utils/productFilter';
-import axios from 'axios';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import ProductCard from './ProductCard';
+} from "../../utils/productFilter";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import ProductCard from "./ProductCard";
+
+import * as Api from "../../api";
 
 function NewProductList() {
-  const [mainCategory, setMainCategory] = useState('');
+  const [mainCategory, setMainCategory] = useState("");
   const [subFilterList, setSubFilterList] = useState([]);
   const [proteinFilterList, setProteinFilterList] = useState([]);
 
@@ -50,22 +51,20 @@ function NewProductList() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    axios
-      .post(`/api/product/list/${curPage}`, {
-        mainFilter: mainCategory,
-        subFilter: subFilterList,
-        proteinFilter: proteinFilterList,
-      })
-      .then((res) => {
-        setProductList([...res.data.products]);
-        setTotalCount(res.data.count);
+    Api.post(`/api/product/list/${curPage}`, {
+      mainFilter: mainCategory,
+      subFilter: subFilterList,
+      proteinFilter: proteinFilterList,
+    }).then((res) => {
+      setProductList([...res.data.products]);
+      setTotalCount(res.data.count);
 
-        let cnt = parseInt(res.data.count / 20);
-        if (res.data.count % 20 > 0) {
-          cnt += 1;
-        }
-        setPageCount(cnt);
-      });
+      let cnt = parseInt(res.data.count / 20);
+      if (res.data.count % 20 > 0) {
+        cnt += 1;
+      }
+      setPageCount(cnt);
+    });
   }, [curPage, subFilterList, mainCategory, proteinFilterList]);
 
   const handleMainChecked = (id) => {
@@ -120,7 +119,7 @@ function NewProductList() {
   };
 
   const initFilter = () => {
-    setMainCategory('');
+    setMainCategory("");
     setSubFilterList([]);
     setProteinFilterList([]);
 
@@ -136,7 +135,7 @@ function NewProductList() {
       <CategoryContainer>
         <CategoryP>
           {`쇼핑`}
-          {mainCategory !== '' && `  >  ${shopCategory[mainCategory].name}`}
+          {mainCategory !== "" && `  >  ${shopCategory[mainCategory].name}`}
         </CategoryP>
         <InitialButton onClick={initFilter}>필터 초기화</InitialButton>
       </CategoryContainer>
@@ -156,7 +155,7 @@ function NewProductList() {
             ))}
           </CategoryElementContainer>
         </FilterCategoryRow>
-        {mainCategory !== '' && (
+        {mainCategory !== "" && (
           <FilterCategoryRow>
             <FilterCategoryTitle>소분류</FilterCategoryTitle>
             <CategoryElementContainer>
@@ -170,12 +169,12 @@ function NewProductList() {
                   >
                     {value}
                   </CategoryFilterButton>
-                ),
+                )
               )}
             </CategoryElementContainer>
           </FilterCategoryRow>
         )}
-        {mainCategory === 'FD' && (
+        {mainCategory === "FD" && (
           <FilterCategoryRow>
             <FilterCategoryTitle>주재료</FilterCategoryTitle>
             <CategoryElementContainer>
