@@ -4,7 +4,7 @@ const serverUrl = String(process.env.REACT_APP_SERVER_URL);
 
 async function get(endpoint, params = "") {
   let requestURL = "";
-
+  console.log(serverUrl);
   if (params === "") {
     requestURL = serverUrl + endpoint;
   } else {
