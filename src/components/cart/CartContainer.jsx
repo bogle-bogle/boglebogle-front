@@ -16,8 +16,6 @@ function CartContainer() {
   const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
 
-  console.info("장바구니 멤버", member);
-
   // 멤버 별 카트 정보 + 카트에 담긴 상품 정보 가져오기
   useEffect(() => {
     Api.get(`/api/cart/${member.id}`).then((res) => {

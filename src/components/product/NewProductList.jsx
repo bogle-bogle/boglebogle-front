@@ -50,6 +50,7 @@ function NewProductList() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_SERVER_URL);
     Api.post(`/api/product/list/${curPage}`, {
       mainFilter: mainCategory,
       subFilter: subFilterList,
@@ -64,7 +65,6 @@ function NewProductList() {
       }
       setPageCount(cnt);
     });
-
   }, [curPage, subFilterList, mainCategory, proteinFilterList]);
 
   const handleMainChecked = (id) => {
