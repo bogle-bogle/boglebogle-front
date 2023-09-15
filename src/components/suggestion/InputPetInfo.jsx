@@ -389,7 +389,7 @@ function InputPetInfo(props) {
                         const feedUrl = handleFileInputChange("feed")(event);
                         feedUrl &&
                           setSelectedFeedImage(
-                            URL.createObjectURL(event.target.files[0])
+                            URL.createObjectURL(event.target.files[1])
                           );
                       }}
                       className="file-input"
