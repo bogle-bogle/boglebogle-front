@@ -11,7 +11,6 @@ import {
   TitleBox,
   DescArea,
   InputArea,
-  InputPetInfoBox,
   InputBoxes,
 } from "./suggestion.style";
 
@@ -23,11 +22,13 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import CustomResult from "../custom/CustomResult";
 import SuggestionResult from "./SuggestionResult";
+import axios from "axios";
 
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
 
   const [selectedFeedImage, setSelectedFeedImage] = useState(null);
+  const [selectedFeedIngredients, setSelectedFeedIngredients] = useState(null);
   const [selectedIngredientImage, setSelectedIngredientImage] = useState(null);
   const [recommendProduct, setRecommendProduct] = useState([]);
 
@@ -58,11 +59,11 @@ function InputPetInfo(props) {
       console.error("No file selected.");
       return;
     }
-    if (imageKey === "feed") {
-      setSelectedFeedImage(URL.createObjectURL(file));
-    } else if (imageKey === "ingredient") {
-      setSelectedIngredientImage(URL.createObjectURL(file));
-    }
+    // if (imageKey === "feed") {
+    //   setSelectedFeedImage(URL.createObjectURL(file));
+    // } else if (imageKey === "ingredient") {
+    //   setSelectedIngredientImage(URL.createObjectURL(file));
+    // }
   };
 
   AWS.config.update({
@@ -100,10 +101,7 @@ function InputPetInfo(props) {
 
     try {
       const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
-      console.info(
-        "S3 object URLs:",
-        uploadResults.map((result) => result.Location)
-      );
+      console.info("S3 object URLs:", uploadResults.map((result) => result.Location));
       return uploadResults.map((result) => result.Location);
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -111,64 +109,82 @@ function InputPetInfo(props) {
     }
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmission = async () => {
 
+    // 오류 검증 및 토스트 띄우기
     if (selectedPet == undefined) {
       toast.warn("반려동물을 선택해주세요");
       scrollToTop();
-    } else if (
-      ingredientInputRef.current == undefined ||
-      ingredientInputRef.current.files[0] == undefined
-    ) {
-      toast.warn("성분표 이미지를 업로드해주세요");
-      scrollTo("step2");
     } else {
+
+      // 정상 작동시
       const feedUrlPromise = uploadToS3(feedInputRef.current.files[0]);
 
       const ingredientUrlPromise = uploadToS3(
         ingredientInputRef.current.files[1]
       );
       const selectedPetId = selectedPet.codeValue;
-      const [feedUrl, ingredientUrl] = await Promise.all([
+      const [inputFeedMainImgUrl, inputFeedDescImgUrl] = await Promise.all([
         feedUrlPromise,
         ingredientUrlPromise,
-      ]);
+    ]);
       const customData = {
         feedMainImgUrl: "",
         feedDescImgUrl: "",
+        feedIngredients: "",
       };
 
-      if (feedUrl.length !== 0) {
-        customData.feedMainImgUrl = feedUrl[0];
+      if (inputFeedMainImgUrl.length !== 0) {
+        customData.feedMainImgUrl = inputFeedMainImgUrl[0];
       } else {
         customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
       }
-      if (ingredientUrl.length !== 0) {
-        customData.feedDescImgUrl = ingredientUrl[1];
+      if (inputFeedDescImgUrl.length !== 0) {
+        customData.feedDescImgUrl = inputFeedDescImgUrl[1];
       } else {
         customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
+      }
+
+      setSelectedFeedImage(customData.feedMainImgUrl ? customData.feedMainImgUrl : customData.feedDescImgUrl);
+
+      if (
+        customData.feedMainImgUrl == undefined ||
+        customData.feedDescImgUrl == undefined
+      ) {
+        toast.warn("성분표 이미지를 업로드해주세요");
+        scrollTo("step2");
       }
 
       props.handleOpenModal();
 
       try {
-        const response = await Api.put(
-          `api/pet/feed/${selectedPetId}`,
-          customData
-        );
         const imgUrl = customData.feedDescImgUrl;
+        console.log(imgUrl);
 
-        const searchRes = await Api.post("/ai/convert-to-similarity", {
-          imgUrl,
+        // const searchRes = axios.post(`ocr-nlp.thepet.thehyundai.site:8000/ai/img-to-similarity`, {"imgUrl" : imgUrl});
+        const searchRes = axios.post('http://localhost:8000/ai/img-to-similarity', {"imgUrl" : imgUrl});
+        const resultData = (await searchRes).data
+
+        customData.feedIngredients = resultData.ingredients;
+        
+        console.log({
+          "favoriteFoodIngredients" : customData.feedIngredients,
+          "feedMainImgUrl": customData.feedMainImgUrl,
+          "feedDescImgUrl": customData.feedDescImgUrl,
         });
-        // const response = await Api.put(
-        //   `api/pet/feed/${selectedPetId}`,
-        //   customData,
-        // );
+
+        const response = await Api.put(`/api/pet/feed/${selectedPetId}`, 
+        {
+          "favoriteFoodIngredients" : customData.feedIngredients,
+          "feedMainImgUrl": customData.feedMainImgUrl,
+          "feedDescImgUrl": customData.feedDescImgUrl,
+        }
+        );
+
+        setSelectedFeedIngredients(customData.feedIngredients);
 
         setRecommendProduct(() => {
-          return [...searchRes.data];
+          return [...resultData.recommendations];
         });
         props.handleModalClose();
       } catch (error) {
@@ -178,20 +194,7 @@ function InputPetInfo(props) {
         toast.error("오류가 발생하였습니다😥");
 
         // ****** 테스트용 데이터 삽입
-        setRecommendProduct(() => {
-          return [
-            {
-              id: 670,
-              name: "나우 프레쉬 스몰브리드 어덜트 2.72kg",
-              price: 53000,
-              mainImgUrl:
-                "https://heendy-feed.s3.amazonaws.com/product_4df6e4a7719a611d698b8428cb0e89974fcdb15f08e53732aa9ad07d09baa0f2.png",
-              ingredients:
-                "뼈를 발라낸 칠면조,통건조란,완두콩,완두분,감자,감자가루,천연 맛,아마인,사과,카놀라유,뼈를 발라낸 언어,뼈를 발라낸 오리,야자유,탄산칼슘,제2인산칼슘,토마토,알팔파,당근,호박,고구마,바나나,블루베리,크랜베리,블랙베리,석류,파파야,렌즈콩,브로콜리,말린 치커리 뿌리,삼인산나트륨,염화나트륨,염화칼륨,염화콜린, 비타민(비타민 A 보충제, 비타민 D3 보충제, 비타민 E 보충제, 니코틴산, L-아스크로빌-2-폴리포스페이트, d-판토텐산 칼슘, 질산티아민, 베타카로틴, 리보플라빈, 염산 피리독신, 엽산, 비오틴, 비타민 B12 보충제),미네랄(아연 메티오닌 복합체, 아연 단백질 화합물, 철 단백질 화합물, 구리 단백질 화합물, 산화아연, 망간 단백질 화합물, 황산구리, 황산 제1철, 요오드산칼슘, 산화망간, 셀레늄 효모),타우린,DL-메티오닌,L-리진,말린 락토바실러스 아시도필러스 발효제품,말린 엔테로코커스 패시엄 발효제품,파슬리,박하,녹차 추출물,L-카르니틴,말린 로즈메리",
-              similarity: "84.29%",
-            },
-          ];
-        });
+        // setRecommendProduct();
       }
     }
   };
@@ -245,6 +248,7 @@ function InputPetInfo(props) {
             </p>
           </TitleBox>
         </HeendyArea>
+
         <StepArea>
           <Stepper className="stepper" activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
@@ -254,10 +258,11 @@ function InputPetInfo(props) {
             ))}
           </Stepper>
         </StepArea>
+
       </DescArea>
+      
       <InputArea>
-        <form id="suggestForm" className="formBox" onSubmit={handleFormSubmit}>
-          <div>
+          <div className="formBox">
             <InputBoxes show={recommendProduct.length != 0}>
               {/* STEP 1 */}
               <div className="step-box" id="step1">
@@ -472,15 +477,11 @@ function InputPetInfo(props) {
                   처음부터
                 </div>
                 <button
-                  type="submit"
-                  form="suggestForm"
                   className={
                     "btn btn-custom " +
-                    (ingredientInputRef.current != undefined &&
-                    ingredientInputRef.current.files[0] != undefined
-                      ? "active-bg"
-                      : "basic-bg")
+                    (selectedFeedImage != undefined ? "active-bg" : "basic-bg")
                   }
+                  onClick={handleSubmission}
                 >
                   맞춤 사료 찾기
                 </button>
@@ -489,7 +490,6 @@ function InputPetInfo(props) {
               <></>
             )}
           </div>
-        </form>
       </InputArea>
       {recommendProduct.length === 0 ? (
         <></>
@@ -509,8 +509,10 @@ function InputPetInfo(props) {
           </div>
 
           <CustomResult
+            selectedPetName={selectedPet.name}
             recommendProduct={recommendProduct}
             selectedFeedImage={selectedFeedImage}
+            selectedFeedIngredients={selectedFeedIngredients}
           ></CustomResult>
         </>
       )}

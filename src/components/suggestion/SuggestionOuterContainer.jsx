@@ -27,8 +27,6 @@ function SuggestionOuterContainer() {
   useEffect(() => {
     Api.get(`/api/pet`)
       .then((res) => {
-        const authorizationHeader = res.headers.authorization;
-
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
           name: item.name,

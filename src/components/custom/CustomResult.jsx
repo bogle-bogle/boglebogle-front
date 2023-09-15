@@ -31,7 +31,10 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import ProductCard from '../product/ProductCard';
 
-function CustomResult({ recommendProduct, selectedFeedImage }) {
+function CustomResult({ selectedPetName, recommendProduct, selectedFeedImage, selectedFeedIngredients }) {
+
+  console.log(selectedPetName, recommendProduct, selectedFeedImage, selectedFeedIngredients)
+
   return (
     <>
       <CustomResultContainer>
@@ -39,7 +42,7 @@ function CustomResult({ recommendProduct, selectedFeedImage }) {
           <StickyContainer>
             <AnalyzeResultExplainContainer>
               <AnalyzeResultExplain>
-                우리 ‘두리’가 잘 먹는 사료
+                우리 ‘{selectedPetName}’가 잘 먹는 사료
               </AnalyzeResultExplain>
             </AnalyzeResultExplainContainer>
             <FlexContainer>
@@ -48,8 +51,7 @@ function CustomResult({ recommendProduct, selectedFeedImage }) {
                   <UserResultImg src={selectedFeedImage}></UserResultImg>
                   <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
                   <UserResultText isTitle={false}>
-                    연어, 당근, 보리, 쌀, 호박, 블루베리, 쌀, 호박, 딸기,
-                    토마토, 녹두
+                  {selectedFeedIngredients}
                   </UserResultText>
                 </UserResultCard>
               </UserAnalyzeContainer>
@@ -81,16 +83,16 @@ function CustomResult({ recommendProduct, selectedFeedImage }) {
                 recommendProduct.map((rp, idx) => (
                   <ResultCardContainer key={idx}>
                     <ProductCard product={rp}></ProductCard>
-                    <SimilarityContainer percent={rp.similarity}>
+                    <SimilarityContainer percent={rp.matchRate}>
                       <ProgressBarContainer>
                         <ProgressBar
-                          percent={rp.similarity}
-                          si={rp.similarity}
+                          percent={rp.matchRate}
+                          si={rp.matchRate}
                         ></ProgressBar>
                       </ProgressBarContainer>
                       <SimilarityPercentText>성분유사도</SimilarityPercentText>
-                      <SimilarityPercentText percent={rp.similarity}>
-                        {`${rp.similarity}%`}
+                      <SimilarityPercentText percent={rp.matchRate}>
+                        {`${rp.matchRate}%`}
                       </SimilarityPercentText>
                     </SimilarityContainer>
                   </ResultCardContainer>
