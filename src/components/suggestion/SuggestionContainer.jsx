@@ -14,14 +14,15 @@ import {
   NoPetBox,
   SadHeendy,
   SuggestBox,
+  SuggestionContainer,
 } from "./suggestion.style";
 
-function SuggestionContainer() {
+function SuggestionOuterContainer() {
   const [play, { stop }] = useSound(loadingSound);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const member = useSelector((state) => state.member);
-  const [petData, setPetData] = useState(member.pet || []);
+  const [petData, setPetData] = useState([]);
 
   useEffect(() => {
     Api.get(`/api/pet`)
@@ -54,7 +55,7 @@ function SuggestionContainer() {
   };
 
   return (
-    <>
+    <SuggestionContainer>
     {openModal && (
         <Modal handleModalClose={handleModalClose}>
           <video width="310" height="550" autoPlay loop muted>
@@ -83,8 +84,8 @@ function SuggestionContainer() {
           </SuggestBox>
         )
       }
-    </>
+    </SuggestionContainer>
      );
   }
 
-export default SuggestionContainer;
+export default SuggestionOuterContainer;
