@@ -53,6 +53,7 @@ function InputPetInfo(props) {
     // 현재 선택된 펫을 null로 설정하여 테두리 제거
     setSelectedPet(pet);
   };
+  
   const handleFileInputChange = (imageKey) => (event) => {
     handleImageUpload(event, imageKey);
   };
