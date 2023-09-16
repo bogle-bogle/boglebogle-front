@@ -15,7 +15,7 @@ function CartContainer() {
   const [cartProductInfo, setCartProductInfo] = useState({});
   const [totalAmount, setTotalAmount] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
-  
+
   const navigate = useNavigate();
 
   // 멤버 별 카트 정보 + 카트에 담긴 상품 정보 가져오기
@@ -66,7 +66,6 @@ function CartContainer() {
   // CartCard에 주기 위해 배열로 변경
   const cartItemArray = Object.values(cartProductInfo);
 
-  
   //
   const handleSelectItem = (itemInfo) => {
     if (selectedItems.includes(itemInfo)) {
