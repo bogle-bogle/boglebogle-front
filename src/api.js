@@ -32,6 +32,7 @@ async function post(endpoint, data) {
 
 async function put(endpoint, data) {
   const bodyData = JSON.stringify(data);
+  console.log(serverUrl);
 
   return axios.put(serverUrl + endpoint, bodyData, {
     headers: {
