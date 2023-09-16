@@ -19,24 +19,24 @@ async function get(endpoint, params = "") {
 }
 
 async function post(endpoint, data) {
-  const bodyData = JSON.stringify(data);
+  // const bodyData = JSON.stringify(data);
   console.log(serverUrl);
 
-  return axios.post(serverUrl + endpoint, bodyData, {
+  return axios.post(serverUrl + endpoint, data, {
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("userToken")}`,
     },
   });
 }
 
 async function put(endpoint, data) {
-  const bodyData = JSON.stringify(data);
+  // const bodyData = JSON.stringify(data);
   console.log(serverUrl);
 
-  return axios.put(serverUrl + endpoint, bodyData, {
+  return axios.put(serverUrl + endpoint, data, {
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("userToken")}`,
     },
   });

@@ -7,9 +7,25 @@ import infoImg from "../../assets/club/클럽 가입하기.png";
 import bgheendy from "../../assets/club/bgheendy.png";
 
 import {
-  Guide, StyledClubContainer, Sidebar2, Sidebar5, PetPhoto, PetName,
-  PetBirth, PetProteinCodes, PetBreedCode, AnimalSize, PetAnimalTypeCode,
-  StyledButton, Button, ImagePreview, SidebarItem, BlackButton, AddPetBox, AddPetTitle, InputBox,
+  Guide,
+  StyledClubContainer,
+  Sidebar2,
+  Sidebar5,
+  PetPhoto,
+  PetName,
+  PetBirth,
+  PetProteinCodes,
+  PetBreedCode,
+  AnimalSize,
+  PetAnimalTypeCode,
+  StyledButton,
+  Button,
+  ImagePreview,
+  SidebarItem,
+  BlackButton,
+  AddPetBox,
+  AddPetTitle,
+  InputBox,
 } from "./addpet.style";
 import * as Api from "../../api";
 import { pink } from "@mui/material/colors";
@@ -45,7 +61,7 @@ function AddPetContainer() {
   const [selectedAnimalSize, setSelectedAnimalSize] = useState("");
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
 
-  const [name, setName] = useState("");  // 이름을 저장하기 위한 state 추가
+  const [name, setName] = useState(""); // 이름을 저장하기 위한 state 추가
   const [selectedPetImg, setSelectedPetImg] = useState(null);
 
   /*단백질 코드 및 견종, 동물 분류 가져오기*/
@@ -53,18 +69,18 @@ function AddPetContainer() {
     codeValue: code,
     name: name,
   }));
-  
+
   const animalTypeCodes = Object.entries(animalCode).map(([code, name]) => ({
     codeValue: code,
     name: name,
   }));
-  
-  const breedCodes =  Object.entries(breedCode).map(([code, name]) => ({
+
+  const breedCodes = Object.entries(breedCode).map(([code, name]) => ({
     codeValue: code,
     name: name,
   }));
-  
-  const animalSizes =  Object.entries(sizeCode).map(([code, name]) => ({
+
+  const animalSizes = Object.entries(sizeCode).map(([code, name]) => ({
     codeValue: code,
     name: name,
   }));
@@ -102,18 +118,15 @@ function AddPetContainer() {
       console.error("No file selected.");
       return;
     }
-      setSelectedPhotoImage(URL.createObjectURL(file));
+    setSelectedPhotoImage(URL.createObjectURL(file));
   };
 
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    console.log(file);
 
     try {
-      const response = await axios.post(`/api/upload`, formData);
-      // const response = await axios.post("http://localhost:8080/api/upload", formData);
-      console.log(response.data);
+      const response = await Api.post(`/api/upload`, formData);
       return response.data;
     } catch (error) {
       console.error("파일 업로드 실패:", error);
@@ -125,7 +138,7 @@ function AddPetContainer() {
     try {
       const photoUrl = await uploadImage(photoInputRef.current.files[0]);
       const selectedCodesString = selectedProteinCodes.join(",");
-  
+
       const clubData = {
         petImgUrl: photoUrl,
         name: name,
@@ -137,7 +150,7 @@ function AddPetContainer() {
         animalTypeCode: selectedAnimalTypeCode,
         sizeCode: selectedAnimalSize,
       };
-  
+
       const response = await Api.post("/api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
@@ -150,7 +163,6 @@ function AddPetContainer() {
       toast.error("반려동물 등록 중 오류가 발생했습니다.");
     }
   };
-  
 
   return (
     <AddPetBox>
@@ -162,113 +174,115 @@ function AddPetContainer() {
           </p>
         </div>
         <img src={bgheendy} alt="background" />
-        </AddPetTitle>
-        <InputBox>
-          <Guide>
-            맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
-          </Guide>
-          <StyledClubContainer>
-            <SidebarItem gridArea="Sidebar1">반려동물 종류</SidebarItem>
-            <Sidebar2>반려동물 사진</Sidebar2>
-            <SidebarItem gridArea="Sidebar3">반려동물 이름</SidebarItem>
-            <SidebarItem gridArea="Sidebar4">반려동물 생일</SidebarItem>
-            <Sidebar5>반려동물 알러지</Sidebar5>
-            <SidebarItem gridArea="Sidebar7">반려동물 견종 및 크기</SidebarItem>
+      </AddPetTitle>
+      <InputBox>
+        <Guide>
+          맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
+        </Guide>
+        <StyledClubContainer>
+          <SidebarItem gridArea="Sidebar1">반려동물 종류</SidebarItem>
+          <Sidebar2>반려동물 사진</Sidebar2>
+          <SidebarItem gridArea="Sidebar3">반려동물 이름</SidebarItem>
+          <SidebarItem gridArea="Sidebar4">반려동물 생일</SidebarItem>
+          <Sidebar5>반려동물 알러지</Sidebar5>
+          <SidebarItem gridArea="Sidebar7">반려동물 견종 및 크기</SidebarItem>
 
-            <PetAnimalTypeCode>
-              {animalTypeCodes.map((code) => (
-                <StyledButton
-                  type="button"
-                  key={code.codeValue}
-                  onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
-                  active={selectedAnimalTypeCode === code.codeValue}
-                  className={
-                    selectedAnimalTypeCode === code.codeValue ? "selected" : ""
-                  }
-                >
-                  {code.name}
-                </StyledButton>
-              ))}
-            </PetAnimalTypeCode>
-            
-             <PetPhoto>
-              <ImageUploadComponent
-                    onImagePreviewClick={() => photoInputRef.current.click()}
-                    selectedImageForPreview={selectedPhotoImage}
-                    defaultImageUrl={null}
-                    onInputChange={handleFileInputChange}
-                    inputRef={photoInputRef}
-                />
-              </PetPhoto>
-
-            <PetName>
-              <input
-                type="text"
-                placeholder="이름"
-                name="name"
-                value={name}
-                onChange={handleNameChange}
-              />
-            </PetName>
-            <PetBirth>
-              <DatePicker // DatePicker 컴포넌트 추가
-                selected={selectedBirthDate}
-                shouldCloseOnSelect
-                onChange={(date) => setSelectedBirthDate(date)}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="생년월일"
-              />
-            </PetBirth>
-            <PetProteinCodes>
-              {proteinCodes &&
-                proteinCodes.map((code) => (
-                  <StyledButton
-                    type="button"
-                    key={code.codeValue}
-                    onClick={() => handleProteinCodeClick(code.codeValue)}
-                    active={selectedProteinCodes.includes(code.codeValue)}
-                    className={
-                      selectedProteinCodes.includes(code.codeValue)
-                        ? "selected"
-                        : ""
-                    }
-                  >
-                    {code.name}
-                  </StyledButton>
-                ))}
-            </PetProteinCodes>
-            <PetBreedCode>
-              <select
-                name="breedCode"
-                value={selectedBreedCode}
-                onChange={handleBreedCodeChange}
+          <PetAnimalTypeCode>
+            {animalTypeCodes.map((code) => (
+              <StyledButton
+                type="button"
+                key={code.codeValue}
+                onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
+                active={selectedAnimalTypeCode === code.codeValue}
+                className={
+                  selectedAnimalTypeCode === code.codeValue ? "selected" : ""
+                }
               >
-                <option value="">견종 선택</option>
-                {breedCodes &&
-                  breedCodes.map((code) => (
-                    <option key={code.codeValue} value={code.codeValue}>
-                      {code.name}
-                    </option>
-                  ))}
-              </select>
-            </PetBreedCode>
-            <AnimalSize>
-              {animalSizes.map((code) => (
+                {code.name}
+              </StyledButton>
+            ))}
+          </PetAnimalTypeCode>
+
+          <PetPhoto>
+            <ImageUploadComponent
+              onImagePreviewClick={() => photoInputRef.current.click()}
+              selectedImageForPreview={selectedPhotoImage}
+              defaultImageUrl={null}
+              onInputChange={handleFileInputChange}
+              inputRef={photoInputRef}
+            />
+          </PetPhoto>
+
+          <PetName>
+            <input
+              type="text"
+              placeholder="이름"
+              name="name"
+              value={name}
+              onChange={handleNameChange}
+            />
+          </PetName>
+          <PetBirth>
+            <DatePicker // DatePicker 컴포넌트 추가
+              selected={selectedBirthDate}
+              shouldCloseOnSelect
+              onChange={(date) => setSelectedBirthDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="생년월일"
+            />
+          </PetBirth>
+          <PetProteinCodes>
+            {proteinCodes &&
+              proteinCodes.map((code) => (
                 <StyledButton
                   type="button"
                   key={code.codeValue}
-                  onClick={() => handleAnimalSizeClick(code.codeValue)}
-                  active={selectedAnimalSize === code.codeValue}
+                  onClick={() => handleProteinCodeClick(code.codeValue)}
+                  active={selectedProteinCodes.includes(code.codeValue)}
                   className={
-                    selectedAnimalSize === code.codeValue ? "selected" : ""
+                    selectedProteinCodes.includes(code.codeValue)
+                      ? "selected"
+                      : ""
                   }
                 >
                   {code.name}
                 </StyledButton>
               ))}
-            </AnimalSize>
-              <Button>
-            <BlackButton type="button" onClick={handleSubmit}>가입하기</BlackButton>
+          </PetProteinCodes>
+          <PetBreedCode>
+            <select
+              name="breedCode"
+              value={selectedBreedCode}
+              onChange={handleBreedCodeChange}
+            >
+              <option value="">견종 선택</option>
+              {breedCodes &&
+                breedCodes.map((code) => (
+                  <option key={code.codeValue} value={code.codeValue}>
+                    {code.name}
+                  </option>
+                ))}
+            </select>
+          </PetBreedCode>
+          <AnimalSize>
+            {animalSizes.map((code) => (
+              <StyledButton
+                type="button"
+                key={code.codeValue}
+                onClick={() => handleAnimalSizeClick(code.codeValue)}
+                active={selectedAnimalSize === code.codeValue}
+                className={
+                  selectedAnimalSize === code.codeValue ? "selected" : ""
+                }
+              >
+                {code.name}
+              </StyledButton>
+            ))}
+          </AnimalSize>
+          <Button>
+            <BlackButton type="button" onClick={handleSubmit}>
+              가입하기
+            </BlackButton>
           </Button>
         </StyledClubContainer>
       </InputBox>
