@@ -15,6 +15,8 @@ import * as Api from "../../api";
 import { pink } from "@mui/material/colors";
 import { animalCode, breedCode, proteinCode, sizeCode } from "../../commonCode";
 import ImageUploadComponent from "../suggestion/ImageUploadComponent";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function AddPetContainer() {
   const [, setWindowWidth] = useState(window.innerWidth);
@@ -109,41 +111,46 @@ function AddPetContainer() {
     console.log(file);
 
     try {
-      const response = await Api.post(`/api/upload`, formData);
+      const response = await axios.post(`/api/upload`, formData);
+      // const response = await axios.post("http://localhost:8080/api/upload", formData);
       console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("파일 업로드 실패:", error);
+      throw error;
     }
   };
 
   const handleSubmit = async () => {
-    const photoUrl = await uploadImage(photoInputRef.current.files[0]);
-    const selectedCodesString = selectedProteinCodes.join(",");
-
-    const clubData = {
-      petImgUrl: photoUrl,
-      name: name,
-      birth: selectedBirthDate
-        ? selectedBirthDate.toISOString().split("T")[0].toString()
-        : null,
-      allergyCode: selectedCodesString,
-      breedCode: selectedBreedCode,
-      animalTypeCode: selectedAnimalTypeCode,
-      sizeCode: selectedAnimalSize,
-    };
-
     try {
+      const photoUrl = await uploadImage(photoInputRef.current.files[0]);
+      const selectedCodesString = selectedProteinCodes.join(",");
+  
+      const clubData = {
+        petImgUrl: photoUrl,
+        name: name,
+        birth: selectedBirthDate
+          ? selectedBirthDate.toISOString().split("T")[0].toString()
+          : null,
+        allergyCode: selectedCodesString,
+        breedCode: selectedBreedCode,
+        animalTypeCode: selectedAnimalTypeCode,
+        sizeCode: selectedAnimalSize,
+      };
+  
       const response = await Api.post("/api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
       });
+      toast.success("등록이 완료되었습니다.");
       navigate("/completeclubregister");
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      toast.error("반려동물 등록 중 오류가 발생했습니다.");
     }
   };
+  
 
   return (
     <AddPetBox>
