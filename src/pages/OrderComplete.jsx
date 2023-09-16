@@ -7,7 +7,6 @@ import OrderInfo from "../components/ordercomplete/OrderInfo";
 
 function OrderComplete() {
   const member = useSelector((state) => state.member);
-  console.info("오더 멤버", member);
 
   const [orderItemsData, setOrderItemsData] = useState(null);
 
@@ -21,7 +20,6 @@ function OrderComplete() {
         },
       }
     ).then((res) => {
-      console.log("주문완료 상품들", res.data);
       setOrderItemsData(res.data);
     });
   }, [member.jwt.accessToken]);

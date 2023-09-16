@@ -26,19 +26,10 @@ function Suggestion() {
   const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
 
   useEffect(() => {
-    console.log("여기니");
     Api.get(`/api/pet`)
       .then((res) => {
-        // HTTP 상태 코드 확인
-        console.log("HTTP Status Code:", res.status);
-
-        // 서버에서 반환한 데이터 확인
-        console.log("Data from the server:", res.data);
         const authorizationHeader = res.headers.authorization;
-        console.log(
-          "Authorization Token from the server:",
-          authorizationHeader
-        );
+
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
           name: item.name,

@@ -4,7 +4,7 @@ const serverUrl = String(process.env.REACT_APP_SERVER_URL);
 
 async function get(endpoint, params = "") {
   let requestURL = "";
-
+  console.log(serverUrl);
   if (params === "") {
     requestURL = serverUrl + endpoint;
   } else {
@@ -20,7 +20,8 @@ async function get(endpoint, params = "") {
 
 async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
-  console.log(serverUrl + endpoint);
+  console.log(serverUrl);
+
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
       "Content-Type": "application/json",

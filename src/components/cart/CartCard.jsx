@@ -12,7 +12,6 @@ import {
   Divider,
   ProductPrice,
   ProductSelect,
-  CounterBtn,
   PlusIcon,
   MinusIcon,
 } from "./CartCard.style";
@@ -77,8 +76,6 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
       onDelete(cartItemInfo.id);
     });
   };
-
-  console.log("cartItemInfo:", cartItemInfo);
 
   return (
     <CardBox key={cartItemInfo.id}>

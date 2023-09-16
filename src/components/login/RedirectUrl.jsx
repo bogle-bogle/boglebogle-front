@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import * as Api from "../../api";
+
 import { useDispatch } from "react-redux";
 import { memberAction } from "../../feature/member/member";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
 import { LoginAdvImg } from "./login.style";
 import axios from "axios";
-
 function RedirectUrl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,7 +46,6 @@ function RedirectUrl() {
           )
           .then((res) => {
             const { kakao_account, id } = res.data;
-            console.info(res.data);
             const data = {
               socialId: id,
               name: kakao_account.profile.nickname,

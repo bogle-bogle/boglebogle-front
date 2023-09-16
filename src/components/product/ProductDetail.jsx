@@ -36,8 +36,6 @@ function ProductDetail() {
     const params = new URL(document.location.toString());
     const productId = params.pathname.split("/").at(-1);
 
-    console.log(productId);
-
     Api.get(`/api/product/${productId}`).then((res) => {
       setIngredients(() => {
         if (res.data.ingredients === null) {
@@ -48,7 +46,6 @@ function ProductDetail() {
       setProductInfo(() => {
         return { ...res.data };
       });
-      console.log(res.data);
     });
   }, []);
 
@@ -61,7 +58,6 @@ function ProductDetail() {
   }
 
   function handleOpenCartModal() {
-    console.log(productInfo);
     Api.post("/api/cart", {
       cnt: 1,
       memberId: member.id,

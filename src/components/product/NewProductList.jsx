@@ -27,7 +27,6 @@ import {
 } from "../../utils/productFilter";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProductCard from "./ProductCard";
-
 import * as Api from "../../api";
 
 function NewProductList() {
@@ -51,6 +50,7 @@ function NewProductList() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_SERVER_URL);
     Api.post(`/api/product/list/${curPage}`, {
       mainFilter: mainCategory,
       subFilter: subFilterList,

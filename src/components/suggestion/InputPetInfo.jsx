@@ -40,7 +40,6 @@ function InputPetInfo(props) {
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
-    console.log("선택된거 맞아?", pet);
     setSelectedPet(pet);
     setActiveStep(1);
     scrollTo("step2");
@@ -115,8 +114,6 @@ function InputPetInfo(props) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("submit");
-
     if (selectedPet == undefined) {
       toast.warn("반려동물을 선택해주세요");
       scrollToTop();
@@ -133,7 +130,6 @@ function InputPetInfo(props) {
         ingredientInputRef.current.files[1]
       );
       const selectedPetId = selectedPet.codeValue;
-
       const [feedUrl, ingredientUrl] = await Promise.all([
         feedUrlPromise,
         ingredientUrlPromise,
@@ -146,7 +142,6 @@ function InputPetInfo(props) {
       if (feedUrl.length !== 0) {
         customData.feedMainImgUrl = feedUrl[0];
       } else {
-        console.log("이쪽으로 빠짐");
         customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
       }
       if (ingredientUrl.length !== 0) {
@@ -154,7 +149,6 @@ function InputPetInfo(props) {
       } else {
         customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
       }
-      console.log(customData);
 
       props.handleOpenModal();
 
@@ -163,7 +157,6 @@ function InputPetInfo(props) {
           `api/pet/feed/${selectedPetId}`,
           customData
         );
-        console.log(response);
         const imgUrl = customData.feedDescImgUrl;
 
         const searchRes = await Api.post("/ai/convert-to-similarity", {
@@ -173,7 +166,6 @@ function InputPetInfo(props) {
         //   `api/pet/feed/${selectedPetId}`,
         //   customData,
         // );
-        console.log(searchRes);
 
         setRecommendProduct(() => {
           return [...searchRes.data];

@@ -7,9 +7,6 @@ import infoImg from "../../assets/club/클럽 가입하기.png";
 import bgheendy from "../../assets/club/bgheendy.png";
 
 import {
-  Title,
-  LogoContainer,
-  LogoImg,
   Guide,
   StyledClubContainer,
   Sidebar2,
@@ -20,25 +17,12 @@ import {
   PetProteinCodes,
   PetBreedCode,
   AnimalSize,
-  MAnimalSize,
   PetAnimalTypeCode,
   StyledButton,
   Button,
   ImagePreview,
   SidebarItem,
   BlackButton,
-  MobileMedia,
-  MTitle,
-  MGuide,
-  MSidebar2,
-  MSidebar5,
-  MPetPhoto,
-  MPetName,
-  MPetBirth,
-  MPetProteinCodes,
-  MPetBreedCode,
-  MPetAnimalTypeCode,
-  MButton,
   AddPetBox,
   AddPetTitle,
   InputBox,
@@ -48,7 +32,7 @@ import { pink } from "@mui/material/colors";
 
 function AddPetContainer() {
   const navigate = useNavigate();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     // 화면 크기가 변경될 때마다 windowWidth 상태 업데이트
@@ -67,7 +51,7 @@ function AddPetContainer() {
   const member = useSelector((state) => state.member);
 
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
-  const [selectedImgImage, setSelectedImgImage] = useState(null);
+  const [, setSelectedImgImage] = useState(null);
 
   const [proteinCodes, setProteinCodes] = useState();
   const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
@@ -180,7 +164,6 @@ function AddPetContainer() {
 
     try {
       const response = await Api.post("/api/upload", formData, { headers });
-      console.log("response.data", response.data);
       return response.data;
     } catch (error) {
       console.error("파일 업로드 실패:", error);
@@ -199,7 +182,6 @@ function AddPetContainer() {
     event.preventDefault();
 
     const photoUrl = await uploadImage(photoInputRef.current.files[0]);
-    console.log("사진 ", photoUrl);
     const selectedCodesString = selectedProteinCodes.join(",");
 
     const clubData = {
@@ -214,14 +196,12 @@ function AddPetContainer() {
       sizeCode: selectedAnimalSize,
     };
 
-    console.log(clubData);
     try {
       const response = await Api.post("api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
       });
-      console.log("클럽 등록 성공:", response.data);
       navigate("/completeclubregister");
     } catch (error) {
       // 에러 처리 로직
