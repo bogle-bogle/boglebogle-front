@@ -42,7 +42,7 @@ function CustomResult({ selectedPetName, recommendProduct, selectedFeedImage, se
           <StickyContainer>
             <AnalyzeResultExplainContainer>
               <AnalyzeResultExplain>
-                우리 ‘{selectedPetName}’가 잘 먹는 사료
+                우리 ‘{selectedPetName}’(이)가 잘 먹는 사료
               </AnalyzeResultExplain>
             </AnalyzeResultExplainContainer>
             <FlexContainer>

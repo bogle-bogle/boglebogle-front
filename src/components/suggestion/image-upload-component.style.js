@@ -36,9 +36,13 @@ export const ImagePreview = styled.div`
       max-height: 100%;
     }
 `;
-export const ImgFileInput = styled.div`
-    display: none;
-`
+export const ImgFileInput = styled.input`
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+`;
 
 export const DefaultImage = styled.div`
     color: white;

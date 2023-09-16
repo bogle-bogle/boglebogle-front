@@ -35,6 +35,7 @@ function SuggestionOuterContainer() {
           feedDescImgUrl: item.feedDescImgUrl,
         }));
         setPetData(transformedData);
+        console.log(transformedData);
       })
       .catch((Error) => {
         console.log("Error fetching pet codes:", Error);

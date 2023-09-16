@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import shopperheendy from "../../assets/custom/shopperheendy.png";
 import walkingheendy from "../../assets/custom/walkingheendy.gif";
 import AWS from "aws-sdk";
@@ -28,11 +28,10 @@ import ImageUploadComponent from "./ImageUploadComponent";
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
 
-  const [selectedFeedImage, setSelectedFeedImage] = useState(null);
-  const [selectedFeedIngredientImage, setSelectedFeedIngredientImage] = useState(null);
-  const [selectedFeedIngredientsTxt, setSelectedFeedIngredientsTxt] = useState(null);
-  const [nextstepFeedImage, setNextstepFeedImage] = useState(null);
+  const [selectedfeedMainImage, setSelectedfeedMainImage] = useState(null);
+  const [selectedfeedDescrImage, setSelectedfeedDescrImage] = useState(null);
   const [recommendProduct, setRecommendProduct] = useState([]);
+  const [nextStepFeedImage, setNextstepFeedImage] = useState(null);
 
   const feedInputRef = useRef(null);
   const ingredientInputRef = useRef(null);
@@ -62,9 +61,9 @@ function InputPetInfo(props) {
       return;
     }
     if (imageKey === "feed") {
-      setSelectedFeedImage(URL.createObjectURL(file));
+      setSelectedfeedMainImage(URL.createObjectURL(file));
     } else if (imageKey === "ingredient") {
-      setSelectedIngredientImage(URL.createObjectURL(file));
+      setSelectedfeedDescrImage(URL.createObjectURL(file));
     }
   };
 
@@ -185,7 +184,7 @@ function InputPetInfo(props) {
 
         console.log(response);
 
-        setSelectedFeedIngredients(customData.feedIngredients);
+        setSelectedfeedDescrImage(customData.feedIngredients);
 
         setRecommendProduct(() => {
           return [...resultData.recommendations];
@@ -220,10 +219,10 @@ function InputPetInfo(props) {
     setSelectedPet(null);
 
     feedInputRef.current.value = null;
-    setSelectedFeedImage(null);
+    setSelectedfeedMainImage(null);
 
     ingredientInputRef.current.value = null;
-    setSelectedFeedIngredientImage(null);
+    setSelectedfeedDescrImage(null);
     setActiveStep(0);
 
     setRecommendProduct([]);
@@ -370,12 +369,12 @@ function InputPetInfo(props) {
                         feedInputRef.current.click();
                       }
                     }}
-                    selectedImageForPreview={selectedFeedImage}
+                    selectedImageForPreview={selectedfeedMainImage}
                     defaultImageUrl={selectedPet?.feedMainImgUrl}
                     onInputChange={(event) => {
                       const feedUrl = handleFileInputChange("feed")(event);
                       feedUrl &&
-                        setSelectedFeedImage(
+                      setSelectedfeedMainImage(
                           URL.createObjectURL(event.target.files[1])
                         );
                     }}
@@ -393,7 +392,7 @@ function InputPetInfo(props) {
                         ingredientInputRef.current.click();
                       }
                     }}
-                    selectedImage={selectedFeedIngredientImage}
+                    selectedImageForPreview={selectedfeedDescrImage}
                     defaultImageUrl={selectedPet?.feedDescImgUrl}
                     onInputChange={(event) => {
                       const ingredientUrl = handleFileInputChange("ingredient")(event);
@@ -437,7 +436,7 @@ function InputPetInfo(props) {
                 </div>
                 <button
                   className={
-                    "btn btn-custom " + (selectedFeedImage != undefined ? "active-bg" : "basic-bg")
+                    "btn btn-custom " + (selectedfeedMainImage != undefined ? "active-bg" : "basic-bg")
                   }
                   onClick={handleSubmission}
                 >
@@ -469,8 +468,8 @@ function InputPetInfo(props) {
           <CustomResult
             selectedPetName={selectedPet.name}
             recommendProduct={recommendProduct}
-            selectedFeedImage={selectedFeedImage}
-            selectedFeedIngredients={selectedFeedIngredients}
+            selectedFeedImage={selectedfeedMainImage}
+            selectedFeedIngredients={selectedfeedDescrImage}
           ></CustomResult>
         </>
       )}
