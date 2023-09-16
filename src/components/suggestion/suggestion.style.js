@@ -81,46 +81,9 @@ export const SuggestionContainer = styled.div`
     margin: 0 auto 40px;
   }
 
-  .upload-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 30px 20px 30px;
-    transition: transform 0.3s;
-  }
-
-  .upload-section:hover {
-    transform: scale(1.05);
-  }
-
-  .box-title {
-    margin: 0px 0;
-    font-family: 'HappinessSansBold';
-    color: #499878;
-  }
-
   .req-title {
     color: red;
     font-family: 'HappinessSansTitle';
-  }
-
-  .image-preview {
-    padding: 5px;
-    width: 200px;
-    height: 200px;
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Hide overflow if the image is larger */
-    border-radius: 20px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 6px 25px 0px;
-    background-color: #d1d1d1;
-  }
-
-  .image-preview img {
-    max-width: 100%;
-    max-height: 100%;
   }
 
   .default-image {

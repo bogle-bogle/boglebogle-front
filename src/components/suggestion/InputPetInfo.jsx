@@ -23,13 +23,15 @@ import withReactContent from "sweetalert2-react-content";
 import CustomResult from "../custom/CustomResult";
 import SuggestionResult from "./SuggestionResult";
 import axios from "axios";
+import ImageUploadComponent from "./ImageUploadComponent";
 
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
 
   const [selectedFeedImage, setSelectedFeedImage] = useState(null);
-  const [selectedFeedIngredients, setSelectedFeedIngredients] = useState(null);
-  const [selectedIngredientImage, setSelectedIngredientImage] = useState(null);
+  const [selectedFeedIngredientImage, setSelectedFeedIngredientImage] = useState(null);
+  const [selectedFeedIngredientsTxt, setSelectedFeedIngredientsTxt] = useState(null);
+  const [nextstepFeedImage, setNextstepFeedImage] = useState(null);
   const [recommendProduct, setRecommendProduct] = useState([]);
 
   const feedInputRef = useRef(null);
@@ -59,11 +61,11 @@ function InputPetInfo(props) {
       console.error("No file selected.");
       return;
     }
-    // if (imageKey === "feed") {
-    //   setSelectedFeedImage(URL.createObjectURL(file));
-    // } else if (imageKey === "ingredient") {
-    //   setSelectedIngredientImage(URL.createObjectURL(file));
-    // }
+    if (imageKey === "feed") {
+      setSelectedFeedImage(URL.createObjectURL(file));
+    } else if (imageKey === "ingredient") {
+      setSelectedIngredientImage(URL.createObjectURL(file));
+    }
   };
 
   AWS.config.update({
@@ -145,7 +147,7 @@ function InputPetInfo(props) {
         customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
       }
 
-      setSelectedFeedImage(customData.feedMainImgUrl ? customData.feedMainImgUrl : customData.feedDescImgUrl);
+      setNextstepFeedImage(customData.feedMainImgUrl ? customData.feedMainImgUrl : customData.feedDescImgUrl);
 
       if (
         customData.feedMainImgUrl == undefined ||
@@ -180,6 +182,8 @@ function InputPetInfo(props) {
           "feedDescImgUrl": customData.feedDescImgUrl,
         }
         );
+
+        console.log(response);
 
         setSelectedFeedIngredients(customData.feedIngredients);
 
@@ -219,7 +223,7 @@ function InputPetInfo(props) {
     setSelectedFeedImage(null);
 
     ingredientInputRef.current.value = null;
-    setSelectedIngredientImage(null);
+    setSelectedFeedIngredientImage(null);
     setActiveStep(0);
 
     setRecommendProduct([]);
@@ -343,12 +347,7 @@ function InputPetInfo(props) {
                 <div className="step-text">
                   <p
                     className={
-                      "badge " +
-                      (activeStep === 1 &&
-                      (ingredientInputRef.current == undefined ||
-                        ingredientInputRef.current.files[0] == undefined)
-                        ? "active-bg"
-                        : "basic-bg")
+                      "badge " + (activeStep === 1 && (ingredientInputRef.current?.files?.[0]) ? "active-bg" : "basic-bg")
                     }
                   >
                     STEP 2
@@ -358,91 +357,55 @@ function InputPetInfo(props) {
                     성분표를 찍어 올려주세요.
                   </p>
                 </div>
-                {/* 사료 업로드 박스 */}
+                
                 <div className="feed-box">
-                  {/* 사료 표지 이미지 */}
-                  <div className="upload-section">
-                    <p className="box-title">잘 먹는 사료 표지</p>
-                    <div
-                      className="image-preview"
-                      onClick={() => {
-                        if (selectedPet == undefined) {
-                          toast.warn("반려동물을 먼저 선택해주세요");
-                          scrollToTop();
-                        } else {
-                          feedInputRef.current.click();
-                        }
-                      }}
-                    >
-                      {selectedFeedImage ? (
-                        <img src={selectedFeedImage} alt="Uploaded" />
-                      ) : selectedPet && selectedPet.feedMainImgUrl ? (
-                        <img src={selectedPet.feedMainImgUrl} alt="Uploaded" />
-                      ) : (
-                        <div className="default-image">이미지 첨부하기</div>
-                      )}
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(event) => {
-                        const feedUrl = handleFileInputChange("feed")(event);
-                        feedUrl &&
-                          setSelectedFeedImage(
-                            URL.createObjectURL(event.target.files[1])
-                          );
-                      }}
-                      className="file-input"
-                      ref={feedInputRef}
-                      style={{ display: "none" }} // 숨김 처리
-                    />
-                  </div>
+                {/* 사료 업로드 박스 */}
+                  <ImageUploadComponent
+                    title="잘 먹는 사료 표지"
+                    onImagePreviewClick={() => {
+                      if (selectedPet == undefined) {
+                        toast.warn("반려동물을 먼저 선택해주세요");
+                        scrollToTop();
+                      } else {
+                        feedInputRef.current.click();
+                      }
+                    }}
+                    selectedImageForPreview={selectedFeedImage}
+                    defaultImageUrl={selectedPet?.feedMainImgUrl}
+                    onInputChange={(event) => {
+                      const feedUrl = handleFileInputChange("feed")(event);
+                      feedUrl &&
+                        setSelectedFeedImage(
+                          URL.createObjectURL(event.target.files[1])
+                        );
+                    }}
+                    inputRef={feedInputRef}
+                  />
+
                   {/* 사료 성분표 이미지 */}
-                  <div className="upload-section">
-                    <p className="box-title">
-                      <strong className="req-title">*</strong> 잘 먹는 사료
-                      성분표
-                    </p>
-                    <div
-                      className="image-preview"
-                      onClick={() => {
-                        if (selectedPet == undefined) {
-                          toast.warn("반려동물을 먼저 선택해주세요");
-                          scrollToTop();
-                        } else {
-                          ingredientInputRef.current.click();
-                        }
-                      }}
-                    >
-                      {selectedIngredientImage ? (
-                        <img src={selectedIngredientImage} alt="Uploaded" />
-                      ) : selectedPet && selectedPet.feedDescImgUrl ? (
-                        <img src={selectedPet.feedDescImgUrl} alt="Uploaded" />
-                      ) : (
-                        <div className="default-image">이미지 첨부하기</div>
-                      )}
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(event) => {
-                        const ingredientUrl =
-                          handleFileInputChange("ingredient")(event);
-                        ingredientUrl &&
-                          setSelectedIngredientImage(
-                            URL.createObjectURL(event.target.files[0])
-                          );
-                        if (activeStep == 1) {
-                          setActiveStep(2);
-                          scrollTo("step3");
-                        }
-                      }}
-                      className="file-input"
-                      ref={ingredientInputRef}
-                      style={{ display: "none" }} // 숨김 처리
-                    />
+                  <ImageUploadComponent
+                    title="잘 먹는 사료 성분표"
+                    onImagePreviewClick={() => {
+                      if (selectedPet == undefined) {
+                        toast.warn("반려동물을 먼저 선택해주세요");
+                        scrollToTop();
+                      } else {
+                        ingredientInputRef.current.click();
+                      }
+                    }}
+                    selectedImage={selectedFeedIngredientImage}
+                    defaultImageUrl={selectedPet?.feedDescImgUrl}
+                    onInputChange={(event) => {
+                      const ingredientUrl = handleFileInputChange("ingredient")(event);
+                      ingredientUrl && setSelectedIngredientImage(URL.createObjectURL(event.target.files[0]));
+                      if (activeStep == 1) {
+                        setActiveStep(2);
+                        scrollTo("step3");
+                      }
+                    }}
+                    inputRef={ingredientInputRef}
+                  />
                   </div>
-                </div>
               </div>
 
               {/* STEP 3 */}
@@ -450,11 +413,7 @@ function InputPetInfo(props) {
                 <div className="step-text">
                   <p
                     className={
-                      "badge " +
-                      (ingredientInputRef.current != undefined &&
-                      ingredientInputRef.current.files[0] != undefined
-                        ? "active-bg"
-                        : "basic-bg")
+                      "badge " + (ingredientInputRef.current?.files?.[0] ? "active-bg" : "basic-bg")
                     }
                   >
                     STEP 3
@@ -478,8 +437,7 @@ function InputPetInfo(props) {
                 </div>
                 <button
                   className={
-                    "btn btn-custom " +
-                    (selectedFeedImage != undefined ? "active-bg" : "basic-bg")
+                    "btn btn-custom " + (selectedFeedImage != undefined ? "active-bg" : "basic-bg")
                   }
                   onClick={handleSubmission}
                 >
