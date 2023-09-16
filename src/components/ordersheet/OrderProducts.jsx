@@ -21,9 +21,9 @@ import {
 } from './OrderProducts.style';
 import axios from 'axios';
 
-function OrderProducts({ cartItemArray, totalAmount }) {
-  console.log('order', cartItemArray[0].name);
-  console.log('order', cartItemArray.length);
+function OrderProducts({ selectedItems, totalAmount }) {
+  console.log('order', selectedItems[0].name);
+  console.log('order', selectedItems.length);
 
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
@@ -68,7 +68,7 @@ function OrderProducts({ cartItemArray, totalAmount }) {
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
-        orderName: `${cartItemArray[0].name} 외 ${cartItemArray.length}건`,
+        orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
         customerName: `${member.name}`,
         customerEmail: `${member.email}`,
         successUrl: `${window.location.origin}/ordercomplete`,
@@ -120,7 +120,7 @@ function OrderProducts({ cartItemArray, totalAmount }) {
           </tr>
         </thead>
         <tbody>
-          {cartItemArray.map((cartItem) => (
+          {selectedItems.map((cartItem) => (
             <tr>
               <td>
                 <img src={cartItem.mainImgUrl} alt={cartItem.name} />

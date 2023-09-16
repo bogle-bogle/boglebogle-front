@@ -14,9 +14,9 @@ function CartContainer() {
   const member = useSelector((state) => state.member);
   const [cartProductInfo, setCartProductInfo] = useState({});
   const [totalAmount, setTotalAmount] = useState(0);
+  const [selectedItems, setSelectedItems] = useState([]);
+  
   const navigate = useNavigate();
-
-  console.info('장바구니 멤버', member);
 
   // 멤버 별 카트 정보 + 카트에 담긴 상품 정보 가져오기
   useEffect(() => {
@@ -41,6 +41,7 @@ function CartContainer() {
       });
     });
   }, [member.id]);
+
   const handleCount = (id, cnt) => {
     setCartProductInfo((prev) => {
       const newObj = { ...prev };
@@ -58,11 +59,27 @@ function CartContainer() {
 
   // 주문서 페이지로 이동
   const handleOrderBtnClick = () => {
-    navigate('/ordersheet', { state: { cartItemArray, totalAmount } });
+    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
+    console.log(selectedItems);
   };
 
   // CartCard에 주기 위해 배열로 변경
   const cartItemArray = Object.values(cartProductInfo);
+
+  
+  //
+  const handleSelectItem = (itemInfo) => {
+    if (selectedItems.includes(itemInfo)) {
+      setSelectedItems(selectedItems.filter((item) => item !== itemInfo));
+    } else {
+      setSelectedItems([...selectedItems, itemInfo]);
+    }
+  };
+
+  // 비동기적이라서 변경된 거 확인하려면 useEffect 사용
+  useEffect(() => {
+    console.log('체크된 상품들', selectedItems);
+  }, [selectedItems]);
 
   return (
     <CartContentContainer>
@@ -74,6 +91,8 @@ function CartContainer() {
             setTotalAmount={setTotalAmount}
             onDelete={handleDeleteItem}
             handleCount={handleCount}
+            selectedItems={selectedItems}
+            onSelectItem={handleSelectItem}
           />
         ))}
       </CartCardContainer>
