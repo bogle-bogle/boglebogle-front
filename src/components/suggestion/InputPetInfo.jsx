@@ -45,6 +45,9 @@ function InputPetInfo(props) {
     setSelectedPet(pet);
     setActiveStep(1);
     scrollTo("step2");
+    if (pet.feedDescImgUrl !== null) {
+      toast.success("저장된 정보를 불러옵니다.");
+    }
   };
   const handlePlaceholderClick = (pet) => {
     // 현재 선택된 펫을 null로 설정하여 테두리 제거
@@ -162,8 +165,7 @@ function InputPetInfo(props) {
         const imgUrl = customData.feedDescImgUrl;
         console.log(imgUrl);
 
-        // const searchRes = axios.post(`ocr-nlp.thepet.thehyundai.site:8000/ai/img-to-similarity`, {"imgUrl" : imgUrl});
-        const searchRes = axios.post('http://localhost:8000/ai/img-to-similarity', {"imgUrl" : imgUrl});
+        const searchRes = axios.post(`http://ocr-nlp.thepet.thehyundai.site:8000/ai/img-to-similarity`, {"imgUrl" : imgUrl});
         const resultData = (await searchRes).data
 
         customData.feedIngredients = resultData.ingredients;
@@ -468,7 +470,7 @@ function InputPetInfo(props) {
           <CustomResult
             selectedPetName={selectedPet.name}
             recommendProduct={recommendProduct}
-            selectedFeedImage={selectedfeedMainImage}
+            selectedFeedImage={nextStepFeedImage}
             selectedFeedIngredients={selectedfeedDescrImage}
           ></CustomResult>
         </>
