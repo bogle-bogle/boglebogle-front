@@ -24,7 +24,7 @@ function Header2() {
     },
     {
       title: '맞춤 추천',
-      link: '/customready',
+      link: '/suggestion',
     },
     {
       title: '쇼핑',

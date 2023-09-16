@@ -10,26 +10,23 @@ import useSound from "use-sound";
 import { toast } from "react-toastify";
 import InputPetInfo from "./InputPetInfo";
 import {
-  SuggestionContainer,
   AddBtn,
   NoPetBox,
   SadHeendy,
   SuggestBox,
+  SuggestionContainer,
 } from "./suggestion.style";
 
-function Suggestion() {
+function SuggestionOuterContainer() {
   const [play, { stop }] = useSound(loadingSound);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const member = useSelector((state) => state.member);
-
-  const [petData, setPetData] = useState([]); // pet 데이터를 저장할 상태
+  const [petData, setPetData] = useState([]);
 
   useEffect(() => {
     Api.get(`/api/pet`)
       .then((res) => {
-        const authorizationHeader = res.headers.authorization;
-
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
           name: item.name,
@@ -57,7 +54,7 @@ function Suggestion() {
 
   return (
     <SuggestionContainer>
-      {openModal && (
+    {openModal && (
         <Modal handleModalClose={handleModalClose}>
           <video width="310" height="550" autoPlay loop muted>
             <source src={loadingVideo} type="video/mp4" />
@@ -86,7 +83,7 @@ function Suggestion() {
         )
       }
     </SuggestionContainer>
-  );
-}
+     );
+  }
 
-export default Suggestion;
+export default SuggestionOuterContainer;
