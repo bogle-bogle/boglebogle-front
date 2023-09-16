@@ -15,7 +15,6 @@ function ImageUploadComponent({
         if (selectedImageForPreview) {
             return <img src={selectedImageForPreview} alt="Uploaded" />;
         } else if (defaultImageUrl) {
-            toast.success("저장된 정보를 불러옵니다.");
             return <img src={defaultImageUrl} alt="Uploaded" />;
         } else {
             return <DefaultImage alt="Default">이미지 첨부하기</DefaultImage>;
