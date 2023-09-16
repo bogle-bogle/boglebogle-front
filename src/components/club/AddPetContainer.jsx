@@ -14,6 +14,7 @@ import {
 import * as Api from "../../api";
 import { pink } from "@mui/material/colors";
 import { animalCode, breedCode, proteinCode, sizeCode } from "../../commonCode";
+import ImageUploadComponent from "../suggestion/ImageUploadComponent";
 
 function AddPetContainer() {
   const [, setWindowWidth] = useState(window.innerWidth);
@@ -90,20 +91,16 @@ function AddPetContainer() {
     setSelectedAnimalSize(codeValue);
   };
 
-  const handleFileInputChange = (imageKey) => (event) => {
-    handleImageUpload(event, imageKey);
+  const handleFileInputChange = () => {
+    handleImageUpload(event);
   };
-  const handleImageUpload = (event, imageKey) => {
+  const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (!file) {
       console.error("No file selected.");
       return;
     }
-    if (imageKey === "photo") {
       setSelectedPhotoImage(URL.createObjectURL(file));
-    } else if (imageKey === "img") {
-      setSelectedImgImage(URL.createObjectURL(file));
-    }
   };
 
   const uploadImage = async (file) => {
@@ -120,15 +117,7 @@ function AddPetContainer() {
     }
   };
 
-  // const handleFormChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [name]: value,
-  //   }));
-  // };
-
-  const handleFormSubmit = async () => {
+  const handleSubmit = async () => {
     const photoUrl = await uploadImage(photoInputRef.current.files[0]);
     const selectedCodesString = selectedProteinCodes.join(",");
 
@@ -152,7 +141,7 @@ function AddPetContainer() {
       });
       navigate("/completeclubregister");
     } catch (error) {
-      // 에러 처리 로직
+      console.log(error)
     }
   };
 
@@ -194,30 +183,17 @@ function AddPetContainer() {
                 </StyledButton>
               ))}
             </PetAnimalTypeCode>
-            <PetPhoto>
-              <ImagePreview
-                className="image-preview"
-                onClick={() => photoInputRef.current.click()}
-              >
-                {selectedPhotoImage && (
-                  <img src={selectedPhotoImage} alt="Uploaded" />
-                )}
-              </ImagePreview>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => {
-                  const photoUrl = handleFileInputChange("photo")(event);
-                  photoUrl &&
-                    setSelectedPhotoImage(
-                      URL.createObjectURL(event.target.files[0])
-                    );
-                }}
-                className="file-input"
-                ref={photoInputRef}
-                style={{ display: "none" }} // 숨김 처리
-              />
-            </PetPhoto>
+            
+             <PetPhoto>
+              <ImageUploadComponent
+                    onImagePreviewClick={() => photoInputRef.current.click()}
+                    selectedImageForPreview={selectedPhotoImage}
+                    defaultImageUrl={null}
+                    onInputChange={handleFileInputChange}
+                    inputRef={photoInputRef}
+                />
+              </PetPhoto>
+
             <PetName>
               <input
                 type="text"
@@ -285,7 +261,7 @@ function AddPetContainer() {
               ))}
             </AnimalSize>
               <Button>
-            <BlackButton type="button" onClick={handleFormSubmit}>가입하기</BlackButton>
+            <BlackButton type="button" onClick={handleSubmit}>가입하기</BlackButton>
           </Button>
         </StyledClubContainer>
       </InputBox>
