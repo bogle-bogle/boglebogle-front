@@ -67,7 +67,7 @@ function SuggestionOuterContainer() {
           <NoPetBox>
             <SadHeendy src={sadheendy} alt=" " />
             <p className="nopet-message">저장된 반려동물 정보가 없네요 😥</p>
-            <AddBtn onClick={() => navigate("/clubregister")}>
+            <AddBtn onClick={() => navigate("/addpet")}>
               반려동물 저장하고 AI 추천 함께하기 &#62;
             </AddBtn>
           </NoPetBox>

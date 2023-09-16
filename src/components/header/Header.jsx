@@ -156,7 +156,7 @@ function Header() {
         )}
         <div className="list__container">
           <StyledNavLink
-            to="/clubregister"
+            to="/addpet"
             onClick={() => {
               setUserToggled(!userToggled);
             }}
