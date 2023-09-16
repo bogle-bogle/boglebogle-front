@@ -1,37 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker"; // react-datepicker를 import
+import DatePicker from "react-datepicker";
 import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import infoImg from "../../assets/club/클럽 가입하기.png";
 import bgheendy from "../../assets/club/bgheendy.png";
 
 import {
-  Guide,
-  StyledClubContainer,
-  Sidebar2,
-  Sidebar5,
-  PetPhoto,
-  PetName,
-  PetBirth,
-  PetProteinCodes,
-  PetBreedCode,
-  AnimalSize,
-  PetAnimalTypeCode,
-  StyledButton,
-  Button,
-  ImagePreview,
-  SidebarItem,
-  BlackButton,
-  AddPetBox,
-  AddPetTitle,
-  InputBox,
+  Guide, StyledClubContainer, Sidebar2, Sidebar5, PetPhoto, PetName,
+  PetBirth, PetProteinCodes, PetBreedCode, AnimalSize, PetAnimalTypeCode,
+  StyledButton, Button, ImagePreview, SidebarItem, BlackButton, AddPetBox, AddPetTitle, InputBox,
 } from "./addpet.style";
 import * as Api from "../../api";
 import { pink } from "@mui/material/colors";
+import { animalCode, breedCode, proteinCode, sizeCode } from "../../commonCode";
 
 function AddPetContainer() {
-  const navigate = useNavigate();
   const [, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -39,7 +23,6 @@ function AddPetContainer() {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
 
     // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
@@ -48,76 +31,44 @@ function AddPetContainer() {
     };
   }, []);
 
+  const navigate = useNavigate();
   const member = useSelector((state) => state.member);
-
-  const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
-  const [, setSelectedImgImage] = useState(null);
-
-  const [proteinCodes, setProteinCodes] = useState();
-  const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
-
-  const [animalTypeCodes, setAnimalTypeCodes] = useState([]);
-  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState("");
-
-  const [breedCodes, setBreedCodes] = useState();
-  const [selectedBreedCode, setSelectedBreedCode] = useState("");
-
-  const [animalSizes, setAnimalSizes] = useState([]);
-  const [selectedAnimalSize, setSelectedAnimalSize] = useState("");
-
-  const [selectedBirthDate, setSelectedBirthDate] = useState(null);
-
-  const [formData, setFormData] = useState({
-    photo: "",
-    name: "",
-    birth: "",
-    proteinCodes: "",
-    favoriteFoodIngredients: "",
-    imgUrl: "",
-    mbti: "",
-    breedCode: "",
-    animalTypeCode: "",
-  });
-
   const photoInputRef = useRef(null);
 
+  const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
+  const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
+  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState("");
+  const [selectedBreedCode, setSelectedBreedCode] = useState("");
+  const [selectedAnimalSize, setSelectedAnimalSize] = useState("");
+  const [selectedBirthDate, setSelectedBirthDate] = useState(null);
+
+  const [name, setName] = useState("");  // 이름을 저장하기 위한 state 추가
+  const [selectedPetImg, setSelectedPetImg] = useState(null);
+
   /*단백질 코드 및 견종, 동물 분류 가져오기*/
-  useEffect(() => {
-    Api.get(`/api/pet/code`)
-      .then((res) => {
-        const transformedData = res.data.map((item) => ({
-          codeValue: item.codeValue,
-          name: item.name,
-        }));
+  const proteinCodes = Object.entries(proteinCode).map(([code, name]) => ({
+    codeValue: code,
+    name: name,
+  }));
+  
+  const animalTypeCodes = Object.entries(animalCode).map(([code, name]) => ({
+    codeValue: code,
+    name: name,
+  }));
+  
+  const breedCodes =  Object.entries(breedCode).map(([code, name]) => ({
+    codeValue: code,
+    name: name,
+  }));
+  
+  const animalSizes =  Object.entries(sizeCode).map(([code, name]) => ({
+    codeValue: code,
+    name: name,
+  }));
 
-        setProteinCodes(
-          transformedData.filter((item) => item.codeValue.includes("P"))
-        );
-
-        setAnimalTypeCodes(
-          transformedData.filter((item) =>
-            ["DOG", "CAT", "ETC"].some((pattern) =>
-              item.codeValue.includes(pattern)
-            )
-          )
-        );
-
-        setBreedCodes(
-          transformedData.filter((item) => /^D\d+/.test(item.codeValue))
-        );
-
-        setAnimalSizes(
-          transformedData.filter((item) =>
-            ["D-BG", "D-MD", "D-SM"].some((pattern) =>
-              item.codeValue.includes(pattern)
-            )
-          )
-        );
-      })
-      .catch((Error) => {
-        console.log("Error fetching pet codes:", Error);
-      });
-  }, []);
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   /*여러개 선택될때마다 저장*/
   const handleProteinCodeClick = (code) => {
@@ -156,37 +107,34 @@ function AddPetContainer() {
   };
 
   const uploadImage = async (file) => {
-    const headers = {
-      "Content-Type": "multipart/form-data",
-    };
     const formData = new FormData();
     formData.append("file", file);
+    console.log(file);
 
     try {
-      const response = await Api.post("/api/upload", formData, { headers });
+      const response = await Api.post(`/api/upload`, formData);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("파일 업로드 실패:", error);
     }
   };
 
-  const handleFormChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+  // const handleFormChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [name]: value,
+  //   }));
+  // };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleFormSubmit = async () => {
     const photoUrl = await uploadImage(photoInputRef.current.files[0]);
     const selectedCodesString = selectedProteinCodes.join(",");
 
     const clubData = {
       petImgUrl: photoUrl,
-      name: formData.name,
+      name: name,
       birth: selectedBirthDate
         ? selectedBirthDate.toISOString().split("T")[0].toString()
         : null,
@@ -197,7 +145,7 @@ function AddPetContainer() {
     };
 
     try {
-      const response = await Api.post("api/club", clubData, {
+      const response = await Api.post("/api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
@@ -207,6 +155,7 @@ function AddPetContainer() {
       // 에러 처리 로직
     }
   };
+
   return (
     <AddPetBox>
       <AddPetTitle>
@@ -217,12 +166,11 @@ function AddPetContainer() {
           </p>
         </div>
         <img src={bgheendy} alt="background" />
-      </AddPetTitle>
-      <InputBox>
-        <Guide>
-          맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
-        </Guide>
-        <form onSubmit={handleFormSubmit}>
+        </AddPetTitle>
+        <InputBox>
+          <Guide>
+            맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
+          </Guide>
           <StyledClubContainer>
             <SidebarItem gridArea="Sidebar1">반려동물 종류</SidebarItem>
             <Sidebar2>반려동물 사진</Sidebar2>
@@ -275,8 +223,8 @@ function AddPetContainer() {
                 type="text"
                 placeholder="이름"
                 name="name"
-                value={formData.name}
-                onChange={handleFormChange}
+                value={name}
+                onChange={handleNameChange}
               />
             </PetName>
             <PetBirth>
@@ -336,13 +284,13 @@ function AddPetContainer() {
                 </StyledButton>
               ))}
             </AnimalSize>
-            <Button>
-              <BlackButton type="submit">가입하기</BlackButton>
-            </Button>
-          </StyledClubContainer>
-        </form>
+              <Button>
+            <BlackButton type="button" onClick={handleFormSubmit}>가입하기</BlackButton>
+          </Button>
+        </StyledClubContainer>
       </InputBox>
     </AddPetBox>
   );
 }
+
 export default AddPetContainer;
