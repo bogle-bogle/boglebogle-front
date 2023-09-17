@@ -25,34 +25,14 @@ import MyReservationContainer from './MyReservationContainer';
 import MyOrderContainer from './MyOrderContainer';
 import MyPetContainer from './MyPetContainer';
 import MySubscriptionContainer from './MySubscriptionContainer';
+import { toast } from 'react-toastify';
 
 function MyPageContainer() {
   const member = useSelector((state) => state.member);
   const pets = member.pet;
   const navigate = useNavigate();
   const [selectedMenu, setSelectedMenu] = useState(null);
-
-  // useEffect(() => {
-  //     Api.get(`/api/pet`)
-  //       .then((res) => {
-  //         console.log(res);
-  //         const transformedData = res.data.map((item) => ({
-  //           id: item.id,
-  //           name: item.name,
-  //           petImgUrl: item.petImgUrl,
-  //           sizeCode: sizeCode[item.sizeCode],
-  //           animalTypeCode: animalCode[item.animalTypeCode],
-  //           breed: breedCode[item.breedCode],
-  //           birth: item.birth,
-  //         }));
-  //         setPetData(transformedData);
-  //       })
-  //       .catch((Error) => {
-  //         console.log("Error fetching pet codes:", Error);
-  //         toast.error("오류가 발생하였습니다😥");
-  //       });
-  // }, []);
-
+  
   const renderContent = () => {
     switch (selectedMenu) {
       case 'mypet':
@@ -78,7 +58,7 @@ function MyPageContainer() {
         <MypageMiniTitle onClick={() => setSelectedMenu('mypet')}>
           나의 반려동물 목록
         </MypageMiniTitle>
-        <MypageMiniTitle>나의 반려동물 맞춤 추천</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>나의 반려동물 맞춤 추천</MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>나의 쇼핑내역</MypageSubtitle>
@@ -91,18 +71,18 @@ function MyPageContainer() {
         <MypageBorder />
 
         <MypageSubtitle>나의 흰디카 예약</MypageSubtitle>
-        <MypageMiniTitle>자주 찾는 지점</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>자주 찾는 지점</MypageMiniTitle>
         <MypageMiniTitle onClick={() => setSelectedMenu('myreservation')}>
           예약/취소 내역
         </MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>회원 정보</MypageSubtitle>
-        <MypageMiniTitle>회원정보 수정</MypageMiniTitle>
-        <MypageMiniTitle>배송지 관리</MypageMiniTitle>
-        <MypageMiniTitle>H.Point Pay 관리</MypageMiniTitle>
-        <MypageMiniTitle>나의 기념일</MypageMiniTitle>
-        <MypageMiniTitle>회원 탈퇴</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>회원정보 수정</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>배송지 관리</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>H.Point Pay 관리</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>나의 기념일</MypageMiniTitle>
+        <MypageMiniTitle onClick={() => toast.success("준비중인 페이지입니다.")}>회원 탈퇴</MypageMiniTitle>
         <MypageBorder />
       </MypageSidebar>
 
