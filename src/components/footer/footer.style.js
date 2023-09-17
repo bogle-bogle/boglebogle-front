@@ -8,6 +8,8 @@ export const FooterWrapper = styled.footer`
   z-index: -1;
   margin-top: 10%;
   border-top: 1px solid lightgray;
+  bottom: 0;
+  position: relative;
 `;
 
 export const ImgInfo = styled.ul`
