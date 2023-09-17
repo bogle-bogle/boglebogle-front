@@ -32,6 +32,27 @@ function MyPageContainer() {
   const navigate = useNavigate();
   const [selectedMenu, setSelectedMenu] = useState(null);
 
+  // useEffect(() => {
+  //     Api.get(`/api/pet`)
+  //       .then((res) => {
+  //         console.log(res);
+  //         const transformedData = res.data.map((item) => ({
+  //           id: item.id,
+  //           name: item.name,
+  //           petImgUrl: item.petImgUrl,
+  //           sizeCode: sizeCode[item.sizeCode],
+  //           animalTypeCode: animalCode[item.animalTypeCode],
+  //           breed: breedCode[item.breedCode],
+  //           birth: item.birth,
+  //         }));
+  //         setPetData(transformedData);
+  //       })
+  //       .catch((Error) => {
+  //         console.log("Error fetching pet codes:", Error);
+  //         toast.error("오류가 발생하였습니다😥");
+  //       });
+  // }, []);
+
   const renderContent = () => {
     switch (selectedMenu) {
       case 'mypet':
@@ -115,7 +136,7 @@ function MyPageContainer() {
         {/* 없을 때 광고 */}
         <MypageAdv>
           <MypageAdvImg src={ClubAdvImg} />
-          <MypageAdvBtn onClick={() => navigate('/addpet')}>
+          <MypageAdvBtn onClick={() => navigate('/clubregister')}>
             등록하러 가기 ＞
           </MypageAdvBtn>
         </MypageAdv>

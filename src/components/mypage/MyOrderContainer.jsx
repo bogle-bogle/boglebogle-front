@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MypageCard,
   MypageCardDescr,
@@ -6,48 +6,48 @@ import {
   MypageCardImg,
   MypageCardTitle,
   MypageList,
+  MypageListElement,
   MypageListIndex,
   MypageSubtitle,
 } from './mypage.style';
+import * as Api from '../../api';
+import { toast } from 'react-toastify';
 
 function MyOrderContainer() {
-  const orders = [
-    {
-      id: 1,
-      productName: 'Dog Food',
-      price: '$20',
-      quantity: 2,
-    },
-    {
-      id: 2,
-      productName: 'Cat Toy',
-      price: '$10',
-      quantity: 1,
-    },
-    {
-      id: 3,
-      productName: 'Bird Cage',
-      price: '$50',
-      quantity: 1,
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+  
+  useEffect(() => {
+    Api.get(`/api/order/all`)
+      .then((res) => {
+        console.log(res);
+        setOrders(res.data);
+      })
+      .catch((Error) => {
+        console.log("Error fetching pet codes:", Error);
+        toast.error("오류가 발생하였습니다😥");
+      });
+  }, []);
 
   return (
     <>
       <MypageSubtitle>나의 주문 목록</MypageSubtitle>
       <MypageList>
-        <MypageListIndex>
-          주문 번호 : #번 | 주문 일자 : 2023-07-08{' '}
-        </MypageListIndex>
-        {orders.map((order) => (
-          <MypageCard key={order.id}>
-            <MypageCardImg src="" />
-            <MypageCardElement>
-              <MypageCardTitle>{order.productName}</MypageCardTitle>
-              <MypageCardDescr>가격: {order.price}</MypageCardDescr>
-              <MypageCardDescr>주문 수량: {order.quantity}</MypageCardDescr>
-            </MypageCardElement>
-          </MypageCard>
+      {orders.map((order) => (
+        <MypageListElement>
+        <MypageListIndex>주문 번호 : {order.id} | 주문 일자 : {order.createdAt}</MypageListIndex>
+        {
+          order.orderDetails.map((orderDetail) => (
+            <MypageCard key={orderDetail.id}>
+              <MypageCardImg src={orderDetail.productImgUrl} />
+              <MypageCardElement>
+                <MypageCardTitle>{orderDetail.productName}</MypageCardTitle>
+                <MypageCardDescr>가격: {orderDetail.productPrice}</MypageCardDescr>
+                <MypageCardDescr>주문 수량: {orderDetail.cnt}</MypageCardDescr>
+              </MypageCardElement>
+            </MypageCard>
+          ))
+        }
+        </MypageListElement>
         ))}
       </MypageList>
     </>
