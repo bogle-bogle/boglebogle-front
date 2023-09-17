@@ -21,6 +21,12 @@ function MySubscriptionContainer() {
   const [curations, setCurations] = useState([])
   const [regularDeliveries, setRegularDeliveries] = useState([])
 
+  // 가격 세 자리마다 쉼표 추가
+  const formatPrice = (price) => {
+    return price.toLocaleString();
+  };
+
+
   useEffect(() => {
     Api.get(`/api/order/subscription`)
       .then((res) => {
@@ -42,8 +48,9 @@ function MySubscriptionContainer() {
       <MypageList>
         <MypageSubSectionTitle>큐레이션 구독</MypageSubSectionTitle>
         <MypageListElement>
-        {/* <MypageListIndex>구독 시작 일자 : {curations[curations.length-1].createdAt}</MypageListIndex> */}
-        {curations.map((curation) => (
+        <MypageListIndex>
+          구독 시작 일자 : {curations && curations.length > 0 ? curations[curations.length - 1].createdAt : '데이터 없음'}
+        </MypageListIndex>        {curations.map((curation) => (
           <MypageCard key={curation.id}>
             <MypageCardImg src={curation.orderDetails[0].curationImgUrl} />
             <MypageCardElement>
@@ -66,9 +73,9 @@ function MySubscriptionContainer() {
             <MypageCardImg src={regularDelivery.orderDetails[0].productImgUrl} />
             <MypageCardElement>
               <MypageCardTitle>{regularDelivery.orderDetails[0].productName}</MypageCardTitle>
-              <MypageCardDescr>가격: {regularDelivery.orderDetails[0].productPrice}</MypageCardDescr>
-              <MypageCardDescr>주문 수량: {regularDelivery.cnt}</MypageCardDescr>
-              <MypageCardDescr>{regularDelivery.createdAt.slice(0, -3)}</MypageCardDescr>
+              <MypageCardDescr>가격: {formatPrice(regularDelivery.orderDetails[0].productPrice)}</MypageCardDescr>
+              <MypageCardDescr>주문 수량: {regularDelivery.orderDetails[0].cnt}</MypageCardDescr>
+              <MypageCardDescr>{regularDelivery.createdAt}</MypageCardDescr>
             </MypageCardElement>
           </MypageCard>
         ))}

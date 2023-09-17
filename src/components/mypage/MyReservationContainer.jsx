@@ -11,6 +11,7 @@ import {
 } from './mypage.style';
 import * as Api from '../../api.js';
 import { toast } from 'react-toastify';
+import { branchCode } from '../../commonCode';
 
 function MyReservationContainer() {
   const [reservations, setReservations] = useState([]);
@@ -35,8 +36,8 @@ function MyReservationContainer() {
           <MypageCard key={reservation.id}>
             <MypageCardImg src={reservation.branchImgUrl} />
             <MypageCardElement>
-              <MypageCardTitle>예약 지점: {reservation.branchCode}</MypageCardTitle>
-              <MypageCardDescr>예약 날짜/시간: {reservation.reservationTime}</MypageCardDescr>
+              <MypageCardTitle>예약 지점: {branchCode[reservation.branchCode]}</MypageCardTitle>
+              <MypageCardDescr>{reservation.reservationTime.split('T')[0]}</MypageCardDescr>
               <MypageCardDescr>{(reservation.cancelYn === 'Y') ? "취소됨" : "반납 완료"}</MypageCardDescr>
             </MypageCardElement>
           </MypageCard>

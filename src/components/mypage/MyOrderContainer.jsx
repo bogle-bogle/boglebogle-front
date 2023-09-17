@@ -16,6 +16,12 @@ import { toast } from 'react-toastify';
 
 function MyOrderContainer() {
   const [orders, setOrders] = useState([]);
+
+  // 가격 세 자리마다 쉼표 추가
+  const formatPrice = (price) => {
+    return price.toLocaleString();
+  };
+
   
   useEffect(() => {
     Api.get(`/api/order/normal`)
@@ -44,7 +50,7 @@ function MyOrderContainer() {
                 <MypageCardImg src={orderDetail.productImgUrl} />
                 <MypageCardElement>
                   <MypageCardTitle>{orderDetail.productName}</MypageCardTitle>
-                  <MypageCardDescr>가격: {orderDetail.productPrice}</MypageCardDescr>
+                  {/* <MypageCardDescr>{formatPrice(orderDetail.productPrice)}</MypageCardDescr> */}
                   <MypageCardDescr>주문 수량: {orderDetail.cnt}</MypageCardDescr>
                 </MypageCardElement>
               </MypageCard>
