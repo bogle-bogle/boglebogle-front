@@ -8,6 +8,7 @@ import {
   MypageList,
   MypageListElement,
   MypageListIndex,
+  MypageSubSectionTitle,
   MypageSubtitle,
 } from './mypage.style';
 import * as Api from '../../api';
@@ -17,7 +18,7 @@ function MyOrderContainer() {
   const [orders, setOrders] = useState([]);
   
   useEffect(() => {
-    Api.get(`/api/order/all`)
+    Api.get(`/api/order/normal`)
       .then((res) => {
         console.log(res);
         setOrders(res.data);
@@ -33,21 +34,24 @@ function MyOrderContainer() {
       <MypageSubtitle>나의 주문 목록</MypageSubtitle>
       <MypageList>
       {orders.map((order) => (
-        <MypageListElement>
-        <MypageListIndex>주문 번호 : {order.id} | 주문 일자 : {order.createdAt}</MypageListIndex>
-        {
-          order.orderDetails.map((orderDetail) => (
-            <MypageCard key={orderDetail.id}>
-              <MypageCardImg src={orderDetail.productImgUrl} />
-              <MypageCardElement>
-                <MypageCardTitle>{orderDetail.productName}</MypageCardTitle>
-                <MypageCardDescr>가격: {orderDetail.productPrice}</MypageCardDescr>
-                <MypageCardDescr>주문 수량: {orderDetail.cnt}</MypageCardDescr>
-              </MypageCardElement>
-            </MypageCard>
-          ))
-        }
-        </MypageListElement>
+        <>
+          <MypageSubSectionTitle>{order.createdAt}</MypageSubSectionTitle>
+          <MypageListElement>
+          <MypageListIndex>주문 번호 : {order.id}</MypageListIndex>
+          {
+            order.orderDetails.map((orderDetail) => (
+              <MypageCard key={orderDetail.id}>
+                <MypageCardImg src={orderDetail.productImgUrl} />
+                <MypageCardElement>
+                  <MypageCardTitle>{orderDetail.productName}</MypageCardTitle>
+                  <MypageCardDescr>가격: {orderDetail.productPrice}</MypageCardDescr>
+                  <MypageCardDescr>주문 수량: {orderDetail.cnt}</MypageCardDescr>
+                </MypageCardElement>
+              </MypageCard>
+            ))
+          }
+          </MypageListElement>
+        </>
         ))}
       </MypageList>
     </>

@@ -182,4 +182,10 @@ export const MypageListElement = styled.div`
   margin-bottom: 15px;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
-`
+`;
+
+export const MypageSubSectionTitle = styled.div`
+  font-weight: bolder;
+  font-size: 15px;
+  margin: 0px 10px 15px 0px;
+`;
