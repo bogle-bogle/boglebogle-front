@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MyInfoElement,
   MypageCard,
@@ -9,30 +9,23 @@ import {
   MypageList,
   MypageSubtitle,
 } from './mypage.style';
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector';
+import * as Api from '../../api.js';
+import { toast } from 'react-toastify';
 
 function MyReservationContainer() {
-  const reservations = [
-    {
-      id: 1,
-      date: '2023-09-20',
-      reservationTime: '17:00',
-      branch: '더현대 서울',
-    },
-    {
-      id: 2,
-      date: '2023-10-05',
-      reservationTime: '17:00',
-      branch: '더현대 대구',
-    },
-    {
-      id: 3,
-      date: '2023-10-12',
-      reservationTime: '17:00',
-      branch: 'SPACE 1',
-    },
-    // ... 추가적인 예약 정보를 넣을 수 있습니다.
-  ];
+  const [reservations, setReservations] = useState([]);
+
+  useEffect(() => {
+    Api.get(`/api/hc/myreservation`)
+      .then((res) => {
+        console.log(res);
+        setReservations(res.data);
+      })
+      .catch((Error) => {
+        console.log("Error fetching pet codes:", Error);
+        toast.error("오류가 발생하였습니다😥");
+      });
+  }, []);
 
   return (
     <>
@@ -40,13 +33,11 @@ function MyReservationContainer() {
       <MypageList>
         {reservations.map((reservation) => (
           <MypageCard key={reservation.id}>
-            <MypageCardImg src="" />
+            <MypageCardImg src={reservation.branchImgUrl} />
             <MypageCardElement>
-              <MypageCardTitle>예약 지점: {reservation.branch}</MypageCardTitle>
-              <MypageCardDescr>예약 날짜: {reservation.date}</MypageCardDescr>
-              <MypageCardDescr>
-                예약 시간: {reservation.reservationTime}
-              </MypageCardDescr>
+              <MypageCardTitle>예약 지점: {reservation.branchCode}</MypageCardTitle>
+              <MypageCardDescr>예약 날짜/시간: {reservation.reservationTime}</MypageCardDescr>
+              <MypageCardDescr>{(reservation.cancelYn === 'Y') ? "취소됨" : "반납 완료"}</MypageCardDescr>
             </MypageCardElement>
           </MypageCard>
         ))}
