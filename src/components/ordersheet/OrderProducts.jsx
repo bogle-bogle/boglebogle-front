@@ -63,8 +63,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
   }, [price]);
 
   const handleOrder = async () => {
-
-    axios
+    axios;
 
     const paymentWidget = paymentWidgetRef.current;
 
@@ -78,7 +77,6 @@ function OrderProducts({ selectedItems, totalAmount }) {
         successUrl: `http://localhost:3000/tossRedirect`,
         failUrl: `https://localhost:8080/api/v1/payments/toss/fail`,
       });
-
     } catch (error) {
       console.error(error);
     }

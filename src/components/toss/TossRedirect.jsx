@@ -32,8 +32,7 @@ function TossRedirect() {
         },
       )
       .then((res) => {
-        post('', )
-            .then()
+        post('').then();
       });
   });
   return <div>토스 리다이렉트</div>;
