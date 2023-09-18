@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DatePicker from 'react-datepicker'; // react-datepicker를 import
-import { useSelector } from 'react-redux';
-import 'react-datepicker/dist/react-datepicker.css';
-import infoImg from '../../assets/club/클럽 가입하기.png';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker"; // react-datepicker를 import
+import { useSelector } from "react-redux";
+import "react-datepicker/dist/react-datepicker.css";
+import infoImg from "../../assets/club/클럽 가입하기.png";
 
 import {
   Title,
@@ -38,8 +38,8 @@ import {
   MPetBreedCode,
   MPetAnimalTypeCode,
   MButton,
-} from './index.style';
-import axios from 'axios';
+} from "./index.style";
+import * as Api from "../../api";
 
 function ClubRegister() {
   const navigate = useNavigate();
@@ -51,51 +51,50 @@ function ClubRegister() {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   const member = useSelector((state) => state.member);
 
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
-  const [selectedImgImage, setSelectedImgImage] = useState(null);
+  const [, setSelectedImgImage] = useState(null);
 
   const [proteinCodes, setProteinCodes] = useState();
   const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
 
   const [animalTypeCodes, setAnimalTypeCodes] = useState([]);
-  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState('');
+  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState("");
 
   const [breedCodes, setBreedCodes] = useState();
-  const [selectedBreedCode, setSelectedBreedCode] = useState('');
+  const [selectedBreedCode, setSelectedBreedCode] = useState("");
 
   const [animalSizes, setAnimalSizes] = useState([]);
-  const [selectedAnimalSize, setSelectedAnimalSize] = useState('');
+  const [selectedAnimalSize, setSelectedAnimalSize] = useState("");
 
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
 
   const [formData, setFormData] = useState({
-    photo: '',
-    name: '',
-    birth: '',
-    proteinCodes: '',
-    favoriteFoodIngredients: '',
-    imgUrl: '',
-    mbti: '',
-    breedCode: '',
-    animalTypeCode: '',
+    photo: "",
+    name: "",
+    birth: "",
+    proteinCodes: "",
+    favoriteFoodIngredients: "",
+    imgUrl: "",
+    mbti: "",
+    breedCode: "",
+    animalTypeCode: "",
   });
 
   const photoInputRef = useRef(null);
 
   /*단백질 코드 및 견종, 동물 분류 가져오기*/
   useEffect(() => {
-    axios
-      .get(`/api/pet/code`)
+    Api.get(`/api/pet/code`)
       .then((res) => {
         const transformedData = res.data.map((item) => ({
           codeValue: item.codeValue,
@@ -103,31 +102,31 @@ function ClubRegister() {
         }));
 
         setProteinCodes(
-          transformedData.filter((item) => item.codeValue.includes('P')),
+          transformedData.filter((item) => item.codeValue.includes("P"))
         );
 
         setAnimalTypeCodes(
           transformedData.filter((item) =>
-            ['DOG', 'CAT', 'ETC'].some((pattern) =>
-              item.codeValue.includes(pattern),
-            ),
-          ),
+            ["DOG", "CAT", "ETC"].some((pattern) =>
+              item.codeValue.includes(pattern)
+            )
+          )
         );
 
         setBreedCodes(
-          transformedData.filter((item) => /^D\d+/.test(item.codeValue)),
+          transformedData.filter((item) => /^D\d+/.test(item.codeValue))
         );
 
         setAnimalSizes(
           transformedData.filter((item) =>
-            ['D-BG', 'D-MD', 'D-SM'].some((pattern) =>
-              item.codeValue.includes(pattern),
-            ),
-          ),
+            ["D-BG", "D-MD", "D-SM"].some((pattern) =>
+              item.codeValue.includes(pattern)
+            )
+          )
         );
       })
       .catch((Error) => {
-        console.log('Error fetching pet codes:', Error);
+        console.log("Error fetching pet codes:", Error);
       });
   }, []);
 
@@ -157,29 +156,28 @@ function ClubRegister() {
   const handleImageUpload = (event, imageKey) => {
     const file = event.target.files[0];
     if (!file) {
-      console.error('No file selected.');
+      console.error("No file selected.");
       return;
     }
-    if (imageKey === 'photo') {
+    if (imageKey === "photo") {
       setSelectedPhotoImage(URL.createObjectURL(file));
-    } else if (imageKey === 'img') {
+    } else if (imageKey === "img") {
       setSelectedImgImage(URL.createObjectURL(file));
     }
   };
 
   const uploadImage = async (file) => {
     const headers = {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     };
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const response = await axios.post('/api/upload', formData, { headers });
-      console.log('response.data', response.data);
+      const response = await Api.post("/api/upload", formData, { headers });
       return response.data;
     } catch (error) {
-      console.error('파일 업로드 실패:', error);
+      console.error("파일 업로드 실패:", error);
     }
   };
 
@@ -195,14 +193,13 @@ function ClubRegister() {
     event.preventDefault();
 
     const photoUrl = await uploadImage(photoInputRef.current.files[0]);
-    console.log('사진 ', photoUrl);
-    const selectedCodesString = selectedProteinCodes.join(',');
+    const selectedCodesString = selectedProteinCodes.join(",");
 
     const clubData = {
       petImgUrl: photoUrl,
       name: formData.name,
       birth: selectedBirthDate
-        ? selectedBirthDate.toISOString().split('T')[0].toString()
+        ? selectedBirthDate.toISOString().split("T")[0].toString()
         : null,
       allergyCode: selectedCodesString,
       breedCode: selectedBreedCode,
@@ -210,15 +207,13 @@ function ClubRegister() {
       sizeCode: selectedAnimalSize,
     };
 
-    console.log(clubData);
     try {
-      const response = await axios.post('api/club', clubData, {
+      const response = await Api.post("/api/club", clubData, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
         },
       });
-      console.log('클럽 등록 성공:', response.data);
-      navigate('/completeclubregister');
+      navigate("/completeclubregister");
     } catch (error) {
       // 에러 처리 로직
     }
@@ -249,7 +244,7 @@ function ClubRegister() {
                 onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
                 active={selectedAnimalTypeCode === code.codeValue}
                 className={
-                  selectedAnimalTypeCode === code.codeValue ? 'selected' : ''
+                  selectedAnimalTypeCode === code.codeValue ? "selected" : ""
                 }
               >
                 {code.name}
@@ -269,15 +264,15 @@ function ClubRegister() {
               type="file"
               accept="image/*"
               onChange={(event) => {
-                const photoUrl = handleFileInputChange('photo')(event);
+                const photoUrl = handleFileInputChange("photo")(event);
                 photoUrl &&
                   setSelectedPhotoImage(
-                    URL.createObjectURL(event.target.files[0]),
+                    URL.createObjectURL(event.target.files[0])
                   );
               }}
               className="file-input"
               ref={photoInputRef}
-              style={{ display: 'none' }} // 숨김 처리
+              style={{ display: "none" }} // 숨김 처리
             />
           </MPetPhoto>
           <MPetName>
@@ -309,8 +304,8 @@ function ClubRegister() {
                   active={selectedProteinCodes.includes(code.codeValue)}
                   className={
                     selectedProteinCodes.includes(code.codeValue)
-                      ? 'selected'
-                      : ''
+                      ? "selected"
+                      : ""
                   }
                 >
                   {code.name}
@@ -340,7 +335,7 @@ function ClubRegister() {
                 onClick={() => handleAnimalSizeClick(code.codeValue)}
                 active={selectedAnimalSize === code.codeValue}
                 className={
-                  selectedAnimalSize === code.codeValue ? 'selected' : ''
+                  selectedAnimalSize === code.codeValue ? "selected" : ""
                 }
               >
                 {code.name}
@@ -375,7 +370,7 @@ function ClubRegister() {
                 onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
                 active={selectedAnimalTypeCode === code.codeValue}
                 className={
-                  selectedAnimalTypeCode === code.codeValue ? 'selected' : ''
+                  selectedAnimalTypeCode === code.codeValue ? "selected" : ""
                 }
               >
                 {code.name}
@@ -395,15 +390,15 @@ function ClubRegister() {
               type="file"
               accept="image/*"
               onChange={(event) => {
-                const photoUrl = handleFileInputChange('photo')(event);
+                const photoUrl = handleFileInputChange("photo")(event);
                 photoUrl &&
                   setSelectedPhotoImage(
-                    URL.createObjectURL(event.target.files[0]),
+                    URL.createObjectURL(event.target.files[0])
                   );
               }}
               className="file-input"
               ref={photoInputRef}
-              style={{ display: 'none' }} // 숨김 처리
+              style={{ display: "none" }} // 숨김 처리
             />
           </PetPhoto>
           <PetName>
@@ -434,8 +429,8 @@ function ClubRegister() {
                   active={selectedProteinCodes.includes(code.codeValue)}
                   className={
                     selectedProteinCodes.includes(code.codeValue)
-                      ? 'selected'
-                      : ''
+                      ? "selected"
+                      : ""
                   }
                 >
                   {code.name}
@@ -465,7 +460,7 @@ function ClubRegister() {
                 onClick={() => handleAnimalSizeClick(code.codeValue)}
                 active={selectedAnimalSize === code.codeValue}
                 className={
-                  selectedAnimalSize === code.codeValue ? 'selected' : ''
+                  selectedAnimalSize === code.codeValue ? "selected" : ""
                 }
               >
                 {code.name}

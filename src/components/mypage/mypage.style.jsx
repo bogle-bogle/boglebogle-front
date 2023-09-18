@@ -47,8 +47,8 @@ export const MypageContent = styled.div`
 
 export const MypageSubtitle = styled.div`
   font-weight: bolder;
-  font-size: 15px;
-  margin: 15px 10px;
+  font-size: 20px;
+  margin: 0px 10px 15px 0px;
 `;
 
 export const MypageMiniTitle = styled.div`
@@ -136,40 +136,56 @@ export const MypageCard = styled.div`
   display: flex;
   justify-content: start;
   border-top: 1px solid gray;
+  /* margin: 2px; */
 `;
 
 export const MypageCardImg = styled.img`
   border-radius: 10px;
   width: 100px;
   height: 100px;
-  border-top: 1px solid gray;
+  padding: 5px;
+  margin: 5px 0px;
 `;
 
 export const MypageCardElement = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: start;
   padding: 10px;
 `;
 
 export const MypageCardTitle = styled.div`
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
+  /* margin-bottom: 8px; */
 `;
 
 export const MypageCardDescr = styled.div`
   font-size: 11px;
   font-weight: medium;
+  margin-bottom: 2px;
 `;
 
 export const MypageList = styled.div`
   margin-bottom: 40px;
-  border-bottom: 1px solid gray;
+  /* border-bottom: 1px solid gray; */
 `;
 
 export const MypageListIndex = styled.div`
   background-color: #bfc9be;
   font-size: 15px;
-  padding: 3px;
+  padding: 6px;
+`;
+
+export const MypageListElement = styled.div`
+  margin-bottom: 15px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+`;
+
+export const MypageSubSectionTitle = styled.div`
+  font-weight: bolder;
+  font-size: 15px;
+  margin: 0px 10px 15px 0px;
 `;

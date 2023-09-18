@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import heendycustomready from '../assets/custom/heendycustomready.png';
-import heendysay1 from '../assets/custom/heendysay1.png';
-import heendysay2 from '../assets/custom/heendysay2.png';
-import { PiBoneLight } from 'react-icons/pi';
-import axios from 'axios';
-import CustomResult from '../components/custom/CustomResult';
-import Modal from '../components/modal/Modal';
-import loadingVideo from '../assets/card/loading.mp4';
-import loadingSound from '../assets/card/loading_sound.mp3';
-import useSound from 'use-sound';
+import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import heendycustomready from "../assets/custom/heendycustomready.png";
+import heendysay1 from "../assets/custom/heendysay1.png";
+import heendysay2 from "../assets/custom/heendysay2.png";
+import { PiBoneLight } from "react-icons/pi";
+import * as Api from "../api";
+import CustomResult from "../components/custom/CustomResult";
+import Modal from "../components/modal/Modal";
+import loadingVideo from "../assets/card/loading.mp4";
+import loadingSound from "../assets/card/loading_sound.mp3";
+import useSound from "use-sound";
 function CustomReadyPage() {
   const [play, { stop }] = useSound(loadingSound);
   const [openModal, setOpenModal] = useState(false);
@@ -30,23 +30,10 @@ function CustomReadyPage() {
   const [recommendProduct, setRecommendProduct] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`/api/pet`, {
-        headers: {
-          Authorization: `Bearer ${member.jwt.accessToken}`, // 토큰을 Authorization 헤더에 추가
-        },
-      })
+    Api.get(`/api/pet`)
       .then((res) => {
-        // HTTP 상태 코드 확인
-        console.log('HTTP Status Code:', res.status);
-
-        // 서버에서 반환한 데이터 확인
-        console.log('Data from the server:', res.data);
         const authorizationHeader = res.headers.authorization;
-        console.log(
-          'Authorization Token from the server:',
-          authorizationHeader,
-        );
+
         const transformedData = res.data.map((item) => ({
           codeValue: item.id,
           name: item.name,
@@ -57,13 +44,12 @@ function CustomReadyPage() {
         setPetData(transformedData);
       })
       .catch((Error) => {
-        console.log('Error fetching pet codes:', Error);
+        console.log("Error fetching pet codes:", Error);
       });
   }, []);
 
   const handlePetClick = (pet) => {
     // 현재 선택된 펫을 업데이트
-    console.log('선택된거 맞아?', pet);
     setSelectedPet(pet);
   };
   const handlePlaceholderClick = (pet) => {
@@ -77,12 +63,12 @@ function CustomReadyPage() {
   const handleImageUpload = (event, imageKey) => {
     const file = event.target.files[0];
     if (!file) {
-      console.error('No file selected.');
+      console.error("No file selected.");
       return;
     }
-    if (imageKey === 'feed') {
+    if (imageKey === "feed") {
       setSelectedFeedImage(URL.createObjectURL(file));
-    } else if (imageKey === 'ingredient') {
+    } else if (imageKey === "ingredient") {
       setSelectedIngredientImage(URL.createObjectURL(file));
     }
   };
@@ -95,7 +81,7 @@ function CustomReadyPage() {
     const ingredientFile = ingredientInputRef.current.files[0];
 
     if (!feedFile || !ingredientFile) {
-      alert('사료 표지 이미지와 성분 이미지를 모두 업로드해주세요.');
+      alert("사료 표지 이미지와 성분 이미지를 모두 업로드해주세요.");
       return;
     }
 
@@ -117,28 +103,28 @@ function CustomReadyPage() {
       const imgUrl = customData.feedDescImgUrl;
 
       try {
-        const searchRes = await axios.post('/ai/convert-to-similarity', {
+        const searchRes = await Api.post("/ai/convert-to-similarity", {
           imgUrl,
         });
         setRecommendProduct(searchRes.data);
         handleModalClose();
       } catch (error) {
-        console.log('유사도 쪽 에러 : ', error);
+        console.log("유사도 쪽 에러 : ", error);
       }
     } catch (error) {
-      console.error('에러:', error);
+      console.error("에러:", error);
     }
   };
 
   // S3 이미지 업로드
   const uploadImages = async (feedFile, ingredientFile) => {
     const formData = new FormData();
-    formData.append('file', feedFile);
-    formData.append('file', ingredientFile);
+    formData.append("file", feedFile);
+    formData.append("file", ingredientFile);
 
-    const response = await axios.post('/api/upload', formData, {
+    const response = await Api.post("/api/upload", formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
     return response.data;
@@ -146,11 +132,8 @@ function CustomReadyPage() {
 
   // DB 업데이트
   const updateDatabase = async (selectedPetId, customData) => {
-    const response = await axios.put(
-      `api/pet/feed/${selectedPetId}`,
-      customData,
-    );
-    console.log('db성공', response.data);
+    const response = await Api.put(`api/pet/feed/${selectedPetId}`, customData);
+
     return response.data;
   };
 
@@ -195,7 +178,7 @@ function CustomReadyPage() {
                 <div key={pet.codeValue} className="pet-info">
                   <div
                     className={`pet-card ${
-                      selectedPet === pet ? 'selected' : ''
+                      selectedPet === pet ? "selected" : ""
                     }`}
                     onClick={() => handlePetClick(pet)}
                   >
@@ -205,7 +188,7 @@ function CustomReadyPage() {
                       ) : (
                         <div
                           className={`placeholder ${
-                            selectedPet === pet ? 'selected' : ''
+                            selectedPet === pet ? "selected" : ""
                           }`}
                           onClick={() => handlePlaceholderClick(pet)}
                         ></div>
@@ -248,15 +231,15 @@ function CustomReadyPage() {
                   type="file"
                   accept="image/*"
                   onChange={(event) => {
-                    const feedUrl = handleFileInputChange('feed')(event);
+                    const feedUrl = handleFileInputChange("feed")(event);
                     feedUrl &&
                       setSelectedFeedImage(
-                        URL.createObjectURL(event.target.files[0]),
+                        URL.createObjectURL(event.target.files[0])
                       );
                   }}
                   className="file-input"
                   ref={feedInputRef}
-                  style={{ display: 'none' }} // 숨김 처리
+                  style={{ display: "none" }} // 숨김 처리
                 />
               </div>
               {/* 사료 성분표 이미지 */}
@@ -279,15 +262,15 @@ function CustomReadyPage() {
                   accept="image/*"
                   onChange={(event) => {
                     const ingredientUrl =
-                      handleFileInputChange('ingredient')(event);
+                      handleFileInputChange("ingredient")(event);
                     ingredientUrl &&
                       setSelectedIngredientImage(
-                        URL.createObjectURL(event.target.files[0]),
+                        URL.createObjectURL(event.target.files[0])
                       );
                   }}
                   className="file-input"
                   ref={ingredientInputRef}
-                  style={{ display: 'none' }} // 숨김 처리
+                  style={{ display: "none" }} // 숨김 처리
                 />
               </div>
             </div>

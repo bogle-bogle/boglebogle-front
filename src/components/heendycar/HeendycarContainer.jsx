@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import * as Api from "../../api";
+import { useSelector } from "react-redux";
 
 import {
   HcBtn,
@@ -27,6 +27,9 @@ import {
   HcInfoIcon,
   HcInfoTitle,
   HcMainBtn,
+  HcPhoneInfo,
+  HcPhoneInput,
+  HcPhoneSection,
   HcSectColoredDescription,
   HcSectDescription,
   HcSectTitle,
@@ -34,18 +37,35 @@ import {
   HcSection2,
   HcSubTitle,
   HcTitle,
-} from './index.style';
-import headerImg from '../../assets/heendycar/heendycar_header_img.png';
-import dogIcon from '../../assets/heendycar/dog_icon_img.png';
-import trollyIcon from '../../assets/heendycar/trolly_icon_img.png';
-import qrIcon from '../../assets/heendycar/qr_hand_icon_img.png';
+} from "./index.style";
+import headerImg from "../../assets/heendycar/heendycar_header_img.png";
+import dogIcon from "../../assets/heendycar/dog_icon_img.png";
+import trollyIcon from "../../assets/heendycar/trolly_icon_img.png";
+import qrIcon from "../../assets/heendycar/qr_hand_icon_img.png";
+import { toast } from "react-toastify";
+import walkingheendy from "../../assets/custom/walkingheendy.gif";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function HeendycarInfo() {
   const member = useSelector((state) => state.member);
+  const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber || "");
+
+  const formatPhoneNumber = (num) => {
+    let cleaned = ('' + num).replace(/\D/g, '');
+    let match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
+    if (match) {
+      return match[1] + '-' + match[2] + '-' + match[3];
+    }
+    return num;
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(formatPhoneNumber(e.target.value));
+  };
 
   useEffect(() => {
-    axios
-      .get(`/api/hc/branch`)
+    Api.get(`/api/hc/branch`)
       .then((res) => {
         const transformedData = res.data.map((item) => ({
           branchCode: item.branchCode,
@@ -56,113 +76,127 @@ function HeendycarInfo() {
         }));
 
         setDeptBranches(
-          transformedData.filter((item) => item.branchCode <= '200'),
+          transformedData.filter((item) => item.branchCode <= "200")
         );
         setOutletBranches(
-          transformedData.filter((item) => item.branchCode > '200'),
+          transformedData.filter((item) => item.branchCode > "200")
         );
       })
       .catch((Error) => {
-        console.info('Error');
+        console.info("Error");
       });
   }, []);
 
-  const [selectedBranchCode, setSelectedBranchCode] = useState('101');
-  const [selectedTime, setSelectedTime] = useState('');
+  const [selectedBranchCode, setSelectedBranchCode] = useState("101");
+  const [selectedTime, setSelectedTime] = useState("");
 
   const [deptBranches, setDeptBranches] = useState([]);
   const [outletBranches, setOutletBranches] = useState([]);
 
   const reservationTimes = [
-    { text: '11:00' },
-    { text: '12:00' },
-    { text: '13:00' },
-    { text: '14:00' },
-    { text: '15:00' },
-    { text: '16:00' },
-    { text: '17:00' },
-    { text: '18:00' },
+    { text: "11:00" },
+    { text: "12:00" },
+    { text: "13:00" },
+    { text: "14:00" },
+    { text: "15:00" },
+    { text: "16:00" },
+    { text: "17:00" },
+    { text: "18:00" },
   ];
 
   const getBranchName = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.branchCode === branchCode,
+      (branch) => branch.branchCode === branchCode
     );
     return selectedBranch ? selectedBranch.name : null;
   };
 
   const getBranchDescr = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.branchCode === branchCode,
+      (branch) => branch.branchCode === branchCode
     );
     return selectedBranch ? selectedBranch.descr : null;
   };
 
   const getBranchCnt = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.branchCode === branchCode,
+      (branch) => branch.branchCode === branchCode
     );
     return selectedBranch ? selectedBranch.cnt : null;
   };
 
   const getBranchImgUrl = (branchCode) => {
     const selectedBranch = [...deptBranches, ...outletBranches].find(
-      (branch) => branch.branchCode === branchCode,
+      (branch) => branch.branchCode === branchCode
     );
     return selectedBranch ? selectedBranch.imgUrl : null;
   };
 
   const convertReservationTime = (simpleTime) => {
-    return getTodayDate() + 'T' + simpleTime;
+    return getTodayDate() + "T" + simpleTime;
   };
 
   function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = (1 + today.getMonth()).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
+    const month = (1 + today.getMonth()).toString().padStart(2, "0");
+    const day = today.getDate().toString().padStart(2, "0");
 
-    return year + '-' + month + '-' + day;
+    return year + "-" + month + "-" + day;
   }
 
+  const swal = withReactContent(Swal);
+
   const handleMainBtnClick = () => {
-    alert('예약하시겠습니까?');
     const data = {
       branchCode: selectedBranchCode,
       reservationTime: convertReservationTime(selectedTime),
+      phoneNumber: phoneNumber.replace(/-/g, '')
     };
-
-    axios
-      .post(`/api/hc/reservation`, data, {
-        headers: {
-          Authorization: `Bearer ${member.jwt.accessToken}`,
-        },
-      })
-      .then((res) => {
-        const dateObj = new Date(res.data.reservationTime);
-        const formattedTime = `${dateObj.getFullYear()}-${(
-          dateObj.getMonth() + 1
-        )
-          .toString()
-          .padStart(2, '0')}-${dateObj
-          .getDate()
-          .toString()
-          .padStart(2, '0')} ${dateObj
-          .getHours()
-          .toString()
-          .padStart(2, '0')}:${dateObj
-          .getMinutes()
-          .toString()
-          .padStart(2, '0')}`;
-        alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
-      })
-      .catch((Error) => {
+  
+    swal.fire({
+      title: "예약하시겠습니까?",
+      showCancelButton: true,
+      imageUrl: walkingheendy,
+      imageHeight: "팝업 이미지",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      confirmButtonColor: "#499878",
+      cancelButtonColor: "#A4A4A4",
+      customClass: {
+        confirmButton: "swal2-button",
+        cancelButton: "swal2-button",
+      },
+    })
+    .then((result) => {
+      if (result.isConfirmed) { // 확인 버튼을 눌렀을 때만 API 호출
+        return Api.post(`/api/hc/reservation`, data, {
+          headers: {
+            Authorization: `Bearer ${member.jwt.accessToken}`,
+          },
+        });
+      } else {
+        throw new Error('User cancelled the operation.');
+      }
+    })
+    .then((res) => {
+      const dateObj = new Date(res.data.reservationTime);
+      const formattedTime = `${dateObj.getFullYear()}-${(
+        dateObj.getMonth() + 1
+      ).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")} 
+      ${dateObj.getHours().toString().padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
+      // toast.success(`예약 완료!\n 예약시간: ${formattedTime}`);
+      toast.success(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
+      window.location.reload();
+    })
+    .catch((Error) => {
+      if (Error.message !== 'User cancelled the operation.') {
         console.log(Error);
-        alert('예약에 실패하였습니다.');
-        console.info('Error');
-      });
+        toast.error("예약에 실패하였습니다.");
+      }
+    });
   };
-
+  
   return (
     <HcGrid>
       <HcHeader>
@@ -295,9 +329,21 @@ function HeendycarInfo() {
               {time.text}
             </HcBtn>
           ))}
-          <br />
-          <br />
+          <br/>
+          <br/>
+          <br/>
+
+          <HcPhoneSection>
+            <HcPhoneInfo>
+            <HcContentTitle>휴대폰 번호를 입력하여 주세요.</HcContentTitle>
+            <HcSectColoredDescription>* 필수값입니다. </HcSectColoredDescription>
+            </HcPhoneInfo>
+            
+            <HcPhoneInput type="tel" placeholder="010-0000-0000" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+          </HcPhoneSection>
+
         </HcContent1>
+
         <HcContent2></HcContent2>
         <HcContent3>
           <HcContentImg src={getBranchImgUrl(selectedBranchCode)} />
@@ -307,8 +353,8 @@ function HeendycarInfo() {
             <br />
             <div key={selectedBranchCode}>
               <p>
-                대여 가능 수량:{' '}
-                <span style={{ color: 'darkred', fontWeight: 'bold' }}>
+                대여 가능 수량:{" "}
+                <span style={{ color: "darkred", fontWeight: "bold" }}>
                   {getBranchCnt(selectedBranchCode)}
                 </span>
               </p>
@@ -344,5 +390,6 @@ function HeendycarInfo() {
     </HcGrid>
   );
 }
+
 
 export default HeendycarInfo;

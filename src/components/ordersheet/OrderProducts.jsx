@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
-import { nanoid } from 'nanoid';
-import { useSelector } from 'react-redux';
-import Modal from '../modal/Modal';
-import CouponImg from '../../assets/club/clubcoupon.png';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
+import { nanoid } from "nanoid";
+import { useSelector } from "react-redux";
+import Modal from "../modal/Modal";
+import CouponImg from "../../assets/club/clubcoupon.png";
 import {
   OrderItemsTable,
   OrderButton,
@@ -18,13 +18,17 @@ import {
   Row,
   DiscountButton,
   DiscountconfirmButton,
-} from './OrderProducts.style';
-import axios from 'axios';
+} from "./OrderProducts.style";
+import * as Api from "../../api";
 
+<<<<<<< HEAD
 function OrderProducts({ selectedItems, totalAmount }) {
   console.log('order', selectedItems[0].name);
   console.log('order', selectedItems.length);
 
+=======
+function OrderProducts({ cartItemArray, totalAmount }) {
+>>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
@@ -32,16 +36,22 @@ function OrderProducts({ selectedItems, totalAmount }) {
   const member = useSelector((state) => state.member);
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   // env로 안가려짐, 어차피 테스트 y라서 일단 냅두기,,
   const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
   const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
+=======
+  // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
+  const clientKey = "test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE";
+  const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
+>>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
 
   useEffect(() => {
     (async () => {
       const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-        '#payment-widget',
-        { value: price },
+        "#payment-widget",
+        { value: price }
       );
 
       paymentWidgetRef.current = paymentWidget;
@@ -58,7 +68,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
 
     paymentMethodsWidget.updateAmount(
       price,
-      paymentMethodsWidget.UPDATE_REASON.COUPON,
+      paymentMethodsWidget.UPDATE_REASON.COUPON
     );
   }, [price]);
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import SuggestionContainer from '../components/suggestion/SuggestionContainer';
+import React from "react";
+import SuggestionOuterContainer from "../components/suggestion/SuggestionOuterContainer";
 
 function Suggestion() {
-  return <SuggestionContainer></SuggestionContainer>;
+  return <SuggestionOuterContainer></SuggestionOuterContainer>;
 }
 
 export default Suggestion;

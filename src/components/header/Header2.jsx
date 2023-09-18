@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { HiMenu, HiShoppingCart } from 'react-icons/hi';
 import { FiLogOut } from 'react-icons/fi';
@@ -20,11 +20,11 @@ function Header2() {
   const menuList = [
     {
       title: '구독',
-      link: '/sub',
+      link: '/thepetbox',
     },
     {
       title: '맞춤 추천',
-      link: '/customready',
+      link: '/suggestion',
     },
     {
       title: '쇼핑',

@@ -1,14 +1,14 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import * as Api from "../../api";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   CartContentContainer,
   CartCardContainer,
   CartInfoContainer,
-} from './CartContainer.style';
-import CartCard from './CartCard';
-import CartInfo from './CartInfo';
+} from "./CartContainer.style";
+import CartCard from "./CartCard";
+import CartInfo from "./CartInfo";
 
 function CartContainer() {
   const member = useSelector((state) => state.member);
@@ -16,15 +16,18 @@ function CartContainer() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
 
+<<<<<<< HEAD
   const navigate = useNavigate();
 
+=======
+>>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
   // 멤버 별 카트 정보 + 카트에 담긴 상품 정보 가져오기
   useEffect(() => {
-    axios.get(`/api/cart/${member.id}`).then((res) => {
+    Api.get(`/api/cart/${member.id}`).then((res) => {
       const cart = res.data;
       const newCartProductInfo = {};
       cart.forEach((cartItem) => {
-        axios.get(`/api/product/${cartItem.productId}`).then((res) => {
+        Api.get(`/api/product/${cartItem.productId}`).then((res) => {
           newCartProductInfo[cartItem.id] = {
             id: cartItem.id,
             cnt: cartItem.cnt,
@@ -34,7 +37,7 @@ function CartContainer() {
             price: res.data.price,
           };
           setTotalAmount(
-            (prevTotal) => prevTotal + cartItem.cnt * res.data.price,
+            (prevTotal) => prevTotal + cartItem.cnt * res.data.price
           );
           setCartProductInfo(newCartProductInfo);
         });
@@ -59,11 +62,15 @@ function CartContainer() {
 
   // 주문서 페이지로 이동
   const handleOrderBtnClick = () => {
+<<<<<<< HEAD
     if (selectedItems.length > 0) {
       navigate('/ordersheet', { state: { selectedItems, totalAmount } });
     } else {
       alert('주문할 상품을 선택하세요.');
     }
+=======
+    navigate("/ordersheet", { state: { cartItemArray, totalAmount } });
+>>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
   };
 
   // CartCard에 주기 위해 배열로 변경

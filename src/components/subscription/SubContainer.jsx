@@ -1,5 +1,5 @@
-import { React, useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import { React, useState, useEffect, useCallback } from "react";
+import * as Api from "../../api";
 import {
   AdvOverlayButton,
   SubGrid,
@@ -26,29 +26,29 @@ import {
   SubMainBoxWithContent,
   SubMainBoxContent,
   SubMainAdvMovingImg,
-} from './index.style';
+} from "./index.style";
 
-import Modal from '../modal/Modal';
-import subMainAdvGif from '../../assets/subscription/pink_muhly_heendy.gif';
-import subMainAdvImg from '../../assets/subscription/pink_muhly_heendy.png';
-import subMainInfoImg from '../../assets/subscription/sub_info_img.png';
-import subDescrImg from '../../assets/subscription/sub_info_detail_img.png';
-import subFreeDeliveryIcon from '../../assets/subscription/sub_free_delivery_icon.png';
-import subFoodIcon from '../../assets/subscription/sub_food_icon.png';
-import subToyIcon from '../../assets/subscription/sub_toy_icon.png';
-import subLivingIcon from '../../assets/subscription/sub_living_icon.png';
-import subDiyIcon from '../../assets/subscription/sub_diy_icon.png';
-import TpbSubModal from './TpbSubModal';
-import TpbHistoryModal from './TpbHistoryModal';
-import PinkIcon from '../../assets/subscription/pink_plant_icon.png';
+import Modal from "../modal/Modal";
+import subMainAdvGif from "../../assets/subscription/pink_muhly_heendy.gif";
+import subMainAdvImg from "../../assets/subscription/pink_muhly_heendy.png";
+import subMainInfoImg from "../../assets/subscription/sub_info_img.png";
+import subDescrImg from "../../assets/subscription/sub_info_detail_img.png";
+import subFreeDeliveryIcon from "../../assets/subscription/sub_free_delivery_icon.png";
+import subFoodIcon from "../../assets/subscription/sub_food_icon.png";
+import subToyIcon from "../../assets/subscription/sub_toy_icon.png";
+import subLivingIcon from "../../assets/subscription/sub_living_icon.png";
+import subDiyIcon from "../../assets/subscription/sub_diy_icon.png";
+import TpbSubModal from "./TpbSubModal";
+import TpbHistoryModal from "./TpbHistoryModal";
+import PinkIcon from "../../assets/subscription/pink_plant_icon.png";
 
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './sub-custom-slick.css';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./sub-custom-slick.css";
 
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const boxVariant = {
   visible: { opacity: 1, scale: 1, transition: { duration: 1 } },
@@ -69,9 +69,9 @@ function SubContainer({ handleModalOpen }) {
 
   useEffect(() => {
     if (inView) {
-      control.start('visible');
+      control.start("visible");
     } else {
-      control.start('hidden');
+      control.start("hidden");
     }
   }, [control, inView]);
   /////////////////////////////
@@ -96,13 +96,12 @@ function SubContainer({ handleModalOpen }) {
   };
 
   useEffect(() => {
-    axios
-      .get(`/api/sub/curation/annual`)
+    Api.get(`/api/sub/curation/annual`)
       .then((res) => {
         setTpbHistory(res.data);
       })
       .catch((Error) => {
-        console.info('Error!');
+        console.info("Error!");
       });
   }, []);
 
@@ -158,7 +157,7 @@ function SubContainer({ handleModalOpen }) {
 
       <Slider {...settings}>
         {tpbHistory.map((tpb) => {
-          const date = tpb.paymentDate.split('-');
+          const date = tpb.paymentDate.split("-");
           const formattedDate = `${date[0]}.${date[1]}`;
           return (
             <TpbCard

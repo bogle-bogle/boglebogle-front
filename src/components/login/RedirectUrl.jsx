@@ -1,27 +1,22 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { memberAction } from '../../feature/member/member';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { margin, textAlign } from '@mui/system';
-import {
-  MypageAdv,
-  MypageAdvBtn,
-  MypageAdvImg,
-  MypageContent,
-} from '../mypage/mypage.style';
-import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
-import { LoginAdvImg } from './login.style';
+import React, { useEffect } from "react";
+import * as Api from "../../api";
 
+import { useDispatch } from "react-redux";
+import { memberAction } from "../../feature/member/member";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
+import { LoginAdvImg } from "./login.style";
+import axios from "axios";
 function RedirectUrl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URL(document.location.toString()).searchParams;
-    const code = params.get('code');
-    const grantType = 'authorization_code';
+    const code = params.get("code");
+    const grantType = "authorization_code";
     const REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;
     const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
 
@@ -31,9 +26,9 @@ function RedirectUrl() {
         {},
         {
           headers: {
-            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
           },
-        },
+        }
       )
       .then((res) => {
         const { access_token } = res.data;
@@ -44,14 +39,13 @@ function RedirectUrl() {
             {
               headers: {
                 Authorization: `Bearer ${access_token}`,
-                'Content-type':
-                  'application/x-www-form-urlencoded;charset=utf-8',
+                "Content-type":
+                  "application/x-www-form-urlencoded;charset=utf-8",
               },
-            },
+            }
           )
           .then((res) => {
             const { kakao_account, id } = res.data;
-            console.info(res.data);
             const data = {
               socialId: id,
               name: kakao_account.profile.nickname,
@@ -59,19 +53,19 @@ function RedirectUrl() {
               nickname: kakao_account.profile.nickname,
               imgUrl: kakao_account.profile.profile_image_url,
             };
-            axios.post(`/api/member/login`, { ...data }).then((res) => {
+            Api.post(`/api/member/login`, { ...data }).then((res) => {
               localStorage.setItem(
-                'userToken',
-                res.data.member.jwt.accessToken,
+                "userToken",
+                res.data.member.jwt.accessToken
               );
               dispatch(memberAction.setMemeber(res.data));
 
-              navigate('/');
+              navigate("/");
             });
           });
       })
       .catch((Error) => {
-        console.info('Error');
+        console.info("Error");
       });
   }, [dispatch]);
 
@@ -79,7 +73,7 @@ function RedirectUrl() {
 
   return (
     <>
-      <div style={{ margin: '110px', textAlign: 'center' }}>
+      <div style={{ margin: "110px", textAlign: "center" }}>
         <h3>
           환영합니다, {member.name}회원님! <br />
           정상적으로 로그인되었습니다.

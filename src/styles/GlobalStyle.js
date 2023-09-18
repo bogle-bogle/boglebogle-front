@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
   /* 스크롤바 숨기기 */
   *{
@@ -10,12 +10,23 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     scroll-behavior: smooth;
+    height: 100%;
   }
 
   /* 전체 폰트 설정 */
   body {
     font-family: "HappinessSansRegular", "Roboto";
     white-space: normal;
+    height: 100%;
+  }
+
+  /* 레이아웃 최소 높이 설정 */
+  #root {
+    height: 100%;
+  }
+  
+  .outlet {
+    min-height: 80%;
   }
 
   /* Toast */

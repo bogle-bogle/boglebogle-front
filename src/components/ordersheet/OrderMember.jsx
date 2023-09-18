@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   TableContainer1,
   Table1,
@@ -8,11 +8,10 @@ import {
   Table2,
   Th2,
   Td2,
-} from './OrderMember.style';
+} from "./OrderMember.style";
 
 function OrderMember() {
   const member = useSelector((state) => state.member);
-  console.info('오더 멤버', member);
 
   return (
     <div>

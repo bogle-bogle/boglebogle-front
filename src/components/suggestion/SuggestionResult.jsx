@@ -1,8 +1,7 @@
-import React from 'react';
-import { ResultBox, ResultTitle } from './result.style';
+import React from "react";
+import { ResultBox, ResultTitle } from "./result.style";
 
 function SuggestionResult({ recommendProduct }) {
-  console.log(recommendProduct);
   return (
     <ResultBox>
       <ResultTitle>
