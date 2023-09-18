@@ -6,6 +6,7 @@ export const UploadSection = styled.div`
     align-items: center;
     padding: 20px 30px 20px 30px;
     transition: transform 0.3s;
+    cursor: pointer;
 
     :hover {
       transform: scale(1.05);

@@ -27,6 +27,9 @@ import {
   HcInfoIcon,
   HcInfoTitle,
   HcMainBtn,
+  HcPhoneInfo,
+  HcPhoneInput,
+  HcPhoneSection,
   HcSectColoredDescription,
   HcSectDescription,
   HcSectTitle,
@@ -39,9 +42,27 @@ import headerImg from "../../assets/heendycar/heendycar_header_img.png";
 import dogIcon from "../../assets/heendycar/dog_icon_img.png";
 import trollyIcon from "../../assets/heendycar/trolly_icon_img.png";
 import qrIcon from "../../assets/heendycar/qr_hand_icon_img.png";
+import { toast } from "react-toastify";
+import walkingheendy from "../../assets/custom/walkingheendy.gif";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function HeendycarInfo() {
   const member = useSelector((state) => state.member);
+  const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber || "");
+
+  const formatPhoneNumber = (num) => {
+    let cleaned = ('' + num).replace(/\D/g, '');
+    let match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
+    if (match) {
+      return match[1] + '-' + match[2] + '-' + match[3];
+    }
+    return num;
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(formatPhoneNumber(e.target.value));
+  };
 
   useEffect(() => {
     Api.get(`/api/hc/branch`)
@@ -124,43 +145,58 @@ function HeendycarInfo() {
     return year + "-" + month + "-" + day;
   }
 
+  const swal = withReactContent(Swal);
+
   const handleMainBtnClick = () => {
-    alert("예약하시겠습니까?");
     const data = {
       branchCode: selectedBranchCode,
       reservationTime: convertReservationTime(selectedTime),
+      phoneNumber: phoneNumber.replace(/-/g, '')
     };
-
-    Api.post(`/api/hc/reservation`, data, {
-      headers: {
-        Authorization: `Bearer ${member.jwt.accessToken}`,
+  
+    swal.fire({
+      title: "예약하시겠습니까?",
+      showCancelButton: true,
+      imageUrl: walkingheendy,
+      imageHeight: "팝업 이미지",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      confirmButtonColor: "#499878",
+      cancelButtonColor: "#A4A4A4",
+      customClass: {
+        confirmButton: "swal2-button",
+        cancelButton: "swal2-button",
       },
     })
-      .then((res) => {
-        const dateObj = new Date(res.data.reservationTime);
-        const formattedTime = `${dateObj.getFullYear()}-${(
-          dateObj.getMonth() + 1
-        )
-          .toString()
-          .padStart(2, "0")}-${dateObj
-          .getDate()
-          .toString()
-          .padStart(2, "0")} ${dateObj
-          .getHours()
-          .toString()
-          .padStart(2, "0")}:${dateObj
-          .getMinutes()
-          .toString()
-          .padStart(2, "0")}`;
-        alert(`${formattedTime}로 성공적으로 예약되었습니다.`);
-      })
-      .catch((Error) => {
+    .then((result) => {
+      if (result.isConfirmed) { // 확인 버튼을 눌렀을 때만 API 호출
+        return Api.post(`/api/hc/reservation`, data, {
+          headers: {
+            Authorization: `Bearer ${member.jwt.accessToken}`,
+          },
+        });
+      } else {
+        throw new Error('User cancelled the operation.');
+      }
+    })
+    .then((res) => {
+      const dateObj = new Date(res.data.reservationTime);
+      const formattedTime = `${dateObj.getFullYear()}-${(
+        dateObj.getMonth() + 1
+      ).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")} 
+      ${dateObj.getHours().toString().padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
+      // toast.success(`예약 완료!\n 예약시간: ${formattedTime}`);
+      toast.success(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
+      window.location.reload();
+    })
+    .catch((Error) => {
+      if (Error.message !== 'User cancelled the operation.') {
         console.log(Error);
-        alert("예약에 실패하였습니다.");
-        console.info("Error");
-      });
+        toast.error("예약에 실패하였습니다.");
+      }
+    });
   };
-
+  
   return (
     <HcGrid>
       <HcHeader>
@@ -293,9 +329,21 @@ function HeendycarInfo() {
               {time.text}
             </HcBtn>
           ))}
-          <br />
-          <br />
+          <br/>
+          <br/>
+          <br/>
+
+          <HcPhoneSection>
+            <HcPhoneInfo>
+            <HcContentTitle>휴대폰 번호를 입력하여 주세요.</HcContentTitle>
+            <HcSectColoredDescription>* 필수값입니다. </HcSectColoredDescription>
+            </HcPhoneInfo>
+            
+            <HcPhoneInput type="tel" placeholder="010-0000-0000" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+          </HcPhoneSection>
+
         </HcContent1>
+
         <HcContent2></HcContent2>
         <HcContent3>
           <HcContentImg src={getBranchImgUrl(selectedBranchCode)} />
@@ -342,5 +390,6 @@ function HeendycarInfo() {
     </HcGrid>
   );
 }
+
 
 export default HeendycarInfo;
