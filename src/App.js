@@ -25,6 +25,7 @@ import MyPage from "./pages/MyPage";
 import Suggestion from "./pages/Suggestion";
 import AddPet from "./pages/AddPet";
 import RouteChangeTracker from "./RouteChangeTracker";
+import ThePetBox from "./pages/ThePetBox";
 
 function App() {
   RouteChangeTracker();
@@ -44,6 +45,7 @@ function App() {
           <Route path="/ordersheet" element={<Ordersheet />}></Route>
           <Route path="/ordercomplete" element={<OrderComplete />}></Route>
           <Route path="/sub" element={<Subscription />} />
+          <Route path="/thepetbox" element={<ThePetBox />} />
           <Route path="/heendycar" element={<Heendycar />}></Route>
           <Route path="/card" element={<HyundaiCard />}></Route>
           <Route path="/clubregister" element={<ClubRegister />}></Route>

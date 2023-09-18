@@ -223,3 +223,26 @@ export const HcDescr2 = styled.div`
   line-height: 200%;
   color: #3e3e3e;
 `;
+
+export const HcPhoneInput = styled.input`
+  width: 15vw;
+  height: 2vw;
+  border: 1px solid #555;
+  border-radius: 2px;
+  font-size: 12px;
+  background-color: transparent;
+  outline: none;
+  margin-left: 0.9vw;
+  color: #222;
+
+  &::placeholder {
+    color: #b1b1b1;
+  }
+`;
+
+export const HcPhoneSection = styled.div`
+`;
+
+export const HcPhoneInfo = styled.div`
+  display: flex;
+`;

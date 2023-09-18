@@ -20,7 +20,7 @@ function Header2() {
   const menuList = [
     {
       title: '구독',
-      link: '/sub',
+      link: '/thepetbox',
     },
     {
       title: '맞춤 추천',
