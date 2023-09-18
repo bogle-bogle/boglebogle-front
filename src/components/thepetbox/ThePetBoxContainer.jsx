@@ -9,7 +9,7 @@ function ThePetBoxContainer() {
   const [itemList, setItemList] = useState({});
 
   useEffect(() => {
-    Api.get(`/api/sub/curation/annual`)
+    Api.get(`/api/curation/annual`)
       .then((res) => {
         setCurationList(res.data);
         setItemList(res.data[0]);

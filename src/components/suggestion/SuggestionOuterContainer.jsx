@@ -21,7 +21,6 @@ function SuggestionOuterContainer() {
   const [play, { stop }] = useSound(loadingSound);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
-  const member = useSelector((state) => state.member);
   const [petData, setPetData] = useState([]);
 
   useEffect(() => {
