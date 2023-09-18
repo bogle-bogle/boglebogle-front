@@ -32,7 +32,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
   const member = useSelector((state) => state.member);
   const navigate = useNavigate();
 
-  // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
+  // env로 안가려짐, 어차피 테스트 y라서 일단 냅두기,,
   const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
   const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
 
@@ -63,17 +63,22 @@ function OrderProducts({ selectedItems, totalAmount }) {
   }, [price]);
 
   const handleOrder = async () => {
+
+    axios
+
     const paymentWidget = paymentWidgetRef.current;
 
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
+        amount: price.toLocaleString(),
         orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
         customerName: `${member.name}`,
         customerEmail: `${member.email}`,
-        successUrl: `${window.location.origin}/ordercomplete`,
-        failUrl: `${window.location.origin}/fail`,
+        successUrl: `http://localhost:3000/tossRedirect`,
+        failUrl: `https://localhost:8080/api/v1/payments/toss/fail`,
       });
+
     } catch (error) {
       console.error(error);
     }

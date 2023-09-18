@@ -24,6 +24,7 @@ import PlayGround from './pages/PlayGround';
 import MyPage from './pages/MyPage';
 import Suggestion from './pages/Suggestion';
 import AddPet from './pages/AddPet';
+import TossRedirect from './components/toss/TossRedirect';
 
 function App() {
   return (
@@ -51,9 +52,11 @@ function App() {
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route
               path="/completeclubregister"
+              Component
               element={<CompleteClubRegister />}
             ></Route>
             <Route path="/mypet/:memberId" element={<MyPet />}></Route>
+            <Route path="/tossRedirect" element={<TossRedirect />}></Route>
             <Route path="/mbti" element={<MbtiTest />}></Route>
             <Route path="/ex" element={<Example />}></Route>
           </Route>

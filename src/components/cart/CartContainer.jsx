@@ -59,8 +59,11 @@ function CartContainer() {
 
   // 주문서 페이지로 이동
   const handleOrderBtnClick = () => {
-    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
-    console.log(selectedItems);
+    if (selectedItems.length > 0) {
+      navigate('/ordersheet', { state: { selectedItems, totalAmount } });
+    } else {
+      alert('주문할 상품을 선택하세요.');
+    }
   };
 
   // CartCard에 주기 위해 배열로 변경
