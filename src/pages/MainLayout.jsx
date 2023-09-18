@@ -14,7 +14,9 @@ function MainLayout() {
           <title>THEPET</title>
         </Helmet>
         <Header></Header>
-        <Outlet />
+        <div className='outlet'>
+          <Outlet />
+        </div>
         <Footer></Footer>
       </div>
     </div>
