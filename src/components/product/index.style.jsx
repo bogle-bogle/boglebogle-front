@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ProductContainer = styled.div`
   width: 100%;
@@ -8,19 +8,19 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductCardContainer = styled.div`
-  width: 300px;
-  height: 400px;
+  width: 23%;
+  height: 40%;
 
   display: flex;
   flex-direction: column;
 
   justify-content: center;
 
-  margin-left: 2%;
+  /* margin-left: 2%; */
   margin-bottom: 2%;
 
-  padding: 0;
-  margin: 0;
+  /* padding: 0;
+  margin: 0; */
 
   cursor: pointer;
 `;
@@ -72,7 +72,7 @@ export const PageNumber = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: ${(props) => (props.flag ? 'gray' : 'white')};
+  background-color: ${(props) => (props.flag ? "gray" : "white")};
 `;
 
 export const CategoryContainer = styled.div`
@@ -156,7 +156,7 @@ export const CategoryElement = styled.div`
 
   margin: 1vh;
 
-  color: ${(props) => (props.isChecked ? '#2F9861' : 'black')};
+  color: ${(props) => (props.isChecked ? "#2F9861" : "black")};
 
   cursor: pointer;
 `;
