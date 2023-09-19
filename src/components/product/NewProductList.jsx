@@ -28,6 +28,10 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProductCard from "./ProductCard";
 import * as Api from "../../api";
+import { TrackGoogleAnalyticsEvent } from "../../ga";
+import ContactFormCategory, {
+  ContactFormCompleteAction,
+} from "../../ga/event/contactForm";
 
 function NewProductList() {
   const [mainCategory, setMainCategory] = useState("");
@@ -194,7 +198,17 @@ function NewProductList() {
       </FilterCategoryContainer>
       <MiddleContainer>
         <MiddleCategoryContainer>
-          <MiddleCategoryElement>신상품순</MiddleCategoryElement>
+          <MiddleCategoryElement
+            onClick={() =>
+              TrackGoogleAnalyticsEvent(
+                ContactFormCategory,
+                ContactFormCompleteAction,
+                window.location.pathname
+              )
+            }
+          >
+            신상품순
+          </MiddleCategoryElement>
           <MiddleCategoryElement>추천순</MiddleCategoryElement>
           <MiddleCategoryElement>높은가격순</MiddleCategoryElement>
           <MiddleCategoryElement>낮은가격순</MiddleCategoryElement>
