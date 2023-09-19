@@ -49,7 +49,7 @@ function MyOrderContainer() {
                 <MypageCardImg src={orderDetail.productImgUrl} />
                 <MypageCardElement>
                   <MypageCardTitle>{orderDetail.productName}</MypageCardTitle>
-                  {/* <MypageCardDescr>{formatPrice(orderDetail.productPrice)}</MypageCardDescr> */}
+                  <MypageCardDescr>{formatPrice(orderDetail.productPrice)}원</MypageCardDescr>
                   <MypageCardDescr>주문 수량: {orderDetail.cnt}</MypageCardDescr>
                 </MypageCardElement>
               </MypageCard>
