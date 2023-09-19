@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import {
   MyInfoBox,
   MyInfoBoxCnt,
@@ -26,13 +26,31 @@ import MyOrderContainer from './MyOrderContainer';
 import MyPetContainer from './MyPetContainer';
 import MySubscriptionContainer from './MySubscriptionContainer';
 import { toast } from 'react-toastify';
+import * as Api from '../../api.js'
 
 function MyPageContainer() {
   const member = useSelector((state) => state.member);
   const pets = member.pet;
   const navigate = useNavigate();
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [myPetCnt, setMyPetCnt] = useState("-");
+  const [mySubCnt, setMySubCnt] = useState("-");
+  const [onDeliveryCnt, setOnDeliveryCnt] = useState("-");
+  const [myCouponCnt, setMyCouponCnt] = useState("-");
   
+  useEffect(() => {
+    Api.get(`/api/member/mypage`)
+       .then((res) => {
+        setMyPetCnt(res.data.myPetCnt);
+        setMySubCnt(res.data.subscriptionCnt);
+        setOnDeliveryCnt(res.data.onDeliveryCnt);
+        setMyCouponCnt(res.data.couponCnt);
+      })
+      .catch((Error) => {
+        console.error("Error : ", Error);
+      });
+  }, []);
+
   const renderContent = () => {
     switch (selectedMenu) {
       case 'mypet':
@@ -48,6 +66,11 @@ function MyPageContainer() {
     }
   };
 
+  const handlePreparingToast = () => {
+    toast.dismiss();
+    toast.info("준비중인 페이지입니다.");
+  };
+
   return (
     <MypageGrid>
       <MypageSidebar>
@@ -58,7 +81,7 @@ function MyPageContainer() {
         <MypageMiniTitle onClick={() => setSelectedMenu('mypet')}>
           나의 반려동물 목록
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>나의 반려동물 맞춤 추천</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>나의 반려동물 맞춤 추천</MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>나의 쇼핑내역</MypageSubtitle>
@@ -71,18 +94,18 @@ function MyPageContainer() {
         <MypageBorder />
 
         <MypageSubtitle>나의 흰디카 예약</MypageSubtitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>자주 찾는 지점</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>자주 찾는 지점</MypageMiniTitle>
         <MypageMiniTitle onClick={() => setSelectedMenu('myreservation')}>
           예약/취소 내역
         </MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>회원 정보</MypageSubtitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>회원정보 수정</MypageMiniTitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>배송지 관리</MypageMiniTitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>H.Point Pay 관리</MypageMiniTitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>나의 기념일</MypageMiniTitle>
-        <MypageMiniTitle onClick={() => toast.info("준비중인 페이지입니다.")}>회원 탈퇴</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>회원정보 수정</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>배송지 관리</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>H.Point Pay 관리</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>나의 기념일</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>회원 탈퇴</MypageMiniTitle>
         <MypageBorder />
       </MypageSidebar>
 
@@ -93,19 +116,19 @@ function MyPageContainer() {
         <MyInfoBox>
           <MyInfoElement>
             <MyInfoBoxTitle>나의 반려동물</MyInfoBoxTitle>
-            <MyInfoBoxCnt>{pets.length}</MyInfoBoxCnt>
+            <MyInfoBoxCnt>{myPetCnt}</MyInfoBoxCnt>
           </MyInfoElement>
           <MyInfoElement>
             <MyInfoBoxTitle>배송중</MyInfoBoxTitle>
-            <MyInfoBoxCnt>2</MyInfoBoxCnt>
+            <MyInfoBoxCnt>{onDeliveryCnt}</MyInfoBoxCnt>
           </MyInfoElement>
           <MyInfoElement>
             <MyInfoBoxTitle>구독</MyInfoBoxTitle>
-            <MyInfoBoxCnt>0</MyInfoBoxCnt>
+            <MyInfoBoxCnt>{mySubCnt}</MyInfoBoxCnt>
           </MyInfoElement>
           <MyInfoElement>
             <MyInfoBoxTitle>쿠폰</MyInfoBoxTitle>
-            <MyInfoBoxCnt>3</MyInfoBoxCnt>
+            <MyInfoBoxCnt>{myCouponCnt}</MyInfoBoxCnt>
           </MyInfoElement>
         </MyInfoBox>
       </MyInfoContainer>
