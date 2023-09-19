@@ -16,41 +16,24 @@ function CartContainer() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
 
-<<<<<<< HEAD
   const navigate = useNavigate();
 
-=======
->>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
   // 멤버 별 카트 정보 + 카트에 담긴 상품 정보 가져오기
   useEffect(() => {
     Api.get(`/api/cart/${member.id}`).then((res) => {
-      const cart = res.data;
-      const newCartProductInfo = {};
-      cart.forEach((cartItem) => {
-        Api.get(`/api/product/${cartItem.productId}`).then((res) => {
-          newCartProductInfo[cartItem.id] = {
-            id: cartItem.id,
-            cnt: cartItem.cnt,
-            productId: res.data.id,
-            name: res.data.name,
-            mainImgUrl: res.data.mainImgUrl,
-            price: res.data.price,
-          };
-          setTotalAmount(
-            (prevTotal) => prevTotal + cartItem.cnt * res.data.price
-          );
-          setCartProductInfo(newCartProductInfo);
-        });
-      });
+      const cartItems = res.data;
+      setCartProductInfo(cartItems);
     });
   }, [member.id]);
 
   const handleCount = (id, cnt) => {
-    setCartProductInfo((prev) => {
-      const newObj = { ...prev };
-      newObj[id].cnt = cnt;
-      return newObj;
-    });
+    setCartProductInfo((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        cnt,
+      },
+    }));
   };
 
   // 상품 삭제하면 카드 업데이트
@@ -60,34 +43,37 @@ function CartContainer() {
     setCartProductInfo(updatedCartItems);
   };
 
-  // 주문서 페이지로 이동
-  const handleOrderBtnClick = () => {
-<<<<<<< HEAD
-    if (selectedItems.length > 0) {
-      navigate('/ordersheet', { state: { selectedItems, totalAmount } });
-    } else {
-      alert('주문할 상품을 선택하세요.');
-    }
-=======
-    navigate("/ordersheet", { state: { cartItemArray, totalAmount } });
->>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
-  };
-
   // CartCard에 주기 위해 배열로 변경
   const cartItemArray = Object.values(cartProductInfo);
 
-  //
   const handleSelectItem = (itemInfo) => {
     if (selectedItems.includes(itemInfo)) {
       setSelectedItems(selectedItems.filter((item) => item !== itemInfo));
+      calculateTotalAmount();
     } else {
       setSelectedItems([...selectedItems, itemInfo]);
+      calculateTotalAmount();
     }
   };
 
-  // 비동기적이라서 변경된 거 확인하려면 useEffect 사용
+  // 주문서 페이지로 이동
+  const handleOrderBtnClick = () => {
+    if (selectedItems.length > 0) {
+      navigate("/ordersheet", { state: { selectedItems, totalAmount } });
+    } else {
+      alert("주문할 상품을 선택하세요.");
+    }
+  };
+
+  const calculateTotalAmount = () => {
+    const total = selectedItems.reduce((acc, item) => {
+      return acc + item.cnt * item.price;
+    }, 0);
+    setTotalAmount(total);
+  };
+
   useEffect(() => {
-    console.log('체크된 상품들', selectedItems);
+    calculateTotalAmount();
   }, [selectedItems]);
 
   return (
@@ -102,6 +88,7 @@ function CartContainer() {
             handleCount={handleCount}
             selectedItems={selectedItems}
             onSelectItem={handleSelectItem}
+            calculateTotalAmount={calculateTotalAmount}
           />
         ))}
       </CartCardContainer>

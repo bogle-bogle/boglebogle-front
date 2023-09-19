@@ -15,6 +15,7 @@ import {
   PlusIcon,
   MinusIcon,
 } from "./CartCard.style";
+import axios from "axios";
 
 function CartCard({
   handleCount,
@@ -23,6 +24,7 @@ function CartCard({
   onSelectItem,
   setTotalAmount,
   onDelete,
+  calculateTotalAmount,
 }) {
   const [count, setCount] = useState(cartItemInfo.cnt);
 
@@ -32,10 +34,10 @@ function CartCard({
       const newCount = count - 1;
       setCount(newCount);
       updateCartCount(newCount);
-      setTotalAmount((prev) => {
-        return prev - cartItemInfo.price;
-      });
       handleCount(cartItemInfo.id, newCount);
+      if (selectedItems.includes(cartItemInfo)) {
+        calculateTotalAmount();
+      }
     }
   };
 
@@ -43,10 +45,10 @@ function CartCard({
     const newCount = count + 1;
     setCount(newCount);
     updateCartCount(newCount);
-    setTotalAmount((prev) => {
-      return prev + cartItemInfo.price;
-    });
     handleCount(cartItemInfo.id, newCount);
+    if (selectedItems.includes(cartItemInfo)) {
+      calculateTotalAmount();
+    }
   };
 
   const updateCartCount = (newCount) => {
@@ -54,12 +56,9 @@ function CartCard({
       id: cartItemInfo.id,
       cnt: newCount,
     };
-<<<<<<< HEAD
+
     axios
-      .post(`/api/cart`, updatedCartItem)
-=======
-    Api.put(`/api/cart`, updatedCartItem)
->>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
+      .patch(`/api/cart`, updatedCartItem)
       .then((res) => {
         console.info("개수 변경 성공", res.data);
       })
@@ -71,21 +70,18 @@ function CartCard({
   // 상품 삭제하기
   const handleDelete = () => {
     Api.delete(`/api/cart/${cartItemInfo.id}`).then((res) => {
-      setTotalAmount((prev) => {
-        return prev - cartItemInfo.price * count;
-      });
       onDelete(cartItemInfo.id);
     });
+    if (selectedItems.includes(cartItemInfo)) {
+      calculateTotalAmount();
+    }
   };
 
-<<<<<<< HEAD
   // 체크된 상품들만
   const handleCheckboxChange = () => {
     onSelectItem(cartItemInfo);
   };
 
-=======
->>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
   return (
     <CardBox key={cartItemInfo.id}>
       <ProductSelect>

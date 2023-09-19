@@ -32,7 +32,7 @@ function TossRedirect() {
         },
       )
       .then((res) => {
-        post('').then();
+        console.log(res.data)
       });
   });
   return <div>토스 리다이렉트</div>;

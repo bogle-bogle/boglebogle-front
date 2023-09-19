@@ -21,14 +21,10 @@ import {
 } from "./OrderProducts.style";
 import * as Api from "../../api";
 
-<<<<<<< HEAD
 function OrderProducts({ selectedItems, totalAmount }) {
   console.log('order', selectedItems[0].name);
   console.log('order', selectedItems.length);
 
-=======
-function OrderProducts({ cartItemArray, totalAmount }) {
->>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
@@ -36,15 +32,9 @@ function OrderProducts({ cartItemArray, totalAmount }) {
   const member = useSelector((state) => state.member);
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  // env로 안가려짐, 어차피 테스트 y라서 일단 냅두기,,
-  const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
-  const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
-=======
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
   const clientKey = "test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE";
   const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
->>>>>>> fa341729f69f955f2d0572fc3d3f006151ca9c7b
 
   useEffect(() => {
     (async () => {
@@ -73,7 +63,8 @@ function OrderProducts({ cartItemArray, totalAmount }) {
   }, [price]);
 
   const handleOrder = async () => {
-    axios;
+
+    
 
     const paymentWidget = paymentWidgetRef.current;
 
@@ -84,8 +75,8 @@ function OrderProducts({ cartItemArray, totalAmount }) {
         orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
         customerName: `${member.name}`,
         customerEmail: `${member.email}`,
-        successUrl: `http://localhost:3000/tossRedirect`,
-        failUrl: `https://localhost:8080/api/v1/payments/toss/fail`,
+        successUrl: `http://localhost:8080/api/v1/payments/toss/success`,
+        failUrl: `http://localhost:3000/ordersheet`,
       });
     } catch (error) {
       console.error(error);
