@@ -12,7 +12,7 @@ const RouteChangeTracker = () => {
 
   // 구글 애널리틱스 운영서버만 적용
   useEffect(() => {
-    if (process.env.REACT_APP_GOOGLE_ANALYTICS) {
+    if (!window.location.href.includes("localhost")) {
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
       setInitialized(true);
     }
@@ -25,6 +25,12 @@ const RouteChangeTracker = () => {
       ReactGA.send("pageview");
     }
   }, [initialized, location]);
+
+  useEffect(() => {
+    ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRAKING_ID);
+    ReactGA.set({ page: location.pathname });
+    ReactGA.send("pageview");
+  }, [location]);
 };
 
 export default RouteChangeTracker;
