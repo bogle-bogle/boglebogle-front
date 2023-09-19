@@ -76,7 +76,7 @@ function ProductRecommendation({ type, param }) {
       }
 
     });
-  }, [type, param]);
+  }, [type, param, petInfo.ageCode, petInfo.favoriteProteinCode, petInfo.name]);
 
   return (
     <RcContainer>

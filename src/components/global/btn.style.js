@@ -34,3 +34,21 @@ export const GreenBtn = styled.button`
     background-color: #087161;
   }
 `;
+
+export const CancelBtn = styled.button`
+  /* background-color: #a4a4a4; */
+  font-family: "HappinessSansBold";
+  margin: 4px 0px;
+  display: inline-block;
+  padding: 7px 10px;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s, color 0.3s;
+
+  :hover {
+    background-color: #5e5e5e;
+  }
+`;

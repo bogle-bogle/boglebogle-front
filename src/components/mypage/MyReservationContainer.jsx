@@ -12,7 +12,7 @@ import {
 import * as Api from '../../api.js';
 import { toast } from 'react-toastify';
 import { branchCode } from '../../commonCode';
-import { GreyBtn } from './../global/btn.style';
+import { CancelBtn, GreyBtn } from './../global/btn.style';
 
 function MyReservationContainer() {
   const [reservations, setReservations] = useState([]);
@@ -44,22 +44,34 @@ function MyReservationContainer() {
 
   return (
     <>
-      <MypageSubtitle>나의 흰디카 예약 목록</MypageSubtitle>
-      <MypageList>
-        {reservations.map((reservation) => (
-          <MypageCard key={reservation.id}>
-            <MypageCardImg src={reservation.branchImgUrl} />
-            <MypageCardElement>
-              <MypageCardTitle>예약 지점: {branchCode[reservation.branchCode]}</MypageCardTitle>
-              <MypageCardDescr>{reservation.reservationTime.split('T')[0]}</MypageCardDescr>
-              <MypageCardDescr>{(reservation.cancelYn === "Y") ? "취소됨" : "반납 완료"}</MypageCardDescr>
-              <GreyBtn onClick={() => cancelReservation(reservation.id)}>취소하기</GreyBtn>
-            </MypageCardElement>
-          </MypageCard>
-        ))}
-      </MypageList>
+        <MypageSubtitle>나의 흰디카 예약 목록</MypageSubtitle>
+        <MypageList>
+            {reservations.map((reservation) => (
+                <MypageCard key={reservation.id}>
+                    <MypageCardImg src={reservation.branchImgUrl} />
+                    <MypageCardElement>
+                        <MypageCardTitle>예약 지점: {branchCode[reservation.branchCode]}</MypageCardTitle>
+                        <MypageCardDescr>
+                            {reservation.reservationTime.split('T')[0]} {reservation.reservationTime.split('T')[1]}
+                        </MypageCardDescr>
+                        {new Date(reservation.reservationTime) > new Date() ? (
+                            <>
+                                <MypageCardDescr>{reservation.cancelYn === "Y" ? "취소됨" : "대여 예정"}</MypageCardDescr>
+                                {reservation.cancelYn !== "Y" && (
+                                    <CancelBtn onClick={() => cancelReservation(reservation.id)}>취소하기</CancelBtn>
+                                )}
+                            </>
+                        ) : (
+                            <MypageCardDescr>{reservation.cancelYn === "Y" ? "취소됨" : "반납 완료"}</MypageCardDescr>
+                        )}
+                    </MypageCardElement>
+                </MypageCard>
+            ))}
+        </MypageList>
     </>
-  );
+);
+
+
 }
 
 export default MyReservationContainer;
