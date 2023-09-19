@@ -51,17 +51,8 @@ function HeendycarInfo() {
   const member = useSelector((state) => state.member);
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber || "");
 
-  const formatPhoneNumber = (num) => {
-    let cleaned = ('' + num).replace(/\D/g, '');
-    let match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
-    if (match) {
-      return match[1] + '-' + match[2] + '-' + match[3];
-    }
-    return num;
-  };
-
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(formatPhoneNumber(e.target.value));
+    setPhoneNumber(e.target.value);
   };
 
   useEffect(() => {
@@ -147,7 +138,28 @@ function HeendycarInfo() {
 
   const swal = withReactContent(Swal);
 
+  function isValidPhoneNumber(phoneNumber) {
+    const regex = /^(010|011|016|017|018|019)\d{7,8}$/;
+
+    return regex.test(phoneNumber);
+}
+
   const handleMainBtnClick = () => {
+    if (selectedTime == "") {
+      toast.error("예약 시간을 선택해주세요.");
+      return
+    }
+    
+    if (phoneNumber == "" || phoneNumber == null) {
+      toast.error("휴대폰 번호를 입력해주세요.");
+      return
+    }
+
+    if (isValidPhoneNumber(phoneNumber) == false) {
+      toast.error("정확한 휴대폰 번호를 입력해주세요.");
+      return 
+    }
+
     const data = {
       branchCode: selectedBranchCode,
       reservationTime: convertReservationTime(selectedTime),
@@ -158,7 +170,7 @@ function HeendycarInfo() {
       title: "예약하시겠습니까?",
       showCancelButton: true,
       imageUrl: walkingheendy,
-      imageHeight: "팝업 이미지",
+      // imageHeight: "팝업 이미지",
       confirmButtonText: "확인",
       cancelButtonText: "취소",
       confirmButtonColor: "#499878",
@@ -194,6 +206,7 @@ function HeendycarInfo() {
         console.log(Error);
         toast.error("예약에 실패하였습니다.");
       }
+      // if (Error.data.)
     });
   };
   
