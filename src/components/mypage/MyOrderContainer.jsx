@@ -21,7 +21,6 @@ function MyOrderContainer() {
   const formatPrice = (price) => {
     return price.toLocaleString();
   };
-
   
   useEffect(() => {
     Api.get(`/api/order/normal`)
