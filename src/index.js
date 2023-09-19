@@ -13,9 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactGA from "react-ga4";
 
-if (process.env.REACT_APP_GOOGLE_ANALYTICS) {
-  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
-}
+// if (process.env.REACT_APP_GOOGLE_ANALYTICS) {
+//   ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
+// }
 
 let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById("root"));
