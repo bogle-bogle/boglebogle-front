@@ -96,7 +96,7 @@ function SubContainer({ handleModalOpen }) {
   };
 
   useEffect(() => {
-    Api.get(`/api/sub/curation/annual`)
+    Api.get(`/api/curation/annual`)
       .then((res) => {
         setTpbHistory(res.data);
       })
@@ -141,13 +141,6 @@ function SubContainer({ handleModalOpen }) {
           </SubMainBoxWithContent>
         </SubMainAdvMovingImg>
         <SubMainAdvImg src={subMainAdvImg} alt="mainAdvImg" />
-        {/* <SubMainBox>
-		          <span>
-		          <img src={PinkIcon} />
-		          <SubMainBoxTitle>11월의 구성</SubMainBoxTitle>
-		          </span>
-		        </SubMainBox> */}
-        {/* <AdvOverlayButton>자세히 보러 가기</AdvOverlayButton> */}
       </SubMainAdv>
 
       <TpbHistoryTitle>
