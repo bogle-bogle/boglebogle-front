@@ -15,8 +15,17 @@ import {
   PlusIcon,
   MinusIcon,
 } from "./CartCard.style";
+import axios from "axios";
 
-function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
+function CartCard({
+  handleCount,
+  cartItemInfo,
+  selectedItems,
+  onSelectItem,
+  setTotalAmount,
+  onDelete,
+  calculateTotalAmount,
+}) {
   const [count, setCount] = useState(cartItemInfo.cnt);
 
   // 상품 개수 변경
@@ -25,10 +34,10 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
       const newCount = count - 1;
       setCount(newCount);
       updateCartCount(newCount);
-      setTotalAmount((prev) => {
-        return prev - cartItemInfo.price;
-      });
       handleCount(cartItemInfo.id, newCount);
+      if (selectedItems.includes(cartItemInfo)) {
+        calculateTotalAmount();
+      }
     }
   };
 
@@ -36,10 +45,10 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
     const newCount = count + 1;
     setCount(newCount);
     updateCartCount(newCount);
-    setTotalAmount((prev) => {
-      return prev + cartItemInfo.price;
-    });
     handleCount(cartItemInfo.id, newCount);
+    if (selectedItems.includes(cartItemInfo)) {
+      calculateTotalAmount();
+    }
   };
 
   const updateCartCount = (newCount) => {
@@ -47,7 +56,9 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
       id: cartItemInfo.id,
       cnt: newCount,
     };
-    Api.put(`/api/cart`, updatedCartItem)
+
+    axios
+      .patch(`/api/cart`, updatedCartItem)
       .then((res) => {
         console.info("개수 변경 성공", res.data);
       })
@@ -56,31 +67,29 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
       });
   };
 
-  // 상품 개수 * 상품 가격
-  const calProductPrice = () => {
-    const price = cartItemInfo.price * count;
-    return price;
-  };
-
-  // 가격 세 자리마다 쉼표 추가
-  const formatPrice = (price) => {
-    return price.toLocaleString();
-  };
-
   // 상품 삭제하기
   const handleDelete = () => {
     Api.delete(`/api/cart/${cartItemInfo.id}`).then((res) => {
-      setTotalAmount((prev) => {
-        return prev - cartItemInfo.price * count;
-      });
       onDelete(cartItemInfo.id);
     });
+    if (selectedItems.includes(cartItemInfo)) {
+      calculateTotalAmount();
+    }
+  };
+
+  // 체크된 상품들만
+  const handleCheckboxChange = () => {
+    onSelectItem(cartItemInfo);
   };
 
   return (
     <CardBox key={cartItemInfo.id}>
       <ProductSelect>
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={selectedItems.includes(cartItemInfo)}
+          onChange={handleCheckboxChange}
+        />
         <DeleteIcon onClick={handleDelete} />
       </ProductSelect>
       <ProductInfoContainer>
@@ -94,7 +103,9 @@ function CartCard({ handleCount, cartItemInfo, setTotalAmount, onDelete }) {
           </ProductCount>
           <ShippingFee>배송비 3000원 (30,000원 이상 무료배송)</ShippingFee>
           <Divider />
-          <ProductPrice>{formatPrice(calProductPrice())}원</ProductPrice>
+          <ProductPrice>
+            {(cartItemInfo.price * count).toLocaleString()}원
+          </ProductPrice>
         </ProductDetails>
       </ProductInfoContainer>
     </CardBox>
