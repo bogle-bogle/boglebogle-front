@@ -21,7 +21,10 @@ import {
 } from "./OrderProducts.style";
 import * as Api from "../../api";
 
-function OrderProducts({ cartItemArray, totalAmount }) {
+function OrderProducts({ selectedItems, totalAmount }) {
+  console.log('order', selectedItems[0].name);
+  console.log('order', selectedItems.length);
+
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
@@ -60,16 +63,20 @@ function OrderProducts({ cartItemArray, totalAmount }) {
   }, [price]);
 
   const handleOrder = async () => {
+
+    
+
     const paymentWidget = paymentWidgetRef.current;
 
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
-        orderName: `${cartItemArray[0].name} 외 ${cartItemArray.length}건`,
+        amount: price.toLocaleString(),
+        orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
         customerName: `${member.name}`,
         customerEmail: `${member.email}`,
-        successUrl: `${window.location.origin}/ordercomplete`,
-        failUrl: `${window.location.origin}/fail`,
+        successUrl: `http://localhost:8080/api/v1/payments/toss/success`,
+        failUrl: `http://localhost:3000/ordersheet`,
       });
     } catch (error) {
       console.error(error);
@@ -117,7 +124,7 @@ function OrderProducts({ cartItemArray, totalAmount }) {
           </tr>
         </thead>
         <tbody>
-          {cartItemArray.map((cartItem) => (
+          {selectedItems.map((cartItem) => (
             <tr>
               <td>
                 <img src={cartItem.mainImgUrl} alt={cartItem.name} />

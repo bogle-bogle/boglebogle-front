@@ -6,13 +6,13 @@ import OrderProducts from '../components/ordersheet/OrderProducts';
 
 function OrdersheetPage() {
   const location = useLocation();
-  const { cartItemArray, totalAmount } = location.state;
+  const { selectedItems, totalAmount } = location.state;
 
   return (
     <div>
       <OrderSheetHeader />
       <OrderMember />
-      <OrderProducts cartItemArray={cartItemArray} totalAmount={totalAmount} />
+      <OrderProducts selectedItems={selectedItems} totalAmount={totalAmount} />
     </div>
   );
 }
