@@ -1,4 +1,3 @@
-import ReactGA from "react-ga";
 import ReactGA4 from "react-ga4";
 const InitializeGoogleAnalytics = () => {
   // Initialize GA4 - Add your measurement ID
