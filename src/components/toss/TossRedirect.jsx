@@ -1,41 +1,32 @@
-import axios from 'axios';
-import React from 'react';
 import { useEffect } from 'react';
 import { post } from '../../api';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function TossRedirect() {
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    const params = new URL(document.location.toString()).searchParams;
-    const paymentType = params.get('paymentType');
-    const orderId = params.get('orderId');
+    const params = new URL(window.location.href).searchParams;
     const paymentKey = params.get('paymentKey');
+    const orderId = params.get('orderId');
     const amount = params.get('amount');
+    console.log("paymentKey", paymentKey)
+    console.log("orderId", orderId)
+    console.log("amount", amount)
 
-    console.log(paymentType);
-    console.log(orderId);
-    console.log(paymentKey);
-    console.log(amount);
-
-    axios
-      .post(
-        'https://api.tosspayments.com/v1/payments/confirm',
+    axios.post(
+        'http://localhost:8080/api/toss/success',
         {
-          paymentKey,
-          orderId,
-          amount,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Basic dGVzdF9za18wUm5ZWDJ3NTMyQlA3ZDlENXdNM05leXFBcFFFOg==`,
-          },
-        },
-      )
+          paymentKey : paymentKey,
+          orderId : orderId,
+          amount : amount,
+        })
       .then((res) => {
         console.log(res.data)
+        navigate("/ordercomplete")
       });
   });
-  return <div>토스 리다이렉트</div>;
 }
 
 export default TossRedirect;

@@ -57,7 +57,7 @@ function App() {
           <Route path="/mypet/:memberId" element={<MyPet />}></Route>
           <Route path="/mbti" element={<MbtiTest />}></Route>
           <Route path="/ex" element={<Example />}></Route>
-          <Route path="/tossRedirect" element={<TossRedirect />}></Route>
+          <Route path="/tossredirect" element={<TossRedirect />}></Route>
         </Route>
         <Route path="/admin" element={<Admin />}></Route>
       </Routes>

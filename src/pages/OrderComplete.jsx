@@ -10,19 +10,19 @@ function OrderComplete() {
 
   const [orderItemsData, setOrderItemsData] = useState(null);
 
-  useEffect(() => {
-    Api.post(
-      `/api/order/cart`,
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + member.jwt.accessToken,
-        },
-      }
-    ).then((res) => {
-      setOrderItemsData(res.data);
-    });
-  }, [member.jwt.accessToken]);
+  // useEffect(() => {
+  //   Api.post(
+  //     `/api/order/cart`,
+  //     {},
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer " + member.jwt.accessToken,
+  //       },
+  //     }
+  //   ).then((res) => {
+  //     setOrderItemsData(res.data);
+  //   });
+  // }, [member.jwt.accessToken]);
 
   return (
     <div>
