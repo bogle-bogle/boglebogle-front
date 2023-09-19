@@ -126,7 +126,7 @@ function ClubRegister() {
         );
       })
       .catch((Error) => {
-        console.log("Error fetching pet codes:", Error);
+        console.error("Error fetching pet codes:", Error);
       });
   }, []);
 
