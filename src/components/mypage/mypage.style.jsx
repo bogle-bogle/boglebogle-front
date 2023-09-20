@@ -189,3 +189,7 @@ export const MypageSubSectionTitle = styled.div`
   font-size: 15px;
   margin: 0px 10px 15px 0px;
 `;
+
+// export const MypageCardFlex = styled.div`
+//   display: flex;
+// `;

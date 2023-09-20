@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 export const Header = styled.div`
   margin-top: 0.75rem;
@@ -13,12 +13,13 @@ export const Header = styled.div`
   .logo {
     margin: 0 1rem;
     width: 120px;
+    cursor: pointer;
   }
 
   .header__menulist {
     list-style: none;
     display: flex;
-    font-family: 'HappinessSansBold';
+    font-family: "HappinessSansBold";
     font-size: 17px;
   }
 
@@ -66,13 +67,13 @@ export const Header = styled.div`
     font-size: 15px;
 
     .header__right {
-      display: ${(props) => (props.userToggled ? 'flex' : 'none')};
+      display: ${(props) => (props.userToggled ? "flex" : "none")};
       flex-direction: column;
       width: 100%;
     }
 
     .header__menulist {
-      display: ${(props) => (props.isToggled ? 'flex' : 'none')};
+      display: ${(props) => (props.isToggled ? "flex" : "none")};
       flex-direction: column;
       width: 100%;
     }

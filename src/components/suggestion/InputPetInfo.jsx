@@ -48,6 +48,7 @@ function InputPetInfo(props) {
     if (pet.feedDescImgUrl !== null) {
       toast.success("저장된 정보를 불러옵니다.");
     }
+    setSelectedfeedDescrImage(pet.feedDescImgUrl);
   };
   const handlePlaceholderClick = (pet) => {
     // 현재 선택된 펫을 null로 설정하여 테두리 제거
@@ -161,12 +162,12 @@ function InputPetInfo(props) {
       }
 
       props.handleOpenModal();
-
+      const id = toast.loading("분석중입니다. 잠시만 기다려주세요.")
       try {
         const imgUrl = customData.feedDescImgUrl;
         console.log(imgUrl);
 
-        const searchRes = axios.post(`http://ocr-nlp.thepet.thehyundai.site:8000/ai/img-to-similarity`, {"imgUrl" : imgUrl});
+        const searchRes = axios.post(`https://ocr-nlp.thepet.thehyundai.site/ai/img-to-similarity`, {"imgUrl" : imgUrl});
         const resultData = (await searchRes).data
 
         customData.feedIngredients = resultData.ingredients;
@@ -193,12 +194,12 @@ function InputPetInfo(props) {
           return [...resultData.recommendations];
         });
         props.handleModalClose();
+        toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true});
       } catch (error) {
         props.handleModalClose();
 
         scrollToTop();
-        toast.error("오류가 발생하였습니다😥");
-
+        toast.update(id, { render: "오류가 발생하였습니다.", type: "error", isLoading: false, closeButton: true, autoClose: true });
         // ****** 테스트용 데이터 삽입
         // setRecommendProduct();
       }
@@ -439,7 +440,7 @@ function InputPetInfo(props) {
                 </div>
                 <button
                   className={
-                    "btn btn-custom " + (selectedfeedMainImage != undefined ? "active-bg" : "basic-bg")
+                    "btn btn-custom " + ( selectedfeedDescrImage ? "active-bg" : "basic-bg")
                   }
                   onClick={handleSubmission}
                 >

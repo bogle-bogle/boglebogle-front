@@ -12,14 +12,14 @@ function Main() {
       <MainSlider />
       {pets && pets.length === 1 && (
         <>
-          <ProductRecommendation type={"simple"} petId={pets[0].id} />
-          <ProductRecommendation type={"detail"} petId={pets[0].id} />
+          <ProductRecommendation type={"simple"} param={pets[0].id} />
+          <ProductRecommendation type={"detail"} param={pets[0].id} />
         </>
       )}
       {pets && pets.length > 1 && (
         <>
-          <ProductRecommendation type={"simple"} petId={pets[0].id} />
-          <ProductRecommendation type={"detail"} petId={pets[1].id} />
+          <ProductRecommendation type={"simple"} param={pets[0].id} />
+          <ProductRecommendation type={"detail"} param={pets[1].id} />
         </>
       )}
     </div>
