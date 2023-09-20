@@ -1,6 +1,6 @@
-import React from 'react';
-import { CategoryElement } from './index.style';
-import { FaCheck } from 'react-icons/fa';
+import React from "react";
+import { CategoryElement } from "./index.style";
+import { FaCheck } from "react-icons/fa";
 
 function CategoryFilterButton({ children, isChecked, id, handleFilter }) {
   return (

@@ -27,7 +27,7 @@ const RouteChangeTracker = () => {
   }, [initialized, location]);
 
   useEffect(() => {
-    ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRAKING_ID);
+    ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
     ReactGA.set({ page: location.pathname });
     ReactGA.send("pageview");
   }, [location]);

@@ -54,7 +54,7 @@ function InputPetInfo(props) {
     // 현재 선택된 펫을 null로 설정하여 테두리 제거
     setSelectedPet(pet);
   };
-  
+
   const handleFileInputChange = (imageKey) => (event) => {
     handleImageUpload(event, imageKey);
   };
@@ -107,7 +107,10 @@ function InputPetInfo(props) {
 
     try {
       const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
-      console.info("S3 object URLs:", uploadResults.map((result) => result.Location));
+      console.info(
+        "S3 object URLs:",
+        uploadResults.map((result) => result.Location)
+      );
       return uploadResults.map((result) => result.Location);
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -116,13 +119,11 @@ function InputPetInfo(props) {
   };
 
   const handleSubmission = async () => {
-
     // 오류 검증 및 토스트 띄우기
     if (selectedPet == undefined) {
       toast.warn("반려동물을 선택해주세요");
       scrollToTop();
     } else {
-
       // 정상 작동시
       const feedUrlPromise = uploadToS3(feedInputRef.current.files[0]);
 
@@ -133,7 +134,7 @@ function InputPetInfo(props) {
       const [inputFeedMainImgUrl, inputFeedDescImgUrl] = await Promise.all([
         feedUrlPromise,
         ingredientUrlPromise,
-    ]);
+      ]);
       const customData = {
         feedMainImgUrl: "",
         feedDescImgUrl: "",
@@ -151,7 +152,11 @@ function InputPetInfo(props) {
         customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
       }
 
-      setNextstepFeedImage(customData.feedMainImgUrl ? customData.feedMainImgUrl : customData.feedDescImgUrl);
+      setNextstepFeedImage(
+        customData.feedMainImgUrl
+          ? customData.feedMainImgUrl
+          : customData.feedDescImgUrl
+      );
 
       if (
         customData.feedMainImgUrl == undefined ||
@@ -171,22 +176,12 @@ function InputPetInfo(props) {
         const resultData = (await searchRes).data
 
         customData.feedIngredients = resultData.ingredients;
-        
-        console.log({
-          "favoriteFoodIngredients" : customData.feedIngredients,
-          "feedMainImgUrl": customData.feedMainImgUrl,
-          "feedDescImgUrl": customData.feedDescImgUrl,
+
+        const response = await Api.put(`/api/pet/feed/${selectedPetId}`, {
+          favoriteFoodIngredients: customData.feedIngredients,
+          feedMainImgUrl: customData.feedMainImgUrl,
+          feedDescImgUrl: customData.feedDescImgUrl,
         });
-
-        const response = await Api.put(`/api/pet/feed/${selectedPetId}`, 
-        {
-          "favoriteFoodIngredients" : customData.feedIngredients,
-          "feedMainImgUrl": customData.feedMainImgUrl,
-          "feedDescImgUrl": customData.feedDescImgUrl,
-        }
-        );
-
-        console.log(response);
 
         setSelectedfeedDescrImage(customData.feedIngredients);
 
@@ -265,192 +260,201 @@ function InputPetInfo(props) {
             ))}
           </Stepper>
         </StepArea>
-
       </DescArea>
-      
+
       <InputArea>
-          <div className="formBox">
-            <InputBoxes show={recommendProduct.length != 0}>
-              {/* STEP 1 */}
-              <div className="step-box" id="step1">
-                <div className="step-text">
-                  <p
-                    className={
-                      "badge " +
-                      (activeStep === 0 && selectedPet == undefined
-                        ? "active-bg"
-                        : "basic-bg")
-                    }
-                  >
-                    STEP 1
-                  </p>
-                  <p className="step-desc">
-                    맞춤 추천을 받고 싶은, 나의 반려동물을 선택해주세요.
-                  </p>
-                </div>
-                <div className="myPet-box">
-                  {props.petData.map((pet) => (
-                    <div key={pet.codeValue} className="pet-info">
-                      <div
-                        className={`pet-card ${
-                          selectedPet === pet ? "selected" : ""
-                        }`}
-                        onClick={() => {
-                          if (activeStep > 0) {
-                            swal
-                              .fire({
-                                title:
-                                  "진행중인 AI 추천이 있습니다. 초기화하시겠습니까?",
-                                showCancelButton: true,
-                                imageUrl: walkingheendy,
-                                imageHeight: "팝업 이미지",
-                                confirmButtonText: "초기화",
-                                cancelButtonText: "취소",
-                                confirmButtonColor: "#499878",
-                                cancelButtonColor: "#A4A4A4",
-                                customClass: {
-                                  confirmButton: "swal2-button",
-                                  cancelButton: "swal2-button",
-                                },
-                              })
-                              .then((result) => {
-                                resetInput();
-                              });
-                          } else {
-                            handlePetClick(pet);
-                          }
-                        }}
-                      >
-                        <div className="pet-photo">
-                          {pet.petImgUrl ? (
-                            <img src={pet.petImgUrl} alt={pet.name} />
-                          ) : (
-                            <div
-                              className={`placeholder ${
-                                selectedPet === pet ? "selected" : ""
-                              }`}
-                              onClick={() => handlePlaceholderClick(pet)}
-                            ></div>
-                          )}
-                        </div>
-                        <div className="pet-name">
-                          {selectedPet === pet && (
-                            <span className="check-mark">&#10003;</span>
-                          )}
-                          {pet.name}
-                        </div>
+        <div className="formBox">
+          <InputBoxes show={recommendProduct.length != 0}>
+            {/* STEP 1 */}
+            <div className="step-box" id="step1">
+              <div className="step-text">
+                <p
+                  className={
+                    "badge " +
+                    (activeStep === 0 && selectedPet == undefined
+                      ? "active-bg"
+                      : "basic-bg")
+                  }
+                >
+                  STEP 1
+                </p>
+                <p className="step-desc">
+                  맞춤 추천을 받고 싶은, 나의 반려동물을 선택해주세요.
+                </p>
+              </div>
+              <div className="myPet-box">
+                {props.petData.map((pet) => (
+                  <div key={pet.codeValue} className="pet-info">
+                    <div
+                      className={`pet-card ${
+                        selectedPet === pet ? "selected" : ""
+                      }`}
+                      onClick={() => {
+                        if (activeStep > 0) {
+                          swal
+                            .fire({
+                              title:
+                                "진행중인 AI 추천이 있습니다. 초기화하시겠습니까?",
+                              showCancelButton: true,
+                              imageUrl: walkingheendy,
+                              imageHeight: "팝업 이미지",
+                              confirmButtonText: "초기화",
+                              cancelButtonText: "취소",
+                              confirmButtonColor: "#499878",
+                              cancelButtonColor: "#A4A4A4",
+                              customClass: {
+                                confirmButton: "swal2-button",
+                                cancelButton: "swal2-button",
+                              },
+                            })
+                            .then((result) => {
+                              resetInput();
+                            });
+                        } else {
+                          handlePetClick(pet);
+                        }
+                      }}
+                    >
+                      <div className="pet-photo">
+                        {pet.petImgUrl ? (
+                          <img src={pet.petImgUrl} alt={pet.name} />
+                        ) : (
+                          <div
+                            className={`placeholder ${
+                              selectedPet === pet ? "selected" : ""
+                            }`}
+                            onClick={() => handlePlaceholderClick(pet)}
+                          ></div>
+                        )}
+                      </div>
+                      <div className="pet-name">
+                        {selectedPet === pet && (
+                          <span className="check-mark">&#10003;</span>
+                        )}
+                        {pet.name}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* STEP 2 */}
-              <div className="step-box" id="step2">
-                <div className="step-text">
-                  <p
-                    className={
-                      "badge " + (activeStep === 1 && (ingredientInputRef.current?.files?.[0]) ? "active-bg" : "basic-bg")
-                    }
-                  >
-                    STEP 2
-                  </p>
-                  <p className="step-desc">
-                    현재 잘 섭취하고 있는 사료가 있다면, 해당 상품 표지와
-                    성분표를 찍어 올려주세요.
-                  </p>
-                </div>
-                
-                <div className="feed-box">
-                {/* 사료 업로드 박스 */}
-                  <ImageUploadComponent
-                    title="잘 먹는 사료 표지"
-                    onImagePreviewClick={() => {
-                      if (selectedPet == undefined) {
-                        toast.warn("반려동물을 먼저 선택해주세요");
-                        scrollToTop();
-                      } else {
-                        feedInputRef.current.click();
-                      }
-                    }}
-                    selectedImageForPreview={selectedfeedMainImage}
-                    defaultImageUrl={selectedPet?.feedMainImgUrl}
-                    onInputChange={(event) => {
-                      const feedUrl = handleFileInputChange("feed")(event);
-                      feedUrl &&
-                      setSelectedfeedMainImage(
-                          URL.createObjectURL(event.target.files[1])
-                        );
-                    }}
-                    inputRef={feedInputRef}
-                  />
-
-                  {/* 사료 성분표 이미지 */}
-                  <ImageUploadComponent
-                    title="잘 먹는 사료 성분표"
-                    onImagePreviewClick={() => {
-                      if (selectedPet == undefined) {
-                        toast.warn("반려동물을 먼저 선택해주세요");
-                        scrollToTop();
-                      } else {
-                        ingredientInputRef.current.click();
-                      }
-                    }}
-                    selectedImageForPreview={selectedfeedDescrImage}
-                    defaultImageUrl={selectedPet?.feedDescImgUrl}
-                    onInputChange={(event) => {
-                      const ingredientUrl = handleFileInputChange("ingredient")(event);
-                      ingredientUrl && setSelectedIngredientImage(URL.createObjectURL(event.target.files[0]));
-                      if (activeStep == 1) {
-                        setActiveStep(2);
-                        scrollTo("step3");
-                      }
-                    }}
-                    inputRef={ingredientInputRef}
-                  />
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* STEP 2 */}
+            <div className="step-box" id="step2">
+              <div className="step-text">
+                <p
+                  className={
+                    "badge " +
+                    (activeStep === 1 && ingredientInputRef.current?.files?.[0]
+                      ? "active-bg"
+                      : "basic-bg")
+                  }
+                >
+                  STEP 2
+                </p>
+                <p className="step-desc">
+                  현재 잘 섭취하고 있는 사료가 있다면, 해당 상품 표지와 성분표를
+                  찍어 올려주세요.
+                </p>
               </div>
 
-              {/* STEP 3 */}
-              <div className="step-box" id="step3">
-                <div className="step-text">
-                  <p
-                    className={
-                      "badge " + (ingredientInputRef.current?.files?.[0] ? "active-bg" : "basic-bg")
+              <div className="feed-box">
+                {/* 사료 업로드 박스 */}
+                <ImageUploadComponent
+                  title="잘 먹는 사료 표지"
+                  onImagePreviewClick={() => {
+                    if (selectedPet == undefined) {
+                      toast.warn("반려동물을 먼저 선택해주세요");
+                      scrollToTop();
+                    } else {
+                      feedInputRef.current.click();
                     }
-                  >
-                    STEP 3
-                  </p>
-                  <p className="step-desc">
-                    STEP 3. 현대 더펫의 OCR 시스템과 AI 기반으로 상품 성분을
-                    읽어, 가장 성분이 유사한 사료를 추천해드릴게요.
-                  </p>
-                </div>
-              </div>
-            </InputBoxes>
-            {recommendProduct.length == 0 ? (
-              <>
-                <div
-                  className="btn btn-custom btn-reset"
-                  onClick={() => {
-                    resetInput();
                   }}
-                >
-                  처음부터
-                </div>
-                <button
+                  selectedImageForPreview={selectedfeedMainImage}
+                  defaultImageUrl={selectedPet?.feedMainImgUrl}
+                  onInputChange={(event) => {
+                    const feedUrl = handleFileInputChange("feed")(event);
+                    feedUrl &&
+                      setSelectedfeedMainImage(
+                        URL.createObjectURL(event.target.files[1])
+                      );
+                  }}
+                  inputRef={feedInputRef}
+                />
+
+                {/* 사료 성분표 이미지 */}
+                <ImageUploadComponent
+                  title="잘 먹는 사료 성분표"
+                  onImagePreviewClick={() => {
+                    if (selectedPet == undefined) {
+                      toast.warn("반려동물을 먼저 선택해주세요");
+                      scrollToTop();
+                    } else {
+                      ingredientInputRef.current.click();
+                    }
+                  }}
+                  selectedImageForPreview={selectedfeedDescrImage}
+                  defaultImageUrl={selectedPet?.feedDescImgUrl}
+                  onInputChange={(event) => {
+                    const ingredientUrl =
+                      handleFileInputChange("ingredient")(event);
+                    ingredientUrl &&
+                      setSelectedIngredientImage(
+                        URL.createObjectURL(event.target.files[0])
+                      );
+                    if (activeStep == 1) {
+                      setActiveStep(2);
+                      scrollTo("step3");
+                    }
+                  }}
+                  inputRef={ingredientInputRef}
+                />
+              </div>
+            </div>
+
+            {/* STEP 3 */}
+            <div className="step-box" id="step3">
+              <div className="step-text">
+                <p
                   className={
                     "btn btn-custom " + ( selectedfeedDescrImage ? "active-bg" : "basic-bg")
                   }
-                  onClick={handleSubmission}
                 >
-                  맞춤 사료 찾기
-                </button>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
+                  STEP 3
+                </p>
+                <p className="step-desc">
+                  STEP 3. 현대 더펫의 OCR 시스템과 AI 기반으로 상품 성분을 읽어,
+                  가장 성분이 유사한 사료를 추천해드릴게요.
+                </p>
+              </div>
+            </div>
+          </InputBoxes>
+          {recommendProduct.length == 0 ? (
+            <>
+              <div
+                className="btn btn-custom btn-reset"
+                onClick={() => {
+                  resetInput();
+                }}
+              >
+                처음부터
+              </div>
+              <button
+                className={
+                  "btn btn-custom " +
+                  (selectedfeedMainImage != undefined
+                    ? "active-bg"
+                    : "basic-bg")
+                }
+                onClick={handleSubmission}
+              >
+                맞춤 사료 찾기
+              </button>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </InputArea>
       {recommendProduct.length === 0 ? (
         <></>
