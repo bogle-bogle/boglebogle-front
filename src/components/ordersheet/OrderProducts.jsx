@@ -24,6 +24,8 @@ import * as Api from "../../api";
 function OrderProducts({ selectedItems, totalAmount }) {
   console.log('order', selectedItems[0].name);
   console.log('order', selectedItems.length);
+  console.log('order', selectedItems);
+  console.log(totalAmount);
 
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
@@ -63,14 +65,13 @@ function OrderProducts({ selectedItems, totalAmount }) {
   }, [price]);
 
   const handleOrder = async () => {
-
-    
-
     const paymentWidget = paymentWidgetRef.current;
 
     try {
-      
-      const response = await paymentWidget?.requestPayment({
+      localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+      localStorage.setItem('totalAmount', totalAmount);
+  
+      await paymentWidget?.requestPayment({
         orderId: nanoid(),
         amount: price.toLocaleString(),
         orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
@@ -78,13 +79,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
         customerEmail: `${member.email}`,
         successUrl: `http://localhost:3000/tossredirect`,
         failUrl: `http://localhost:3000/ordersheet`,
-      });
-      if (response && response.status === 200) {
-        const responseData = response.data;
-        console.log("결제 응답:", responseData);
-      } else {
-        console.error("결제 요청에 문제가 발생했습니다.");
-      }
+      })
     } catch (error) {
       console.error(error);
     }
