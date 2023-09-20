@@ -57,8 +57,7 @@ function CartCard({
       cnt: newCount,
     };
 
-    axios
-      .patch(`/api/cart`, updatedCartItem)
+    Api.put(`/api/cart`, updatedCartItem)
       .then((res) => {
         console.info("개수 변경 성공", res.data);
       })
@@ -69,7 +68,7 @@ function CartCard({
 
   // 상품 삭제하기
   const handleDelete = () => {
-    Api.delete(`/api/cart/${cartItemInfo.id}`).then((res) => {
+    Api.put(`/api/cart/${cartItemInfo.id}`).then((res) => {
       onDelete(cartItemInfo.id);
     });
     if (selectedItems.includes(cartItemInfo)) {

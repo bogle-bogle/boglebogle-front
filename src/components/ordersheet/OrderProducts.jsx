@@ -34,7 +34,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
   const member = useSelector((state) => state.member);
   const navigate = useNavigate();
 
-  // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기,,
+  // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기
   const clientKey = "test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE";
   const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
 
@@ -77,8 +77,8 @@ function OrderProducts({ selectedItems, totalAmount }) {
         orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
         customerName: `${member.name}`,
         customerEmail: `${member.email}`,
-        successUrl: `http://localhost:3000/tossredirect`,
-        failUrl: `http://localhost:3000/ordersheet`,
+        successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tossredirect`,
+        failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/ordersheet`,
       })
     } catch (error) {
       console.error(error);

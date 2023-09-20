@@ -34,6 +34,7 @@ jobs:
           echo REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }} >> .env
           echo REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }} >> .env
           echo REACT_APP_GOOGLE_ANALYTICS=${{ secrets.REACT_APP_GOOGLE_ANALYTICS }} >> .env
+          echo REACT_APP_TOSS_REDIRECT_URI=${{ secrets.REACT_APP_TOSS_REDIRECT_URI }} >> .env
           cat .env
 
       - name: Install dependencies
