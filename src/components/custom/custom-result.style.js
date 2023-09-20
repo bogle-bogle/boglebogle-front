@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const CompleteText = styled.p`
   font-size: 35px;
@@ -91,7 +91,7 @@ export const UserResultImg = styled.img`
 export const UserResultText = styled.p`
   width: 100%;
   color: #4f4f4f;
-  font-weight: ${(props) => props.isTitle && 'bold'};
+  font-weight: ${(props) => props.isTitle && "bold"};
 
   font-size: 17px;
 
@@ -122,8 +122,8 @@ export const RecommendProductListContainer = styled.div`
 `;
 
 export const ResultCardContainer = styled.div`
-  height: auto;
-
+  width: 30%;
+  height: 40%;
   display: flex;
   flex-direction: column;
 `;
@@ -137,11 +137,11 @@ export const SimilarityContainer = styled.div`
 
   background-color: ${(props) => {
     if (props.percent >= 70 && props.percent <= 100) {
-      return '#ecf7f5';
+      return "#ecf7f5";
     } else if (props.percent >= 40 && props.percent < 70) {
-      return '#F7F6EC';
+      return "#F7F6EC";
     } else {
-      return '#e9967a';
+      return "#e9967a";
     }
   }};
 `;
@@ -161,11 +161,11 @@ export const ProgressBar = styled.div`
 
   background-color: ${(props) => {
     if (props.percent >= 70 && props.percent <= 100) {
-      return '#0a9882';
+      return "#0a9882";
     } else if (props.percent >= 40 && props.percent < 70) {
-      return '#D4B200';
+      return "#D4B200";
     } else {
-      return 'red';
+      return "red";
     }
   }};
 `;
@@ -175,13 +175,13 @@ export const SimilarityPercentText = styled.p`
   font-weight: bold;
   color: ${(props) => {
     if (props.percent >= 70 && props.percent <= 100) {
-      return '#0a9882';
+      return "#0a9882";
     } else if (props.percent >= 40 && props.percent < 70) {
-      return '#D4B200';
+      return "#D4B200";
     } else if (props.percent >= 0 && props.percent < 40) {
-      return 'red';
+      return "red";
     } else {
-      return 'gray';
+      return "gray";
     }
   }};
 

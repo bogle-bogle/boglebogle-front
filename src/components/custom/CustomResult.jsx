@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   AnalyzeResultContainer,
   AnalyzeResultExplain,
@@ -20,20 +20,29 @@ import {
   UserResultCard,
   UserResultImg,
   UserResultText,
-} from './custom-result.style';
+} from "./custom-result.style";
 
 import {
   MiddleContainer,
   MiddlePageContainer,
   PageArrow,
   PageState,
-} from '../product/index.style';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import ProductCard from '../product/ProductCard';
+} from "../product/index.style";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import ProductCard from "../product/ProductCard";
 
-function CustomResult({ selectedPetName, recommendProduct, selectedFeedImage, selectedFeedIngredients }) {
-
-  console.log(selectedPetName, recommendProduct, selectedFeedImage, selectedFeedIngredients)
+function CustomResult({
+  selectedPetName,
+  recommendProduct,
+  selectedFeedImage,
+  selectedFeedIngredients,
+}) {
+  console.log(
+    selectedPetName,
+    recommendProduct,
+    selectedFeedImage,
+    selectedFeedIngredients
+  );
 
   return (
     <>
@@ -51,7 +60,7 @@ function CustomResult({ selectedPetName, recommendProduct, selectedFeedImage, se
                   <UserResultImg src={selectedFeedImage}></UserResultImg>
                   <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
                   <UserResultText isTitle={false}>
-                  {selectedFeedIngredients}
+                    {selectedFeedIngredients}
                   </UserResultText>
                 </UserResultCard>
               </UserAnalyzeContainer>

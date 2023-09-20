@@ -4,12 +4,21 @@ export const ProductContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: start;
+`;
+
+export const CardContainer = styled.div`
+  width: 23%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 1%;
+  margin-left: 1%;
 `;
 
 export const ProductCardContainer = styled.div`
-  width: 23%;
-  height: 40%;
+  width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -28,6 +37,7 @@ export const ProductCardContainer = styled.div`
 export const ProductImg = styled.img`
   width: 100%;
   height: 80%;
+  object-fit: fill;
 `;
 
 export const ProductInfoContainer = styled.div`
