@@ -23,6 +23,7 @@ async function get(endpoint, params = "") {
         toast.error("로그인이 만료되었습니다. 재로그인해주세요.");
         console.error(error.response);
       }
+      throw error;
     });
 }
 
@@ -40,6 +41,7 @@ async function post(endpoint, data) {
         toast.error("로그인이 만료되었습니다. 재로그인해주세요.");
         console.error(error.response);
       }
+      throw error;
     });
 }
 
@@ -55,6 +57,7 @@ async function put(endpoint, data) {
         toast.error("로그인이 만료되었습니다. 재로그인해주세요.");
         console.error(error.response);
       }
+      throw error;
     });
 }
 
@@ -70,6 +73,7 @@ async function del(endpoint, params = "") {
         toast.error("로그인이 만료되었습니다. 재로그인해주세요.");
         console.error(error.response);
       }
+      throw error;
     });
 }
 

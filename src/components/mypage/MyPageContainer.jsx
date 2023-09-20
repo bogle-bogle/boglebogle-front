@@ -139,7 +139,7 @@ function MyPageContainer() {
         {/* 없을 때 광고 */}
         <MypageAdv>
           <MypageAdvImg src={ClubAdvImg} />
-          <MypageAdvBtn onClick={() => navigate('/clubregister')}>
+          <MypageAdvBtn onClick={() => navigate('/addpet')}>
             등록하러 가기 ＞
           </MypageAdvBtn>
         </MypageAdv>
