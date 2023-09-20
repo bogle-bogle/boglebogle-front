@@ -7,6 +7,7 @@ import {
   StyledSpanGreen,
 } from "./index.style";
 import {
+  CardContainer,
   ProductContainer,
   ProductImg,
   ProductPrice,
@@ -58,9 +59,9 @@ function ProductRecommendation({ type, param }) {
       if (type === "mbti-to") {
         setTitle(
           <>
-            <StyledSpanGreen>{param}</StyledSpanGreen>{" "}친구들은
+            <StyledSpanGreen>{param}</StyledSpanGreen> 친구들은
             <br />
-            이런 {" "}<StyledSpanGreen>장난감</StyledSpanGreen>들을 많이 구매했어요.
+            이런 <StyledSpanGreen>장난감</StyledSpanGreen>들을 많이 구매했어요.
           </>
         );
       }
@@ -68,13 +69,13 @@ function ProductRecommendation({ type, param }) {
       if (type === "mbti-sp") {
         setTitle(
           <>
-            <StyledSpanGreen>{param}</StyledSpanGreen>{" "}친구들은
+            <StyledSpanGreen>{param}</StyledSpanGreen> 친구들은
             <br />
-            이런 {" "}<StyledSpanGreen>생활 용품</StyledSpanGreen>들을 많이 구매했어요.
+            이런 <StyledSpanGreen>생활 용품</StyledSpanGreen>들을 많이
+            구매했어요.
           </>
         );
       }
-
     });
   }, [type, param, petInfo.ageCode, petInfo.favoriteProteinCode, petInfo.name]);
 
@@ -88,7 +89,9 @@ function ProductRecommendation({ type, param }) {
       <ProductContainer>
         {foodProductList !== undefined &&
           foodProductList.map((product, idx) => (
-            <ProductCard key={idx} product={product}></ProductCard>
+            <CardContainer>
+              <ProductCard key={idx} product={product}></ProductCard>
+            </CardContainer>
           ))}
       </ProductContainer>
     </RcContainer>

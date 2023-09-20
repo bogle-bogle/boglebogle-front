@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  CardContainer,
   CategoryContainer,
   CategoryElementContainer,
   CategoryP,
@@ -229,7 +230,9 @@ function NewProductList() {
       <ProductContainer>
         {productList !== undefined &&
           productList.map((product, idx) => (
-            <ProductCard key={idx} product={product}></ProductCard>
+            <CardContainer>
+              <ProductCard key={idx} product={product}></ProductCard>
+            </CardContainer>
           ))}
         {productList.length < 20 &&
           Array(4 - (productList.length % 4))
