@@ -129,8 +129,10 @@ function AddPetContainer() {
       const response = await Api.post(`/api/upload`, formData);
       return response.data;
     } catch (error) {
+      toast.error("파일 업로드에 실패했습니다.")
       console.error("파일 업로드 실패:", error);
-      throw error;
+      // throw error;
+      return
     }
   };
 

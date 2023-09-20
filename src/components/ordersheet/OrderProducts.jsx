@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useSelector } from "react-redux";
@@ -69,15 +69,22 @@ function OrderProducts({ selectedItems, totalAmount }) {
     const paymentWidget = paymentWidgetRef.current;
 
     try {
-      await paymentWidget?.requestPayment({
+      
+      const response = await paymentWidget?.requestPayment({
         orderId: nanoid(),
         amount: price.toLocaleString(),
         orderName: `${selectedItems[0].name} 외 ${selectedItems.length}건`,
         customerName: `${member.name}`,
         customerEmail: `${member.email}`,
-        successUrl: `http://localhost:8080/api/v1/payments/toss/success`,
+        successUrl: `http://localhost:3000/tossredirect`,
         failUrl: `http://localhost:3000/ordersheet`,
       });
+      if (response && response.status === 200) {
+        const responseData = response.data;
+        console.log("결제 응답:", responseData);
+      } else {
+        console.error("결제 요청에 문제가 발생했습니다.");
+      }
     } catch (error) {
       console.error(error);
     }

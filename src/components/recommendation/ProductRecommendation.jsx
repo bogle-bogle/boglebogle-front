@@ -16,14 +16,15 @@ import { useNavigate } from "react-router-dom";
 import { productSub, proteinCode, breedCode } from "../../commonCode.js";
 import miniIconImg from "../../assets/recommendation/mini-text-icon-v2.png";
 import ProductCard from "../product/ProductCard";
-function ProductRecommendation({ type, petId }) {
+
+function ProductRecommendation({ type, param }) {
   const [foodProductList, setFoodProductList] = useState([]);
   const [petInfo, setPetInfo] = useState({});
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    Api.get(`/api/recommendation/${type}/${petId}`).then((res) => {
+    Api.get(`/api/recommendation/${type}/${param}`).then((res) => {
       setFoodProductList(res.data.products);
       setPetInfo(res.data.petInfo);
 
@@ -53,8 +54,29 @@ function ProductRecommendation({ type, petId }) {
           </>
         );
       }
+
+      if (type === "mbti-to") {
+        setTitle(
+          <>
+            <StyledSpanGreen>{param}</StyledSpanGreen>{" "}친구들은
+            <br />
+            이런 {" "}<StyledSpanGreen>장난감</StyledSpanGreen>들을 많이 구매했어요.
+          </>
+        );
+      }
+
+      if (type === "mbti-sp") {
+        setTitle(
+          <>
+            <StyledSpanGreen>{param}</StyledSpanGreen>{" "}친구들은
+            <br />
+            이런 {" "}<StyledSpanGreen>생활 용품</StyledSpanGreen>들을 많이 구매했어요.
+          </>
+        );
+      }
+
     });
-  }, [type, petId, petInfo.ageCode, petInfo.favoriteProteinCode, petInfo.name]);
+  }, [type, param, petInfo.ageCode, petInfo.favoriteProteinCode, petInfo.name]);
 
   return (
     <RcContainer>
@@ -66,14 +88,6 @@ function ProductRecommendation({ type, petId }) {
       <ProductContainer>
         {foodProductList !== undefined &&
           foodProductList.map((product, idx) => (
-            // <ProductCard
-            //   key={idx}
-            //   onClick={() => navigate(`/product/${product.id}`)}
-            // >
-            //   <ProductImg src={product.mainImgUrl} alt={product.name} />
-            //   <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
-            //   <ProductSummary>{product.name}</ProductSummary>
-            // </ProductCard>
             <ProductCard key={idx} product={product}></ProductCard>
           ))}
       </ProductContainer>

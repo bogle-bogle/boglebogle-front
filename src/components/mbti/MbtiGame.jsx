@@ -27,6 +27,7 @@ import mbtiBad from '../../assets/mbti/enfp_bad.png';
 
 import { BsFillCameraFill } from 'react-icons/bs';
 import { useRef } from 'react';
+import ProductRecommendation from '../recommendation/ProductRecommendation';
 
 const mbtiQuestion = [
   {},
@@ -98,8 +99,10 @@ function MbtiGame() {
   };
 
   return (
+    <>
     <MbtiGameContainer>
       {result ? (
+        <>
         <MbtiResultContainer>
           <MbtiResultContentContainer>
             <MbtiResultDogImg src={dogProfileImg}></MbtiResultDogImg>
@@ -116,6 +119,7 @@ function MbtiGame() {
               style={{ display: 'none' }} // 숨김 처리
             />
           </MbtiResultContentContainer>
+
           <MbtiResultInfoContainer>
             <MbtiH1>{mbti}</MbtiH1>
             <MbtiDescription>독립적이고 시크한 차도멍</MbtiDescription>
@@ -125,6 +129,7 @@ function MbtiGame() {
             </MbtiCompatibilityContainer>
           </MbtiResultInfoContainer>
         </MbtiResultContainer>
+        </>
       ) : (
         <>
           {start ? (
@@ -150,6 +155,17 @@ function MbtiGame() {
         </>
       )}
     </MbtiGameContainer>
+
+    {
+      result && (
+        <>
+          <ProductRecommendation type={"mbti-to"} param={mbti} />
+          <ProductRecommendation type={"mbti-sp"} param={mbti} />
+        </>
+      )
+    }
+    </>
+
   );
 }
 

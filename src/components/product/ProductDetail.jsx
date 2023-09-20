@@ -21,6 +21,7 @@ import ReviewModal from "./ReviewModal";
 import FadeModal from "../modal/FadeModal";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 function ProductDetail() {
   const member = useSelector((state) => state.member);
 
@@ -36,7 +37,8 @@ function ProductDetail() {
     const params = new URL(document.location.toString());
     const productId = params.pathname.split("/").at(-1);
 
-    Api.get(`/api/product/${productId}`).then((res) => {
+    Api.get(`/api/product/${productId}`)
+    .then((res) => {
       setIngredients(() => {
         if (res.data.ingredients === null) {
           return [];
@@ -46,6 +48,13 @@ function ProductDetail() {
       setProductInfo(() => {
         return { ...res.data };
       });
+    })
+    .catch((Error) => {
+      console.error("에러 발생 : ", Error.response);
+      if (Error.response.data.code == "PRODUCT_NOT_FOUND") {
+        toast.error("잘못된 접근입니다. 메인으로 돌아갑니다.")
+        navigate('/');
+      }
     });
   }, []);
 

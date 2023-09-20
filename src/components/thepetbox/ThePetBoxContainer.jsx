@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ThePetBoxContents, ThumbnailList } from './thepetbox.style';
 import MonthlyBox from './MonthlyBox';
 import * as Api from "../../api";
 
-function ThePetBoxContainer() {
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./sub-custom-slick.css";
+import { GreyBtn } from '../global/btn.style';
+import member from '../../feature/member/member';
+import { useNavigate } from 'react-router-dom';
 
+function ThePetBoxContainer() {
+  const navigate = useNavigate();
   const [curationList, setCurationList] = useState([]);
   const [itemList, setItemList] = useState({});
 
@@ -13,6 +21,7 @@ function ThePetBoxContainer() {
       .then((res) => {
         setCurationList(res.data);
         setItemList(res.data[0]);
+        console.log(curationList);
       })
       .catch((Error) => {
         console.info("Error!");
@@ -21,6 +30,31 @@ function ThePetBoxContainer() {
 
   function findSelectedCuration (arr, id) {
     return arr.find(o=> o.id==id);
+  }
+  
+  const settings = {
+    infinite: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 1000,
+    autoplaySpeed: 2000,
+    draggable: false,
+  };
+
+  const selectedItems = [{
+    cnt : 1,
+    createdAt : new Date(),
+    mainImgUrl : "https://heendy-assets.s3.ap-northeast-2.amazonaws.com/18344464-8cb3-4579-a8a5-1004b9d21dca-344564076_997472955000706_3678853330360293362_n.jpg",
+    memberId : member.id,
+    name: "매달 찾아가는 더펫박스",
+    price: 49000,
+    productId: "PR000000"
+  }];
+  const totalAmount = 49000
+    
+  function createCurationOrder() {
+    navigate("/ordersheet", { state: { selectedItems, totalAmount } });
   }
 
   return (
@@ -32,29 +66,37 @@ function ThePetBoxContainer() {
       <div className='more-box-desc-2'>
         이전 <div className='thpet-color'>더펫박스</div> 구경하기
       </div>
-      <ThumbnailList>
-        {
-          curationList.map((curation, index) => (
-            <div key={curation.id} className='curation-box'>
-              <div className='img-box'>
-                <img
-                  src={curation.thumbnailImgUrl}
-                  onClick={() => {
-                    var selected = findSelectedCuration(curationList, curation.id);
-                    setItemList(selected);
-                  }}
-                />
-              </div>
-              <div className='curation-title-1'>
-                {curation.paymentDate.split('-')[0]}년 {curation.paymentDate.split('-')[1]}월
-              </div>
-              <div className='curation-title-2'>
-                {curation.name}
-              </div>
-            </div>
-          ))
-        }
-      </ThumbnailList>
+
+
+        <ThumbnailList className="sub-container">
+          {curationList.length > 0 && (
+            <Slider {...settings}>
+              {
+                curationList.map((curation, index) => (
+                  <div key={curation.id} className='curation-box'>
+                    <div className='img-box'>
+                      <img
+                        src={curation.thumbnailImgUrl}
+                        onClick={() => {
+                          var selected = findSelectedCuration(curationList, curation.id);
+                          setItemList(selected);
+                        }}
+                      />
+                    </div>
+                    <div className='curation-title-1'>
+                    {curation.paymentDate && curation.paymentDate.split('-')[0]}년 {curation.paymentDate && curation.paymentDate.split('-')[1]}월
+                    </div>
+                    <div className='curation-title-2'>
+                      {curation.name}
+                    </div>
+                  </div>
+                ))
+              }
+            </Slider>
+          )}
+        </ThumbnailList>
+
+
       <div className='title-center'>
         <div className='sale-title-1'>
           매달, 나의 반려동물에 딱 맞춰 고른 키트를 받아보세요!
@@ -63,6 +105,13 @@ function ThePetBoxContainer() {
           더펫박스 정기구독
         </div>
       </div>
+
+      <div>
+      <GreyBtn onClick={createCurationOrder}>구독하러 가기</GreyBtn>
+      <GreyBtn>정기배송 상품 고르러 가기</GreyBtn>
+      </div>
+
+
     </ThePetBoxContents>
   );
 }
