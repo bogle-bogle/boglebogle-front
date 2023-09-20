@@ -179,19 +179,11 @@ function InputPetInfo(props) {
 
         customData.feedIngredients = resultData.ingredients;
 
-        console.log({
-          favoriteFoodIngredients: customData.feedIngredients,
-          feedMainImgUrl: customData.feedMainImgUrl,
-          feedDescImgUrl: customData.feedDescImgUrl,
-        });
-
         const response = await Api.put(`/api/pet/feed/${selectedPetId}`, {
           favoriteFoodIngredients: customData.feedIngredients,
           feedMainImgUrl: customData.feedMainImgUrl,
           feedDescImgUrl: customData.feedDescImgUrl,
         });
-
-        console.log(response);
 
         setSelectedfeedDescrImage(customData.feedIngredients);
 
