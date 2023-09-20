@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation  } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import {
@@ -14,7 +14,10 @@ import {
   ArrowIcon,
 } from './OrderInfo.style';
 
-function OrderInfo({ member, orderItemsData }) {
+function OrderInfo({ selectedItems, amount }) {
+
+  const member = useSelector((state) => state.member);
+
   return (
     <div>
       <MemberInfoTable>
@@ -25,7 +28,7 @@ function OrderInfo({ member, orderItemsData }) {
           </tr>
           <tr>
             <th>휴대폰 번호</th>
-            <td>010-1234-5678</td>
+            <td>{member.phoneNumber}</td>
           </tr>
         </tbody>
       </MemberInfoTable>
@@ -43,14 +46,14 @@ function OrderInfo({ member, orderItemsData }) {
           </tr>
         </thead>
         <tbody>
-          {orderItemsData.orderDetails.map((cartItem) => (
+          {selectedItems.map((cartItem) => (
             <tr>
               <td>
-                <img src={cartItem.productImgUrl} alt={cartItem.productName} />
-                <p>{cartItem.productName}</p>
+                <img src={cartItem.mainImgUrl} alt={cartItem.name} />
+                <p>{cartItem.name}</p>
               </td>
               <td>{cartItem.cnt}개</td>
-              <td>{cartItem.productPrice}원</td>
+              <td>{cartItem.price * cartItem.cnt}원</td>
               <td>무료배송</td>
             </tr>
           ))}
@@ -69,7 +72,7 @@ function OrderInfo({ member, orderItemsData }) {
           </tr>
           <tr>
             <th>휴대폰 번호</th>
-            <td>010-1234-5678</td>
+            <td>{member.phoneNumber}</td>
           </tr>
           <tr>
             <th>배송지</th>
@@ -86,7 +89,7 @@ function OrderInfo({ member, orderItemsData }) {
           <tr>
             <th>
               <p>주문금액</p>
-              <p>원</p>
+              <p>{amount / (1-0.1) }원</p>
             </th>
             <th>
               <PlusIcon />
@@ -100,12 +103,12 @@ function OrderInfo({ member, orderItemsData }) {
             </th>
             <th>
               <p>할인금액</p>
-              <p>원</p>
+              <p>{amount * 0.1}원</p>
             </th>
             <th>같다</th>
             <th>
               <p>총 결제금액</p>
-              {/* <p>{totalAmount}원</p>   */}
+              {amount}
             </th>
           </tr>
         </tbody>
