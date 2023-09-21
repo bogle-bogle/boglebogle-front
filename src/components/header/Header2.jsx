@@ -122,6 +122,8 @@ function Header2() {
                   className="menu_icon logout_icon"
                   onClick={() => {
                     dispatch(memberAction.clearMember());
+                    localStorage.removeItem("userToken");
+                    navigate('/')
                   }}
                 >
                   <FiLogOut></FiLogOut>

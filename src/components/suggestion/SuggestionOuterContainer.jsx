@@ -26,14 +26,16 @@ function SuggestionOuterContainer() {
   useEffect(() => {
     Api.get(`/api/pet`)
       .then((res) => {
-        const transformedData = res.data.map((item) => ({
-          codeValue: item.id,
-          name: item.name,
-          petImgUrl: item.petImgUrl,
-          feedMainImgUrl: item.feedMainImgUrl,
-          feedDescImgUrl: item.feedDescImgUrl,
-        }));
-        setPetData(transformedData);
+        if (res) {
+          const transformedData = res.data.map((item) => ({
+            codeValue: item.id,
+            name: item.name,
+            petImgUrl: item.petImgUrl,
+            feedMainImgUrl: item.feedMainImgUrl,
+            feedDescImgUrl: item.feedDescImgUrl,
+          }));
+          setPetData(transformedData);
+        }
       })
       .catch((Error) => {
         console.log("Error fetching pet codes:", Error);

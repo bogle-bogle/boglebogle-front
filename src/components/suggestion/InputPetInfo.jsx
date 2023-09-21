@@ -114,7 +114,7 @@ function InputPetInfo(props) {
       return uploadResults.map((result) => result.Location);
     } catch (error) {
       console.error("Error uploading file:", error);
-      toast.error("오류가 발생하였습니다😥");
+      toast.error("사진 업로드 중 오류가 발생하였습니다😥");
     }
   };
 
