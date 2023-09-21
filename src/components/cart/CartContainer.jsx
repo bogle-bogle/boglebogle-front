@@ -24,35 +24,50 @@ function CartContainer() {
       const cartItems = res.data;
       setCartProductInfo(cartItems);
     });
-  }, [member.id]);
-
-  const handleCount = (id, cnt) => {
-    setCartProductInfo((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        cnt,
-      },
-    }));
-  };
+  }, []);
 
   // 상품 삭제하면 카드 업데이트
   const handleDeleteItem = (itemId) => {
-    const updatedCartItems = { ...cartProductInfo };
-    delete updatedCartItems[itemId];
-    setCartProductInfo(updatedCartItems);
+    setCartProductInfo((prev) => {
+      return prev.filter((item) => itemId !== item.id);
+    });
   };
 
   // CartCard에 주기 위해 배열로 변경
   const cartItemArray = Object.values(cartProductInfo);
 
-  const handleSelectItem = (itemInfo) => {
-    if (selectedItems.includes(itemInfo)) {
-      setSelectedItems(selectedItems.filter((item) => item !== itemInfo));
-      calculateTotalAmount();
-    } else {
-      setSelectedItems([...selectedItems, itemInfo]);
-      calculateTotalAmount();
+  // // 선택된 상품들 주문서로 넘겨야함
+  // const handleSelectItem = (itemInfo, itemIdToRemove) => {
+  //   if (itemInfo) {
+  //     setSelectedItems((prev) => [...prev, itemInfo]);
+  //   } else if (itemIdToRemove) {
+  //     setSelectedItems((prev) => prev.filter(item => item.id !== itemIdToRemove));
+  //   }
+  // };
+  const handleSelectItem = (itemInfo, itemIdToRemove, count) => {
+    if (itemInfo) {
+      setSelectedItems((prev) => {
+        const existingItemIndex = prev.findIndex(
+          (item) => item.id === itemInfo.id
+        );
+
+        console.log("존재하는 상품인지", existingItemIndex);
+
+        if (existingItemIndex !== -1) {
+          const updatedItems = [...prev];
+          updatedItems[existingItemIndex] = {
+            ...updatedItems[existingItemIndex],
+            cnt: count,
+          };
+          return updatedItems;
+        } else {
+          return [...prev, itemInfo];
+        }
+      });
+    } else if (itemIdToRemove) {
+      setSelectedItems((prev) =>
+        prev.filter((item) => item.id !== itemIdToRemove)
+      );
     }
   };
 
@@ -65,28 +80,19 @@ function CartContainer() {
     }
   };
 
-  const calculateTotalAmount = () => {
-    const total = selectedItems.reduce((acc, item) => {
-      return acc + item.cnt * item.price;
-    }, 0);
-    setTotalAmount(total);
+  const calculateTotalAmount = (productPrice) => {
+    console.log(productPrice);
+    setTotalAmount((prev) => prev + productPrice);
   };
-
-  useEffect(() => {
-    calculateTotalAmount();
-  }, [selectedItems]);
 
   return (
     <CartContentContainer>
       <CartCardContainer>
         {cartItemArray.map((cartItem) => (
           <CartCard
-            key={cartItem.id}
+            key={`${cartItem.id}`}
             cartItemInfo={cartItem}
-            setTotalAmount={setTotalAmount}
             onDelete={handleDeleteItem}
-            handleCount={handleCount}
-            selectedItems={selectedItems}
             onSelectItem={handleSelectItem}
             calculateTotalAmount={calculateTotalAmount}
           />
