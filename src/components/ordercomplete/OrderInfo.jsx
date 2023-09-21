@@ -18,6 +18,9 @@ function OrderInfo({ selectedItems, amount }) {
 
   const member = useSelector((state) => state.member);
 
+  const handleClick = () => {
+    window.location.href = "/shop";  };
+
   return (
     <div>
       <MemberInfoTable>
@@ -80,7 +83,7 @@ function OrderInfo({ selectedItems, amount }) {
           </tr>
         </tbody>
       </MemberInfoTable>
-
+{/* 
       <PaymentInfoTable>
         <tbody>
           <tr>
@@ -112,14 +115,14 @@ function OrderInfo({ selectedItems, amount }) {
             </th>
           </tr>
         </tbody>
-      </PaymentInfoTable>
+      </PaymentInfoTable> */}
 
       <ButtonContainer>
         <ConfirmButton>
           주문내역 확인
           <ArrowIcon />
         </ConfirmButton>
-        <MainButton>쇼핑 계속하기</MainButton>
+        <MainButton onClick={handleClick}>쇼핑 계속하기</MainButton>
       </ButtonContainer>
     </div>
   );
