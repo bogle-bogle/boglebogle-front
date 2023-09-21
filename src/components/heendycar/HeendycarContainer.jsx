@@ -204,7 +204,6 @@ function HeendycarInfo() {
           .getMinutes()
           .toString()
           .padStart(2, "0")}`;
-        // toast.success(`예약 완료!\n 예약시간: ${formattedTime}`);
         toast.success(
           <span>
             예약 완료!
@@ -216,7 +215,7 @@ function HeendycarInfo() {
       .catch((Error) => {
         if (Error.message !== "User cancelled the operation.") {
           console.log(Error);
-          toast.error("예약에 실패하였습니다.");
+          toast.error(error.response.data.message);
         }
         // if (Error.data.)
       });
@@ -397,7 +396,7 @@ function HeendycarInfo() {
       </HcContent>
 
       <HcBtnSect>
-        <HcMainBtn onClick={handleMainBtnClick}>예약하기</HcMainBtn>
+        <HcMainBtn onClick={handleReservationButtonClick}>예약하기</HcMainBtn>
       </HcBtnSect>
 
       <HcSection2>
