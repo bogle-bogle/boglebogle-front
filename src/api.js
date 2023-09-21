@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { EventEmitter } from "events";
 import { memberAction } from "./feature/member/member";
@@ -52,12 +51,11 @@ async function del(endpoint, params = "") {
 function handleJwtError(error) {
   if (error.response?.data?.code === "EXPIRED_TOKEN") {
     toast.error("로그인이 만료되었습니다. 재로그인해주세요.");
-    console.error(error.response);
     memberAction.clearMember();
     localStorage.removeItem("userToken");
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
     toast.error("로그인이 필요합니다.");
-    console.error(error.response);
+    window.location.href = "http://localhost:3000";
   } else {
     throw error;
   }
