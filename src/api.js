@@ -53,9 +53,10 @@ function handleJwtError(error) {
     toast.error("로그인이 만료되었습니다. 재로그인해주세요.");
     memberAction.clearMember();
     localStorage.removeItem("userToken");
+        window.location.href = "https://thepet.thehyundai.site";
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
     toast.error("로그인이 필요합니다.");
-    window.location.href = "http://localhost:3000";
+    window.location.href = "https://thepet.thehyundai.site";
   } else {
     throw error;
   }
