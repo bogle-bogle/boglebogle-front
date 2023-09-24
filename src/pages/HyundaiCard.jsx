@@ -32,8 +32,8 @@ import heendyCardBack from '../assets/card/card_heendy_back.png';
 import cardFrontDefault from '../assets/card/card_front.png';
 import cardBackDefault from '../assets/card/card_back.png';
 
-import selectFrontDefault from '../assets/card/select_front_default.png';
-import selectBackDefault from '../assets/card/select_back_default.png';
+import selectFrontDefault from '../assets/card/select_front_default_new.png';
+import selectBackDefault from '../assets/card/select_back_default_new.png';
 
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
