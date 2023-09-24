@@ -22,209 +22,160 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import CustomResult from "../custom/CustomResult";
 import SuggestionResult from "./SuggestionResult";
-import axios from "axios";
 import ImageUploadComponent from "./ImageUploadComponent";
 
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
 
-  const [selectedfeedMainImage, setSelectedfeedMainImage] = useState(null);
-  const [selectedfeedDescrImage, setSelectedfeedDescrImage] = useState(null);
-  const [recommendProduct, setRecommendProduct] = useState([]);
-  const [nextStepFeedImage, setNextstepFeedImage] = useState(null);
+  const [feedMainImgPreviewUrl, setFeedMainImgPreviewUrl] = useState(null);
+  const [feedDescrImgPreviewUrl, setFeedDescrImgPreviewUrl] = useState(null);
+  const [suggestionProduct, setSuggestionProduct] = useState([]);
+  const [nextStepFeedImage, setNextStepFeedImage] = useState(null);
+  const [nextStepFeedIngredients, setNextStepFeedIngredients] = useState(null);
 
-  const feedInputRef = useRef(null);
-  const ingredientInputRef = useRef(null);
+  const feedMainImageInputRef = useRef(null);
+  const feedDescrImageInputRef = useRef(null);
 
-  // stepper 관련
+  // stepper 설정
   const steps = ["반려동물 선택", "이미지 선택", "상품 분석"];
   const [activeStep, setActiveStep] = useState(0);
 
+  // step 1. 펫 선택하기
   const handlePetClick = (pet) => {
-    // 현재 선택된 펫을 업데이트
     setSelectedPet(pet);
     setActiveStep(1);
     scrollTo("step2");
     if (pet.feedDescImgUrl !== null) {
       toast.success("저장된 정보를 불러옵니다.");
     }
-    setSelectedfeedDescrImage(pet.feedDescImgUrl);
+    setFeedDescrImgPreviewUrl(pet.feedDescImgUrl);
   };
+
   const handlePlaceholderClick = (pet) => {
-    // 현재 선택된 펫을 null로 설정하여 테두리 제거
-    setSelectedPet(pet);
+    setSelectedPet(pet);    // 현재 선택된 펫을 null로 설정하여 테두리 제거
   };
 
   const handleFileInputChange = (imageKey) => (event) => {
-    handleImageUpload(event, imageKey);
+    handleImagePreview(event, imageKey);
   };
 
-  const handleImageUpload = (event, imageKey) => {
+  const handleImagePreview = (event, imageKey) => {
     const file = event.target.files[0];
     if (!file) {
       console.error("No file selected.");
       return;
     }
     if (imageKey === "feed") {
-      setSelectedfeedMainImage(URL.createObjectURL(file));
+      setFeedMainImgPreviewUrl(URL.createObjectURL(file));
     } else if (imageKey === "ingredient") {
-      setSelectedfeedDescrImage(URL.createObjectURL(file));
-    }
-  };
-
-  AWS.config.update({
-    region: process.env.REACT_APP_AWS_REGION,
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
-  });
-
-  const uploadToS3 = async () => {
-    const s3 = new AWS.S3();
-    const feed = feedInputRef.current.files[0];
-    const ingredient = ingredientInputRef.current.files[0];
-
-    const uploadPromises = []; // 업로드 프로미스 배열
-
-    if (feed) {
-      const feedParams = {
-        Bucket: "heendy-feed",
-        Key: feed.name,
-        Body: feed,
-      };
-      const feedUploadPromise = s3.upload(feedParams).promise();
-      uploadPromises.push(feedUploadPromise);
-    }
-
-    if (ingredient) {
-      const ingredientParams = {
-        Bucket: "heendy-feed",
-        Key: ingredient.name,
-        Body: ingredient,
-      };
-      const ingredientUploadPromise = s3.upload(ingredientParams).promise();
-      uploadPromises.push(ingredientUploadPromise);
-    }
-
-    try {
-      const uploadResults = await Promise.all(uploadPromises); // 병렬 업로드 처리
-      console.info(
-        "S3 object URLs:",
-        uploadResults.map((result) => result.Location)
-      );
-      return uploadResults.map((result) => result.Location);
-    } catch (error) {
-      console.error("Error uploading file:", error);
-      toast.error("사진 업로드 중 오류가 발생하였습니다😥");
+      setFeedDescrImgPreviewUrl(URL.createObjectURL(file));
     }
   };
 
   const handleSubmission = async () => {
-    // 오류 검증 및 토스트 띄우기
     if (selectedPet == undefined) {
       toast.warn("반려동물을 선택해주세요");
       scrollToTop();
+    } else if (feedDescrImgPreviewUrl == undefined) {
+      toast.warn("성분표 이미지를 업로드해주세요");
+      scrollTo("step2");
     } else {
-      // 정상 작동시
-      const feedUrlPromise = uploadToS3(feedInputRef.current.files[0]);
-
-      const ingredientUrlPromise = uploadToS3(
-        ingredientInputRef.current.files[1]
-      );
-      const selectedPetId = selectedPet.codeValue;
-      const [inputFeedMainImgUrl, inputFeedDescImgUrl] = await Promise.all([
-        feedUrlPromise,
-        ingredientUrlPromise,
-      ]);
-      const customData = {
-        feedMainImgUrl: "",
-        feedDescImgUrl: "",
-        feedIngredients: "",
-      };
-
-      if (inputFeedMainImgUrl.length !== 0) {
-        customData.feedMainImgUrl = inputFeedMainImgUrl[0];
-      } else {
-        customData.feedMainImgUrl = selectedPet.feedMainImgUrl;
-      }
-      if (inputFeedDescImgUrl.length !== 0) {
-        customData.feedDescImgUrl = inputFeedDescImgUrl[1];
-      } else {
-        customData.feedDescImgUrl = selectedPet.feedDescImgUrl;
-      }
-
-      setNextstepFeedImage(
-        customData.feedMainImgUrl
-          ? customData.feedMainImgUrl
-          : customData.feedDescImgUrl
-      );
-
-      if (
-        customData.feedMainImgUrl == undefined ||
-        customData.feedDescImgUrl == undefined
-      ) {
-        toast.warn("성분표 이미지를 업로드해주세요");
-        scrollTo("step2");
-      }
-
       props.handleOpenModal();
-      const id = toast.loading("분석중입니다. 잠시만 기다려주세요.")
-      try {
-        const imgUrl = customData.feedDescImgUrl;
-        console.log(imgUrl);
+      const id = toast.loading("분석중입니다. 잠시만 기다려주세요.");
 
-        const searchRes = axios.post(`https://ocr-nlp.thepet.thehyundai.site/ai/img-to-similarity`, {"imgUrl" : imgUrl});
-        const resultData = (await searchRes).data
+      const selectedPetId = selectedPet.codeValue;
+      setNextStepFeedImage(feedMainImgPreviewUrl ? feedMainImgPreviewUrl : feedDescrImgPreviewUrl);
+  
+      // FormData 객체 생성
+      const formData = new FormData();
+      formData.append("petId", selectedPetId);
+  
+      if (feedMainImageInputRef.current && feedMainImageInputRef.current.files[0]) {
+        formData.append("feedMainImgFile", feedMainImageInputRef.current.files[0]);
+      }
+      // 두 번째 이미지 선택 및 추가
+      let hasNewImage = false;
+      if (feedDescrImageInputRef.current && feedDescrImageInputRef.current.files[0]) {
+        formData.append("feedDescImgFile", feedDescrImageInputRef.current.files[0]);
+        hasNewImage = true;
+      }
+  
+      if (!hasNewImage) {
+        // case 1. 성분표를 새로 업로드하지 않았을 경우
+        try {
+          const response = await Api.get(`/api/pet/feed/suggestion/${selectedPetId}`);
+          
+          const resultData = response.data;
+          console.log(resultData);
+          setNextStepFeedIngredients(response.data.ingredients)
+          setSuggestionProduct(() => {
+            return [...resultData.suggestions];
+          });
 
-        customData.feedIngredients = resultData.ingredients;
+          props.handleModalClose();
+          toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true });
 
-        const response = await Api.put(`/api/pet/feed/${selectedPetId}`, {
-          favoriteFoodIngredients: customData.feedIngredients,
-          feedMainImgUrl: customData.feedMainImgUrl,
-          feedDescImgUrl: customData.feedDescImgUrl,
-        });
+        } catch (error) {
+          props.handleModalClose();
 
-        setSelectedfeedDescrImage(customData.feedIngredients);
+          scrollToTop();
+          toast.update(id, { render: "오류가 발생하였습니다.", type: "error", isLoading: false, closeButton: true, autoClose: true });        
+        }
+      } else {
+        // case 2. 새로운 이미지가 첨부되었을 경우
+        try {
+          const response = await Api.post(`/api/pet/feed/suggestion`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          });
 
-        setRecommendProduct(() => {
-          return [...resultData.recommendations];
-        });
-        props.handleModalClose();
-        toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true});
-      } catch (error) {
-        props.handleModalClose();
+          const resultData = response.data;
+          console.log(resultData.ingredients);
+    
+          setSuggestionProduct(() => {
+            return [...resultData.suggestions];
+          });
+          setNextStepFeedIngredients(response.data.ingredients);
 
-        scrollToTop();
-        toast.update(id, { render: "오류가 발생하였습니다.", type: "error", isLoading: false, closeButton: true, autoClose: true });
-        // ****** 테스트용 데이터 삽입
-        // setRecommendProduct();
+          props.handleModalClose();
+          toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true});
+
+        } catch (error) {
+          props.handleModalClose();
+
+          scrollToTop();
+          toast.update(id, { render: "오류가 발생하였습니다.", type: "error", isLoading: false, closeButton: true, autoClose: true });        
+        }
       }
     }
   };
 
+  // 스크롤 로직
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
-
   const scrollTo = (id) => {
     document.getElementById(id).scrollIntoView();
   };
 
+  // 선택된 펫 초기화 (리셋 로직)
   const resetInput = () => {
     scrollToTop();
 
     setSelectedPet(null);
 
-    feedInputRef.current.value = null;
-    setSelectedfeedMainImage(null);
+    feedMainImageInputRef.current.value = null;
+    setFeedMainImgPreviewUrl(null);
 
-    ingredientInputRef.current.value = null;
-    setSelectedfeedDescrImage(null);
+    feedDescrImageInputRef.current.value = null;
+    setFeedDescrImgPreviewUrl(null);
     setActiveStep(0);
 
-    setRecommendProduct([]);
+    setSuggestionProduct([]);
   };
 
   const swal = withReactContent(Swal);
@@ -264,7 +215,7 @@ function InputPetInfo(props) {
 
       <InputArea>
         <div className="formBox">
-          <InputBoxes show={recommendProduct.length != 0}>
+          <InputBoxes show={suggestionProduct.length != 0}>
             {/* STEP 1 */}
             <div className="step-box" id="step1">
               <div className="step-text">
@@ -345,7 +296,7 @@ function InputPetInfo(props) {
                 <p
                   className={
                     "badge " +
-                    (activeStep === 1 && ingredientInputRef.current?.files?.[0]
+                    (activeStep === 1 && feedDescrImageInputRef.current?.files?.[0]
                       ? "active-bg"
                       : "basic-bg")
                   }
@@ -359,7 +310,7 @@ function InputPetInfo(props) {
               </div>
 
               <div className="feed-box">
-                {/* 사료 업로드 박스 */}
+                {/* 사료 표지 이미지 */}
                 <ImageUploadComponent
                   title="잘 먹는 사료 표지"
                   onImagePreviewClick={() => {
@@ -367,19 +318,19 @@ function InputPetInfo(props) {
                       toast.warn("반려동물을 먼저 선택해주세요");
                       scrollToTop();
                     } else {
-                      feedInputRef.current.click();
+                      feedMainImageInputRef.current.click();
                     }
                   }}
-                  selectedImageForPreview={selectedfeedMainImage}
+                  selectedImageForPreview={feedMainImgPreviewUrl}
                   defaultImageUrl={selectedPet?.feedMainImgUrl}
                   onInputChange={(event) => {
                     const feedUrl = handleFileInputChange("feed")(event);
                     feedUrl &&
-                      setSelectedfeedMainImage(
+                      setSelectedfeedMainImageUrl(
                         URL.createObjectURL(event.target.files[1])
                       );
                   }}
-                  inputRef={feedInputRef}
+                  inputRef={feedMainImageInputRef}
                 />
 
                 {/* 사료 성분표 이미지 */}
@@ -390,10 +341,10 @@ function InputPetInfo(props) {
                       toast.warn("반려동물을 먼저 선택해주세요");
                       scrollToTop();
                     } else {
-                      ingredientInputRef.current.click();
+                      feedDescrImageInputRef.current.click();
                     }
                   }}
-                  selectedImageForPreview={selectedfeedDescrImage}
+                  selectedImageForPreview={feedDescrImgPreviewUrl}
                   defaultImageUrl={selectedPet?.feedDescImgUrl}
                   onInputChange={(event) => {
                     const ingredientUrl =
@@ -407,7 +358,7 @@ function InputPetInfo(props) {
                       scrollTo("step3");
                     }
                   }}
-                  inputRef={ingredientInputRef}
+                  inputRef={feedDescrImageInputRef}
                 />
               </div>
             </div>
@@ -417,7 +368,7 @@ function InputPetInfo(props) {
               <div className="step-text">
                 <p
                   className={
-                    "btn btn-custom " + ( selectedfeedDescrImage ? "active-bg" : "basic-bg")
+                    "btn btn-custom " + ( feedDescrImgPreviewUrl ? "active-bg" : "basic-bg")
                   }
                 >
                   STEP 3
@@ -429,7 +380,7 @@ function InputPetInfo(props) {
               </div>
             </div>
           </InputBoxes>
-          {recommendProduct.length == 0 ? (
+          {suggestionProduct.length == 0 ? (
             <>
               <div
                 className="btn btn-custom btn-reset"
@@ -442,7 +393,7 @@ function InputPetInfo(props) {
               <button
                 className={
                   "btn btn-custom " +
-                  (selectedfeedMainImage != undefined
+                  (feedDescrImgPreviewUrl != undefined
                     ? "active-bg"
                     : "basic-bg")
                 }
@@ -456,14 +407,13 @@ function InputPetInfo(props) {
           )}
         </div>
       </InputArea>
-      {recommendProduct.length === 0 ? (
+      {suggestionProduct.length === 0 ? (
         <></>
       ) : (
         <>
           <SuggestionResult
-            recommendProduct={recommendProduct}
+            suggestionProduct={suggestionProduct}
           ></SuggestionResult>
-          {/* <CustomResult recommendProduct={recommendProduct}></CustomResult>     */}
           <div
             className="btn btn-custom btn-reset"
             onClick={() => {
@@ -475,9 +425,9 @@ function InputPetInfo(props) {
 
           <CustomResult
             selectedPetName={selectedPet.name}
-            recommendProduct={recommendProduct}
+            suggestionProduct={suggestionProduct}
             selectedFeedImage={nextStepFeedImage}
-            selectedFeedIngredients={selectedfeedDescrImage}
+            selectedFeedIngredients={nextStepFeedIngredients}
           ></CustomResult>
         </>
       )}
