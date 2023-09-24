@@ -11,7 +11,7 @@ function TossRedirect() {
   useEffect(() => {
     const params = new URL(window.location.href).searchParams;
     const paymentKey = params.get("paymentKey");
-    const orderId = params.get("orderId");
+    // const orderId = params.get("orderId");
     const amount = params.get("amount");
 
     Api.post(`/api/toss/success`, {
@@ -26,8 +26,11 @@ function TossRedirect() {
           Authorization: `Bearer ${member.jwt.accessToken}`,
           TossOrderId: orderId,
         },
+      }).then((res) => {
+        console.log(res.data)
+        const orderId = res.data;
+        navigate("/ordercomplete", { state: { selectedItems, amount, orderId } });
       });
-      navigate("/ordercomplete", { state: { selectedItems, amount, orderId } });
     });
   });
 }
