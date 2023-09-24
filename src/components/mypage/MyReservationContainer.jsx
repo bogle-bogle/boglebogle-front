@@ -13,6 +13,7 @@ import * as Api from '../../api.js';
 import { toast } from 'react-toastify';
 import { branchCode } from '../../commonCode';
 import { CancelBtn, GreyBtn } from './../global/btn.style';
+import NoDataBox from '../global/NoDataBox';
 
 function MyReservationContainer() {
   const [reservations, setReservations] = useState([]);
@@ -44,7 +45,9 @@ function MyReservationContainer() {
 
   return (
     <>
-        <MypageSubtitle>나의 흰디카 예약 목록</MypageSubtitle>
+    { reservations.length > 0 &&
+      <>
+      <MypageSubtitle>나의 흰디카 예약 목록</MypageSubtitle>
         <MypageList>
             {reservations.map((reservation) => (
                 <MypageCard key={reservation.id}>
@@ -68,6 +71,18 @@ function MyReservationContainer() {
                 </MypageCard>
             ))}
         </MypageList>
+        </>
+    }
+
+    { reservations.length == 0 &&
+      <NoDataBox
+      dataType="흰디카 예약"
+      addButtonText="흰디카 예약하러 가기 &#62;"
+      link="/heendycar"
+    />
+    }
+
+        
     </>
 );
 
