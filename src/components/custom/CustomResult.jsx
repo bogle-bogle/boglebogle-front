@@ -33,13 +33,13 @@ import ProductCard from "../product/ProductCard";
 
 function CustomResult({
   selectedPetName,
-  recommendProduct,
+  suggestionProduct,
   selectedFeedImage,
   selectedFeedIngredients,
 }) {
   console.log(
     selectedPetName,
-    recommendProduct,
+    suggestionProduct,
     selectedFeedImage,
     selectedFeedIngredients
   );
@@ -75,7 +75,7 @@ function CustomResult({
             <ResultPagenationContainer>
               <MiddleContainer style={{ height: 30 }}>
                 <MiddlePageContainer></MiddlePageContainer>
-                <TotalCountText>{`${recommendProduct.length}개`}</TotalCountText>
+                <TotalCountText>{`${suggestionProduct.length}개`}</TotalCountText>
                 <MiddlePageContainer>
                   <PageArrow>
                     <AiOutlineLeft />
@@ -88,8 +88,8 @@ function CustomResult({
               </MiddleContainer>
             </ResultPagenationContainer>
             <RecommendProductListContainer>
-              {recommendProduct !== undefined &&
-                recommendProduct.map((rp, idx) => (
+              {suggestionProduct !== undefined &&
+                suggestionProduct.map((rp, idx) => (
                   <ResultCardContainer key={idx}>
                     <ProductCard product={rp}></ProductCard>
                     <SimilarityContainer percent={rp.matchRate}>
