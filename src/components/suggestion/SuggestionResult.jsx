@@ -1,7 +1,7 @@
 import React from "react";
 import { ResultBox, ResultTitle } from "./result.style";
 
-function SuggestionResult({ recommendProduct }) {
+function SuggestionResult({ suggestionProduct }) {
   return (
     <ResultBox>
       <ResultTitle>
