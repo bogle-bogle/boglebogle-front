@@ -17,6 +17,7 @@ import {
   PageState,
   ProductCardContainer,
   ProductContainer,
+  ShopContainer,
 } from "./index.style";
 import { shopCategory, proteinCode } from "../../commonCode";
 import CategoryFilterButton from "./CategoryFilterButton";
@@ -33,6 +34,7 @@ import { TrackGoogleAnalyticsEvent } from "../../ga";
 import ContactFormCategory, {
   ContactFormCompleteAction,
 } from "../../ga/event/contactForm";
+import { RxReset } from 'react-icons/rx';
 
 function NewProductList() {
   const [mainCategory, setMainCategory] = useState("");
@@ -136,13 +138,16 @@ function NewProductList() {
   };
 
   return (
-    <div>
+    <ShopContainer>
       <CategoryContainer>
         <CategoryP>
           {`쇼핑`}
           {mainCategory !== "" && `  >  ${shopCategory[mainCategory].name}`}
         </CategoryP>
-        <InitialButton onClick={initFilter}>필터 초기화</InitialButton>
+        <InitialButton onClick={initFilter}>
+          <RxReset style={{marginRight: "3px", color: "white"}}/>
+          필터 초기화
+        </InitialButton>
       </CategoryContainer>
       <FilterCategoryContainer>
         <FilterCategoryRow>
@@ -198,7 +203,7 @@ function NewProductList() {
         )}
       </FilterCategoryContainer>
       <MiddleContainer>
-        <MiddleCategoryContainer>
+        {/* <MiddleCategoryContainer>
           <MiddleCategoryElement
             onClick={() =>
               TrackGoogleAnalyticsEvent(
@@ -213,7 +218,7 @@ function NewProductList() {
           <MiddleCategoryElement>추천순</MiddleCategoryElement>
           <MiddleCategoryElement>높은가격순</MiddleCategoryElement>
           <MiddleCategoryElement>낮은가격순</MiddleCategoryElement>
-        </MiddleCategoryContainer>
+        </MiddleCategoryContainer> */}
         <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
           curPage === pageCount ? totalCount : curPage * 20
         } / ${totalCount}개`}</MiddlePagenationContainer>
@@ -221,7 +226,7 @@ function NewProductList() {
           <PageArrow onClick={() => handlePage(curPage - 1)}>
             <AiOutlineLeft />
           </PageArrow>
-          <PageState>{`${curPage}/${pageCount}`}</PageState>
+          <PageState>{`${curPage} / ${pageCount}`}</PageState>
           <PageArrow onClick={() => handlePage(curPage + 1)}>
             <AiOutlineRight />
           </PageArrow>
@@ -239,7 +244,7 @@ function NewProductList() {
             .fill()
             .map(() => <ProductCardContainer></ProductCardContainer>)}
       </ProductContainer>
-    </div>
+    </ShopContainer>
   );
 }
 

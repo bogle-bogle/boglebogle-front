@@ -6,7 +6,7 @@ function CategoryFilterButton({ children, isChecked, id, handleFilter }) {
   return (
     <CategoryElement key={id} onClick={handleFilter} isChecked={isChecked}>
       {children}
-      {isChecked && <FaCheck />}
+      {isChecked && <FaCheck style={{marginLeft: "5px"}}/>}
     </CategoryElement>
   );
 }

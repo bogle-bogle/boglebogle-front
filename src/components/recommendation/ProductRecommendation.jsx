@@ -84,7 +84,7 @@ function ProductRecommendation({ type, param }) {
       <RcMiniIcon src={miniIconImg} />
       <RcTitle>
         {title}
-        <hr style={{ color: "lightgray" }} />
+        <hr style={{ color: "lightgray", marginTop: "15px", marginBottom: "25px" }} />
       </RcTitle>
       <ProductContainer>
         {foodProductList !== undefined &&
