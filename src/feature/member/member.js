@@ -22,15 +22,17 @@ const memberSlice = createSlice({
   initialState: initialMemberState,
   reducers: {
     setMemeber: (state, action) => {
-      state = { ...action.payload.member, pet: [...action.payload.pets] };
-      return state;
+      const { member, pets } = action.payload;
+      state.id = member.id;
+      state.name = member.name;
+      // ... 다른 멤버 속성들
+      state.pet = pets;
     },
-    clearMember: (state, action) => {
+    clearMember: (state) => {
       return initialMemberState;
     },
   },
 });
 
 export const memberAction = memberSlice.actions;
-
 export default memberSlice.reducer;
