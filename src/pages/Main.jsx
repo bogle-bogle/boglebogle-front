@@ -10,13 +10,13 @@ function Main() {
   return (
     <div>
       <MainSlider />
-      {pets && pets.length === 1 && (
+      {member && pets && pets.length === 1 && (
         <>
           <ProductRecommendation type={"simple"} param={pets[0].id} />
           <ProductRecommendation type={"detail"} param={pets[0].id} />
         </>
       )}
-      {pets && pets.length > 1 && (
+      {member && pets && pets.length > 1 && (
         <>
           <ProductRecommendation type={"simple"} param={pets[0].id} />
           <ProductRecommendation type={"detail"} param={pets[1].id} />

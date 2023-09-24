@@ -27,6 +27,7 @@ import AddPet from "./pages/AddPet";
 import RouteChangeTracker from "./RouteChangeTracker";
 import ThePetBox from "./pages/ThePetBox";
 import TossRedirect from './components/toss/TossRedirect';
+import HeendyCarPage from "./pages/HeendyCarPage";
 
 function App() {
   RouteChangeTracker();
@@ -47,7 +48,8 @@ function App() {
           <Route path="/ordercomplete" element={<OrderComplete />}></Route>
           <Route path="/sub" element={<Subscription />} />
           <Route path="/thepetbox" element={<ThePetBox />} />
-          <Route path="/heendycar" element={<Heendycar />}></Route>
+          <Route path="/heendycarreservation" element={<Heendycar />}></Route>
+          <Route path="/heendycar" element={<HeendyCarPage />}></Route>
           <Route path="/card" element={<HyundaiCard />}></Route>
           <Route path="/clubregister" element={<ClubRegister />}></Route>
           <Route path="/addpet" element={<AddPet />}></Route>
