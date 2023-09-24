@@ -11,25 +11,31 @@ function TossRedirect() {
   useEffect(() => {
     const params = new URL(window.location.href).searchParams;
     const paymentKey = params.get("paymentKey");
-    // const orderId = params.get("orderId");
+    const orderId = params.get("orderId");
     const amount = params.get("amount");
 
     Api.post(`/api/toss/success`, {
       paymentKey: paymentKey,
       orderId: orderId,
       amount: amount,
-    }).then((res) => {
+    }).then(() => {
       const selectedItems = JSON.parse(localStorage.getItem("selectedItems"));
+
+      console.log(orderId);
 
       Api.post(`/api/order/selected-cart`, selectedItems, {
         headers: {
           Authorization: `Bearer ${member.jwt.accessToken}`,
           TossOrderId: orderId,
         },
+        
       }).then((res) => {
-        console.log(res.data)
-        const orderId = res.data;
-        navigate("/ordercomplete", { state: { selectedItems, amount, orderId } });
+        console.log(res.data);
+        const shoppingOrderId = res.data;
+        console.log(shoppingOrderId);
+        navigate("/ordercomplete", {
+          state: { selectedItems, amount, shoppingOrderId },
+        });
       });
     });
   });

@@ -9,13 +9,13 @@ import OrderInfo from "../components/ordercomplete/OrderInfo";
 function OrderComplete() {
   const member = useSelector((state) => state.member);
   const location = useLocation();
-  const { selectedItems, amount, orderId } = location.state;
+  const { selectedItems, amount, shoppingOrderId } = location.state;
 
 
   return (
     <div>
       <OrderCompleteHeader />
-      <CompleteMessage orderId={orderId} />
+      <CompleteMessage shoppingOrderId={shoppingOrderId} />
       {selectedItems !== null && (
         <OrderInfo selectedItems={selectedItems} amount={amount} />
       )}
