@@ -238,7 +238,7 @@ function formatDate(dateString) {
                 ))}
               </div>
             </InputBox>
-            <div style={{display: "flex"}}>
+            <InputBox>
               <div className="place-box">
                 <ResvTitle>픽업 시간</ResvTitle>
                 <InputBox>
@@ -264,16 +264,14 @@ function formatDate(dateString) {
                   <input className="resv-phone-input" type="tel" placeholder="휴대폰 번호를 입력해주세요" value={phoneNumber} onChange={handlePhoneNumberChange} required />
                 </InputBox>
               </div>
-            </div>
+            </InputBox>
           </div>
           <div className="right-box">
             <InputBox>
               <div className="branch-img-box">
                 <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
-                <br />
                 <div className="branch-content">
-                  <strong>{getBranchName(selectedBranchCode)}</strong>
-                  <br />
+                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
                   <div key={selectedBranchCode}>
                     <p>
                       대여 가능 수량:{" "}
@@ -298,7 +296,7 @@ function formatDate(dateString) {
           </div>
         </div>
         <hr/>
-        <div>
+        <div className="resv-more-text">
           <p>1. 5대 예방접종이 완료된 반려견만 대여가 가능합니다.</p>
           <p>2. 피부병 등 전염성 질환이 있는 경우 이용이 불가합니다.</p>
           <p>3. 15kg 미만 반려견만 이용 가능합니다.</p>

@@ -69,6 +69,10 @@ export const ReservationBox = styled.div`
       margin: 0;
       padding-left: 7px;
     }
+
+    @media screen and (max-width: 1400px) {
+      font-size: 15px;
+    }
   }
 
   .resv-phone-input {
@@ -126,21 +130,20 @@ export const ReservationBox = styled.div`
     @media screen and (max-width: 1400px) {
       width: 100%;
     }
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
   }
 
   .right-box {
     width: 30%;
+    
+    @media screen and (max-width: 1400px) {
+      width: 100%;
+    }
   }
 
   .place-box {
     width: 50%;
     margin-right: 40px;
     margin-bottom: 20px;
-
     
     @media screen and (max-width: 1400px) {
       width: 100%;
@@ -148,6 +151,24 @@ export const ReservationBox = styled.div`
 
     @media (max-width: 768px) {
       width: 100%;
+      margin-right: 0px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .resv-more-text {
+    font-size: 14px;
+    color: #656565;
+
+    @media (max-width: 768px) {
+      font-size: 12px;
+      margin-top: 10px;
+
+      p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        line-height: 140%;
+      }
     }
   }
 `;
@@ -226,6 +247,14 @@ export const ResvTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0px 15px 0px;
+  
+  @media screen and (max-width: 1400px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 
@@ -254,33 +283,53 @@ export const ResvBtn = styled.button`
 export const InputBox = styled.div`
   display: flex;
 
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+  }
+
   .branch-img-box {
     width: 100%;
-    padding: 30px 0 30px 30px;
+    margin: 30px 0 30px 30px;
+
+    @media (max-width: 768px) {
+      margin: 30px 0 30px 0;
+    }
   }
 
   .branch-img {
     display: block;
     width: 100%;
-    height: 12vw;
+    height: 250px;
     object-fit: cover;
-    border-radius: 1vw 1vw 0vw 0vw;
+    border-radius: 15px 15px 0 0;
   }
 
   .branch-content {
     background-color: #f6f6f6;
-    border-radius: 0vw 0vw 1vw 1vw;
+    border-radius:0 0 15px 15px;
     border: 1px outset transparent;
 
-    font-size: 0.75vw;
-    height: 3.5vw;
-    padding: 20px 15px 10px 15px;
-    line-height: 50%;
-    margin-top: -1.2vw;
+    font-size: 12px;
+    height: 50px;
+    padding: 15px;
+    line-height: 150%;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .branch-name {
+    font-size: 14px;
+    margin-bottom: 2px;
   }
 
   .time-box {
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 10px;
+    }
   }
 `;
 
