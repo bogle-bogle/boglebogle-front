@@ -5,77 +5,123 @@ export const ProductDetailContainer = styled.div`
   height: 100%;
 `;
 
-export const CategoryP = styled.p`
-  width: 100%;
+export const ProductAddtionalBox = styled.div`
+  @media screen and (max-width: 1400px) {
+    margin: 0 20px;
+  }
+`;
 
-  font-size: 18px;
+export const CategoryP = styled.p`
+  font-size: 16px;
+  font-family: "HappinessSansBold";
+  margin-left: 25px;
+  color: #727272;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 export const ProductSummary = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 0.1fr 1.2fr;
-  grid-template-areas: 'pimg . info';
-  grid-auto-rows: auto;
+  display: flex;
+  margin: 10px 20px;
 
-  width: 100%;
-  height: auto;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+export const ProductDetailImgBox = styled.div`
+  width: 40%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const ProductDetailImg = styled.img`
   width: 100%;
-  height: 100%;
-  grid-area: pimg;
+  border-radius: 10px;
 `;
 
 export const ProductInfoContainer = styled.div`
-  height: 100%;
-  grid-area: info;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 15px;
+    padding-left: 0px;
+  }
 `;
 
 export const ProductName = styled.p`
-  font-weight: bold;
-  font-size: 30px;
+  font-size: 24px;
   display: inline-block;
   margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+`;
+
+export const ProductPrice = styled.p`
+  font-family: "HappinessSansTitle";
+  font-size: 26px;
+  display: inline-block;
+  margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 export const ProductPriceContainer = styled.div`
-  margin-top: 5%;
+  margin-top: 10px;
 
   display: flex;
   justify-content: space-between;
+  
+  @media (max-width: 768px) {
+    margin-top: 15px;
+  }
 `;
 
 export const InfoIconContainer = styled.div`
   display: flex;
-
-  width: 25%;
-
+  color: #868686;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const BenefitContainer = styled.ul`
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-
-  margin: 0;
-  padding: 0;
-
-  margin-top: 5%;
-
-  height: 50%;
+  border-top: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  
+  @media (max-width: 768px) {
+    padding-left: 0;
+  }
 `;
 
 export const BenefitRow = styled.li`
   list-style: none;
-
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin: 20px 0;
 `;
 
 export const BenefitRowDl = styled.dl`
   margin: 0;
   display: flex;
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const BenefitTitle = styled.dt`
@@ -88,6 +134,7 @@ export const BenefitContent = styled.dd`
   margin: 0;
   width: 70%;
   color: gray;
+  line-height: 170%;
 `;
 
 export const ClubHeendyContainer = styled.div`
@@ -95,49 +142,90 @@ export const ClubHeendyContainer = styled.div`
 
   align-items: center;
   justify-content: space-between;
-
-  height: 10%;
 `;
 
 export const ClubHeendyLogo = styled.img`
-  width: 20%;
+  width: 15%;
+  
+  @media (max-width: 768px) {
+    width: 30%;
+  }
 `;
 
 export const ClubHeendyDiscount = styled.p`
-  width: 20%;
+  font-family: "HappinessSansBold";
+  font-size: 14px;
+  color: #909090;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
+  margin-top: 20px;
 
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 
-  width: 100%;
-  height: 15%;
+  .cart {
+    border: 1px solid #0A9882;
+  background-color: white;
+    color: #0A9882;
+  }
+
+  .buy {
+    border: 0px solid transparent;
+    background-color: #0A9882;
+    color: white;
+  }
+
+  .monthly {
+    border: 0px solid transparent;
+    background-color: #B9A37D;
+    color: white;
+  }
+
+  .btn-icon {
+    margin-right: 10px;
+    font-size: 20px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
 `;
 
 export const DetailButton = styled.button`
-  width: 40%;
-  height: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HappinessSansTitle";
+  font-size: 16px;
+  margin: 0 10px;
+  width: 32%;
 
-  font-weight: bold;
-  font-size: 20px;
-
-  border: 1px solid #0a9882;
-
-  background-color: ${(props) => (props.flag ? 'white' : '#0A9882')};
-  color: ${(props) => (props.flag ? '#0A9882' : 'white')};
+  border-radius: 10px;
+  padding: 15px;
+  
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin: 0 8px;
+  }
 `;
 
 export const IngredientBanner = styled.div`
   display: flex;
   align-items: center;
+  color: #515151;
+  font-family: "HappinessSansBold";
+
+  p {
+    padding-left: 10px;
+  }
 `;
 
 export const IngredientContainer = styled.div`
-  border-top: 1px solid #888888;
-  border-bottom: 1px solid #888888;
+  border-top: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
+  padding: 10px 0px;
 
   width: 100%;
   height: auto;
@@ -147,30 +235,23 @@ export const IngredientContainer = styled.div`
 `;
 
 export const IngredientElement = styled.div`
-  width: auto;
-  height: auto;
+  font-size: 14px;
   overflow: auto;
-  font-size: 17px;
-  border: 1px solid #d9d9d9;
-
-  padding: 0.8%;
-
-  margin: 0.5%;
+  border: 0px solid transparent;
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin: 5px;
+  background-color: #F2F2F2;
 `;
 
 export const DescImgContainer = styled.div`
-  width: 100%;
-  height: auto;
-
-  display: flex;
-  justify-content: center;
-
-  margin-top: 3vh;
+  margin-top: 20px;
+  align-items: center;
 `;
 
 export const DescImg = styled.img`
-  width: auto;
-  height: auto;
+  width: 100%;
+  object-fit: fill;
 `;
 
 export const CartModalContainer = styled.div`
@@ -189,14 +270,11 @@ export const CartModalP = styled.p`
 `;
 
 export const CartModalButtonContainer = styled.div`
-  width: 100%;
-  height: auto;
-
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 
-  margin-top: 5vh;
+  margin-top: 10vh;
 `;
 
 export const CoutinueShopButton = styled.button`
