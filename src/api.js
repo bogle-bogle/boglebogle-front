@@ -37,9 +37,11 @@ async function del(endpoint, params = "") {
 
 function handleJwtError(error) {
   if (error.response?.data?.code === "EXPIRED_TOKEN") {
+    console.log(1);
     localStorage.removeItem("userToken");
     localStorage.dispatch(memberAction.clearMember());
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
+    console.log(2);
     toast.error("로그인이 필요합니다.");
   } else {
     throw error;
