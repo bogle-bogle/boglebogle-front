@@ -1,6 +1,4 @@
-import axios from "axios";
 import { toast } from "react-toastify";
-// import { store } from 'app/store'; // Redux store의 경로를 입력하세요.
 import { memberAction } from "./feature/member/member";
 
 const serverUrl = String(process.env.REACT_APP_SERVER_URL);
@@ -37,5 +35,4 @@ function handleJwtError(error) {
     throw error;
   }
 }
-
 export { get, post, put, del as delete };

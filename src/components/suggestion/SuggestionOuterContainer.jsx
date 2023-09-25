@@ -51,7 +51,7 @@ function SuggestionOuterContainer() {
 
   return (
     <SuggestionContainer>
-    {openModal && (
+      {openModal && (
         <Modal handleModalClose={handleModalClose}>
           <video width="310" height="550" autoPlay loop muted>
             <source src={loadingVideo} type="video/mp4" />
@@ -78,7 +78,7 @@ function SuggestionOuterContainer() {
         )
       }
     </SuggestionContainer>
-     );
-  }
+  );
+}
 
 export default SuggestionOuterContainer;

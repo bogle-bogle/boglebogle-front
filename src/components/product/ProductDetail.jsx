@@ -23,6 +23,8 @@ import FadeModal from "../modal/FadeModal";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useRef } from "react";
+import { eventLog } from "../../utils/event_log";
 function ProductDetail() {
   const member = useSelector((state) => state.member);
 
@@ -34,29 +36,46 @@ function ProductDetail() {
 
   const [fadeModalOpen, setFadeModalOpen] = useState(false);
 
+  const clickRef = useRef(false);
+  const clickDataRef = useRef(null);
+
+  const handleLog = (page, element, isClicked, itemId) => {
+    clickDataRef.current = { page, element, isClicked, itemId };
+  };
+
   useEffect(() => {
     const params = new URL(document.location.toString());
     const productId = params.pathname.split("/").at(-1);
 
     Api.get(`/api/product/${productId}`)
-    .then((res) => {
-      setIngredients(() => {
-        if (res.data.ingredients === null) {
-          return [];
+      .then((res) => {
+        setIngredients(() => {
+          if (res.data.ingredients === null) {
+            return [];
+          }
+          return [...res.data.ingredients.split(",")];
+        });
+        setProductInfo(() => {
+          return { ...res.data };
+        });
+        clickDataRef.current = {
+          page: "product_detail",
+          element: "cart",
+          isClicked: "N",
+          itemId: res.data.id,
+        };
+      })
+      .catch((Error) => {
+        console.error("에러 발생 : ", Error.response);
+        if (Error.response.data.code == "PRODUCT_NOT_FOUND") {
+          toast.error("잘못된 접근입니다. 메인으로 돌아갑니다.");
+          navigate("/");
         }
-        return [...res.data.ingredients.split(",")];
       });
-      setProductInfo(() => {
-        return { ...res.data };
-      });
-    })
-    .catch((Error) => {
-      console.error("에러 발생 : ", Error.response);
-      if (Error.response.data.code == "PRODUCT_NOT_FOUND") {
-        toast.error("잘못된 접근입니다. 메인으로 돌아갑니다.")
-        navigate('/');
-      }
-    });
+
+    return () => {
+      eventLog(clickDataRef.current);
+    };
   }, []);
 
   function handleModalClose() {
@@ -74,6 +93,7 @@ function ProductDetail() {
       productId: productInfo.id,
     });
     setFadeModalOpen(true);
+    handleLog("product_detail", "cart", productInfo.id, "Y");
   }
 
   function handleCloseCardModal() {
