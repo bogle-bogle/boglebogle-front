@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { eventLog } from "../../utils/event_log";
+import { shopCategory } from "../../commonCode";
 function ProductDetail() {
   const member = useSelector((state) => state.member);
 
@@ -43,10 +44,10 @@ function ProductDetail() {
     clickDataRef.current = { page, element, isClicked, itemId };
   };
 
-  useEffect(() => {
-    const params = new URL(document.location.toString());
-    const productId = params.pathname.split("/").at(-1);
+  const params = new URL(document.location.toString());
+  const productId = params.pathname.split("/").at(-1);
 
+  useEffect(() => {
     Api.get(`/api/product/${productId}`)
       .then((res) => {
         setIngredients(() => {
@@ -121,8 +122,9 @@ function ProductDetail() {
       {modalOpen && (
         <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>
       )}
-      <ProductDetailContainer>
-        <CategoryP>{"SHOPPING  >  FOOD  >  강아지"}</CategoryP>
+      { productInfo !== undefined &&
+        <ProductDetailContainer>
+        <CategoryP>{`SHOPPING  >  ${shopCategory[productInfo.mainCategoryCode].name}  >  강아지`}</CategoryP>
         {productInfo !== undefined && (
           <ProductSummaryContainer
             productInfo={productInfo}
@@ -130,8 +132,10 @@ function ProductDetail() {
           ></ProductSummaryContainer>
         )}
         <ProductAddtionalBox>
-          <Review handleModalOpen={handleModalOpen}></Review>
-          <ProductIngredient ingredients={ingredients}></ProductIngredient>
+          <Review handleModalOpen={handleModalOpen} productId={productId} ></Review>
+          { productInfo.ingredients !== null &&
+            <ProductIngredient ingredients={ingredients}></ProductIngredient>
+           }
           <DescImgContainer>
             {productInfo !== undefined && (
               <DescImg src={productInfo.descImgUrl} alt="" />
@@ -139,6 +143,7 @@ function ProductDetail() {
           </DescImgContainer>
         </ProductAddtionalBox>
       </ProductDetailContainer>
+    }
     </>
   );
 }
