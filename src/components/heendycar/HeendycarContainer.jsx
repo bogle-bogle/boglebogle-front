@@ -46,6 +46,7 @@ import { toast } from "react-toastify";
 import walkingheendy from "../../assets/custom/walkingheendy.gif";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { branchCode } from "../../commonCode";
 
 function HeendycarInfo() {
   const member = useSelector((state) => state.member);
@@ -171,7 +172,7 @@ const handleReservationButtonClick = async () => {
 
   try {
     const swalResponse = await swal.fire({
-      title: "예약하시겠습니까?",
+      title: `오늘 ${selectedTime} ${branchCode[selectedBranchCode]}으로 예약하시겠습니까?`,
       showCancelButton: true,
       imageUrl: walkingheendy,
       confirmButtonText: "확인",

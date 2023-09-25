@@ -12,6 +12,7 @@ import * as Api from '../../api';
 import { FaDog } from 'react-icons/fa';
 import { HiStar } from 'react-icons/hi';
 import { HiOutlineStar } from 'react-icons/hi';
+import smallHeendy from '../../assets/custom/newsmallheendy.jpg'
 import './custom-slick.css';
 
 function Review({ handleModalOpen, productId }) {
@@ -42,7 +43,8 @@ function Review({ handleModalOpen, productId }) {
       </ReviewBanner>
       <div>
         <ReviewCardList className="review-slick-container">
-          {reviewData.map((review) => (
+        { reviewData.length > 0 ? (
+          reviewData.map((review) => (
             <ReviewCard key={review.id} onClick={handleModalOpen}>
               <ReviewImgBox>
                 <ReviewImg src={review.imgUrl}></ReviewImg>
@@ -76,7 +78,14 @@ function Review({ handleModalOpen, productId }) {
               </ReviewTextBox>
           
             </ReviewCard>
-          ))}
+          ))
+          ) : (
+            <div style={{ textAlign: 'center', padding: '20px' }}>
+              <img src={smallHeendy} alt="No reviews yet" style={{ width: '100%' }} />
+              <p>아직 작성된 리뷰가 없어요</p>
+            </div>
+          )}
+
         </ReviewCardList>
       </div>
     </ReviewContainer>

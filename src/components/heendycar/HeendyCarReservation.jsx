@@ -10,6 +10,7 @@ import walkingheendy from "../../assets/custom/walkingheendy.gif";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { HeendyCarTitle, InputBox, ReservationBox, ResvBtn, ResvTitle } from "./heendycar.style";
+import { branchCode } from "../../commonCode";
 
 function HeendyCarReservation() {
   const member = useSelector((state) => state.member);
@@ -135,7 +136,7 @@ const handleReservationButtonClick = async () => {
 
   try {
     const swalResponse = await swal.fire({
-      title: "예약하시겠습니까?",
+      title: `${branchCode[selectedBranchCode]} 오늘 ${selectedTime} \n픽업 예약하시겠습니까?`,
       showCancelButton: true,
       imageUrl: walkingheendy,
       confirmButtonText: "확인",

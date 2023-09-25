@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BenefitContainer,
   BenefitContent,
@@ -25,8 +25,11 @@ import clubHeendy from '../../assets/detail/club_heendy.png';
 import { BsCartPlus } from 'react-icons/bs';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { MdEventRepeat } from 'react-icons/md';
+import PlainSwal from '../global/showPlainSwal';
+import { showPreparingSwal } from '../global/showPreparingSwal';
 
 function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
+
   return (
     <ProductSummary>
       <ProductDetailImgBox>
@@ -85,10 +88,10 @@ function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
             <BsCartPlus className="btn-icon"/>
             장바구니
           </DetailButton>
-          <DetailButton className="buy">
-            <TbTruckDelivery className="btn-icon"/>
-            바로구매
-          </DetailButton>
+          <DetailButton className="buy" onClick={showPreparingSwal}>
+          <TbTruckDelivery className="btn-icon"/>
+          바로구매
+        </DetailButton>
           <DetailButton className="monthly">
             <MdEventRepeat className="btn-icon"/>
             정기배송

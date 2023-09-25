@@ -27,6 +27,7 @@ import MyPetContainer from "./MyPetContainer";
 import MySubscriptionContainer from "./MySubscriptionContainer";
 import { toast } from "react-toastify";
 import * as Api from "../../api.js";
+import { showPreparingSwal } from "../global/showPreparingSwal";
 
 function MyPageContainer() {
   const member = useSelector((state) => state.member);
@@ -66,10 +67,10 @@ function MyPageContainer() {
     }
   };
 
-  const handlePreparingToast = () => {
-    toast.dismiss();
-    toast.info("준비중인 페이지입니다.");
-  };
+  // const handlePreparingToast = () => {
+  //   toast.dismiss();
+  //   toast.info("준비중인 페이지입니다.");
+  // };
 
   return (
     <MypageGrid>
@@ -81,7 +82,7 @@ function MyPageContainer() {
         <MypageMiniTitle onClick={() => setSelectedMenu("mypet")}>
           나의 반려동물 목록
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           나의 반려동물 맞춤 추천
         </MypageMiniTitle>
         <MypageBorder />
@@ -96,7 +97,7 @@ function MyPageContainer() {
         <MypageBorder />
 
         <MypageSubtitle>나의 흰디카 예약</MypageSubtitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           자주 찾는 지점
         </MypageMiniTitle>
         <MypageMiniTitle onClick={() => setSelectedMenu("myreservation")}>
@@ -105,19 +106,19 @@ function MyPageContainer() {
         <MypageBorder />
 
         <MypageSubtitle>회원 정보</MypageSubtitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           회원정보 수정
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           배송지 관리
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           H.Point Pay 관리
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           나의 기념일
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>
+        <MypageMiniTitle onClick={showPreparingSwal}>
           회원 탈퇴
         </MypageMiniTitle>
         <MypageBorder />
