@@ -1,5 +1,6 @@
 import React from 'react';
 import { PiBoneLight } from 'react-icons/pi';
+import { GiDogBowl } from 'react-icons/gi';
 import {
   IngredientBanner,
   IngredientContainer,
@@ -10,8 +11,8 @@ function ProductIngredient({ ingredients }) {
   return (
     <div>
       <IngredientBanner>
-        <PiBoneLight style={{ fontSize: '40px' }} />
-        <h2>{`전성분 ${ingredients.length}가지`}</h2>
+        <GiDogBowl style={{ fontSize: '25px' }} />
+        <p>{`전성분 ${ingredients.length}가지`}</p>
       </IngredientBanner>
       <IngredientContainer>
         {ingredients.map((ing) => (

@@ -13,6 +13,7 @@ import {
 } from './mypage.style';
 import * as Api from '../../api';
 import { toast } from 'react-toastify';
+import NoDataBox from '../global/NoDataBox';
 
 function MyOrderContainer() {
   const [orders, setOrders] = useState([]);
@@ -36,6 +37,16 @@ function MyOrderContainer() {
 
   return (
     <>
+    { orders.length == 0 &&
+      <NoDataBox
+        dataType="구매내역"
+        addButtonText="쇼핑하러 가기 &#62;"
+        link="/shop"
+      />
+    }
+
+    { orders.length > 0 &&
+      <>
       <MypageSubtitle>나의 주문 목록</MypageSubtitle>
       <MypageList>
       {orders.map((order) => (
@@ -59,6 +70,8 @@ function MyOrderContainer() {
         </>
         ))}
       </MypageList>
+      </>
+    }
     </>
   );
 }

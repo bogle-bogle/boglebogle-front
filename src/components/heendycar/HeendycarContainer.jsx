@@ -142,8 +142,8 @@ function HeendycarInfo() {
     const regex = /^(010|011|016|017|018|019)\d{7,8}$/;
 
     return regex.test(phoneNumber);
-}
-
+  }
+  
 const handleReservationButtonClick = async () => {
   // 예약 시간 확인
   if (!selectedTime) {
@@ -210,7 +210,7 @@ function formatDate(dateString) {
   return `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")} ${dateObj.getHours().toString().padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
 }
 
-  
+
   return (
     <HcGrid>
       <HcHeader>
@@ -343,19 +343,26 @@ function formatDate(dateString) {
               {time.text}
             </HcBtn>
           ))}
-          <br/>
-          <br/>
-          <br/>
+          <br />
+          <br />
+          <br />
 
           <HcPhoneSection>
             <HcPhoneInfo>
-            <HcContentTitle>휴대폰 번호를 입력하여 주세요.</HcContentTitle>
-            <HcSectColoredDescription>* 필수값입니다. </HcSectColoredDescription>
+              <HcContentTitle>휴대폰 번호를 입력하여 주세요.</HcContentTitle>
+              <HcSectColoredDescription>
+                * 필수값입니다.{" "}
+              </HcSectColoredDescription>
             </HcPhoneInfo>
-            
-            <HcPhoneInput type="tel" placeholder="010-0000-0000" value={phoneNumber} onChange={handlePhoneNumberChange} required />
-          </HcPhoneSection>
 
+            <HcPhoneInput
+              type="tel"
+              placeholder="010-0000-0000"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              required
+            />
+          </HcPhoneSection>
         </HcContent1>
 
         <HcContent2></HcContent2>
@@ -404,6 +411,5 @@ function formatDate(dateString) {
     </HcGrid>
   );
 }
-
 
 export default HeendycarInfo;

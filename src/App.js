@@ -29,6 +29,7 @@ import ThePetBox from "./pages/ThePetBox";
 import TossRedirect from './components/toss/TossRedirect';
 import HeendyCarPage from "./pages/HeendyCarPage";
 
+
 function App() {
   RouteChangeTracker();
   return (
@@ -55,7 +56,10 @@ function App() {
           <Route path="/addpet" element={<AddPet />}></Route>
           <Route path="/playground" element={<PlayGround />}></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
-          <Route path="/completeclubregister" element={<CompleteClubRegister />}></Route>
+          <Route
+            path="/completeclubregister"
+            element={<CompleteClubRegister />}
+          ></Route>
           <Route path="/mypet/:memberId" element={<MyPet />}></Route>
           <Route path="/mbti" element={<MbtiTest />}></Route>
           <Route path="/ex" element={<Example />}></Route>
