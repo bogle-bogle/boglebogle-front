@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { stat } from "fs";
 
 const initialMemberState = {
   id: 0,
@@ -22,13 +23,10 @@ const memberSlice = createSlice({
   initialState: initialMemberState,
   reducers: {
     setMemeber: (state, action) => {
-      const { member, pets } = action.payload;
-      state.id = member.id;
-      state.name = member.name;
-      // ... 다른 멤버 속성들
-      state.pet = pets;
+      state = { ...action.payload.member, pet: [...action.payload.pets] };
+      return state;
     },
-    clearMember: (state) => {
+    clearMember: (state, action) => {
       return initialMemberState;
     },
   },
