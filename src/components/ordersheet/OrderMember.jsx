@@ -23,7 +23,7 @@ function OrderMember() {
               <Td1 noBorderLeft>
                 이름 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.name}
               </Td1>
-              <Td1>전화번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;010-1234-5678</Td1>
+              <Td1>전화번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.phoneNumber}</Td1>
               <Td1 noBorderRight>
                 이메일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.email}
               </Td1>
@@ -42,11 +42,11 @@ function OrderMember() {
             </tr>
             <tr>
               <Th2>휴대폰 번호</Th2>
-              <Td2>010-1234-5678</Td2>
+              <Td2>{member.phoneNumber}</Td2>
             </tr>
             <tr>
-              <Th2 BorderBottom>배송지</Th2>
-              <Td2 BorderBottom>서울시 성북구</Td2>
+              <Th2 BorderBottom>{member.phoneNumber}</Th2>
+              <Td2 BorderBottom>{member.address}</Td2>
             </tr>
           </tbody>
         </Table2>

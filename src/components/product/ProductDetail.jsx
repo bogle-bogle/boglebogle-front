@@ -8,6 +8,7 @@ import {
   DescImg,
   DescImgContainer,
   MoveCartButton,
+  ProductAddtionalBox,
   ProductDetailContainer,
 } from "./detail.style";
 import ProductSummaryContainer from "./ProductSummaryContainer";
@@ -128,13 +129,15 @@ function ProductDetail() {
             handleShoppingBasket={handleOpenCartModal}
           ></ProductSummaryContainer>
         )}
-        <Review handleModalOpen={handleModalOpen}></Review>
-        <ProductIngredient ingredients={ingredients}></ProductIngredient>
-        <DescImgContainer>
-          {productInfo !== undefined && (
-            <DescImg src={productInfo.descImgUrl} alt="" />
-          )}
-        </DescImgContainer>
+        <ProductAddtionalBox>
+          <Review handleModalOpen={handleModalOpen}></Review>
+          <ProductIngredient ingredients={ingredients}></ProductIngredient>
+          <DescImgContainer>
+            {productInfo !== undefined && (
+              <DescImg src={productInfo.descImgUrl} alt="" />
+            )}
+          </DescImgContainer>
+        </ProductAddtionalBox>
       </ProductDetailContainer>
     </>
   );

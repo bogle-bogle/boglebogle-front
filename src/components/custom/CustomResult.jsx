@@ -34,13 +34,13 @@ import { eventLog } from "../../utils/event_log";
 
 function CustomResult({
   selectedPetName,
-  recommendProduct,
+  suggestionProduct,
   selectedFeedImage,
   selectedFeedIngredients,
 }) {
   console.log(
     selectedPetName,
-    recommendProduct,
+    suggestionProduct,
     selectedFeedImage,
     selectedFeedIngredients
   );
@@ -102,7 +102,7 @@ function CustomResult({
             <ResultPagenationContainer>
               <MiddleContainer style={{ height: 30 }}>
                 <MiddlePageContainer></MiddlePageContainer>
-                <TotalCountText>{`${recommendProduct.length}개`}</TotalCountText>
+                <TotalCountText>{`${suggestionProduct.length}개`}</TotalCountText>
                 <MiddlePageContainer>
                   <PageArrow>
                     <AiOutlineLeft />
@@ -115,9 +115,9 @@ function CustomResult({
               </MiddleContainer>
             </ResultPagenationContainer>
             <RecommendProductListContainer>
-              {recommendProduct !== undefined &&
-                recommendProduct.map((rp, idx) => (
-                  <ResultCardContainer
+              {suggestionProduct !== undefined &&
+                suggestionProduct.map((rp, idx) => (
+                  <ResultCardContainer 
                     onClick={() => {
                       handleClickRef(true);
                       handleLog("suggestion", "recommend_product", rp.id, "Y");

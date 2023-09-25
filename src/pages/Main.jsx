@@ -32,7 +32,7 @@ function Main() {
   return (
     <div>
       <MainSlider handleLog={handleLog} handleClickRef={handleClickRef} />
-      {pets && pets.length === 1 && (
+      {member && pets && pets.length === 1 && (
         <>
           <ProductRecommendation
             type={"simple"}
@@ -48,7 +48,7 @@ function Main() {
           />
         </>
       )}
-      {pets && pets.length > 1 && (
+      {member && pets && pets.length > 1 && (
         <>
           <ProductRecommendation
             type={"simple"}
