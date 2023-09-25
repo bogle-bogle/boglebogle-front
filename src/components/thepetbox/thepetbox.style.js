@@ -171,6 +171,31 @@ export const MonthBox = styled.div`
   }
 `;
 
+export const MainDescr = styled.div`
+  color: #757575;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+`;
+
+export const MainTitle = styled.div`
+  margin-top: 10px;
+  margin: 0;
+  width: 100%;
+  color: #5e5e5e;
+  font-family: HappinessSansTitle;
+  font-size: 32px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  .thpet-color {
+    color: #499878;
+    margin: 0 7px 0 7px;
+  }
+`;
+
 export const ThePetBoxContents = styled.div`
   margin-top: 1rem;
   height: auto;

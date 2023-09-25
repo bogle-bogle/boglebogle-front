@@ -25,10 +25,29 @@ import clubHeendy from '../../assets/detail/club_heendy.png';
 import { BsCartPlus } from 'react-icons/bs';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { MdEventRepeat } from 'react-icons/md';
-import PlainSwal from '../global/showPlainSwal';
+import PlainSwal, { showPlainSwal } from '../global/showPlainSwal';
 import { showPreparingSwal } from '../global/showPreparingSwal';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
+  const member = useSelector((state) => state.member);
+  const navigate = useNavigate();
+
+  function createOrder() {
+    showPlainSwal("주문서 페이지로 이동합니다.");
+    const selectedItems = [{
+      cnt: 1,
+      createdAt : new Date(),
+      mainImgUrl : productInfo.mainImgUrl,
+      memberId : member.id,
+      name: productInfo.name,
+      price: productInfo.price,
+      productId: productInfo.id
+    }];
+    const totalAmount = productInfo.price;
+    navigate("/ordersheet", { state: { selectedItems, totalAmount } });
+  }
 
   return (
     <ProductSummary>
@@ -88,11 +107,11 @@ function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
             <BsCartPlus className="btn-icon"/>
             장바구니
           </DetailButton>
-          <DetailButton className="buy" onClick={showPreparingSwal}>
-          <TbTruckDelivery className="btn-icon"/>
-          바로구매
-        </DetailButton>
-          <DetailButton className="monthly">
+          <DetailButton className="buy" onClick={createOrder}>
+            <TbTruckDelivery className="btn-icon"/>
+            바로구매
+          </DetailButton>
+          <DetailButton className="monthly" onClick={createOrder}>
             <MdEventRepeat className="btn-icon"/>
             정기배송
           </DetailButton>

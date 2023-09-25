@@ -24,7 +24,7 @@ function MyPetContainer() {
           name: item.name,
           petImgUrl: item.petImgUrl,
           sizeCode: sizeCode[item.sizeCode],
-          animalTypeCode: animalCode[item.animalTypeCode],
+          // animalTypeCode: animalCode[item.animalTypeCode],
           breed: breedCode[item.breedCode],
           birth: item.birth,
         }));

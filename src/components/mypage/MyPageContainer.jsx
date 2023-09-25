@@ -19,7 +19,7 @@ import {
   MypageTitle,
 } from "./mypage.style";
 import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import MyReservationContainer from "./MyReservationContainer";
 import MyOrderContainer from "./MyOrderContainer";
@@ -52,6 +52,17 @@ function MyPageContainer() {
       });
   }, []);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    const menuFromQuery = new URLSearchParams(location.search).get("menu");
+    if (menuFromQuery) {
+      setSelectedMenu(menuFromQuery);
+    } else {
+      setSelectedMenu("mypet"); // default value
+    }
+  }, [location.search]);
+
   const renderContent = () => {
     switch (selectedMenu) {
       case "mypet":
@@ -79,7 +90,9 @@ function MyPageContainer() {
         <MypageBoldBorder />
 
         <MypageSubtitle>나의 반려동물 관리</MypageSubtitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu("mypet")}>
+        <MypageMiniTitle 
+          onClick={() => navigate('/mypage?menu=mypet')}
+          style={selectedMenu === "mypet" ? { fontWeight: 'bold' } : {}}>
           나의 반려동물 목록
         </MypageMiniTitle>
         <MypageMiniTitle onClick={showPreparingSwal}>
@@ -88,11 +101,16 @@ function MyPageContainer() {
         <MypageBorder />
 
         <MypageSubtitle>나의 쇼핑내역</MypageSubtitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu("myorder")}>
+        <MypageMiniTitle 
+        onClick={() => navigate('/mypage?menu=myorder')}
+        style={selectedMenu === "myorder" ? { fontWeight: 'bold' } : {}}
+        >
           주문/배송 조회
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu("mysubscription")}>
-          구독 관리
+        <MypageMiniTitle 
+        onClick={() => navigate('/mypage?menu=mysubscription')}
+        style={selectedMenu === "mysubscription" ? { fontWeight: 'bold' } : {}}>
+        구독 관리
         </MypageMiniTitle>
         <MypageBorder />
 
@@ -100,8 +118,10 @@ function MyPageContainer() {
         <MypageMiniTitle onClick={showPreparingSwal}>
           자주 찾는 지점
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu("myreservation")}>
-          예약/취소 내역
+        <MypageMiniTitle 
+        onClick={() => navigate('/mypage?menu=myreservation')}
+        style={selectedMenu === "myreservation" ? { fontWeight: 'bold' } : {}}>
+        예약/취소 내역
         </MypageMiniTitle>
         <MypageBorder />
 

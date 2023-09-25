@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 export const ReservationBox = styled.div`
   padding-top: 20px;
@@ -11,9 +10,6 @@ export const ReservationBox = styled.div`
   @media (max-width: 768px) {
     padding: 20px;
   }
-
-  
-
 
   .info-text {
     margin-top: 10px;
@@ -81,8 +77,8 @@ export const ReservationBox = styled.div`
     border-radius: 15px;
     outline: none;
     padding: 10px 15px;
-    background-color: #E9E9E9;  
-    font-family: 'HappinessSansBold';
+    background-color: #e9e9e9;
+    font-family: "HappinessSansBold";
 
     &::placeholder {
       color: #b1b1b1;
@@ -97,7 +93,7 @@ export const ReservationBox = styled.div`
     margin-bottom: 100px;
   }
 
-  .resv-btn {    
+  .resv-btn {
     background-color: #707070; /* 배경색을 검은색으로 설정 */
     border-radius: 15px;
     color: white; /* 텍스트 색상을 흰색으로 설정 */
@@ -105,8 +101,8 @@ export const ReservationBox = styled.div`
     border: none; /* 테두리 제거 */
     cursor: pointer; /* 포인터 커서 설정 */
     transition: 0.2s;
-    transform: scale(1.0);
-    font-family: 'HappinessSansTitle';
+    transform: scale(1);
+    font-family: "HappinessSansTitle";
     font-size: 15px;
 
     &:hover {
@@ -134,7 +130,7 @@ export const ReservationBox = styled.div`
 
   .right-box {
     width: 30%;
-    
+
     @media screen and (max-width: 1400px) {
       width: 100%;
     }
@@ -144,7 +140,7 @@ export const ReservationBox = styled.div`
     width: 50%;
     margin-right: 40px;
     margin-bottom: 20px;
-    
+
     @media screen and (max-width: 1400px) {
       width: 100%;
     }
@@ -172,7 +168,6 @@ export const ReservationBox = styled.div`
     }
   }
 `;
-
 
 export const HeendyCarTitle = styled.div`
   color: white;
@@ -215,7 +210,7 @@ export const HeendyCarTitle = styled.div`
   }
 
   .title1 {
-    font-family: 'HappinessSansTitle';
+    font-family: "HappinessSansTitle";
     font-size: 40px;
     margin: 0;
 
@@ -247,7 +242,7 @@ export const ResvTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0px 15px 0px;
-  
+
   @media screen and (max-width: 1400px) {
     font-size: 18px;
   }
@@ -257,28 +252,25 @@ export const ResvTitle = styled.div`
   }
 `;
 
-
 export const ResvBtn = styled.button`
-
-  background-color: ${(props) => (props.isActive ? '#5AAB8A' : 'white')};
-  border: 1px solid ${(props) => (props.isActive ? '#5AAB8A' : '#A9A9A9')};
+  background-color: ${(props) => (props.isActive ? "#5AAB8A" : "white")};
+  border: 1px solid ${(props) => (props.isActive ? "#5AAB8A" : "#A9A9A9")};
   font-weight: bold;
   border-radius: 10px;
-  color: ${(props) => (props.isActive ? 'white' : '#9E9E9E')};
-  font-family: 'HappinessSansBold';
+  color: ${(props) => (props.isActive ? "white" : "#9E9E9E")};
+  font-family: "HappinessSansBold";
   padding: 10px 10px;
   cursor: pointer;
   margin-bottom: 15px;
   margin-right: 15px;
   transition: 0.2s;
-  transform: scale(1.0);
-  
+  transform: scale(1);
+
   &:hover {
     transform: scale(1.05);
     transition: transform 0.2s;
   }
 `;
-
 
 export const InputBox = styled.div`
   display: flex;
@@ -306,11 +298,11 @@ export const InputBox = styled.div`
 
   .branch-content {
     background-color: #f6f6f6;
-    border-radius:0 0 15px 15px;
+    border-radius: 0 0 15px 15px;
     border: 1px outset transparent;
 
-    font-size: 12px;
-    height: 50px;
+    font-size: 15px;
+    height: 70px;
     padding: 15px;
     line-height: 150%;
 
@@ -320,16 +312,18 @@ export const InputBox = styled.div`
   }
 
   .branch-name {
-    font-size: 14px;
-    margin-bottom: 2px;
+    font-size: 17px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-bottom: 5px;
   }
 
   .time-box {
-    margin-bottom: 20px;
+    height: fit-content;
+    margin-bottom: 40px;
 
     @media (max-width: 768px) {
       margin-bottom: 10px;
     }
   }
 `;
-

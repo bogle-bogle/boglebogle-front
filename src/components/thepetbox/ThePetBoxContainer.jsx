@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ThePetBoxContents, ThumbnailList } from './thepetbox.style';
+import { MainDescr, MainTitle, ThePetBoxContents, ThumbnailList } from './thepetbox.style';
 import MonthlyBox from './MonthlyBox';
 import * as Api from "../../api";
 
@@ -10,6 +10,8 @@ import "./sub-custom-slick.css";
 import { GreyBtn } from '../global/btn.style';
 import member from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
+import { showPlainSwal } from '../global/showPlainSwal';
+import { showClappingHeendySwal } from './../global/showClappingHeendySwal';
 
 function ThePetBoxContainer() {
   const navigate = useNavigate();
@@ -54,11 +56,24 @@ function ThePetBoxContainer() {
   const totalAmount = 49000
     
   function createCurationOrder() {
+    showClappingHeendySwal("매달 받아보는 더펫 박스! \n\n주문서 페이지로 이동합니다.");
     navigate("/ordersheet", { state: { selectedItems, totalAmount } });
   }
 
   return (
     <ThePetBoxContents>
+      <br/>
+      <MainDescr>
+      이번 달 더펫박스에는 무엇이 들어있을까? <br /> 
+      매달 정기적으로 새로운 상품을 만나보세요!
+      </MainDescr>
+      {/* <MainTitle>
+      4주에 한번씩 <div className='thpet-color'>새로운 상품들을</div>집앞까지 배송받아보세요.
+      월간 더펫박스
+      </MainTitle>
+    
+    <br/> */}
+
       <MonthlyBox itemList={curationList.length === 0 ? [] : itemList}/>
       <div className='more-box-desc-1'>
         매달 새로운 즐거움, 다양한 구성으로!

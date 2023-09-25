@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { HeendyCarTitle, InputBox, ReservationBox, ResvBtn, ResvTitle } from "./heendycar.style";
 import { branchCode } from "../../commonCode";
+import { showPlainSwal } from "../global/showPlainSwal";
+import { showClappingHeendySwal } from "../global/showClappingHeendySwal";
 
 function HeendyCarReservation() {
   const member = useSelector((state) => state.member);
@@ -112,19 +114,22 @@ function HeendyCarReservation() {
 const handleReservationButtonClick = async () => {
   // 예약 시간 확인
   if (!selectedTime) {
-    toast.error("예약 시간을 선택해주세요.");
+    showPlainSwal("예약 시간을 선택해주세요.");
+    // toast.error("예약 시간을 선택해주세요.");
     return;
   }
 
   // 휴대폰 번호 확인
   if (!phoneNumber) {
-    toast.error("휴대폰 번호를 입력해주세요.");
+    showPlainSwal("휴대폰 번호를 입력해주세요.");
+    // toast.error("휴대폰 번호를 입력해주세요.");
     return;
   }
 
   // 번호 유효성 확인
   if (!isValidPhoneNumber(phoneNumber)) {
-    toast.error("정확한 휴대폰 번호를 입력해주세요.");
+    showPlainSwal("정확한 휴대폰 번호를 입력해주세요.");
+    // toast.error("정확한 휴대폰 번호를 입력해주세요.");
     return;
   }
 
@@ -136,7 +141,7 @@ const handleReservationButtonClick = async () => {
 
   try {
     const swalResponse = await swal.fire({
-      title: `${branchCode[selectedBranchCode]} 오늘 ${selectedTime} \n픽업 예약하시겠습니까?`,
+      title: `${branchCode[selectedBranchCode]} \n오늘 ${selectedTime} \n\n픽업 예약하시겠습니까?`,
       showCancelButton: true,
       imageUrl: walkingheendy,
       confirmButtonText: "확인",
@@ -160,7 +165,9 @@ const handleReservationButtonClick = async () => {
     });
 
     const formattedTime = formatDate(res.data.reservationTime);
-    toast.success(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
+    // toast.success(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
+    showClappingHeendySwal(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
+    window.location.href="/mypage?menu=myreservation";
 
   } catch (error) {
     console.error(error);
