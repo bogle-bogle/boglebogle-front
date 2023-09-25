@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import slide1 from '../../assets/main/slide1.jpg';
-import slide2 from '../../assets/main/slide2.jpg';
+import slide1 from "../../assets/main/slide1.jpg";
+import slide2 from "../../assets/main/slide2.jpg";
 
 import {
   StyledSlider,
@@ -15,27 +15,27 @@ import {
   SliderBtn,
   SliderBtnBox,
   SliderBgImg,
-} from './slide.style';
-import { useNavigate } from 'react-router-dom';
+} from "./slide.style";
+import { useNavigate } from "react-router-dom";
 
 const items = [
   {
-    id: 1,
-    title: '더펫이 새롭게 태어납니다!',
-    desc: '더펫박스 정기 구독부터 우리 반려동물 맞춤 추천 상품까지!',
-    img: 'slide1',
-    link: '/suggestion',
+    id: "subscribe-banner",
+    title: "더펫이 새롭게 태어납니다!",
+    desc: "더펫박스 정기 구독부터 우리 반려동물 맞춤 추천 상품까지!",
+    img: "slide1",
+    link: "/suggestion",
   },
   {
-    id: 2,
-    title: '더펫이 새롭게 태어납니다!',
-    desc: '더펫박스 정기 구독부터 우리 반려동물 맞춤 추천 상품까지!',
-    img: 'slide2',
-    link: '/suggestion',
+    id: "delivery-banner",
+    title: "더펫이 새롭게 태어납니다!",
+    desc: "더펫박스 정기 구독부터 우리 반려동물 맞춤 추천 상품까지!",
+    img: "slide2",
+    link: "/suggestion",
   },
 ];
 
-function MainSlider() {
+function MainSlider({ handleLog, handleClickRef }) {
   const settings = {
     dots: true,
     fade: true,
@@ -52,11 +52,18 @@ function MainSlider() {
         {items.map((item, idx) => (
           <SliderItem key={idx}>
             {/* 홀/짝 페이지에 따라 정렬 변경 */}
-            <SlideContents className={idx % 2 === 0 ? 'left' : 'right'}>
+            <SlideContents className={idx % 2 === 0 ? "left" : "right"}>
               <SliderTitle>{item.title}</SliderTitle>
               <SliderDesc>{item.desc}</SliderDesc>
               <SliderBtnBox>
-                <SliderBtn onClick={() => navigate(item.link)}>
+                <SliderBtn
+                  id={item.id}
+                  onClick={(e) => {
+                    handleClickRef(true);
+                    handleLog("main", "banner", e.target.id, "Y");
+                    navigate(item.link);
+                  }}
+                >
                   자세히 보기
                 </SliderBtn>
               </SliderBtnBox>

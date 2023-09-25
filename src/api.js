@@ -1,7 +1,6 @@
-import axios from "axios";
 import { toast } from "react-toastify";
-// import { store } from 'app/store'; // Redux store의 경로를 입력하세요.
 import { memberAction } from "./feature/member/member";
+import axios from "axios";
 
 const serverUrl = String(process.env.REACT_APP_SERVER_URL);
 
@@ -11,20 +10,29 @@ function getAuthHeaders() {
 }
 
 async function get(endpoint, params = "") {
-  const requestURL = params === "" ? serverUrl + endpoint : serverUrl + endpoint + "/" + params;
-  return axios.get(requestURL, { headers: getAuthHeaders() }).catch(handleJwtError);
+  const requestURL =
+    params === "" ? serverUrl + endpoint : serverUrl + endpoint + "/" + params;
+  return axios
+    .get(requestURL, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 async function post(endpoint, data) {
-  return axios.post(serverUrl + endpoint, data, { headers: getAuthHeaders() }).catch(handleJwtError);
+  return axios
+    .post(serverUrl + endpoint, data, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 async function put(endpoint, data) {
-  return axios.put(serverUrl + endpoint, data, { headers: getAuthHeaders() }).catch(handleJwtError);
+  return axios
+    .put(serverUrl + endpoint, data, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 async function del(endpoint, params = "") {
-  return axios.delete(serverUrl + endpoint + "/" + params, { headers: getAuthHeaders() }).catch(handleJwtError);
+  return axios
+    .delete(serverUrl + endpoint + "/" + params, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 function handleJwtError(error) {
@@ -37,5 +45,4 @@ function handleJwtError(error) {
     throw error;
   }
 }
-
 export { get, post, put, del as delete };

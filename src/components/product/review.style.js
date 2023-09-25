@@ -1,54 +1,113 @@
 import styled from 'styled-components';
 
 export const ReviewContainer = styled.div`
-  height: 300px;
-  border-top: 1px solid #888888;
-  border-bottom: 1px solid #888888;
-
-  margin-top: 5vh;
+  border-top: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
+  margin-top: 15px;
 `;
 
 export const ReviewBanner = styled.div`
   display: flex;
+  align-items: center;
+  color: #515151;
+  font-family: "HappinessSansBold";
+
+  p {
+    padding-left: 10px;
+  }
 `;
 
-export const ReviewCardList = styled.div``;
+export const ReviewCardList = styled.div`
+  display: flex;
+  overflow: scroll;
+`;
 
 export const ReviewCard = styled.div`
-  border: 1px solid gray;
-  border-top-left-radius: 7%;
-  border-top-right-radius: 7%;
-  width: 150px;
-  height: 220px;
-  margin-left: 10%;
-  margin-bottom: 1%;
+  display: flex;
+  flex-direction: column;
+  border: 0px solid transparent;
+  border-radius: 15px;
+  margin: 0 20px 20px 0;
+  overflow: hidden;
+  background-color: #EBEBEB;
+  flex: 0 0 15%;
+
+  @media (max-width: 768px) {
+    flex: 0 0 50%;
+  }
+
+  &:hover {
+    background-color: #E6F2EB;
+  }
+`;
+
+export const ReviewImgBox = styled.div`
+  overflow: hidden;
+  height: 60%;
+  margin: 0;
 `;
 
 export const ReviewImg = styled.img`
   width: 100%;
-  height: 140px;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  
+  transition: 0.2s;
+  transform: scale(1.0);
+  
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+  }
 `;
 
-export const ReviewTitle = styled.p`
-  width: 100%;
-  height: 30px;
-  white-space: nowrap;
+export const ReviewTextBox = styled.div`
+  padding: 10px;
+  height: 40%;
   overflow: hidden;
-  text-overflow: ellipsis;
 
-  margin: 0;
-  padding: 0;
-`;
+  .review-member {
+    font-family: "HappinessSansTitle";
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
 
-export const ReviewContent = styled.p`
-  width: 150px;
-  height: 30px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  .review-stars {
+    display: flex;
+    color: #0a9882;
 
-  margin: 0;
-  padding: 0;
+    .fill {
+      font-size: 15px;
+    }
+
+    .outline {
+      font-size: 14px;
+    }
+  }
+
+  .review-content {
+    font-size: 14px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+   -webkit-box-orient: vertical;
+   line-height: 150%;
+      
+    @media screen and (max-width: 1400px) {
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 30%;
+  }
 `;
 
 export const ReviewRate = styled.p`
@@ -102,9 +161,4 @@ export const ReviewModalImg = styled.img`
   width: 70%;
   height: 80%;
   grid-area: ri;
-`;
-
-export const ReviewDetailButton = styled.div`
-  display: flex;
-  justify-content: end;
 `;

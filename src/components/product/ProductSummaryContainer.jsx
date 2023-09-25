@@ -12,26 +12,34 @@ import {
   DetailButton,
   InfoIconContainer,
   ProductDetailImg,
+  ProductDetailImgBox,
   ProductInfoContainer,
   ProductName,
+  ProductPrice,
   ProductPriceContainer,
   ProductSummary,
 } from './detail.style';
 import { AiOutlineGift, AiOutlineHeart } from 'react-icons/ai';
 import { BsShare } from 'react-icons/bs';
 import clubHeendy from '../../assets/detail/club_heendy.png';
+import { BsCartPlus } from 'react-icons/bs';
+import { TbTruckDelivery } from 'react-icons/tb';
+import { MdEventRepeat } from 'react-icons/md';
+
 function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
   return (
     <ProductSummary>
-      <ProductDetailImg src={`${productInfo.mainImgUrl}`}></ProductDetailImg>
+      <ProductDetailImgBox>
+        <ProductDetailImg src={`${productInfo.mainImgUrl}`}></ProductDetailImg>
+      </ProductDetailImgBox>
       <ProductInfoContainer>
         <ProductName>{`${productInfo.name}`}</ProductName>
         <ProductPriceContainer>
-          <ProductName>{`${productInfo.price.toLocaleString()}원`}</ProductName>
+          <ProductPrice>{`${productInfo.price.toLocaleString()}원`}</ProductPrice>
           <InfoIconContainer>
-            <AiOutlineGift style={{ fontSize: '40px' }} />
-            <BsShare style={{ fontSize: '40px' }} />
-            <AiOutlineHeart style={{ fontSize: '40px' }} />
+            <AiOutlineGift style={{ fontSize: '25px', marginLeft: '12px' }} />
+            <BsShare style={{ fontSize: '25px', marginLeft: '12px' }} />
+            <AiOutlineHeart style={{ fontSize: '25px', marginLeft: '12px' }} />
           </InfoIconContainer>
         </ProductPriceContainer>
         <BenefitContainer>
@@ -73,10 +81,18 @@ function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
           <ClubHeendyDiscount>흰디클럽 할인10%</ClubHeendyDiscount>
         </ClubHeendyContainer>
         <ButtonContainer>
-          <DetailButton flag={true} onClick={handleShoppingBasket}>
+          <DetailButton className="cart" onClick={handleShoppingBasket}>
+            <BsCartPlus className="btn-icon"/>
             장바구니
           </DetailButton>
-          <DetailButton flag={false}>바로구매</DetailButton>
+          <DetailButton className="buy">
+            <TbTruckDelivery className="btn-icon"/>
+            바로구매
+          </DetailButton>
+          <DetailButton className="monthly">
+            <MdEventRepeat className="btn-icon"/>
+            정기배송
+          </DetailButton>
         </ButtonContainer>
       </ProductInfoContainer>
     </ProductSummary>

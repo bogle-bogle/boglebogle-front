@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   ProductCardContainer,
   ProductImg,
+  ProductImgBox,
   ProductPrice,
   ProductSummary,
 } from "./index.style";
@@ -12,9 +13,11 @@ function ProductCard({ product }) {
   return (
     <>
       <ProductCardContainer onClick={() => navigate(`/product/${product.id}`)}>
-        <ProductImg src={`${product.mainImgUrl}`}></ProductImg>
-        <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
+        <ProductImgBox>
+          <ProductImg src={`${product.mainImgUrl}`}></ProductImg>
+        </ProductImgBox>
         <ProductSummary>{product.name}</ProductSummary>
+        <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
       </ProductCardContainer>
     </>
   );
