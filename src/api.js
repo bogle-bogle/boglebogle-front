@@ -11,35 +11,39 @@ function getAuthHeaders() {
 }
 
 async function get(endpoint, params = "") {
-  const requestURL = params === "" ? serverUrl + endpoint : serverUrl + endpoint + "/" + params;
-  return axios.get(requestURL, { headers: getAuthHeaders() }).catch(handleJwtError);
+  const requestURL =
+    params === "" ? serverUrl + endpoint : serverUrl + endpoint + "/" + params;
+  return axios
+    .get(requestURL, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 async function post(endpoint, data) {
-  return axios.post(serverUrl + endpoint, data, { headers: getAuthHeaders() }).catch(handleJwtError);
+  return axios
+    .post(serverUrl + endpoint, data, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 async function put(endpoint, data) {
-  return axios.put(serverUrl + endpoint, data, { headers: getAuthHeaders() }).catch(handleJwtError);
+  return axios
+    .put(serverUrl + endpoint, data, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 async function del(endpoint, params = "") {
-  return axios.delete(serverUrl + endpoint + "/" + params, { headers: getAuthHeaders() }).catch(handleJwtError);
+  return axios
+    .delete(serverUrl + endpoint + "/" + params, { headers: getAuthHeaders() })
+    .catch(handleJwtError);
 }
 
 function handleJwtError(error) {
   if (error.response?.data?.code === "EXPIRED_TOKEN") {
+    console.log(1);
     localStorage.removeItem("userToken");
-<<<<<<< HEAD
-    // window.location.href = "https://thepet.thehyundai.site";
-  } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
-    toast.error("로그인이 필요합니다.");
-    // window.location.href = "https://thepet.thehyundai.site";
-=======
     localStorage.dispatch(memberAction.clearMember());
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
+    console.log(2);
     toast.error("로그인이 필요합니다.");
->>>>>>> 8fe765bed45c5313a65237350b392e2e34fbb9fb
   } else {
     throw error;
   }
