@@ -150,6 +150,7 @@ function NewProductList() {
           <CategoryElementContainer>
             {Object.entries(shopCategory).map(([key, value]) => (
               <CategoryFilterButton
+                className="filter"
                 key={key}
                 id={key}
                 isChecked={mainFilterChecked[key]}
@@ -167,6 +168,7 @@ function NewProductList() {
               {Object.entries(shopCategory[mainCategory].subCategory).map(
                 ([key, value]) => (
                   <CategoryFilterButton
+                    className="filter"
                     key={key}
                     id={key}
                     isChecked={subFilterChecked[key]}
@@ -185,6 +187,7 @@ function NewProductList() {
             <CategoryElementContainer>
               {Object.entries(proteinCode).map(([key, value]) => (
                 <CategoryFilterButton
+                  className="filter"
                   key={key}
                   id={key}
                   isChecked={proteinFilterChecked[key]}

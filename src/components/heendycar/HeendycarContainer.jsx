@@ -142,74 +142,95 @@ function HeendycarInfo() {
     const regex = /^(010|011|016|017|018|019)\d{7,8}$/;
 
     return regex.test(phoneNumber);
-}
+  }
 
   const handleMainBtnClick = () => {
     if (selectedTime == "") {
       toast.error("예약 시간을 선택해주세요.");
-      return
+      return;
     }
-    
+
     if (phoneNumber == "" || phoneNumber == null) {
       toast.error("휴대폰 번호를 입력해주세요.");
-      return
+      return;
     }
 
     if (isValidPhoneNumber(phoneNumber) == false) {
       toast.error("정확한 휴대폰 번호를 입력해주세요.");
-      return 
+      return;
     }
 
     const data = {
       branchCode: selectedBranchCode,
       reservationTime: convertReservationTime(selectedTime),
-      phoneNumber: phoneNumber.replace(/-/g, '')
+      phoneNumber: phoneNumber.replace(/-/g, ""),
     };
-  
-    swal.fire({
-      title: "예약하시겠습니까?",
-      showCancelButton: true,
-      imageUrl: walkingheendy,
-      // imageHeight: "팝업 이미지",
-      confirmButtonText: "확인",
-      cancelButtonText: "취소",
-      confirmButtonColor: "#499878",
-      cancelButtonColor: "#A4A4A4",
-      customClass: {
-        confirmButton: "swal2-button",
-        cancelButton: "swal2-button",
-      },
-    })
-    .then((result) => {
-      if (result.isConfirmed) { // 확인 버튼을 눌렀을 때만 API 호출
-        return Api.post(`/api/hc/reservation`, data, {
-          headers: {
-            Authorization: `Bearer ${member.jwt.accessToken}`,
-          },
-        });
-      } else {
-        throw new Error('User cancelled the operation.');
-      }
-    })
-    .then((res) => {
-      const dateObj = new Date(res.data.reservationTime);
-      const formattedTime = `${dateObj.getFullYear()}-${(
-        dateObj.getMonth() + 1
-      ).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")} 
-      ${dateObj.getHours().toString().padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
-      // toast.success(`예약 완료!\n 예약시간: ${formattedTime}`);
-      toast.success(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
-      window.location.reload();
-    })
-    .catch((Error) => {
-      if (Error.message !== 'User cancelled the operation.') {
-        console.log(Error);
-        toast.error("예약에 실패하였습니다.");
-      }
-      // if (Error.data.)
-    });
+
+    swal
+      .fire({
+        title: "예약하시겠습니까?",
+        showCancelButton: true,
+        imageUrl: walkingheendy,
+        // imageHeight: "팝업 이미지",
+        confirmButtonText: "확인",
+        cancelButtonText: "취소",
+        confirmButtonColor: "#499878",
+        cancelButtonColor: "#A4A4A4",
+        customClass: {
+          confirmButton: "swal2-button",
+          cancelButton: "swal2-button",
+        },
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // 확인 버튼을 눌렀을 때만 API 호출
+          return Api.post(`/api/hc/reservation`, data, {
+            headers: {
+              Authorization: `Bearer ${member.jwt.accessToken}`,
+            },
+          }).catch((Error) => {
+            console.error(Error);
+            if (Error.message !== "User cancelled the operation.") {
+              console.log(Error);
+              toast.error("예약에 실패하였습니다.");
+            }
+            // if (Error.data.)
+          });
+        } else {
+          throw new Error("User cancelled the operation.");
+        }
+      })
+      .then((res) => {
+        console.log(res);
+        const dateObj = new Date(res.data.reservationTime);
+        const formattedTime = `${dateObj.getFullYear()}-${(
+          dateObj.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")} 
+      ${dateObj.getHours().toString().padStart(2, "0")}:${dateObj
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}`;
+        // toast.success(`예약 완료!\n 예약시간: ${formattedTime}`);
+        toast.success(
+          <span>
+            예약 완료!
+            <br /> 예약시간: {formattedTime}
+          </span>
+        );
+        window.location.reload();
+      })
+      .catch((Error) => {
+        console.error(Error);
+        if (Error.message !== "User cancelled the operation.") {
+          console.log(Error);
+          toast.error("예약에 실패하였습니다.");
+        }
+        // if (Error.data.)
+      });
   };
-  
+
   return (
     <HcGrid>
       <HcHeader>
@@ -342,19 +363,26 @@ function HeendycarInfo() {
               {time.text}
             </HcBtn>
           ))}
-          <br/>
-          <br/>
-          <br/>
+          <br />
+          <br />
+          <br />
 
           <HcPhoneSection>
             <HcPhoneInfo>
-            <HcContentTitle>휴대폰 번호를 입력하여 주세요.</HcContentTitle>
-            <HcSectColoredDescription>* 필수값입니다. </HcSectColoredDescription>
+              <HcContentTitle>휴대폰 번호를 입력하여 주세요.</HcContentTitle>
+              <HcSectColoredDescription>
+                * 필수값입니다.{" "}
+              </HcSectColoredDescription>
             </HcPhoneInfo>
-            
-            <HcPhoneInput type="tel" placeholder="010-0000-0000" value={phoneNumber} onChange={handlePhoneNumberChange} required />
-          </HcPhoneSection>
 
+            <HcPhoneInput
+              type="tel"
+              placeholder="010-0000-0000"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              required
+            />
+          </HcPhoneSection>
         </HcContent1>
 
         <HcContent2></HcContent2>
@@ -403,6 +431,5 @@ function HeendycarInfo() {
     </HcGrid>
   );
 }
-
 
 export default HeendycarInfo;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   AnalyzeResultContainer,
   AnalyzeResultExplain,
@@ -30,6 +30,7 @@ import {
 } from "../product/index.style";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProductCard from "../product/ProductCard";
+import { eventLog } from "../../utils/event_log";
 
 function CustomResult({
   selectedPetName,
@@ -43,6 +44,32 @@ function CustomResult({
     selectedFeedImage,
     selectedFeedIngredients
   );
+
+  const clickRef = useRef(false);
+  const clickDataRef = useRef(null);
+
+  const handleLog = (page, element, isClicked, itemId) => {
+    clickDataRef.current = { page, element, isClicked, itemId };
+  };
+
+  const handleClickRef = (flag) => {
+    clickRef.current = flag;
+  };
+
+  useEffect(() => {
+    return () => {
+      if (clickRef.current) {
+        eventLog(clickDataRef.current);
+      } else {
+        eventLog({
+          page: "suggestion",
+          element: "recommend_product",
+          igemId: null,
+          isClicked: "N",
+        });
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -90,7 +117,13 @@ function CustomResult({
             <RecommendProductListContainer>
               {recommendProduct !== undefined &&
                 recommendProduct.map((rp, idx) => (
-                  <ResultCardContainer key={idx}>
+                  <ResultCardContainer
+                    onClick={() => {
+                      handleClickRef(true);
+                      handleLog("suggestion", "recommend_product", rp.id, "Y");
+                    }}
+                    key={idx}
+                  >
                     <ProductCard product={rp}></ProductCard>
                     <SimilarityContainer percent={rp.matchRate}>
                       <ProgressBarContainer>

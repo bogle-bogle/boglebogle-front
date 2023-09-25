@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState } from "react";
 import {
   MyInfoBox,
   MyInfoBoxCnt,
@@ -17,16 +17,16 @@ import {
   MypageSidebar,
   MypageSubtitle,
   MypageTitle,
-} from './mypage.style';
-import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import MyReservationContainer from './MyReservationContainer';
-import MyOrderContainer from './MyOrderContainer';
-import MyPetContainer from './MyPetContainer';
-import MySubscriptionContainer from './MySubscriptionContainer';
-import { toast } from 'react-toastify';
-import * as Api from '../../api.js'
+} from "./mypage.style";
+import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import MyReservationContainer from "./MyReservationContainer";
+import MyOrderContainer from "./MyOrderContainer";
+import MyPetContainer from "./MyPetContainer";
+import MySubscriptionContainer from "./MySubscriptionContainer";
+import { toast } from "react-toastify";
+import * as Api from "../../api.js";
 
 function MyPageContainer() {
   const member = useSelector((state) => state.member);
@@ -37,10 +37,10 @@ function MyPageContainer() {
   const [mySubCnt, setMySubCnt] = useState("-");
   const [onDeliveryCnt, setOnDeliveryCnt] = useState("-");
   const [myCouponCnt, setMyCouponCnt] = useState("-");
-  
+
   useEffect(() => {
     Api.get(`/api/member/mypage`)
-       .then((res) => {
+      .then((res) => {
         setMyPetCnt(res.data.myPetCnt);
         setMySubCnt(res.data.subscriptionCnt);
         setOnDeliveryCnt(res.data.onDeliveryCnt);
@@ -53,13 +53,13 @@ function MyPageContainer() {
 
   const renderContent = () => {
     switch (selectedMenu) {
-      case 'mypet':
+      case "mypet":
         return <MyPetContainer />;
-      case 'myorder':
+      case "myorder":
         return <MyOrderContainer />;
-      case 'mysubscription':
+      case "mysubscription":
         return <MySubscriptionContainer />;
-      case 'myreservation':
+      case "myreservation":
         return <MyReservationContainer />;
       default:
         return <MyPetContainer />;
@@ -78,34 +78,48 @@ function MyPageContainer() {
         <MypageBoldBorder />
 
         <MypageSubtitle>나의 반려동물 관리</MypageSubtitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu('mypet')}>
+        <MypageMiniTitle onClick={() => setSelectedMenu("mypet")}>
           나의 반려동물 목록
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>나의 반려동물 맞춤 추천</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          나의 반려동물 맞춤 추천
+        </MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>나의 쇼핑내역</MypageSubtitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu('myorder')}>
+        <MypageMiniTitle onClick={() => setSelectedMenu("myorder")}>
           주문/배송 조회
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu('mysubscription')}>
+        <MypageMiniTitle onClick={() => setSelectedMenu("mysubscription")}>
           구독 관리
         </MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>나의 흰디카 예약</MypageSubtitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>자주 찾는 지점</MypageMiniTitle>
-        <MypageMiniTitle onClick={() => setSelectedMenu('myreservation')}>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          자주 찾는 지점
+        </MypageMiniTitle>
+        <MypageMiniTitle onClick={() => setSelectedMenu("myreservation")}>
           예약/취소 내역
         </MypageMiniTitle>
         <MypageBorder />
 
         <MypageSubtitle>회원 정보</MypageSubtitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>회원정보 수정</MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>배송지 관리</MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>H.Point Pay 관리</MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>나의 기념일</MypageMiniTitle>
-        <MypageMiniTitle onClick={handlePreparingToast}>회원 탈퇴</MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          회원정보 수정
+        </MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          배송지 관리
+        </MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          H.Point Pay 관리
+        </MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          나의 기념일
+        </MypageMiniTitle>
+        <MypageMiniTitle onClick={handlePreparingToast}>
+          회원 탈퇴
+        </MypageMiniTitle>
         <MypageBorder />
       </MypageSidebar>
 
@@ -139,7 +153,7 @@ function MyPageContainer() {
         {/* 없을 때 광고 */}
         <MypageAdv>
           <MypageAdvImg src={ClubAdvImg} />
-          <MypageAdvBtn onClick={() => navigate('/clubregister')}>
+          <MypageAdvBtn onClick={() => navigate("/clubregister")}>
             등록하러 가기 ＞
           </MypageAdvBtn>
         </MypageAdv>

@@ -1,13 +1,11 @@
 import { React, useState, useEffect, useCallback } from "react";
 import * as Api from "../../api";
 import {
-  AdvOverlayButton,
   SubGrid,
   SubMainAdv,
   SubMainAdvImg,
   TpbCard,
   TpbCardImg,
-  TpbHistoryContainer,
   TpbHistoryTitle,
   TpbMainSect,
   TpbMainBox,
@@ -21,8 +19,6 @@ import {
   TpbHistoryMonth,
   TpbHistoryName,
   TpbOrderBtn,
-  SubMainBox,
-  SubMainBoxTitle,
   SubMainBoxWithContent,
   SubMainBoxContent,
   SubMainAdvMovingImg,
@@ -55,7 +51,7 @@ const boxVariant = {
   hidden: { opacity: 0, scale: 0 },
 };
 
-function SubContainer({ handleModalOpen }) {
+function SubContainer() {
   const [tpbHistoryModalOpen, setTpbHistoryModalOpen] = useState(false);
   const [tpbSubModalOpen, setTpbSubModalOpen] = useState(false);
   const [tpbHistory, setTpbHistory] = useState([]);

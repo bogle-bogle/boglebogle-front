@@ -17,11 +17,16 @@ import { useNavigate } from "react-router-dom";
 import { productSub, proteinCode, breedCode } from "../../commonCode.js";
 import miniIconImg from "../../assets/recommendation/mini-text-icon-v2.png";
 import ProductCard from "../product/ProductCard";
+import { eventLog } from "../../utils/event_log";
 
-function ProductRecommendation({ type, param }) {
+function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
   const [foodProductList, setFoodProductList] = useState([]);
   const [petInfo, setPetInfo] = useState({});
   const [title, setTitle] = useState("");
+
+  const [isClicked, setIsClicked] = useState(false);
+  const [itemId, setItemId] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,7 +94,12 @@ function ProductRecommendation({ type, param }) {
       <ProductContainer>
         {foodProductList !== undefined &&
           foodProductList.map((product, idx) => (
-            <CardContainer>
+            <CardContainer
+              onClick={() => {
+                handleLog("main", "recommend_product", product.id, "Y");
+                handleClickRef(true);
+              }}
+            >
               <ProductCard key={idx} product={product}></ProductCard>
             </CardContainer>
           ))}
