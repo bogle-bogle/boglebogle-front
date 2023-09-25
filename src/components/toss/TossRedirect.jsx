@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { post } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as Api from "../../api";
@@ -21,11 +20,6 @@ function TossRedirect() {
       amount: amount,
     }).then(() => {
       const selectedItems = JSON.parse(localStorage.getItem("selectedItems"));
-
-      console.log(orderId);
-      console.log(member);
-      console.log(member.jwt.accessToken);
-
       axios
         .post(`/api/order/selected-cart`, selectedItems, {
           headers: {
@@ -36,7 +30,6 @@ function TossRedirect() {
         .then((res) => {
           console.log(res.data);
           const shoppingOrderId = res.data;
-          console.log(shoppingOrderId);
           navigate("/ordercomplete", {
             state: { selectedItems, amount, shoppingOrderId },
           });
