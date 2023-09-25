@@ -19,11 +19,11 @@ function Header2() {
   const member = useSelector((state) => state.member); // 추가
   const menuList = [
     {
-      title: '구독',
+      title: '월간 구독',
       link: '/thepetbox',
     },
     {
-      title: '맞춤 추천',
+      title: 'AI 맞춤 추천',
       link: '/suggestion',
     },
     {
