@@ -12,9 +12,16 @@ import withReactContent from 'sweetalert2-react-content';
 import { branchCode } from '../../commonCode';
 import { showPlainSwal } from '../global/showPlainSwal';
 import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
-import { HeendyCarTitle, InputBox, ReservationBox, ResvBtn, ResvTitle } from './heendycar.style';
+import {
+  HeendyCarTitle,
+  InputBox,
+  ReservationBox,
+  ResvBtn,
+  ResvTitle,
+} from './heendycar.style';
 import { jwtCheck } from '../../utils/tokenCheck';
 import { loginAction } from '../../feature/member/login';
+import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
 
 function HeendyCarReservation() {
   const dispatch = useDispatch();
@@ -36,8 +43,12 @@ function HeendyCarReservation() {
           descr: item.description,
         }));
 
-        setDeptBranches(transformedData.filter(item => item.branchCode <= '200'));
-        setOutletBranches(transformedData.filter(item => item.branchCode > '200'));
+        setDeptBranches(
+          transformedData.filter(item => item.branchCode <= '200'),
+        );
+        setOutletBranches(
+          transformedData.filter(item => item.branchCode > '200'),
+        );
       })
       .catch(Error => {
         console.info('Error');
@@ -62,22 +73,30 @@ function HeendyCarReservation() {
   ];
 
   const getBranchName = branchCode => {
-    const selectedBranch = [...deptBranches, ...outletBranches].find(branch => branch.branchCode === branchCode);
+    const selectedBranch = [...deptBranches, ...outletBranches].find(
+      branch => branch.branchCode === branchCode,
+    );
     return selectedBranch ? selectedBranch.name : null;
   };
 
   const getBranchDescr = branchCode => {
-    const selectedBranch = [...deptBranches, ...outletBranches].find(branch => branch.branchCode === branchCode);
+    const selectedBranch = [...deptBranches, ...outletBranches].find(
+      branch => branch.branchCode === branchCode,
+    );
     return selectedBranch ? selectedBranch.descr : null;
   };
 
   const getBranchCnt = branchCode => {
-    const selectedBranch = [...deptBranches, ...outletBranches].find(branch => branch.branchCode === branchCode);
+    const selectedBranch = [...deptBranches, ...outletBranches].find(
+      branch => branch.branchCode === branchCode,
+    );
     return selectedBranch ? selectedBranch.cnt : null;
   };
 
   const getBranchImgUrl = branchCode => {
-    const selectedBranch = [...deptBranches, ...outletBranches].find(branch => branch.branchCode === branchCode);
+    const selectedBranch = [...deptBranches, ...outletBranches].find(
+      branch => branch.branchCode === branchCode,
+    );
     return selectedBranch ? selectedBranch.imgUrl : null;
   };
 
@@ -186,13 +205,15 @@ function HeendyCarReservation() {
   // 날짜 포맷팅을 위한 별도의 함수
   function formatDate(dateString) {
     const dateObj = new Date(dateString);
-    return `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj
+    return `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${dateObj
       .getDate()
       .toString()
-      .padStart(2, '0')} ${dateObj.getHours().toString().padStart(2, '0')}:${dateObj
-      .getMinutes()
+      .padStart(2, '0')} ${dateObj
+      .getHours()
       .toString()
-      .padStart(2, '0')}`;
+      .padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')}`;
   }
 
   return (
@@ -200,7 +221,9 @@ function HeendyCarReservation() {
       <HeendyCarTitle>
         <div className="title-text">
           <p className="title1">Heendy Car</p>
-          <p className="title2">클럽 흰디 회원이라면 반려견 트롤리를 무료로 이용 가능합니다!</p>
+          <p className="title2">
+            클럽 흰디 회원이라면 반려견 트롤리를 무료로 이용 가능합니다!
+          </p>
         </div>
         <img src={bgheendycar} alt="background" />
       </HeendyCarTitle>
@@ -210,20 +233,28 @@ function HeendyCarReservation() {
           <div className="resv-desc-text">* 클럽 흰디 전용 서비스</div>
         </div>
         <div className="resv-desc-text-2">
-          * 예약은 당일 픽업 30분 전부터만 가능하며, 30분 이내로 픽업하지 않으시면 예약이 자동 취소됩니다.
+          * 예약은 당일 픽업 30분 전부터만 가능하며, 30분 이내로 픽업하지
+          않으시면 예약이 자동 취소됩니다.
         </div>
         <hr />
         <div className="input-box">
           <div className="left-box">
             <InputBox>
               <div className="branch-img-box">
-                <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
+                <img
+                  className="branch-img"
+                  src={getBranchImgUrl(selectedBranchCode)}
+                />
                 <div className="branch-content">
-                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
+                  <strong className="branch-name">
+                    {getBranchName(selectedBranchCode)}
+                  </strong>
                   <div key={selectedBranchCode}>
                     <p>
                       대여 가능 수량:{' '}
-                      <span style={{ color: 'darkred', fontWeight: 'bold' }}>{getBranchCnt(selectedBranchCode)}</span>
+                      <span style={{ color: 'darkred', fontWeight: 'bold' }}>
+                        {getBranchCnt(selectedBranchCode)}
+                      </span>
                     </p>
                     <p>{getBranchDescr(selectedBranchCode)}</p>
                   </div>
@@ -320,10 +351,13 @@ function HeendyCarReservation() {
           <p>1. 5대 예방접종이 완료된 반려견만 대여가 가능합니다.</p>
           <p>2. 피부병 등 전염성 질환이 있는 경우 이용이 불가합니다.</p>
           <p>3. 15kg 미만 반려견만 이용 가능합니다.</p>
-          <p>4. 꼭 반려견 트롤리 안에 부착된 목줄을 채우고, 안전에 주의해주시기 바랍니다.</p>
           <p>
-            5.반려동물 가족은 반려동물의 행동에 법적인 책임을 지며, 배변처리 등 반려동물의 위생 관리를 철저히 해야
-            합니다.
+            4. 꼭 반려견 트롤리 안에 부착된 목줄을 채우고, 안전에 주의해주시기
+            바랍니다.
+          </p>
+          <p>
+            5.반려동물 가족은 반려동물의 행동에 법적인 책임을 지며, 배변처리 등
+            반려동물의 위생 관리를 철저히 해야 합니다.
           </p>
         </div>
       </ReservationBox>
