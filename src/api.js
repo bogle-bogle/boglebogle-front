@@ -40,7 +40,7 @@ function handleJwtError(error) {
   if (error.response?.data?.code === "EXPIRED_TOKEN") {
     localStorage.removeItem("userToken");
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
-    showRequiredLoginSwal();
+    console.log("로그인 요구");
   } else {
     throw error;
   }

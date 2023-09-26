@@ -17,6 +17,7 @@ import {
   SuggestionContainer,
 } from "./suggestion.style";
 import NoDataBox from "../global/NoDataBox";
+import { jwtCheck } from "../../utils/tokenCheck";
 
 function SuggestionOuterContainer() {
   const [play, { stop }] = useSound(loadingSound);
@@ -25,6 +26,9 @@ function SuggestionOuterContainer() {
   const [petData, setPetData] = useState([]);
 
   useEffect(() => {
+    if (jwtCheck()) {
+      return;
+    }
     Api.get(`/api/pet`)
       .then((res) => {
         if (res) {
@@ -63,7 +67,7 @@ function SuggestionOuterContainer() {
         //       <source src={loadingVideo} type="video/mp4" />
         //     </video>
         //   </LoadingVideoModal>
-          
+
         // </Modal>
 
         <Modal handleModalClose={handleModalClose}>
@@ -82,9 +86,9 @@ function SuggestionOuterContainer() {
         // petData가 비어있는 경우
         petData.length === 0 ? (
           <NoDataBox
-          dataType="반려동물"
-          addButtonText="반려동물 저장하고 AI 추천 함께하기 &#62;"
-          link="/addpet"
+            dataType="반려동물"
+            addButtonText="반려동물 저장하고 AI 추천 함께하기 &#62;"
+            link="/addpet"
           />
         ) : (
           <SuggestBox>

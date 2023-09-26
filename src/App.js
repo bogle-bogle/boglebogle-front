@@ -4,7 +4,6 @@ import CustomReadyPage from "./pages/CustomReadyPage";
 import CustomReadyResult from "./pages/CustomReadyResult";
 import Main from "./pages/Main";
 import RedirectUrl from "./components/login/RedirectUrl";
-import MainPage from "./pages/MainPage";
 import Shop from "./pages/Shop";
 import Cart from "./pages/CartPage";
 import Ordersheet from "./pages/OrderSheetPage";
@@ -27,6 +26,8 @@ import RouteChangeTracker from "./RouteChangeTracker";
 import ThePetBox from "./pages/ThePetBox";
 import TossRedirect from "./components/toss/TossRedirect";
 import HeendyCarPage from "./pages/HeendyCarPage";
+import ChatbotTest from "./pages/ChatbotTest";
+
 
 function App() {
   RouteChangeTracker();
@@ -38,7 +39,6 @@ function App() {
           <Route path="/customready" element={<CustomReadyPage />} />
           <Route path="/customresult" element={<CustomReadyResult />} />
           <Route path="/" element={<Main />}></Route>
-          <Route path="/second" element={<MainPage />}></Route>
           <Route path="/auth" element={<RedirectUrl />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
@@ -63,6 +63,7 @@ function App() {
           <Route path="/tossredirect" element={<TossRedirect />}></Route>
         </Route>
         <Route path="/admin" element={<Admin />}></Route>
+        <Route path="/chatbot" element={<ChatbotTest />}></Route>
       </Routes>
     </>
   );
