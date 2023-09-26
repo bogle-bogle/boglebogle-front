@@ -49,9 +49,7 @@ function Header2() {
     }
   }, []);
 
-  // 햄버거 버튼 toggle state
   const [isToggled, setIsToggled] = useState(false);
-  // 사용자 toggle state
   const [userToggled, setUserToggled] = useState(false);
 
   function handleModalClose() {
@@ -101,7 +99,7 @@ function Header2() {
         </div>
 
         {/* 메뉴 리스트 */}
-        <div className="header__menulist">
+        <div className="header__menulist" onClick={() => setIsToggled(false)}>
           {menuList.map((menuEle, idx) => (
             <div className="list__container" key={idx}>
               <StyledNavLink to={menuEle.link}>{menuEle.title}</StyledNavLink>
@@ -110,7 +108,7 @@ function Header2() {
         </div>
 
         {/* User 메뉴 리스트 */}
-        <div className="header__right">
+        <div className="header__right" onClick={() => setUserToggled(false)}>
           {member.name !== '' ? (
             <div className="list__container">
               <StyledNavLink to="/cart" className="menu_icon cart_icon">
