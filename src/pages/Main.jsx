@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import MainSlider from "../components/main/MainSlider";
 import { useSelector } from "react-redux";
 import ProductRecommendation from "../components/recommendation/ProductRecommendation";
 import { eventLog } from "../utils/event_log";
 
+import mainDummy from "../assets/main/main_dummy.png";
 function Main() {
   const member = useSelector((state) => state.member);
-  const pets = member.pet;
-
+  // const pets = member.pet;
   const clickRef = useRef(false);
   const clickDataRef = useRef(null);
 
@@ -18,6 +18,10 @@ function Main() {
   const handleClickRef = (flag) => {
     clickRef.current = flag;
   };
+
+  function handleModalClose() {
+    setModalOpen(false);
+  }
 
   useEffect(() => {
     return () => {
@@ -32,36 +36,42 @@ function Main() {
   return (
     <div>
       <MainSlider handleLog={handleLog} handleClickRef={handleClickRef} />
-      {member && pets && pets.length === 1 && (
+      {localStorage.getItem("userToken") === null ? (
+        <img src={mainDummy} alt="" />
+      ) : (
         <>
-          <ProductRecommendation
-            type={"simple"}
-            param={pets[0].id}
-            handleLog={handleLog}
-            handleClickRef={handleClickRef}
-          />
-          <ProductRecommendation
-            type={"detail"}
-            param={pets[0].id}
-            handleLog={handleLog}
-            handleClickRef={handleClickRef}
-          />
-        </>
-      )}
-      {member && pets && pets.length > 1 && (
-        <>
-          <ProductRecommendation
-            type={"simple"}
-            param={pets[0].id}
-            handleLog={handleLog}
-            handleClickRef={handleClickRef}
-          />
-          <ProductRecommendation
-            type={"detail"}
-            param={pets[1].id}
-            handleLog={handleLog}
-            handleClickRef={handleClickRef}
-          />
+          {member.id !== 0 && member.pet && member.pet.length === 1 && (
+            <>
+              <ProductRecommendation
+                type={"simple"}
+                param={member.pet[0].id}
+                handleLog={handleLog}
+                handleClickRef={handleClickRef}
+              />
+              <ProductRecommendation
+                type={"detail"}
+                param={member.pet[0].id}
+                handleLog={handleLog}
+                handleClickRef={handleClickRef}
+              />
+            </>
+          )}
+          {member.id !== 0 && member.pet && member.pet.length > 1 && (
+            <>
+              <ProductRecommendation
+                type={"simple"}
+                param={member.pet[0].id}
+                handleLog={handleLog}
+                handleClickRef={handleClickRef}
+              />
+              <ProductRecommendation
+                type={"detail"}
+                param={member.pet[1].id}
+                handleLog={handleLog}
+                handleClickRef={handleClickRef}
+              />
+            </>
+          )}
         </>
       )}
     </div>

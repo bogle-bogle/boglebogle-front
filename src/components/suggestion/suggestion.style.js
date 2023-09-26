@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes } from "styled-components";
+import { AiOutlineLoading3Quarters } from "react-icons/ai"; // 로딩 아이콘을 위한 라이브러리
 
 export const SuggestionContainer = styled.div`
   .logo-container {
@@ -83,7 +84,7 @@ export const SuggestionContainer = styled.div`
 
   .req-title {
     color: red;
-    font-family: 'HappinessSansTitle';
+    font-family: "HappinessSansTitle";
   }
 
   .default-image {
@@ -103,7 +104,7 @@ export const SuggestionContainer = styled.div`
   }
 
   .btn {
-    font-family: 'HappinessSansBold';
+    font-family: "HappinessSansBold";
     margin: 5px;
     display: inline-block;
     padding: 10px 20px;
@@ -169,6 +170,49 @@ export const SuggestionContainer = styled.div`
   }
 `;
 
+export const LoadingVideoModal = styled.div`
+  margin: 30px;
+  border-radius: 100px;
+`;
+
+export const RoundedModal = styled.div`
+  border-radius: 20px;
+  background-color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+`;
+
+export const RoundedVideo = styled.video`
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  max-width: 100%;
+  width: 100%;
+`;
+
+export const LoadingText = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px; // 아이콘과 텍스트 사이의 간격
+  font-weight: bold;
+`;
+
+export const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const LoadingIcon = styled(AiOutlineLoading3Quarters)`
+  animation: ${spin} 2s linear infinite;
+`;
+
 export const HeendyArea = styled.div`
   display: flex;
   justify-content: left;
@@ -208,7 +252,7 @@ export const StepArea = styled.div`
   }
 
   .MuiStepLabel-label {
-    font-family: 'HappinessSansRegular';
+    font-family: "HappinessSansRegular";
   }
 `;
 
@@ -249,7 +293,7 @@ export const InputArea = styled.div`
     text-align: center;
     border-radius: 20px;
     width: fit-content;
-    font-family: 'HappinessSansTitle';
+    font-family: "HappinessSansTitle";
     font-size: 14px;
   }
 
@@ -263,7 +307,7 @@ export const InputArea = styled.div`
 
   .step-desc {
     margin-left: 15px;
-    font-family: 'HappinessSansBold';
+    font-family: "HappinessSansBold";
     font-size: 18px;
   }
 `;
@@ -273,7 +317,7 @@ export const TitleBox = styled.div`
 
   .title1 {
     margin: 0 0 10px 0;
-    font-family: 'HappinessSansTitle';
+    font-family: "HappinessSansTitle";
     color: #499878;
     font-size: 25px;
 
@@ -322,6 +366,6 @@ export const SuggestBox = styled.div`
 
 export const InputBoxes = styled.div`
   ${({ show }) => {
-    return show ? 'display: none' : null;
+    return show ? "display: none" : null;
   }}
 `;

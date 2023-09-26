@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ProductDetailContainer = styled.div`
   width: 100%;
@@ -16,7 +16,7 @@ export const CategoryP = styled.p`
   font-family: "HappinessSansBold";
   margin-left: 25px;
   color: #727272;
-  
+
   @media (max-width: 768px) {
     font-size: 13px;
   }
@@ -35,7 +35,7 @@ export const ProductDetailImgBox = styled.div`
   width: 40%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  
+
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -52,7 +52,7 @@ export const ProductInfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: 20px;
-  
+
   @media (max-width: 768px) {
     width: 100%;
     margin-top: 15px;
@@ -61,21 +61,23 @@ export const ProductInfoContainer = styled.div`
 `;
 
 export const ProductName = styled.p`
+  padding-left: 10px;
   font-size: 24px;
   display: inline-block;
   margin: 0;
-  
+
   @media (max-width: 768px) {
     font-size: 20px;
   }
 `;
 
 export const ProductPrice = styled.p`
+  padding-left: 10px;
   font-family: "HappinessSansTitle";
   font-size: 26px;
   display: inline-block;
   margin: 0;
-  
+
   @media (max-width: 768px) {
     font-size: 24px;
   }
@@ -86,7 +88,7 @@ export const ProductPriceContainer = styled.div`
 
   display: flex;
   justify-content: space-between;
-  
+
   @media (max-width: 768px) {
     margin-top: 15px;
   }
@@ -100,11 +102,11 @@ export const InfoIconContainer = styled.div`
 `;
 
 export const BenefitContainer = styled.ul`
-  border-top: 1px solid #E9E9E9;
-  border-bottom: 1px solid #E9E9E9;
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
   margin-top: 20px;
   margin-bottom: 5px;
-  
+
   @media (max-width: 768px) {
     padding-left: 0;
   }
@@ -118,7 +120,7 @@ export const BenefitRow = styled.li`
 export const BenefitRowDl = styled.dl`
   margin: 0;
   display: flex;
-  
+
   @media (max-width: 768px) {
     font-size: 14px;
   }
@@ -146,7 +148,7 @@ export const ClubHeendyContainer = styled.div`
 
 export const ClubHeendyLogo = styled.img`
   width: 15%;
-  
+
   @media (max-width: 768px) {
     width: 30%;
   }
@@ -166,20 +168,20 @@ export const ButtonContainer = styled.div`
   justify-content: space-between;
 
   .cart {
-    border: 1px solid #0A9882;
-  background-color: white;
-    color: #0A9882;
+    border: 1px solid #0a9882;
+    background-color: white;
+    color: #0a9882;
   }
 
   .buy {
     border: 0px solid transparent;
-    background-color: #0A9882;
+    background-color: #0a9882;
     color: white;
   }
 
   .monthly {
     border: 0px solid transparent;
-    background-color: #B9A37D;
+    background-color: #b9a37d;
     color: white;
   }
 
@@ -204,7 +206,7 @@ export const DetailButton = styled.button`
 
   border-radius: 10px;
   padding: 15px;
-  
+
   @media (max-width: 768px) {
     font-size: 15px;
     margin: 0 8px;
@@ -223,8 +225,8 @@ export const IngredientBanner = styled.div`
 `;
 
 export const IngredientContainer = styled.div`
-  border-top: 1px solid #E9E9E9;
-  border-bottom: 1px solid #E9E9E9;
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
   padding: 10px 0px;
 
   width: 100%;
@@ -241,7 +243,7 @@ export const IngredientElement = styled.div`
   border-radius: 20px;
   padding: 10px 15px;
   margin: 5px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 `;
 
 export const DescImgContainer = styled.div`

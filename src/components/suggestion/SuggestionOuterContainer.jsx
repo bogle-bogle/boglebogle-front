@@ -8,6 +8,11 @@ import useSound from "use-sound";
 import { toast } from "react-toastify";
 import InputPetInfo from "./InputPetInfo";
 import {
+  LoadingIcon,
+  LoadingText,
+  LoadingVideoModal,
+  RoundedModal,
+  RoundedVideo,
   SuggestBox,
   SuggestionContainer,
 } from "./suggestion.style";
@@ -52,10 +57,25 @@ function SuggestionOuterContainer() {
   return (
     <SuggestionContainer>
       {openModal && (
+        // <Modal handleModalClose={handleModalClose}>
+        //   <LoadingVideoModal>
+        //     <video width="310" height="550" autoPlay loop muted>
+        //       <source src={loadingVideo} type="video/mp4" />
+        //     </video>
+        //   </LoadingVideoModal>
+          
+        // </Modal>
+
         <Modal handleModalClose={handleModalClose}>
-          <video width="310" height="550" autoPlay loop muted>
-            <source src={loadingVideo} type="video/mp4" />
-          </video>
+          <RoundedModal>
+            <RoundedVideo width="310" height="550" autoPlay loop muted>
+              <source src={loadingVideo} type="video/mp4" />
+            </RoundedVideo>
+            <LoadingText>
+              <LoadingIcon />
+              성분표를 분석중입니다. 잠시만 기다려주세요.
+            </LoadingText>
+          </RoundedModal>
         </Modal>
       )}
       {

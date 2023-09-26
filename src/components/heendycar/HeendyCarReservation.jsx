@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Api from "../../api";
-import { useSelector } from "react-redux";
-import bgheendycar from "../../assets/heendycar/bigheendy.png"
+import { useSelector, useDispatch } from "react-redux";
+import bgheendycar from "../../assets/heendycar/bigheendy.png";
 import { HiMiniBuildingOffice } from "react-icons/hi2";
 import { MdHolidayVillage } from "react-icons/md";
 
@@ -9,9 +9,21 @@ import { toast } from "react-toastify";
 import walkingheendy from "../../assets/custom/walkingheendy.gif";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { HeendyCarTitle, InputBox, ReservationBox, ResvBtn, ResvTitle } from "./heendycar.style";
+import { branchCode } from "../../commonCode";
+import { showPlainSwal } from "../global/showPlainSwal";
+import { showClappingHeendySwal } from "../global/showClappingHeendySwal";
+import {
+  HeendyCarTitle,
+  InputBox,
+  ReservationBox,
+  ResvBtn,
+  ResvTitle,
+} from "./heendycar.style";
+import { jwtCheck } from "../../utils/tokenCheck";
+import { loginAction } from "../../feature/member/login";
 
 function HeendyCarReservation() {
+  const dispatch = useDispatch();
   const member = useSelector((state) => state.member);
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber || "");
 
@@ -109,21 +121,28 @@ function HeendyCarReservation() {
 }
 
 const handleReservationButtonClick = async () => {
+
+  if (jwtCheck()) {
+    dispatch(loginAction.setIsLogin(true));
+    toast.error("로그인이 필요합니다");
+    return;
+  }
+
   // 예약 시간 확인
   if (!selectedTime) {
-    toast.error("예약 시간을 선택해주세요.");
+    showPlainSwal("예약 시간을 선택해주세요.");
     return;
   }
 
   // 휴대폰 번호 확인
   if (!phoneNumber) {
-    toast.error("휴대폰 번호를 입력해주세요.");
+    showPlainSwal("휴대폰 번호를 입력해주세요.");
     return;
   }
 
   // 번호 유효성 확인
   if (!isValidPhoneNumber(phoneNumber)) {
-    toast.error("정확한 휴대폰 번호를 입력해주세요.");
+    showPlainSwal("정확한 휴대폰 번호를 입력해주세요.");
     return;
   }
 
@@ -135,7 +154,7 @@ const handleReservationButtonClick = async () => {
 
   try {
     const swalResponse = await swal.fire({
-      title: "예약하시겠습니까?",
+      title: `${branchCode[selectedBranchCode]} \n오늘 ${selectedTime} \n\n픽업 예약하시겠습니까?`,
       showCancelButton: true,
       imageUrl: walkingheendy,
       confirmButtonText: "확인",
@@ -152,31 +171,54 @@ const handleReservationButtonClick = async () => {
       return;
     }
 
-    const res = await Api.post(`/api/hc/reservation`, data, {
-      headers: {
-        Authorization: `Bearer ${member.jwt.accessToken}`,
-      },
-    });
+    // 휴대폰 번호 확인
+    if (!phoneNumber) {
+      toast.error("휴대폰 번호를 입력해주세요.");
+      return;
+    }
 
-    const formattedTime = formatDate(res.data.reservationTime);
-    toast.success(<span>예약 완료!<br /> 예약시간: {formattedTime}</span>);
+    const data = {
+      branchCode: selectedBranchCode,
+      reservationTime: convertReservationTime(selectedTime),
+      phoneNumber: phoneNumber.replace(/-/g, ""),
+    };
 
-  } catch (error) {
-    console.error(error);
-    toast.error(error.response.data.message);
+      const res = await Api.post(`/api/hc/reservation`, data, {
+        headers: {
+          Authorization: `Bearer ${member.jwt.accessToken}`,
+        },
+      });
+
+      const formattedTime = formatDate(res.data.reservationTime);
+      toast.success(
+        <span>
+          예약 완료!
+          <br /> 예약시간: {formattedTime}
+        </span>
+      );
+      window.location.href="/mypage?menu=myreservation";
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
+  // 날짜 포맷팅을 위한 별도의 함수
+  function formatDate(dateString) {
+    const dateObj = new Date(dateString);
+    return `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${dateObj
+      .getDate()
+      .toString()
+      .padStart(2, "0")} ${dateObj
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
   }
-};
 
-
-// 날짜 포맷팅을 위한 별도의 함수
-function formatDate(dateString) {
-  const dateObj = new Date(dateString);
-  return `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")} ${dateObj.getHours().toString().padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
-}
-
-  
   return (
-    <div style={{marginTop:"16px"}}>
+    <div style={{ marginTop: "16px" }}>
       <HeendyCarTitle>
         <div className="title-text">
           <p className="title1">Heendy Car</p>
@@ -188,24 +230,42 @@ function formatDate(dateString) {
       </HeendyCarTitle>
       <ReservationBox>
         <div className="info-text">
-          <div className="resv-title-text">
-            흰디카 픽업 예약
-          </div>
-          <div className="resv-desc-text">
-            * 클럽 흰디 전용 서비스
-          </div>
+          <div className="resv-title-text">흰디카 픽업 예약</div>
+          <div className="resv-desc-text">* 클럽 흰디 전용 서비스</div>
         </div>
         <div className="resv-desc-text-2">
-          * 예약은 당일 픽업 30분 전부터만 가능하며, 30분 이내로 픽업하지 않으시면 예약이 자동 취소됩니다.
+          * 예약은 당일 픽업 30분 전부터만 가능하며, 30분 이내로 픽업하지
+          않으시면 예약이 자동 취소됩니다.
         </div>
-        <hr/>
+        <hr />
         <div className="input-box">
-          <div className="left-box">
+
+        <div className="left-box">
+            <InputBox>
+              <div className="branch-img-box">
+                <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
+                <div className="branch-content">
+                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
+                  <div key={selectedBranchCode}>
+                    <p>
+                      대여 가능 수량:{" "}
+                      <span style={{ color: "darkred", fontWeight: "bold" }}>
+                        {getBranchCnt(selectedBranchCode)}
+                      </span>
+                    </p>
+                    <p>{getBranchDescr(selectedBranchCode)}</p>
+                  </div>
+                </div>
+              </div>
+            </InputBox>
+          </div>
+
+          <div className="right-box">
             <ResvTitle>대여 장소</ResvTitle>
             <InputBox>
               <div className="place-box">
                 <div className="resv-sub-title">
-                  <HiMiniBuildingOffice/>
+                  <HiMiniBuildingOffice />
                   <p>백화점</p>
                 </div>
                 {deptBranches.map((branch) => (
@@ -222,7 +282,7 @@ function formatDate(dateString) {
               </div>
               <div className="place-box">
                 <div className="resv-sub-title">
-                  <MdHolidayVillage/>
+                  <MdHolidayVillage />
                   <p>아울렛</p>
                 </div>
                 {outletBranches.map((branch) => (
@@ -257,57 +317,49 @@ function formatDate(dateString) {
                   </div>
                 </InputBox>
               </div>
-              
+
               <div className="place-box">
                 <ResvTitle>휴대폰 번호</ResvTitle>
                 <InputBox>
-                  <input className="resv-phone-input" type="tel" placeholder="휴대폰 번호를 입력해주세요" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+                  <input
+                    className="resv-phone-input"
+                    type="tel"
+                    placeholder="휴대폰 번호를 입력해주세요"
+                    value={phoneNumber}
+                    onChange={handlePhoneNumberChange}
+                    required
+                  />
                 </InputBox>
-              </div>
-            </InputBox>
-          </div>
-          <div className="right-box">
-            <InputBox>
-              <div className="branch-img-box">
-                <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
-                <div className="branch-content">
-                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
-                  <div key={selectedBranchCode}>
-                    <p>
-                      대여 가능 수량:{" "}
-                      <span style={{ color: "darkred", fontWeight: "bold" }}>
-                        {getBranchCnt(selectedBranchCode)}
-                      </span>
-                    </p>
-                    <p>{getBranchDescr(selectedBranchCode)}</p>
-                  </div>
-                </div>
               </div>
             </InputBox>
           </div>
         </div>        
         <div className="resv-btn-box">
-          <button className="resv-btn" onClick={handleReservationButtonClick}>예약하기</button>
+          <button className="resv-btn" onClick={handleReservationButtonClick}>
+            예약하기
+          </button>
         </div>
 
         <div className="info-text">
-          <div className="resv-title-text">
-            흰디카 유의사항
-          </div>
+          <div className="resv-title-text">흰디카 유의사항</div>
         </div>
-        <hr/>
+        <hr />
         <div className="resv-more-text">
           <p>1. 5대 예방접종이 완료된 반려견만 대여가 가능합니다.</p>
           <p>2. 피부병 등 전염성 질환이 있는 경우 이용이 불가합니다.</p>
           <p>3. 15kg 미만 반려견만 이용 가능합니다.</p>
-          <p>4. 꼭 반려견 트롤리 안에 부착된 목줄을 채우고, 안전에 주의해주시기 바랍니다.</p>
-          <p>5.반려동물 가족은 반려동물의 행동에 법적인 책임을 지며, 배변처리 등 반려동물의 위생 관리를 철저히 해야 합니다.</p>
+          <p>
+            4. 꼭 반려견 트롤리 안에 부착된 목줄을 채우고, 안전에 주의해주시기
+            바랍니다.
+          </p>
+          <p>
+            5.반려동물 가족은 반려동물의 행동에 법적인 책임을 지며, 배변처리 등
+            반려동물의 위생 관리를 철저히 해야 합니다.
+          </p>
         </div>
       </ReservationBox>
     </div>
-    
   );
 }
-
 
 export default HeendyCarReservation;
