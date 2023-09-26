@@ -4,7 +4,7 @@ import { ModalBackGround, ModalMain } from './modal.style';
 function ModalContainer({ children, handleModalClose }) {
   const modalRef = useRef(null);
 
-  const handleBackgroundModalClose = (e) => {
+  const handleBackgroundModalClose = e => {
     if (modalRef.current === e.target) {
       handleModalClose();
     }
