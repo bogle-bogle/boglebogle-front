@@ -165,7 +165,7 @@ export const ImagePreview = styled.div`
 
 export const SidebarItem = styled.div`
   text-align: left;
-  grid-area: ${(props) => props.gridArea};
+  grid-area: ${props => props.gridArea};
   width: 100%;
   position: relative; /* 가상 요소를 위한 상대 위치 지정 */
   color: black; /* 텍스트 색상은 기본 값으로 설정 */

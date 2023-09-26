@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import { useSelector } from "react-redux";
-import "react-datepicker/dist/react-datepicker.css";
-import bgheendy from "../../assets/club/bgheendy.png";
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import { useSelector } from 'react-redux';
+import 'react-datepicker/dist/react-datepicker.css';
+import bgheendy from '../../assets/club/bgheendy.png';
 
 import {
   PetPhoto,
@@ -19,11 +19,12 @@ import {
   AddPetBox,
   AddPetTitle,
   InputBox,
-} from "./addpet.style";
-import * as Api from "../../api";
-import { animalCode, breedCode, proteinCode, sizeCode } from "../../commonCode";
-import ImageUploadComponent from "../suggestion/ImageUploadComponent";
-import { toast } from "react-toastify";
+} from './addpet.style';
+import * as Api from '../../api';
+import { animalCode, breedCode, proteinCode, sizeCode } from '../../commonCode';
+import ImageUploadComponent from '../suggestion/ImageUploadComponent';
+import { toast } from 'react-toastify';
+import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
 
 function AddPetContainer() {
   const [, setWindowWidth] = useState(window.innerWidth);
@@ -33,26 +34,26 @@ function AddPetContainer() {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   const navigate = useNavigate();
-  const member = useSelector((state) => state.member);
+  const member = useSelector(state => state.member);
   const photoInputRef = useRef(null);
 
   const [selectedPhotoImage, setSelectedPhotoImage] = useState(null);
   const [selectedProteinCodes, setSelectedProteinCodes] = useState([]);
-  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState("");
-  const [selectedBreedCode, setSelectedBreedCode] = useState("");
-  const [selectedAnimalSize, setSelectedAnimalSize] = useState("");
+  const [selectedAnimalTypeCode, setSelectedAnimalTypeCode] = useState('');
+  const [selectedBreedCode, setSelectedBreedCode] = useState('');
+  const [selectedAnimalSize, setSelectedAnimalSize] = useState('');
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
 
-  const [name, setName] = useState(""); // 이름을 저장하기 위한 state 추가
+  const [name, setName] = useState(''); // 이름을 저장하기 위한 state 추가
   const [selectedPetImg, setSelectedPetImg] = useState(null);
 
   /*단백질 코드 및 견종, 동물 분류 가져오기*/
@@ -76,84 +77,87 @@ function AddPetContainer() {
     name: name,
   }));
 
-  const handleNameChange = (e) => {
+  const handleNameChange = e => {
     setName(e.target.value);
   };
 
   /*여러개 선택될때마다 저장*/
-  const handleProteinCodeClick = (code) => {
+  const handleProteinCodeClick = code => {
     const updatedSelectedProteinCodes = selectedProteinCodes.includes(code)
-      ? selectedProteinCodes.filter((c) => c !== code)
+      ? selectedProteinCodes.filter(c => c !== code)
       : [...selectedProteinCodes, code];
     setSelectedProteinCodes(updatedSelectedProteinCodes);
   };
 
-  const handleAnimalTypeCodeClick = (codeValue) => {
+  const handleAnimalTypeCodeClick = codeValue => {
     setSelectedAnimalTypeCode(codeValue);
   };
 
-  const handleBreedCodeChange = (event) => {
+  const handleBreedCodeChange = event => {
     setSelectedBreedCode(event.target.value);
   };
 
-  const handleAnimalSizeClick = (codeValue) => {
+  const handleAnimalSizeClick = codeValue => {
     setSelectedAnimalSize(codeValue);
   };
 
   const handleFileInputChange = () => {
     handleImageUpload(event);
   };
-  const handleImageUpload = (event) => {
+  const handleImageUpload = event => {
     const file = event.target.files[0];
     if (!file) {
-      console.error("No file selected.");
+      console.error('No file selected.');
       return;
     }
     setSelectedPhotoImage(URL.createObjectURL(file));
   };
 
-  const uploadImage = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
+  // const uploadImage = async (file) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
 
-    try {
-      const response = await Api.post(`/api/upload`, formData);
-      return response.data;
-    } catch (error) {
-      toast.error("파일 업로드에 실패했습니다.")
-      console.error("파일 업로드 실패:", error);
-      // throw error;
-      return
-    }
-  };
+  //   try {
+  //     const response = await Api.post(`/api/upload`, formData);
+  //     return response.data;
+  //   } catch (error) {
+  //     toast.error("파일 업로드에 실패했습니다.")
+  //     console.error("파일 업로드 실패:", error);
+  //     // throw error;
+  //     return
+  //   }
+  // };
 
   const handleSubmit = async () => {
     try {
-      const photoUrl = await uploadImage(photoInputRef.current.files[0]);
-      const selectedCodesString = selectedProteinCodes.join(",");
+      // const photoUrl = await uploadImage(photoInputRef.current.files[0]);
+      const selectedCodesString = selectedProteinCodes.join(',');
 
-      const clubData = {
-        petImgUrl: photoUrl,
-        name: name,
-        birth: selectedBirthDate
-          ? selectedBirthDate.toISOString().split("T")[0].toString()
+      const formData = new FormData();
+      formData.append('petImgFile', photoInputRef.current.files[0]);
+      formData.append('name', name);
+      formData.append(
+        'birth',
+        selectedBirthDate
+          ? selectedBirthDate.toISOString().split('T')[0].toString()
           : null,
-        allergyCode: selectedCodesString,
-        breedCode: selectedBreedCode,
-        animalTypeCode: selectedAnimalTypeCode,
-        sizeCode: selectedAnimalSize,
-      };
+      );
+      formData.append('allergyCode', selectedCodesString);
+      formData.append('breedCode', selectedBreedCode);
+      formData.append('animalTypeCode', selectedAnimalTypeCode);
+      formData.append('sizeCode', selectedAnimalSize);
 
-      const response = await Api.post("/api/club", clubData, {
+      const response = await Api.post('/api/club', formData, {
         headers: {
-          Authorization: `Bearer ${member.jwt.accessToken}`,
+          'Content-Type': 'multipart/form-data',
         },
       });
-      toast.success("등록이 완료되었습니다.");
-      navigate("/completeclubregister");
+
+      showClappingHeendySwal('등록이 완료되었습니다.');
+      navigate('/completeclubregister');
     } catch (error) {
       console.log(error);
-      toast.error("반려동물 등록 중 오류가 발생했습니다.");
+      toast.error('반려동물 등록 중 오류가 발생했습니다.');
     }
   };
 
@@ -170,23 +174,29 @@ function AddPetContainer() {
       </AddPetTitle>
       <InputBox>
         <div className="text-group info-text">
-          <p className="font-bold font-red left-text">*</p><p className="font-gray">맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.</p>
+          <p className="font-bold font-red left-text">*</p>
+          <p className="font-gray">
+            맞춤 상품 추천을 위해 반드시 프로필 정보를 입력하셔야 합니다.
+          </p>
         </div>
         <div>
           <div className="qna-box">
-            <div className="question-box font-bold text-group">  
-              <p>반려동물 종류</p><p className="font-red right-text">*</p>
+            <div className="question-box font-bold text-group">
+              <p>반려동물 종류</p>
+              <p className="font-red right-text">*</p>
             </div>
             <div className="answer-box">
               <PetAnimalTypeCode>
-                {animalTypeCodes.map((code) => (
+                {animalTypeCodes.map(code => (
                   <StyledButton
                     type="button"
                     key={code.codeValue}
                     onClick={() => handleAnimalTypeCodeClick(code.codeValue)}
                     active={selectedAnimalTypeCode === code.codeValue}
                     className={
-                      selectedAnimalTypeCode === code.codeValue ? "selected" : ""
+                      selectedAnimalTypeCode === code.codeValue
+                        ? 'selected'
+                        : ''
                     }
                   >
                     {code.name}
@@ -196,8 +206,9 @@ function AddPetContainer() {
             </div>
           </div>
           <div className="qna-box">
-            <div className="question-box font-bold text-group">  
-              <p>반려동물 사진</p><p className="font-red right-text">*</p>
+            <div className="question-box font-bold text-group">
+              <p>반려동물 사진</p>
+              <p className="font-red right-text">*</p>
             </div>
             <div className="answer-box">
               <PetPhoto>
@@ -212,8 +223,9 @@ function AddPetContainer() {
             </div>
           </div>
           <div className="qna-box">
-            <div className="question-box font-bold text-group">  
-              <p>반려동물 이름</p><p className="font-red right-text">*</p>
+            <div className="question-box font-bold text-group">
+              <p>반려동물 이름</p>
+              <p className="font-red right-text">*</p>
             </div>
             <div className="answer-box">
               <PetName>
@@ -228,15 +240,16 @@ function AddPetContainer() {
             </div>
           </div>
           <div className="qna-box">
-            <div className="question-box font-bold text-group">  
-              <p>반려동물 생일</p><p className="font-red right-text">*</p>
+            <div className="question-box font-bold text-group">
+              <p>반려동물 생일</p>
+              <p className="font-red right-text">*</p>
             </div>
-            <div className="answer-box"> 
+            <div className="answer-box">
               <PetBirth>
                 <DatePicker // DatePicker 컴포넌트 추가
                   selected={selectedBirthDate}
                   shouldCloseOnSelect
-                  onChange={(date) => setSelectedBirthDate(date)}
+                  onChange={date => setSelectedBirthDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="생년월일"
                 />
@@ -244,13 +257,14 @@ function AddPetContainer() {
             </div>
           </div>
           <div className="qna-box">
-            <div className="question-box font-bold text-group">  
-              <p>반려동물 알러지</p><p className="font-red right-text">*</p>
+            <div className="question-box font-bold text-group">
+              <p>반려동물 알러지</p>
+              <p className="font-red right-text">*</p>
             </div>
             <div className="answer-box">
               <PetProteinCodes>
                 {proteinCodes &&
-                  proteinCodes.map((code) => (
+                  proteinCodes.map(code => (
                     <StyledButton
                       type="button"
                       key={code.codeValue}
@@ -258,8 +272,8 @@ function AddPetContainer() {
                       active={selectedProteinCodes.includes(code.codeValue)}
                       className={
                         selectedProteinCodes.includes(code.codeValue)
-                          ? "selected"
-                          : ""
+                          ? 'selected'
+                          : ''
                       }
                     >
                       {code.name}
@@ -269,8 +283,9 @@ function AddPetContainer() {
             </div>
           </div>
           <div className="qna-box">
-            <div className="question-box font-bold text-group">  
-              <p>반려동물 견종 및 크기</p><p className="font-red right-text">*</p>
+            <div className="question-box font-bold text-group">
+              <p>반려동물 견종 및 크기</p>
+              <p className="font-red right-text">*</p>
             </div>
             <div className="answer-box answer-two">
               <PetBreedCode>
@@ -281,7 +296,7 @@ function AddPetContainer() {
                 >
                   <option value="">견종 선택</option>
                   {breedCodes &&
-                    breedCodes.map((code) => (
+                    breedCodes.map(code => (
                       <option key={code.codeValue} value={code.codeValue}>
                         {code.name}
                       </option>
@@ -289,14 +304,14 @@ function AddPetContainer() {
                 </select>
               </PetBreedCode>
               <AnimalSize>
-                {animalSizes.map((code) => (
+                {animalSizes.map(code => (
                   <StyledButton
                     type="button"
                     key={code.codeValue}
                     onClick={() => handleAnimalSizeClick(code.codeValue)}
                     active={selectedAnimalSize === code.codeValue}
                     className={
-                      selectedAnimalSize === code.codeValue ? "selected" : ""
+                      selectedAnimalSize === code.codeValue ? 'selected' : ''
                     }
                   >
                     {code.name}
