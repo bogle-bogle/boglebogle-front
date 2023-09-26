@@ -121,15 +121,23 @@ export const ReservationBox = styled.div`
   }
 
   .left-box {
-    width: 70%;
+    width: 30%;
+    margin-right: 40px;
+    margin-left: -20px;
 
     @media screen and (max-width: 1400px) {
       width: 100%;
     }
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-right: 0px;
+      margin-bottom: 10px;
+      margin-left: 0px;
+    }
   }
 
   .right-box {
-    width: 30%;
+    width: 70%;
 
     @media screen and (max-width: 1400px) {
       width: 100%;
@@ -228,12 +236,12 @@ export const HeendyCarTitle = styled.div`
 
     @media screen and (max-width: 1400px) {
       margin-top: 10px;
-      font-size: 13px;
+      font-size: 18px;
     }
 
     @media (max-width: 768px) {
       margin-top: 6px;
-      font-size: 7px;
+      font-size: 9px;
     }
   }
 `;

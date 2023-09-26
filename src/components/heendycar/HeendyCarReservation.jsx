@@ -208,7 +208,28 @@ function formatDate(dateString) {
         </div>
         <hr/>
         <div className="input-box">
-          <div className="left-box">
+
+        <div className="left-box">
+            <InputBox>
+              <div className="branch-img-box">
+                <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
+                <div className="branch-content">
+                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
+                  <div key={selectedBranchCode}>
+                    <p>
+                      대여 가능 수량:{" "}
+                      <span style={{ color: "darkred", fontWeight: "bold" }}>
+                        {getBranchCnt(selectedBranchCode)}
+                      </span>
+                    </p>
+                    <p>{getBranchDescr(selectedBranchCode)}</p>
+                  </div>
+                </div>
+              </div>
+            </InputBox>
+          </div>
+
+          <div className="right-box">
             <ResvTitle>대여 장소</ResvTitle>
             <InputBox>
               <div className="place-box">
@@ -271,25 +292,6 @@ function formatDate(dateString) {
                 <InputBox>
                   <input className="resv-phone-input" type="tel" placeholder="휴대폰 번호를 입력해주세요" value={phoneNumber} onChange={handlePhoneNumberChange} required />
                 </InputBox>
-              </div>
-            </InputBox>
-          </div>
-          <div className="right-box">
-            <InputBox>
-              <div className="branch-img-box">
-                <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
-                <div className="branch-content">
-                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
-                  <div key={selectedBranchCode}>
-                    <p>
-                      대여 가능 수량:{" "}
-                      <span style={{ color: "darkred", fontWeight: "bold" }}>
-                        {getBranchCnt(selectedBranchCode)}
-                      </span>
-                    </p>
-                    <p>{getBranchDescr(selectedBranchCode)}</p>
-                  </div>
-                </div>
               </div>
             </InputBox>
           </div>
