@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ReviewContainer = styled.div`
-  border-top: 1px solid #E9E9E9;
-  border-bottom: 1px solid #E9E9E9;
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
   margin-top: 15px;
 `;
 
@@ -29,7 +29,7 @@ export const ReviewCard = styled.div`
   border-radius: 15px;
   margin: 0 20px 20px 0;
   overflow: hidden;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   flex: 0 0 15%;
 
   @media (max-width: 768px) {
@@ -37,7 +37,7 @@ export const ReviewCard = styled.div`
   }
 
   &:hover {
-    background-color: #E6F2EB;
+    background-color: #e6f2eb;
   }
 `;
 
@@ -52,10 +52,10 @@ export const ReviewImg = styled.img`
   min-height: 100%;
   object-fit: cover;
   object-position: center;
-  
+
   transition: 0.2s;
-  transform: scale(1.0);
-  
+  transform: scale(1);
+
   &:hover {
     transform: scale(1.05);
     transition: transform 0.2s;
@@ -86,15 +86,35 @@ export const ReviewTextBox = styled.div`
     }
   }
 
-  .review-content {
+  .review-title {
     font-size: 14px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
-   -webkit-box-orient: vertical;
-   line-height: 150%;
-      
+    -webkit-box-orient: vertical;
+    line-height: 150%;
+    font-family: "HappinessSansBold";
+
+    @media screen and (max-width: 1400px) {
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+  }
+
+  .review-content {
+    font-size: 13px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 150%;
+
     @media screen and (max-width: 1400px) {
       font-size: 13px;
     }
@@ -139,8 +159,8 @@ export const ReviewModarImgContainer = styled.div`
   grid-template-rows: 0.2fr 0.5fr;
 
   grid-template-areas:
-    'hl . hr'
-    '. ri .';
+    "hl . hr"
+    ". ri .";
 
   justify-items: center;
 `;

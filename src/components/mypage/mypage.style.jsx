@@ -53,8 +53,8 @@ export const MypageSubtitle = styled.div`
 
 export const MypageMiniTitle = styled.div`
   font-weight: medium;
-  font-size: 12px;
-  color: gray;
+  font-size: 15px;
+  color: #363636;
   margin: 10px 12px;
   cursor: pointer;
 `;
@@ -156,15 +156,15 @@ export const MypageCardElement = styled.div`
 `;
 
 export const MypageCardTitle = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
-  /* margin-bottom: 8px; */
+  padding-bottom: 7px;
 `;
 
 export const MypageCardDescr = styled.div`
-  font-size: 11px;
+  font-size: 13px;
   font-weight: medium;
-  margin-bottom: 2px;
+  padding-bottom: 3px;
 `;
 
 export const MypageList = styled.div`

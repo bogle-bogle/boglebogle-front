@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { memberAction } from "./feature/member/member";
 import axios from "axios";
+import { showRequiredLoginSwal } from "./components/global/showRequiredLoginSwal";
 
 const serverUrl = String(process.env.REACT_APP_SERVER_URL);
 
@@ -38,9 +39,8 @@ async function del(endpoint, params = "") {
 function handleJwtError(error) {
   if (error.response?.data?.code === "EXPIRED_TOKEN") {
     localStorage.removeItem("userToken");
-    localStorage.dispatch(memberAction.clearMember());
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
-    toast.error("로그인이 필요합니다.");
+    showRequiredLoginSwal();
   } else {
     throw error;
   }

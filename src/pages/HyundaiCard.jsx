@@ -56,23 +56,36 @@ import Cropper from 'react-cropper';
 import useSound from 'use-sound';
 import flipSound from '../assets/card/cardSlide3.mp3';
 import nonImg from '../assets/card/non_img.PNG';
+import * as Api from '../api.js';
 
 import { GrPowerReset } from 'react-icons/gr';
 import { BiCut } from 'react-icons/bi';
 
 const cardDict = {
-  green: {
-    front: greenCardFront,
-    back: greenCardBack,
-  },
   pink: {
     front: pinkCardFront,
     back: pinkCardBack,
+    title: "현대백화점카드 클래식",
+    description: "진한 녹색과 라일락 핑크의 조합의 아이덴티티 디자인"
+  },
+  green: {
+    front: greenCardFront,
+    back: greenCardBack,
+    title: "현대백화점카드 그린",
+    description: "진중함을 상징하는 진한 녹색을 담은, 고급스러운 디자인"
   },
   heendy: {
     front: heendyCardFront,
     back: heendyCardBack,
+    title: "빼꼼 흰디",
+    description: "깔끔한 화이트 컬러에 흰디로 포인트를 준 디자인"
   },
+  custom: {
+    front: cardFrontDefault,
+    back: cardBackDefault,
+    title: "나만의 현대백화점 카드",
+    description: "나의 반려동물 사진을 담은, 나만의 디자인"
+  }
 };
 
 function HyundaiCard() {
@@ -87,8 +100,10 @@ function HyundaiCard() {
   const [play] = useSound(flipSound);
   const [reverse, setReverse] = useState(false);
   const [cardDesign, setCardDesign] = useState({
-    front: greenCardFront,
-    back: greenCardBack,
+    front: pinkCardFront,
+    back: pinkCardBack,
+    title: "현대백화점카드 클래식",
+    description: "진한 녹색과 라일락 핑크의 조합의 현대백화점 아이덴티티 디자인"
   });
 
   const [frontInputImage, setFrontInputImage] = useState();
@@ -111,6 +126,7 @@ function HyundaiCard() {
       return cardDict[e.target.name];
     });
   };
+  
   const getFrontCropData = () => {
     if (typeof frontCropperRef.current?.cropper !== 'undefined') {
       setFrontCropData(
@@ -131,7 +147,7 @@ function HyundaiCard() {
     setCardDesign(() => {
       return {
         front: frontCropData,
-        back: backCropData,
+        back: backCropData
       };
     });
     handleCloseModal();
@@ -153,6 +169,20 @@ function HyundaiCard() {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
+  const handleSubmit = () => {
+    const data = {
+      frontImgFile : frontCropData,
+      backImgFile : backCropData
+    }
+    Api.post('/api/custom-card', data)
+    .then((res) => {
+      window.location.href = "https://www.ehyundai.com/newPortal/card/CA/CA000000_V.do"
+    })
+    .catch((error) => {
+      toast.error("이미지 저장 실패!");
+    })
+  }
 
   return (
     <>
@@ -299,15 +329,26 @@ function HyundaiCard() {
         <h2>카드 디자인 선택하기</h2>
         <SelectCardContainer>
           <CardViewContainer>
-            <CardInfoCol>
-              <CardInfoContainer>
-                <h1>빼꼼 흰디</h1>
-                <p style={{ fontSize: '14px' }}>
-                  깔끔한 화이트 컬러에 흰디로 포인트를 준 디자인
-                </p>
-              </CardInfoContainer>
-              <BackButton style={{ visibility: 'hidden' }}></BackButton>
-            </CardInfoCol>
+          <CardInfoCol>
+            <CardInfoContainer>
+              { isCustom ? (
+              <>
+                 <h1>나만의 현대백화점 카드</h1>
+              <p style={{ fontSize: '14px' }}>
+              나의 반려동물 사진을 담은, 나만의 디자인
+              </p>
+                </>) : (
+                <>
+                 <h1>{cardDesign.title}</h1>
+              <p style={{ fontSize: '14px' }}>
+                {cardDesign.description}
+              </p>
+                </>
+              )
+              }
+            </CardInfoContainer>
+            <BackButton style={{ visibility: 'hidden' }}></BackButton>
+          </CardInfoCol>
             <CardInfoCol>
               <CardFlip>
                 <HCard reverse={reverse}>
@@ -327,23 +368,20 @@ function HyundaiCard() {
               </BackButton>
             </CardInfoCol>
           </CardViewContainer>
-          <SelectButton>이 디자인으로 결정</SelectButton>
+          <SelectButton onClick={handleSubmit}>이 디자인으로 결정</SelectButton>
           <CardList>
+          <CardCandidate
+              name="pink"
+              src={selectCardPink}
+              onClick={handleCardDesign} />
             <CardCandidate
               name="green"
               src={selectCardGreen}
-              onClick={handleCardDesign}
-            ></CardCandidate>
-            <CardCandidate
-              name="pink"
-              src={selectCardPink}
-              onClick={handleCardDesign}
-            ></CardCandidate>
+              onClick={handleCardDesign} />
             <CardCandidate
               name="heendy"
               src={selectCardHeendy}
-              onClick={handleCardDesign}
-            ></CardCandidate>
+              onClick={handleCardDesign} />
             <CardCandidate
               onClick={handleOpenModal}
               src={selectCardCustom}

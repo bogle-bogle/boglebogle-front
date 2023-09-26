@@ -11,17 +11,11 @@ import {
   HistoryMainImg,
 } from './history.style';
 import { useNavigate } from 'react-router-dom';
+import { productMain } from '../../commonCode';
 
 function TpbHistoryModal({ tpbItem }) {
   const navigate = useNavigate();
   const products = tpbItem.products || [];
-
-  const categoryMap = {
-    LV: '리빙',
-    FS: '패션',
-    FD: '간식',
-    CR: '케어용품',
-  };
 
   return (
     <HistoryContainer>
@@ -35,7 +29,7 @@ function TpbHistoryModal({ tpbItem }) {
             />
             <HistoryContentElement>
               <HistoryCategory>
-                이달의 {categoryMap[product.mainCategoryCode]}
+                이 달의 {productMain[product.mainCategoryCode]}
               </HistoryCategory>
               <HistoryElementName>{product.name}</HistoryElementName>
               <HistoryElementBtn

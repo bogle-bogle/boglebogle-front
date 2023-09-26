@@ -38,13 +38,6 @@ function CustomResult({
   selectedFeedImage,
   selectedFeedIngredients,
 }) {
-  console.log(
-    selectedPetName,
-    suggestionProduct,
-    selectedFeedImage,
-    selectedFeedIngredients
-  );
-
   const clickRef = useRef(false);
   const clickDataRef = useRef(null);
 
@@ -71,6 +64,15 @@ function CustomResult({
     };
   }, []);
 
+  const getHighlightedIngredients = (ingredients) => {
+    return ingredients.split(',').map((ingredient, idx) => {
+        if (idx < 10) {
+            return `<mark>${ingredient}</mark>`;
+        }
+        return ingredient;
+    }).join(',');
+  };
+
   return (
     <>
       <CustomResultContainer>
@@ -83,13 +85,12 @@ function CustomResult({
             </AnalyzeResultExplainContainer>
             <FlexContainer>
               <UserAnalyzeContainer>
-                <UserResultCard>
+              <UserResultCard>
                   <UserResultImg src={selectedFeedImage}></UserResultImg>
                   <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
-                  <UserResultText isTitle={false}>
-                    {selectedFeedIngredients}
+                  <UserResultText isTitle={false} dangerouslySetInnerHTML={{ __html: getHighlightedIngredients(selectedFeedIngredients) }}>
                   </UserResultText>
-                </UserResultCard>
+              </UserResultCard>
               </UserAnalyzeContainer>
             </FlexContainer>
           </StickyContainer>
@@ -117,7 +118,7 @@ function CustomResult({
             <RecommendProductListContainer>
               {suggestionProduct !== undefined &&
                 suggestionProduct.map((rp, idx) => (
-                  <ResultCardContainer 
+                  <ResultCardContainer
                     onClick={() => {
                       handleClickRef(true);
                       handleLog("suggestion", "recommend_product", rp.id, "Y");
