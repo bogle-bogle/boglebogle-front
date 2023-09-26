@@ -1,12 +1,12 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ProductCardContainer,
   ProductImg,
   ProductImgBox,
   ProductPrice,
   ProductSummary,
-} from "./index.style";
+} from './index.style';
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
