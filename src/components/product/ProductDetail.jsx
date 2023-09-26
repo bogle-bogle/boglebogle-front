@@ -28,6 +28,7 @@ import { shopCategory } from '../../commonCode';
 import ClappingHeendySwal from '../global/ClappingHeendySwal';
 import { jwtCheck } from '../../utils/tokenCheck';
 import { loginAction } from '../../feature/member/login';
+import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
 
 function ProductDetail() {
   const dispatch = useDispatch();
@@ -120,10 +121,14 @@ function ProductDetail() {
         trigger={fadeModalOpen}
       />
 
-      {modalOpen && <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>}
+      {modalOpen && (
+        <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>
+      )}
       {productInfo !== undefined && (
         <ProductDetailContainer>
-          <CategoryP>{`SHOPPING  >  ${shopCategory[productInfo.mainCategoryCode].name}  >  강아지`}</CategoryP>
+          <CategoryP>{`SHOPPING  >  ${
+            shopCategory[productInfo.mainCategoryCode].name
+          }  >  강아지`}</CategoryP>
           {productInfo !== undefined && (
             <ProductSummaryContainer
               productInfo={productInfo}
@@ -131,10 +136,17 @@ function ProductDetail() {
             ></ProductSummaryContainer>
           )}
           <ProductAddtionalBox>
-            <Review handleModalOpen={handleModalOpen} productId={productId}></Review>
-            {productInfo.ingredients !== null && <ProductIngredient ingredients={ingredients}></ProductIngredient>}
+            <Review
+              handleModalOpen={handleModalOpen}
+              productId={productId}
+            ></Review>
+            {productInfo.ingredients !== null && (
+              <ProductIngredient ingredients={ingredients}></ProductIngredient>
+            )}
             <DescImgContainer>
-              {productInfo !== undefined && <DescImg src={productInfo.descImgUrl} alt="" />}
+              {productInfo !== undefined && (
+                <DescImg src={productInfo.descImgUrl} alt="" />
+              )}
             </DescImgContainer>
           </ProductAddtionalBox>
         </ProductDetailContainer>
