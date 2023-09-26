@@ -26,9 +26,9 @@ import Suggestion from "./pages/Suggestion";
 import AddPet from "./pages/AddPet";
 import RouteChangeTracker from "./RouteChangeTracker";
 import ThePetBox from "./pages/ThePetBox";
-import TossRedirect from './components/toss/TossRedirect';
+import TossRedirect from "./components/toss/TossRedirect";
 import HeendyCarPage from "./pages/HeendyCarPage";
-
+import ChatbotTest from "./pages/ChatbotTest";
 
 function App() {
   RouteChangeTracker();
@@ -66,6 +66,7 @@ function App() {
           <Route path="/tossredirect" element={<TossRedirect />}></Route>
         </Route>
         <Route path="/admin" element={<Admin />}></Route>
+        <Route path="/chatbot" element={<ChatbotTest />}></Route>
       </Routes>
     </>
   );
