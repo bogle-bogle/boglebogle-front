@@ -27,26 +27,35 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import { MdEventRepeat } from 'react-icons/md';
 import PlainSwal, { showPlainSwal } from '../global/showPlainSwal';
 import { showPreparingSwal } from '../global/showPreparingSwal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { jwtCheck } from '../../utils/tokenCheck';
+import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
+import { loginAction } from '../../feature/member/login';
 
 function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
-  const member = useSelector((state) => state.member);
+  const member = useSelector(state => state.member);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   function createOrder() {
-    showPlainSwal("주문서 페이지로 이동합니다.");
-    const selectedItems = [{
-      cnt: 1,
-      createdAt : new Date(),
-      mainImgUrl : productInfo.mainImgUrl,
-      memberId : member.id,
-      name: productInfo.name,
-      price: productInfo.price,
-      productId: productInfo.id
-    }];
+    if (jwtCheck()) {
+      showRequiredLoginSwal(() => dispatch(loginAction.setIsLogin(true)));
+      return;
+    }
+    showPlainSwal('주문서 페이지로 이동합니다.');
+    const selectedItems = [
+      {
+        cnt: 1,
+        createdAt: new Date(),
+        mainImgUrl: productInfo.mainImgUrl,
+        memberId: member.id,
+        name: productInfo.name,
+        price: productInfo.price,
+        productId: productInfo.id,
+      },
+    ];
     const totalAmount = productInfo.price;
-    navigate("/ordersheet", { state: { selectedItems, totalAmount } });
+    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
   }
 
   return (
@@ -104,15 +113,15 @@ function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
         </ClubHeendyContainer>
         <ButtonContainer>
           <DetailButton className="cart" onClick={handleShoppingBasket}>
-            <BsCartPlus className="btn-icon"/>
+            <BsCartPlus className="btn-icon" />
             장바구니
           </DetailButton>
           <DetailButton className="buy" onClick={createOrder}>
-            <TbTruckDelivery className="btn-icon"/>
+            <TbTruckDelivery className="btn-icon" />
             바로구매
           </DetailButton>
           <DetailButton className="monthly" onClick={createOrder}>
-            <MdEventRepeat className="btn-icon"/>
+            <MdEventRepeat className="btn-icon" />
             정기배송
           </DetailButton>
         </ButtonContainer>
