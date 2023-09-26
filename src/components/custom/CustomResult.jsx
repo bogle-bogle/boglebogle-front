@@ -71,6 +71,15 @@ function CustomResult({
     };
   }, []);
 
+  const getHighlightedIngredients = (ingredients) => {
+    return ingredients.split(',').map((ingredient, idx) => {
+        if (idx < 10) {
+            return `<mark>${ingredient}</mark>`;
+        }
+        return ingredient;
+    }).join(',');
+  };
+
   return (
     <>
       <CustomResultContainer>
@@ -83,13 +92,12 @@ function CustomResult({
             </AnalyzeResultExplainContainer>
             <FlexContainer>
               <UserAnalyzeContainer>
-                <UserResultCard>
+              <UserResultCard>
                   <UserResultImg src={selectedFeedImage}></UserResultImg>
                   <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
-                  <UserResultText isTitle={false}>
-                    {selectedFeedIngredients}
+                  <UserResultText isTitle={false} dangerouslySetInnerHTML={{ __html: getHighlightedIngredients(selectedFeedIngredients) }}>
                   </UserResultText>
-                </UserResultCard>
+              </UserResultCard>
               </UserAnalyzeContainer>
             </FlexContainer>
           </StickyContainer>

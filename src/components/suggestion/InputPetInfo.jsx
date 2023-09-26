@@ -99,7 +99,7 @@ function InputPetInfo(props) {
       }
       // 두 번째 이미지 선택 및 추가
       let hasNewImage = false;
-      if (feedDescrImageInputRef.current && feedDescrImageInputRef.current.files[0]) {
+      if ((feedDescrImageInputRef.current && feedDescrImageInputRef.current.files[0]) || (feedMainImageInputRef && feedMainImageInputRef.current.files[0])) {
         formData.append("feedDescImgFile", feedDescrImageInputRef.current.files[0]);
         hasNewImage = true;
       }
@@ -392,6 +392,7 @@ function InputPetInfo(props) {
               </div>
             </div>
           </InputBoxes>
+
           {suggestionProduct.length == 0 ? (
             <>
               <div
@@ -417,6 +418,7 @@ function InputPetInfo(props) {
           ) : (
             <></>
           )}
+
         </div>
       </InputArea>
       {suggestionProduct.length === 0 ? (
