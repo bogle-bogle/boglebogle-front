@@ -51,8 +51,6 @@ function CartContainer() {
           (item) => item.id === itemInfo.id
         );
 
-        console.log("존재하는 상품인지", existingItemIndex);
-
         if (existingItemIndex !== -1) {
           const updatedItems = [...prev];
           updatedItems[existingItemIndex] = {

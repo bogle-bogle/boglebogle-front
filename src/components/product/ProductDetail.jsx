@@ -19,16 +19,18 @@ import * as Api from "../../api";
 import { useState } from "react";
 import Modal from "../modal/Modal";
 import ReviewModal from "./ReviewModal";
-import FadeModal from "../modal/FadeModal";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { eventLog } from "../../utils/event_log";
 import { shopCategory } from "../../commonCode";
 import ClappingHeendySwal from "../global/ClappingHeendySwal";
+import { jwtCheck } from "../../utils/tokenCheck";
+import { loginAction } from "../../feature/member/login";
 
 function ProductDetail() {
+  const dispatch = useDispatch();
   const member = useSelector((state) => state.member);
 
   const navigate = useNavigate();
@@ -39,7 +41,6 @@ function ProductDetail() {
 
   const [fadeModalOpen, setFadeModalOpen] = useState(false);
 
-  const clickRef = useRef(false);
   const clickDataRef = useRef(null);
 
   const handleLog = (page, element, isClicked, itemId) => {
@@ -90,6 +91,12 @@ function ProductDetail() {
   }
 
   function handleOpenCartModal() {
+    if (jwtCheck()) {
+      dispatch(loginAction.setIsLogin(true));
+      toast.error("로그인이 필요합니다");
+      return;
+    }
+
     Api.post("/api/cart", {
       cnt: 1,
       memberId: member.id,
@@ -105,22 +112,6 @@ function ProductDetail() {
 
   return (
     <>
-      {/* {fadeModalOpen && (
-        <FadeModal visible={fadeModalOpen}>
-          <CartModalContainer>
-            <CartModalP>장바구니에 담았습니다.</CartModalP>
-            <CartModalP>바로 확인 하시겠습니까?</CartModalP>
-            <CartModalButtonContainer>
-              <CoutinueShopButton onClick={handleCloseCardModal}>
-                쇼핑 계속하기
-              </CoutinueShopButton>
-              <MoveCartButton onClick={() => navigate("/cart")}>
-                장바구니로 이동
-              </MoveCartButton>
-            </CartModalButtonContainer>
-          </CartModalContainer>
-        </FadeModal>
-      )} */}
 
       <ClappingHeendySwal
         title="장바구니에 담았습니다. 바로 확인하시겠습니까?" 

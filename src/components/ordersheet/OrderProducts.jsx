@@ -22,11 +22,6 @@ import {
 import * as Api from "../../api";
 
 function OrderProducts({ selectedItems, totalAmount }) {
-  console.log('order', selectedItems[0].name);
-  console.log('order', selectedItems.length);
-  console.log('order', selectedItems);
-  console.log(totalAmount);
-
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
@@ -68,9 +63,9 @@ function OrderProducts({ selectedItems, totalAmount }) {
     const paymentWidget = paymentWidgetRef.current;
 
     try {
-      localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
-      localStorage.setItem('totalAmount', totalAmount);
-  
+      localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+      localStorage.setItem("totalAmount", totalAmount);
+
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
         amount: price.toLocaleString(),
@@ -79,7 +74,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
         customerEmail: `${member.email}`,
         successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tossredirect`,
         failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/ordersheet`,
-      })
+      });
     } catch (error) {
       console.error(error);
     }

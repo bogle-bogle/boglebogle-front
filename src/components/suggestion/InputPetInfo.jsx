@@ -55,7 +55,7 @@ function InputPetInfo(props) {
   };
 
   const handlePlaceholderClick = (pet) => {
-    setSelectedPet(pet);    // 현재 선택된 펫을 null로 설정하여 테두리 제거
+    setSelectedPet(pet); // 현재 선택된 펫을 null로 설정하여 테두리 제거
   };
 
   const handleFileInputChange = (imageKey) => (event) => {
@@ -88,14 +88,22 @@ function InputPetInfo(props) {
       // const id = toast.loading("분석중입니다. 잠시만 기다려주세요.");
 
       const selectedPetId = selectedPet.codeValue;
-      setNextStepFeedImage(feedMainImgPreviewUrl ? feedMainImgPreviewUrl : feedDescrImgPreviewUrl);
-  
+      setNextStepFeedImage(
+        feedMainImgPreviewUrl ? feedMainImgPreviewUrl : feedDescrImgPreviewUrl
+      );
+
       // FormData 객체 생성
       const formData = new FormData();
       formData.append("petId", selectedPetId);
-  
-      if (feedMainImageInputRef.current && feedMainImageInputRef.current.files[0]) {
-        formData.append("feedMainImgFile", feedMainImageInputRef.current.files[0]);
+
+      if (
+        feedMainImageInputRef.current &&
+        feedMainImageInputRef.current.files[0]
+      ) {
+        formData.append(
+          "feedMainImgFile",
+          feedMainImageInputRef.current.files[0]
+        );
       }
       // 두 번째 이미지 선택 및 추가
       let hasNewImage = false;
@@ -103,7 +111,7 @@ function InputPetInfo(props) {
         formData.append("feedDescImgFile", feedDescrImageInputRef.current.files[0]);
         hasNewImage = true;
       }
-  
+
       if (!hasNewImage) {
         // case 1. 성분표를 새로 업로드하지 않았을 경우
         try {
@@ -112,22 +120,18 @@ function InputPetInfo(props) {
           const response = await Api.get(`/api/pet/feed/suggestion/${selectedPetId}`);
           
           const resultData = response.data;
-          console.log(resultData);
-          setNextStepFeedIngredients(response.data.ingredients)
+          setNextStepFeedIngredients(response.data.ingredients);
           setSuggestionProduct(() => {
             return [...resultData.suggestions];
           });
 
           props.handleModalClose();
           showClappingHeendySwal("분석이 완료되었습니다.");
-          // toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true });
-
         } catch (error) {
           props.handleModalClose();
 
           scrollToTop();
           toast.error("오류가 발생하였습니다.😥");
-          // toast.update(id, { render: "오류가 발생하였습니다.", type: "error", isLoading: false, closeButton: true, autoClose: true });        
         }
       } else {
         // case 2. 새로운 이미지가 첨부되었을 경우
@@ -142,7 +146,7 @@ function InputPetInfo(props) {
 
           const resultData = response.data;
           console.log(resultData.ingredients);
-    
+
           setSuggestionProduct(() => {
             return [...resultData.suggestions];
           });
@@ -156,7 +160,6 @@ function InputPetInfo(props) {
           props.handleModalClose();
 
           scrollToTop();
-          // toast.update(id, { render: "오류가 발생하였습니다.", type: "error", isLoading: false, closeButton: true, autoClose: true });
           toast.error("오류가 발생하였습니다.");        
         }
       }
@@ -308,7 +311,8 @@ function InputPetInfo(props) {
                 <p
                   className={
                     "badge " +
-                    (activeStep === 1 && feedDescrImageInputRef.current?.files?.[0]
+                    (activeStep === 1 &&
+                    feedDescrImageInputRef.current?.files?.[0]
                       ? "active-bg"
                       : "basic-bg")
                   }
@@ -380,7 +384,8 @@ function InputPetInfo(props) {
               <div className="step-text">
                 <p
                   className={
-                    "btn btn-custom " + ( feedDescrImgPreviewUrl ? "active-bg" : "basic-bg")
+                    "btn btn-custom " +
+                    (feedDescrImgPreviewUrl ? "active-bg" : "basic-bg")
                   }
                 >
                   STEP 3

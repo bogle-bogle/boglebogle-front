@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import memberReducer from "../feature/member/member";
+import loginReducer from "../feature/member/login";
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 
 const reducers = combineReducers({
   member: memberReducer,
+  login: loginReducer,
 });
 
 const persistConfig = {
