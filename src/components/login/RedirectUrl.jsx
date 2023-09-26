@@ -3,6 +3,7 @@ import * as Api from "../../api";
 
 import { useDispatch } from "react-redux";
 import { memberAction } from "../../feature/member/member";
+import { loginAction } from "../../feature/member/login";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -60,6 +61,7 @@ function RedirectUrl() {
                 res.data.member.jwt.accessToken
               );
               dispatch(memberAction.setMemeber(res.data));
+              dispatch(loginAction.setIsLogin(false));
 
               navigate("/");
             });
