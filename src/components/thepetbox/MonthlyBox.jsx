@@ -1,6 +1,7 @@
 import React from 'react';
 import { MonthBox } from './thepetbox.style';
 import { useNavigate } from 'react-router-dom';
+import { productMain } from '../../commonCode';
 
 
 function MonthlyBox(props) {
@@ -54,7 +55,7 @@ function MonthlyBox(props) {
                 >
                   <div className='product-title'>
                     <div className='product-title-desc'>
-                      이달의 {categoryMap[product.mainCategoryCode]}
+                      이달의 {productMain[product.mainCategoryCode]}
                     </div>
                   </div>
                   <div className='product-img-box'>

@@ -19,13 +19,13 @@ import * as Api from "../../api";
 import { useState } from "react";
 import Modal from "../modal/Modal";
 import ReviewModal from "./ReviewModal";
-import FadeModal from "../modal/FadeModal";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { eventLog } from "../../utils/event_log";
-
+import { shopCategory } from "../../commonCode";
+import ClappingHeendySwal from "../global/ClappingHeendySwal";
 import { jwtCheck } from "../../utils/tokenCheck";
 import { loginAction } from "../../feature/member/login";
 
@@ -47,10 +47,10 @@ function ProductDetail() {
     clickDataRef.current = { page, element, isClicked, itemId };
   };
 
-  useEffect(() => {
-    const params = new URL(document.location.toString());
-    const productId = params.pathname.split("/").at(-1);
+  const params = new URL(document.location.toString());
+  const productId = params.pathname.split("/").at(-1);
 
+  useEffect(() => {
     Api.get(`/api/product/${productId}`)
       .then((res) => {
         setIngredients(() => {
@@ -112,27 +112,21 @@ function ProductDetail() {
 
   return (
     <>
-      {fadeModalOpen && (
-        <FadeModal visible={fadeModalOpen}>
-          <CartModalContainer>
-            <CartModalP>장바구니에 담았습니다.</CartModalP>
-            <CartModalP>바로 확인 하시겠습니까?</CartModalP>
-            <CartModalButtonContainer>
-              <CoutinueShopButton onClick={handleCloseCardModal}>
-                쇼핑 계속하기
-              </CoutinueShopButton>
-              <MoveCartButton onClick={() => navigate("/cart")}>
-                장바구니로 이동
-              </MoveCartButton>
-            </CartModalButtonContainer>
-          </CartModalContainer>
-        </FadeModal>
-      )}
+
+      <ClappingHeendySwal
+        title="장바구니에 담았습니다. 바로 확인하시겠습니까?" 
+        confirmButtonText="장바구니로 이동" 
+        cancelButtonText="쇼핑 계속하기"
+        onConfirm={() => navigate("/cart")}
+        onCancel={() => setFadeModalOpen(false)}
+        trigger={fadeModalOpen} />
+
       {modalOpen && (
         <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>
       )}
-      <ProductDetailContainer>
-        <CategoryP>{"SHOPPING  >  FOOD  >  강아지"}</CategoryP>
+      { productInfo !== undefined &&
+        <ProductDetailContainer>
+        <CategoryP>{`SHOPPING  >  ${shopCategory[productInfo.mainCategoryCode].name}  >  강아지`}</CategoryP>
         {productInfo !== undefined && (
           <ProductSummaryContainer
             productInfo={productInfo}
@@ -140,8 +134,10 @@ function ProductDetail() {
           ></ProductSummaryContainer>
         )}
         <ProductAddtionalBox>
-          <Review handleModalOpen={handleModalOpen}></Review>
-          <ProductIngredient ingredients={ingredients}></ProductIngredient>
+          <Review handleModalOpen={handleModalOpen} productId={productId} ></Review>
+          { productInfo.ingredients !== null &&
+            <ProductIngredient ingredients={ingredients}></ProductIngredient>
+           }
           <DescImgContainer>
             {productInfo !== undefined && (
               <DescImg src={productInfo.descImgUrl} alt="" />
@@ -149,6 +145,7 @@ function ProductDetail() {
           </DescImgContainer>
         </ProductAddtionalBox>
       </ProductDetailContainer>
+    }
     </>
   );
 }

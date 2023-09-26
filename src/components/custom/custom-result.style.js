@@ -96,6 +96,13 @@ export const UserResultText = styled.p`
   font-size: 17px;
 
   margin: 0;
+
+  mark {
+    display: inline-block;
+    line-height: 0.2em;
+    padding: 0 0.2em 0.7rem 0.2rem;
+    background-color: #c2f0de;
+  }
 `;
 
 export const ResultPagenationContainer = styled.div`

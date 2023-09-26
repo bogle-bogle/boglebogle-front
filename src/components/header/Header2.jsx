@@ -22,12 +22,12 @@ function Header2() {
   const login = useSelector((state) => state.login);
   const menuList = [
     {
-      title: "구독",
-      link: "/thepetbox",
+      title: '월간 구독',
+      link: '/thepetbox',
     },
     {
-      title: "AI 맞춤 추천",
-      link: "/suggestion",
+      title: 'AI 맞춤 추천',
+      link: '/suggestion',
     },
     {
       title: "쇼핑",

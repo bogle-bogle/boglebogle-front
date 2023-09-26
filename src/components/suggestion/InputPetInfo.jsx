@@ -23,6 +23,8 @@ import withReactContent from "sweetalert2-react-content";
 import CustomResult from "../custom/CustomResult";
 import SuggestionResult from "./SuggestionResult";
 import ImageUploadComponent from "./ImageUploadComponent";
+import { showPlainSwal } from "../global/showPlainSwal";
+import { showClappingHeendySwal } from "../global/showClappingHeendySwal";
 
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
@@ -46,7 +48,8 @@ function InputPetInfo(props) {
     setActiveStep(1);
     scrollTo("step2");
     if (pet.feedDescImgUrl !== null) {
-      toast.success("저장된 정보를 불러옵니다.");
+      // toast.success("저장된 정보를 불러옵니다.");
+      showPlainSwal("이미 기존에 저장한 성분표가 있습니다. \n 저장된 정보를 불러옵니다.");
     }
     setFeedDescrImgPreviewUrl(pet.feedDescImgUrl);
   };
@@ -73,6 +76,7 @@ function InputPetInfo(props) {
   };
 
   const handleSubmission = async () => {
+
     if (selectedPet == undefined) {
       toast.warn("반려동물을 선택해주세요");
       scrollToTop();
@@ -81,7 +85,7 @@ function InputPetInfo(props) {
       scrollTo("step2");
     } else {
       props.handleOpenModal();
-      const id = toast.loading("분석중입니다. 잠시만 기다려주세요.");
+      // const id = toast.loading("분석중입니다. 잠시만 기다려주세요.");
 
       const selectedPetId = selectedPet.codeValue;
       setNextStepFeedImage(
@@ -103,24 +107,18 @@ function InputPetInfo(props) {
       }
       // 두 번째 이미지 선택 및 추가
       let hasNewImage = false;
-      if (
-        feedDescrImageInputRef.current &&
-        feedDescrImageInputRef.current.files[0]
-      ) {
-        formData.append(
-          "feedDescImgFile",
-          feedDescrImageInputRef.current.files[0]
-        );
+      if ((feedDescrImageInputRef.current && feedDescrImageInputRef.current.files[0]) || (feedMainImageInputRef && feedMainImageInputRef.current.files[0])) {
+        formData.append("feedDescImgFile", feedDescrImageInputRef.current.files[0]);
         hasNewImage = true;
       }
 
       if (!hasNewImage) {
         // case 1. 성분표를 새로 업로드하지 않았을 경우
         try {
-          const response = await Api.get(
-            `/api/pet/feed/suggestion/${selectedPetId}`
-          );
+          setActiveStep(2);
 
+          const response = await Api.get(`/api/pet/feed/suggestion/${selectedPetId}`);
+          
           const resultData = response.data;
           setNextStepFeedIngredients(response.data.ingredients);
           setSuggestionProduct(() => {
@@ -128,37 +126,23 @@ function InputPetInfo(props) {
           });
 
           props.handleModalClose();
-          toast.update(id, {
-            render: "분석이 완료되었습니다.",
-            type: "success",
-            isLoading: false,
-            closeButton: true,
-            autoClose: true,
-          });
+          showClappingHeendySwal("분석이 완료되었습니다.");
         } catch (error) {
           props.handleModalClose();
 
           scrollToTop();
-          toast.update(id, {
-            render: "오류가 발생하였습니다.",
-            type: "error",
-            isLoading: false,
-            closeButton: true,
-            autoClose: true,
-          });
+          toast.error("오류가 발생하였습니다.😥");
         }
       } else {
         // case 2. 새로운 이미지가 첨부되었을 경우
         try {
-          const response = await Api.post(
-            `/api/pet/feed/suggestion`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
+          setActiveStep(2);
+
+          const response = await Api.post(`/api/pet/feed/suggestion`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
             }
-          );
+          });
 
           const resultData = response.data;
           console.log(resultData.ingredients);
@@ -169,24 +153,14 @@ function InputPetInfo(props) {
           setNextStepFeedIngredients(response.data.ingredients);
 
           props.handleModalClose();
-          toast.update(id, {
-            render: "분석이 완료되었습니다.",
-            type: "success",
-            isLoading: false,
-            closeButton: true,
-            autoClose: true,
-          });
+          showClappingHeendySwal("분석이 완료되었습니다.");
+          // toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true});
+
         } catch (error) {
           props.handleModalClose();
 
           scrollToTop();
-          toast.update(id, {
-            render: "오류가 발생하였습니다.",
-            type: "error",
-            isLoading: false,
-            closeButton: true,
-            autoClose: true,
-          });
+          toast.error("오류가 발생하였습니다.");        
         }
       }
     }
@@ -423,6 +397,7 @@ function InputPetInfo(props) {
               </div>
             </div>
           </InputBoxes>
+
           {suggestionProduct.length == 0 ? (
             <>
               <div
@@ -448,6 +423,7 @@ function InputPetInfo(props) {
           ) : (
             <></>
           )}
+
         </div>
       </InputArea>
       {suggestionProduct.length === 0 ? (

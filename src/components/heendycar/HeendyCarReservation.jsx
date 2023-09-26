@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import walkingheendy from "../../assets/custom/walkingheendy.gif";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { branchCode } from "../../commonCode";
+import { showPlainSwal } from "../global/showPlainSwal";
+import { showClappingHeendySwal } from "../global/showClappingHeendySwal";
 import {
   HeendyCarTitle,
   InputBox,
@@ -16,7 +19,6 @@ import {
   ResvBtn,
   ResvTitle,
 } from "./heendycar.style";
-
 import { jwtCheck } from "../../utils/tokenCheck";
 import { loginAction } from "../../feature/member/login";
 
@@ -116,17 +118,56 @@ function HeendyCarReservation() {
     const regex = /^(010|011|016|017|018|019)\d{7,8}$/;
 
     return regex.test(phoneNumber);
+}
+
+const handleReservationButtonClick = async () => {
+
+  if (jwtCheck()) {
+    dispatch(loginAction.setIsLogin(true));
+    toast.error("로그인이 필요합니다");
+    return;
   }
 
-  const handleReservationButtonClick = async () => {
-    if (jwtCheck()) {
-      dispatch(loginAction.setIsLogin(true));
-      toast.error("로그인이 필요합니다");
-      return;
-    }
-    // 예약 시간 확인
-    if (!selectedTime) {
-      toast.error("예약 시간을 선택해주세요.");
+  // 예약 시간 확인
+  if (!selectedTime) {
+    showPlainSwal("예약 시간을 선택해주세요.");
+    return;
+  }
+
+  // 휴대폰 번호 확인
+  if (!phoneNumber) {
+    showPlainSwal("휴대폰 번호를 입력해주세요.");
+    return;
+  }
+
+  // 번호 유효성 확인
+  if (!isValidPhoneNumber(phoneNumber)) {
+    showPlainSwal("정확한 휴대폰 번호를 입력해주세요.");
+    return;
+  }
+
+  const data = {
+    branchCode: selectedBranchCode,
+    reservationTime: convertReservationTime(selectedTime),
+    phoneNumber: phoneNumber.replace(/-/g, '')
+  };
+
+  try {
+    const swalResponse = await swal.fire({
+      title: `${branchCode[selectedBranchCode]} \n오늘 ${selectedTime} \n\n픽업 예약하시겠습니까?`,
+      showCancelButton: true,
+      imageUrl: walkingheendy,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      confirmButtonColor: "#499878",
+      cancelButtonColor: "#A4A4A4",
+      customClass: {
+        confirmButton: "swal2-button",
+        cancelButton: "swal2-button",
+      },
+    });
+
+    if (!swalResponse.isConfirmed) {
       return;
     }
 
@@ -136,36 +177,11 @@ function HeendyCarReservation() {
       return;
     }
 
-    // 번호 유효성 확인
-    if (!isValidPhoneNumber(phoneNumber)) {
-      toast.error("정확한 휴대폰 번호를 입력해주세요.");
-      return;
-    }
-
     const data = {
       branchCode: selectedBranchCode,
       reservationTime: convertReservationTime(selectedTime),
       phoneNumber: phoneNumber.replace(/-/g, ""),
     };
-
-    try {
-      const swalResponse = await swal.fire({
-        title: "예약하시겠습니까?",
-        showCancelButton: true,
-        imageUrl: walkingheendy,
-        confirmButtonText: "확인",
-        cancelButtonText: "취소",
-        confirmButtonColor: "#499878",
-        cancelButtonColor: "#A4A4A4",
-        customClass: {
-          confirmButton: "swal2-button",
-          cancelButton: "swal2-button",
-        },
-      });
-
-      if (!swalResponse.isConfirmed) {
-        return;
-      }
 
       const res = await Api.post(`/api/hc/reservation`, data, {
         headers: {
@@ -180,6 +196,7 @@ function HeendyCarReservation() {
           <br /> 예약시간: {formattedTime}
         </span>
       );
+      window.location.href="/mypage?menu=myreservation";
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
@@ -222,7 +239,28 @@ function HeendyCarReservation() {
         </div>
         <hr />
         <div className="input-box">
-          <div className="left-box">
+
+        <div className="left-box">
+            <InputBox>
+              <div className="branch-img-box">
+                <img className="branch-img" src={getBranchImgUrl(selectedBranchCode)} />
+                <div className="branch-content">
+                  <strong className="branch-name">{getBranchName(selectedBranchCode)}</strong>
+                  <div key={selectedBranchCode}>
+                    <p>
+                      대여 가능 수량:{" "}
+                      <span style={{ color: "darkred", fontWeight: "bold" }}>
+                        {getBranchCnt(selectedBranchCode)}
+                      </span>
+                    </p>
+                    <p>{getBranchDescr(selectedBranchCode)}</p>
+                  </div>
+                </div>
+              </div>
+            </InputBox>
+          </div>
+
+          <div className="right-box">
             <ResvTitle>대여 장소</ResvTitle>
             <InputBox>
               <div className="place-box">
@@ -295,31 +333,7 @@ function HeendyCarReservation() {
               </div>
             </InputBox>
           </div>
-          <div className="right-box">
-            <InputBox>
-              <div className="branch-img-box">
-                <img
-                  className="branch-img"
-                  src={getBranchImgUrl(selectedBranchCode)}
-                />
-                <div className="branch-content">
-                  <strong className="branch-name">
-                    {getBranchName(selectedBranchCode)}
-                  </strong>
-                  <div key={selectedBranchCode}>
-                    <p>
-                      대여 가능 수량:{" "}
-                      <span style={{ color: "darkred", fontWeight: "bold" }}>
-                        {getBranchCnt(selectedBranchCode)}
-                      </span>
-                    </p>
-                    <p>{getBranchDescr(selectedBranchCode)}</p>
-                  </div>
-                </div>
-              </div>
-            </InputBox>
-          </div>
-        </div>
+        </div>        
         <div className="resv-btn-box">
           <button className="resv-btn" onClick={handleReservationButtonClick}>
             예약하기
