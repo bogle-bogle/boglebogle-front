@@ -55,7 +55,6 @@ function RedirectUrl() {
               imgUrl: kakao_account.profile.profile_image_url,
             };
             Api.post(`/api/member/login`, { ...data }).then((res) => {
-              console.log(res);
               localStorage.setItem(
                 "userToken",
                 res.data.member.jwt.accessToken

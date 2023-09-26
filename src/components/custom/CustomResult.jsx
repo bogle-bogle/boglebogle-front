@@ -38,13 +38,6 @@ function CustomResult({
   selectedFeedImage,
   selectedFeedIngredients,
 }) {
-  console.log(
-    selectedPetName,
-    suggestionProduct,
-    selectedFeedImage,
-    selectedFeedIngredients
-  );
-
   const clickRef = useRef(false);
   const clickDataRef = useRef(null);
 
@@ -117,7 +110,7 @@ function CustomResult({
             <RecommendProductListContainer>
               {suggestionProduct !== undefined &&
                 suggestionProduct.map((rp, idx) => (
-                  <ResultCardContainer 
+                  <ResultCardContainer
                     onClick={() => {
                       handleClickRef(true);
                       handleLog("suggestion", "recommend_product", rp.id, "Y");

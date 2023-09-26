@@ -37,7 +37,6 @@ async function del(endpoint, params = "") {
 
 function handleJwtError(error) {
   if (error.response?.data?.code === "EXPIRED_TOKEN") {
-    console.log("토큰 만료");
     localStorage.removeItem("userToken");
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
     console.log("로그인 요구");

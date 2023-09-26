@@ -30,7 +30,6 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
     // }
 
     Api.get(`/api/recommendation/${type}/${param}`).then((res) => {
-      console.log(res);
       setFoodProductList(res.data.products);
       setPetInfo(res.data.petInfo);
 
