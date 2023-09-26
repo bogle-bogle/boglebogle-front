@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   MypageCard,
   MypageCardDescr,
@@ -7,10 +7,10 @@ import {
   MypageCardTitle,
   MypageListElement,
   MypageSubtitle,
-} from './mypage.style';
+} from "./mypage.style";
 import * as Api from "../../api";
-import { toast } from 'react-toastify';
-import { animalCode, breedCode, sizeCode } from '../../commonCode';
+import { toast } from "react-toastify";
+import { animalCode, breedCode, sizeCode } from "../../commonCode";
 
 function MyPetContainer() {
   const [petData, setPetData] = useState([]);
@@ -18,7 +18,6 @@ function MyPetContainer() {
   useEffect(() => {
     Api.get(`/api/pet`)
       .then((res) => {
-        console.log(res);
         const transformedData = res.data.map((item) => ({
           id: item.id,
           name: item.name,

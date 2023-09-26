@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   MypageCard,
   MypageCardDescr,
@@ -10,10 +10,10 @@ import {
   MypageListIndex,
   MypageSubSectionTitle,
   MypageSubtitle,
-} from './mypage.style';
-import * as Api from '../../api';
-import { toast } from 'react-toastify';
-import NoDataBox from '../global/NoDataBox';
+} from "./mypage.style";
+import * as Api from "../../api";
+import { toast } from "react-toastify";
+import NoDataBox from "../global/NoDataBox";
 
 function MyOrderContainer() {
   const [orders, setOrders] = useState([]);
@@ -22,11 +22,10 @@ function MyOrderContainer() {
   const formatPrice = (price) => {
     return price.toLocaleString();
   };
-  
+
   useEffect(() => {
     Api.get(`/api/order/normal`)
       .then((res) => {
-        console.log(res);
         setOrders(res.data);
       })
       .catch((Error) => {
@@ -37,41 +36,45 @@ function MyOrderContainer() {
 
   return (
     <>
-    { orders.length == 0 &&
-      <NoDataBox
-        dataType="구매내역"
-        addButtonText="쇼핑하러 가기 &#62;"
-        link="/shop"
-      />
-    }
+      {orders.length == 0 && (
+        <NoDataBox
+          dataType="구매내역"
+          addButtonText="쇼핑하러 가기 &#62;"
+          link="/shop"
+        />
+      )}
 
-    { orders.length > 0 &&
-      <>
-      <MypageSubtitle>나의 주문 목록</MypageSubtitle>
-      <MypageList>
-      {orders.map((order) => (
+      {orders.length > 0 && (
         <>
-          <MypageSubSectionTitle>{order.createdAt}</MypageSubSectionTitle>
-          <MypageListElement>
-          <MypageListIndex>주문 번호 : {order.id}</MypageListIndex>
-          {
-            order.orderDetails.map((orderDetail) => (
-              <MypageCard key={orderDetail.id}>
-                <MypageCardImg src={orderDetail.productImgUrl} />
-                <MypageCardElement>
-                  <MypageCardTitle>{orderDetail.productName}</MypageCardTitle>
-                  <MypageCardDescr>{formatPrice(orderDetail.productPrice)}원</MypageCardDescr>
-                  <MypageCardDescr>주문 수량: {orderDetail.cnt}</MypageCardDescr>
-                </MypageCardElement>
-              </MypageCard>
-            ))
-          }
-          </MypageListElement>
+          <MypageSubtitle>나의 주문 목록</MypageSubtitle>
+          <MypageList>
+            {orders.map((order) => (
+              <>
+                <MypageSubSectionTitle>{order.createdAt}</MypageSubSectionTitle>
+                <MypageListElement>
+                  <MypageListIndex>주문 번호 : {order.id}</MypageListIndex>
+                  {order.orderDetails.map((orderDetail) => (
+                    <MypageCard key={orderDetail.id}>
+                      <MypageCardImg src={orderDetail.productImgUrl} />
+                      <MypageCardElement>
+                        <MypageCardTitle>
+                          {orderDetail.productName}
+                        </MypageCardTitle>
+                        <MypageCardDescr>
+                          {formatPrice(orderDetail.productPrice)}원
+                        </MypageCardDescr>
+                        <MypageCardDescr>
+                          주문 수량: {orderDetail.cnt}
+                        </MypageCardDescr>
+                      </MypageCardElement>
+                    </MypageCard>
+                  ))}
+                </MypageListElement>
+              </>
+            ))}
+          </MypageList>
         </>
-        ))}
-      </MypageList>
-      </>
-    }
+      )}
     </>
   );
 }

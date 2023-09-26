@@ -21,11 +21,16 @@ import Modal from "../modal/Modal";
 import ReviewModal from "./ReviewModal";
 import FadeModal from "../modal/FadeModal";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { eventLog } from "../../utils/event_log";
+
+import { jwtCheck } from "../../utils/tokenCheck";
+import { loginAction } from "../../feature/member/login";
+
 function ProductDetail() {
+  const dispatch = useDispatch();
   const member = useSelector((state) => state.member);
 
   const navigate = useNavigate();
@@ -36,7 +41,6 @@ function ProductDetail() {
 
   const [fadeModalOpen, setFadeModalOpen] = useState(false);
 
-  const clickRef = useRef(false);
   const clickDataRef = useRef(null);
 
   const handleLog = (page, element, isClicked, itemId) => {
@@ -87,6 +91,12 @@ function ProductDetail() {
   }
 
   function handleOpenCartModal() {
+    if (jwtCheck()) {
+      dispatch(loginAction.setIsLogin(true));
+      toast.error("로그인이 필요합니다");
+      return;
+    }
+
     Api.post("/api/cart", {
       cnt: 1,
       memberId: member.id,

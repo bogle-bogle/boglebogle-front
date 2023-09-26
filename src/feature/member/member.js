@@ -24,10 +24,12 @@ const memberSlice = createSlice({
   reducers: {
     setMemeber: (state, action) => {
       state = { ...action.payload.member, pet: [...action.payload.pets] };
+
       return state;
     },
-    clearMember: (state, action) => {
-      return initialMemberState;
+    clearMember: (state) => {
+      state = { ...initialMemberState, pet: [] };
+      return state;
     },
   },
 });

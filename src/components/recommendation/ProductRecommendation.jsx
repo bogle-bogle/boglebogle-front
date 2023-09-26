@@ -24,12 +24,11 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
   const [petInfo, setPetInfo] = useState({});
   const [title, setTitle] = useState("");
 
-  const [isClicked, setIsClicked] = useState(false);
-  const [itemId, setItemId] = useState(null);
-
-  const navigate = useNavigate();
-
   useEffect(() => {
+    // if (localStorage.getItem("userToken") === null) {
+    //   return;
+    // }
+
     Api.get(`/api/recommendation/${type}/${param}`).then((res) => {
       setFoodProductList(res.data.products);
       setPetInfo(res.data.petInfo);
@@ -82,14 +81,20 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
         );
       }
     });
-  }, [type, param, petInfo.ageCode, petInfo.favoriteProteinCode, petInfo.name]);
+  }, [type, param]);
 
   return (
     <RcContainer>
       <RcMiniIcon src={miniIconImg} />
       <RcTitle>
         {title}
-        <hr style={{ color: "lightgray", marginTop: "15px", marginBottom: "25px" }} />
+        <hr
+          style={{
+            color: "lightgray",
+            marginTop: "15px",
+            marginBottom: "25px",
+          }}
+        />
       </RcTitle>
       <ProductContainer>
         {foodProductList !== undefined &&
