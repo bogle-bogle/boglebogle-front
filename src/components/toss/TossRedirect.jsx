@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { post } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as Api from "../../api";
+import axios from "axios";
 
 function TossRedirect() {
   const navigate = useNavigate();
@@ -18,16 +18,22 @@ function TossRedirect() {
       paymentKey: paymentKey,
       orderId: orderId,
       amount: amount,
-    }).then((res) => {
+    }).then(() => {
       const selectedItems = JSON.parse(localStorage.getItem("selectedItems"));
-
-      Api.post(`/api/order/selected-cart`, selectedItems, {
-        headers: {
-          Authorization: `Bearer ${member.jwt.accessToken}`,
-          TossOrderId: orderId,
-        },
-      });
-      navigate("/ordercomplete", { state: { selectedItems, amount, orderId } });
+      axios
+        .post(`/api/order/selected-cart`, selectedItems, {
+          headers: {
+            Authorization: `Bearer ${member.jwt.accessToken}`,
+            TossOrderId: orderId,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          const shoppingOrderId = res.data;
+          navigate("/ordercomplete", {
+            state: { selectedItems, amount, shoppingOrderId },
+          });
+        });
     });
   });
 }

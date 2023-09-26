@@ -40,6 +40,8 @@ function handleJwtError(error) {
     localStorage.removeItem("userToken");
   } else if (error.response?.data?.code === "LOGIN_REQUIRED") {
     console.log("로그인 요구");
+    toast.error("로그인이 필요합니다.");
+
   } else {
     throw error;
   }
