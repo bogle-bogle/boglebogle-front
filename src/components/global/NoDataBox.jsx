@@ -6,14 +6,14 @@ import { jwtCheck } from "../../utils/tokenCheck";
 import { loginAction } from "../../feature/member/login";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { showRequiredLoginSwal } from "./showRequiredLoginSwal";
 function NoDataBox(props) {
   const { dataType, onAddClick, addButtonText, link } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleAddPet = () => {
     if (jwtCheck()) {
-      dispatch(loginAction.setIsLogin(true));
-      toast.error("로그인이 필요합니다");
+      showRequiredLoginSwal(() => dispatch(loginAction.setIsLogin(true)));
     } else {
       navigate(link);
     }

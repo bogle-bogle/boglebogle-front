@@ -4,7 +4,6 @@ import CustomReadyPage from "./pages/CustomReadyPage";
 import CustomReadyResult from "./pages/CustomReadyResult";
 import Main from "./pages/Main";
 import RedirectUrl from "./components/login/RedirectUrl";
-import MainPage from "./pages/MainPage";
 import Shop from "./pages/Shop";
 import Cart from "./pages/CartPage";
 import Ordersheet from "./pages/OrderSheetPage";
@@ -38,7 +37,6 @@ function App() {
           <Route path="/customready" element={<CustomReadyPage />} />
           <Route path="/customresult" element={<CustomReadyResult />} />
           <Route path="/" element={<Main />}></Route>
-          <Route path="/second" element={<MainPage />}></Route>
           <Route path="/auth" element={<RedirectUrl />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
