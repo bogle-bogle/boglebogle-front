@@ -1,5 +1,6 @@
-import styled, { keyframes } from "styled-components";
-import { AiOutlineLoading3Quarters } from "react-icons/ai"; // 로딩 아이콘을 위한 라이브러리
+import styled, { keyframes } from 'styled-components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // 로딩 아이콘을 위한 라이브러리
+import { style } from '@mui/system';
 
 export const SuggestionContainer = styled.div`
   .logo-container {
@@ -84,7 +85,7 @@ export const SuggestionContainer = styled.div`
 
   .req-title {
     color: red;
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
   }
 
   .default-image {
@@ -104,7 +105,7 @@ export const SuggestionContainer = styled.div`
   }
 
   .btn {
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
     margin: 5px;
     display: inline-block;
     padding: 10px 20px;
@@ -252,7 +253,7 @@ export const StepArea = styled.div`
   }
 
   .MuiStepLabel-label {
-    font-family: "HappinessSansRegular";
+    font-family: 'HappinessSansRegular';
   }
 `;
 
@@ -293,7 +294,7 @@ export const InputArea = styled.div`
     text-align: center;
     border-radius: 20px;
     width: fit-content;
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     font-size: 14px;
   }
 
@@ -307,7 +308,7 @@ export const InputArea = styled.div`
 
   .step-desc {
     margin-left: 15px;
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
     font-size: 18px;
   }
 `;
@@ -317,7 +318,7 @@ export const TitleBox = styled.div`
 
   .title1 {
     margin: 0 0 10px 0;
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     color: #499878;
     font-size: 25px;
 
@@ -366,6 +367,41 @@ export const SuggestBox = styled.div`
 
 export const InputBoxes = styled.div`
   ${({ show }) => {
-    return show ? "display: none" : null;
+    return show ? 'display: none' : null;
   }}
+`;
+
+export const FeedInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const FeedImgCutButton = styled.button`
+  width: 200px;
+  height: 40px;
+
+  background-color: #499878;
+  color: white;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  border: none;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+`;
+
+export const FeedImgCropBackground = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  width: 800px;
+  height: 800px;
 `;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CompleteText = styled.p`
   font-size: 35px;
@@ -84,14 +84,14 @@ export const UserResultCard = styled.div`
 export const UserResultImg = styled.img`
   width: 250px;
   height: 250px;
-
+  object-fit: contain;
   margin-bottom: 5vh;
 `;
 
 export const UserResultText = styled.p`
   width: 100%;
   color: #4f4f4f;
-  font-weight: ${(props) => props.isTitle && "bold"};
+  font-weight: ${props => props.isTitle && 'bold'};
 
   font-size: 17px;
 
@@ -142,13 +142,13 @@ export const SimilarityContainer = styled.div`
 
   align-items: center;
 
-  background-color: ${(props) => {
+  background-color: ${props => {
     if (props.percent >= 70 && props.percent <= 100) {
-      return "#ecf7f5";
+      return '#ecf7f5';
     } else if (props.percent >= 40 && props.percent < 70) {
-      return "#F7F6EC";
+      return '#F7F6EC';
     } else {
-      return "#e9967a";
+      return '#e9967a';
     }
   }};
 `;
@@ -163,16 +163,16 @@ export const ProgressBarContainer = styled.div`
 `;
 
 export const ProgressBar = styled.div`
-  width: ${(props) => `${props.si}%`};
+  width: ${props => `${props.si}%`};
   height: 100%;
 
-  background-color: ${(props) => {
+  background-color: ${props => {
     if (props.percent >= 70 && props.percent <= 100) {
-      return "#0a9882";
+      return '#0a9882';
     } else if (props.percent >= 40 && props.percent < 70) {
-      return "#D4B200";
+      return '#D4B200';
     } else {
-      return "red";
+      return 'red';
     }
   }};
 `;
@@ -180,15 +180,15 @@ export const ProgressBar = styled.div`
 export const SimilarityPercentText = styled.p`
   font-size: 18px;
   font-weight: bold;
-  color: ${(props) => {
+  color: ${props => {
     if (props.percent >= 70 && props.percent <= 100) {
-      return "#0a9882";
+      return '#0a9882';
     } else if (props.percent >= 40 && props.percent < 70) {
-      return "#D4B200";
+      return '#D4B200';
     } else if (props.percent >= 0 && props.percent < 40) {
-      return "red";
+      return 'red';
     } else {
-      return "gray";
+      return 'gray';
     }
   }};
 
