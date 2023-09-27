@@ -368,3 +368,38 @@ export const InputBoxes = styled.div`
     return show ? 'display: none' : null;
   }}
 `;
+
+export const FeedInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const FeedImgCutButton = styled.button`
+  width: 200px;
+  height: 40px;
+
+  background-color: #499878;
+  color: white;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  border: none;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+`;
+
+export const FeedImgCropBackground = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  width: 800px;
+  height: 800px;
+`;

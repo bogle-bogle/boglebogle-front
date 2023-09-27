@@ -1,7 +1,9 @@
 .appContainer {
   width: 100%;
   height: 100%;
-  justify-items: center;
+  position: relative;
+
+
 }
 
 .contentsContainer {
@@ -13,4 +15,28 @@
   @media (max-width: 1100px) {
     margin: 0;
   }
+}
+
+.floating {
+  width: 200px;
+  height: 400px;
+
+  margin-top: 10%;
+  margin-right: 2%;
+
+  cursor: pointer;
+
+  position: fixed;
+  right: 0;
+  top: 0;
+
+  @media (max-width: 1100px) {
+    display: none;
+  }
+}
+
+.floatingImg {
+  width: 200px;
+  height: 200px;
+  margin: 0;
 }
