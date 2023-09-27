@@ -1,6 +1,12 @@
 import React from 'react';
-import { DefaultImage, ImagePreview, ImageboxTitle, ImgFileInput, UploadSection } from './image-upload-component.style';
-import { toast } from "react-toastify";
+import {
+  DefaultImage,
+  ImagePreview,
+  ImageboxTitle,
+  ImgFileInput,
+  UploadSection,
+} from './image-upload-component.style';
+import { toast } from 'react-toastify';
 
 function ImageUploadComponent({
   title,
@@ -10,16 +16,15 @@ function ImageUploadComponent({
   onInputChange,
   inputRef,
 }) {
-
-    const renderImageContent = () => {
-        if (selectedImageForPreview) {
-            return <img src={selectedImageForPreview} alt="Uploaded" />;
-        } else if (defaultImageUrl) {
-            return <img src={defaultImageUrl} alt="Uploaded" />;
-        } else {
-            return <DefaultImage alt="Default">이미지 첨부하기</DefaultImage>;
-        }
-      };
+  const renderImageContent = () => {
+    if (selectedImageForPreview) {
+      return <img src={selectedImageForPreview} alt="Uploaded" />;
+    } else if (defaultImageUrl) {
+      return <img src={defaultImageUrl} alt="Uploaded" />;
+    } else {
+      return <DefaultImage alt="Default">이미지 첨부하기</DefaultImage>;
+    }
+  };
 
   return (
     <UploadSection>
@@ -27,10 +32,11 @@ function ImageUploadComponent({
       <ImagePreview onClick={onImagePreviewClick}>
         {renderImageContent()}
       </ImagePreview>
-      <ImgFileInput type="file"
-                    accept="image/*"
-                    onChange={onInputChange}
-                    ref={inputRef}
+      <ImgFileInput
+        type="file"
+        accept="image/*"
+        onChange={onInputChange}
+        ref={inputRef}
       />
     </UploadSection>
   );
