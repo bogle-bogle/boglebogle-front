@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // 로딩 아이콘을 위한 라이브러리
-import { style } from '@mui/system';
 
 export const SuggestionContainer = styled.div`
   .logo-container {
@@ -209,7 +208,6 @@ export const spin = keyframes`
     transform: rotate(360deg);
   }
 `;
-
 export const LoadingIcon = styled(AiOutlineLoading3Quarters)`
   animation: ${spin} 2s linear infinite;
 `;
