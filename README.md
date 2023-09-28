@@ -68,3 +68,133 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Project Structure Tree
+
+```
+thepet-frontend
+├─ .git
+│  ├─ COMMITMESSAGE
+│  ├─ COMMIT_EDITMSG
+│  ├─ config
+│  ├─ description
+│  ├─ FETCH_HEAD
+│  ├─ fork-settings
+│  ├─ HEAD
+│  ├─ hooks
+│  ├─ index
+│  ├─ info
+│  │  └─ exclude
+│  ├─ logs
+│  ├─ objects
+│  ├─ ORIG_HEAD
+│  ├─ packed-refs
+│  └─ refs
+├─ .github
+│  ├─ issue-branch.yml
+│  ├─ ISSUE_TEMPLATE
+│  │  └─ feature-request.md
+│  └─ workflows
+│     ├─ create_branch.yml
+│     ├─ create_jira_issue.yml
+│     └─ main.yml
+├─ .gitignore
+├─ .prettierrc
+├─ package.json
+├─ public
+├─ README.md
+└─ src
+   ├─ api.js
+   ├─ app
+   │  └─ store.js
+   ├─ App.css
+   ├─ App.js
+   ├─ assets
+   │  ├─ .gitkeep
+   │  ├─ admin
+   │  ├─ card
+   │  ├─ club
+   │  ├─ custom
+   │  ├─ detail
+   │  ├─ footer
+   │  ├─ heendycar
+   │  ├─ login
+   │  ├─ main
+   │  ├─ mbti
+   │  ├─ playground
+   │  ├─ product
+   │  ├─ recommendation
+   │  ├─ reivew
+   │  └─ subscription
+   ├─ commonCode.js
+   ├─ components
+   │  ├─ .gitkeep
+   │  ├─ admin
+   │  ├─ cart
+   │  ├─ club
+   │  ├─ custom
+   │  ├─ footer
+   │  ├─ global
+   │  ├─ header
+   │  ├─ heendycar
+   │  ├─ hyundaicard
+   │  ├─ login
+   │  ├─ main
+   │  ├─ mbti
+   │  ├─ modal
+   │  ├─ mypage
+   │  ├─ ordercomplete
+   │  ├─ ordersheet
+   │  ├─ playground
+   │  ├─ product
+   │  ├─ recommendation
+   │  ├─ subscription
+   │  ├─ suggestion
+   │  ├─ thepetbox
+   │  └─ toss
+   ├─ constants
+   ├─ feature
+   │  └─ member
+   ├─ fonts
+   ├─ ga
+   ├─ index.css
+   ├─ index.js
+   ├─ pages
+   │  ├─ .gitkeep
+   │  ├─ AddPet.jsx
+   │  ├─ Admin.jsx
+   │  ├─ CartPage.jsx
+   │  ├─ CustomPage.jsx
+   │  ├─ CustomReadyPage.jsx
+   │  ├─ CustomReadyResult.jsx
+   │  ├─ Example.jsx
+   │  ├─ HeendyCarPage.jsx
+   │  ├─ HyundaiCard.jsx
+   │  ├─ index.style.jsx
+   │  ├─ Main.jsx
+   │  ├─ MainLayout.jsx
+   │  ├─ MainPage.jsx
+   │  ├─ MbtiTest.jsx
+   │  ├─ MyPage.jsx
+   │  ├─ MyPet.jsx
+   │  ├─ OrderComplete.jsx
+   │  ├─ OrderSheetPage.jsx
+   │  ├─ PlayGround.jsx
+   │  ├─ Shop.jsx
+   │  ├─ Subscription.jsx
+   │  ├─ Suggestion.jsx
+   │  └─ ThePetBox.jsx
+   ├─ reportWebVitals.js
+   ├─ RouteChangeTracker.js
+   ├─ services
+   ├─ setupProxy.js
+   ├─ setupTests.js
+   ├─ styles
+   └─ utils
+      ├─ .gitkeep
+      ├─ event_log.js
+      ├─ productFilter.js
+      └─ tokenCheck.js
+
+```
