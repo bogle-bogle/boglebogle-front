@@ -19,6 +19,7 @@ import {
   DiscountButton,
   DiscountconfirmButton,
 } from './OrderProducts.style';
+import * as Api from "../../api";
 
 function OrderProducts({ selectedItems, totalAmount, productType }) {
   const paymentWidgetRef = useRef(null);
@@ -78,7 +79,19 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
     }
   };
 
-  const handleSubOrder = async () => {};
+  const handleSubOrder = async () => {
+    Api.post(`/api/order/regular-delivery`, {
+      startDate: new Date(),
+      memberId: member.id,
+      productId: selectedItems[0].productId,
+    }).then(res => {
+      console.log(res);
+      navigate(`/mypage?menu=mysubscription`);
+    })
+    .catch(error => {
+      alert("이미 구독 중")
+    });
+  };
 
   const applyCoupon = () => {
     // 5% 할인을 계산합니다.
