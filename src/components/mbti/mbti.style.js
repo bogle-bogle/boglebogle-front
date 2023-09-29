@@ -6,7 +6,7 @@ export const MbtiGameContainer = styled.div`
   height: 735px;
   background-image: url(${mbtiBackground});
   background-repeat: no-repeat;
-
+  background-size: cover;
   display: flex;
 
   justify-content: center;
@@ -99,8 +99,6 @@ export const MbtiResultContainer = styled.div`
   height: 80%;
 
   display: flex;
-
-  border: 1px solid black;
 `;
 
 export const MbtiResultContentContainer = styled.div`
@@ -111,15 +109,11 @@ export const MbtiResultContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  border: 1px solid red;
 `;
 
 export const MbtiResultDogImg = styled.img`
   width: 300px;
   height: 300px;
-
-  border: 1px solid blue;
 `;
 
 export const SelectDogImgContainer = styled.div`
@@ -129,7 +123,6 @@ export const SelectDogImgContainer = styled.div`
 
   display: inline-flex;
   align-items: center;
-  border: 1px solid orange;
 `;
 
 export const MbtiResultInfoContainer = styled.div`
@@ -138,8 +131,6 @@ export const MbtiResultInfoContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-
-  border: 1px solid red;
 `;
 
 export const MbtiH1 = styled.p`
@@ -162,8 +153,6 @@ export const MbtiCompatibilityContainer = styled.div`
   width: auto;
   height: auto;
   overflow: auto;
-
-  border: 1px solid green;
 `;
 
 export const MbtiCompatibilityImg = styled.img`

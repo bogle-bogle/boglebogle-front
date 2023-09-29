@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   CardContainer,
   CategoryContainer,
@@ -17,27 +17,35 @@ import {
   PageState,
   ProductCardContainer,
   ProductContainer,
+  ProductWarningMark,
   ShopContainer,
-} from "./index.style";
-import { shopCategory, proteinCode } from "../../commonCode";
-import CategoryFilterButton from "./CategoryFilterButton";
-import { useState } from "react";
+  WraningText,
+} from './index.style';
+import { shopCategory, proteinCode } from '../../commonCode';
+import CategoryFilterButton from './CategoryFilterButton';
+import { useState } from 'react';
 import {
   initialMainCategory,
   initialSubCategory,
   initialProteinCategory,
-} from "../../utils/productFilter";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import ProductCard from "./ProductCard";
-import * as Api from "../../api";
-import { TrackGoogleAnalyticsEvent } from "../../ga";
+} from '../../utils/productFilter';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import ProductCard from './ProductCard';
+import * as Api from '../../api';
+import { TrackGoogleAnalyticsEvent } from '../../ga';
 import ContactFormCategory, {
   ContactFormCompleteAction,
-} from "../../ga/event/contactForm";
+} from '../../ga/event/contactForm';
 import { RxReset } from 'react-icons/rx';
 
+import { GoDotFill } from 'react-icons/go';
+
+import { useSelector } from 'react-redux';
+
 function NewProductList() {
-  const [mainCategory, setMainCategory] = useState("");
+  const member = useSelector(state => state.member);
+
+  const [mainCategory, setMainCategory] = useState('');
   const [subFilterList, setSubFilterList] = useState([]);
   const [proteinFilterList, setProteinFilterList] = useState([]);
 
@@ -57,12 +65,11 @@ function NewProductList() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    console.log(process.env.REACT_APP_SERVER_URL);
     Api.post(`/api/product/list/${curPage}`, {
       mainFilter: mainCategory,
       subFilter: subFilterList,
       proteinFilter: proteinFilterList,
-    }).then((res) => {
+    }).then(res => {
       setProductList([...res.data.products]);
       setTotalCount(res.data.count);
 
@@ -74,7 +81,7 @@ function NewProductList() {
     });
   }, [curPage, subFilterList, mainCategory, proteinFilterList]);
 
-  const handleMainChecked = (id) => {
+  const handleMainChecked = id => {
     setMainFilterChecked(() => {
       const newObj = { ...initialMainCategory, [id]: true };
       return newObj;
@@ -89,36 +96,36 @@ function NewProductList() {
     setCurPage(1);
   };
 
-  const handleSubChecked = (id) => {
-    setSubFilterList((prev) => {
+  const handleSubChecked = id => {
+    setSubFilterList(prev => {
       if (subFilterChecked[id] === true) {
-        return prev.filter((element) => element !== id);
+        return prev.filter(element => element !== id);
       } else {
         return [...prev, id];
       }
     });
-    setSubFilterChecked((prev) => {
+    setSubFilterChecked(prev => {
       return { ...prev, [id]: !prev[id] };
     });
     setCurPage(1);
   };
 
-  const handleProteinChecked = (id) => {
-    setProteinFilterList((prev) => {
+  const handleProteinChecked = id => {
+    setProteinFilterList(prev => {
       if (proteinFilterChecked[id] === true) {
-        return prev.filter((element) => element !== id);
+        return prev.filter(element => element !== id);
       } else {
         return [...prev, id];
       }
     });
 
-    setProteinFilterChecked((prev) => {
+    setProteinFilterChecked(prev => {
       return { ...prev, [id]: !prev[id] };
     });
     setCurPage(1);
   };
 
-  const handlePage = (page) => {
+  const handlePage = page => {
     if (page === 0 || page > pageCount) {
       return;
     }
@@ -126,7 +133,7 @@ function NewProductList() {
   };
 
   const initFilter = () => {
-    setMainCategory("");
+    setMainCategory('');
     setSubFilterList([]);
     setProteinFilterList([]);
 
@@ -137,15 +144,53 @@ function NewProductList() {
     setProteinFilterChecked({ ...initialProteinCategory });
   };
 
+  const createProductCard = (product, idx) => {
+    let warnFlag =
+      member &&
+      member.pet &&
+      member.pet.length > 0 &&
+      mainCategory === 'FD' &&
+      product.ingredients !== null;
+    let allergyFlag = false;
+    let allergiesList = member.pet[0].allergies;
+    let allergyName = '';
+    if (warnFlag && allergiesList.length > 0) {
+      for (let i = 0; i < allergiesList.length; i++) {
+        if (product.ingredients.includes(proteinCode[allergiesList[i]])) {
+          allergyFlag = true;
+          allergyName = proteinCode[allergiesList[i]];
+          break;
+        }
+      }
+    }
+
+    return (
+      <CardContainer>
+        {allergyFlag ? (
+          <ProductWarningMark>
+            <GoDotFill style={{ color: 'darkred' }} />
+            <WraningText>{`나의 강아지 알러지 성분 : ${allergyName}`}</WraningText>
+          </ProductWarningMark>
+        ) : (
+          <ProductWarningMark style={{ visibility: 'hidden' }}>
+            <GoDotFill style={{ color: 'darkred' }} />
+            <WraningText>{`나의 강아지 알러지 성분 : ${allergyName}`}</WraningText>
+          </ProductWarningMark>
+        )}
+        <ProductCard key={idx} product={product}></ProductCard>
+      </CardContainer>
+    );
+  };
+
   return (
     <ShopContainer>
       <CategoryContainer>
         <CategoryP>
           {`쇼핑`}
-          {mainCategory !== "" && `  >  ${shopCategory[mainCategory].name}`}
+          {mainCategory !== '' && `  >  ${shopCategory[mainCategory].name}`}
         </CategoryP>
         <InitialButton onClick={initFilter}>
-          <RxReset style={{marginRight: "3px", color: "white"}}/>
+          <RxReset style={{ marginRight: '3px', color: 'white' }} />
           필터 초기화
         </InitialButton>
       </CategoryContainer>
@@ -166,7 +211,7 @@ function NewProductList() {
             ))}
           </CategoryElementContainer>
         </FilterCategoryRow>
-        {mainCategory !== "" && (
+        {mainCategory !== '' && (
           <FilterCategoryRow>
             <FilterCategoryTitle>소분류</FilterCategoryTitle>
             <CategoryElementContainer>
@@ -181,12 +226,12 @@ function NewProductList() {
                   >
                     {value}
                   </CategoryFilterButton>
-                )
+                ),
               )}
             </CategoryElementContainer>
           </FilterCategoryRow>
         )}
-        {mainCategory === "FD" && (
+        {mainCategory === 'FD' && (
           <FilterCategoryRow>
             <FilterCategoryTitle>주재료</FilterCategoryTitle>
             <CategoryElementContainer>
@@ -237,11 +282,16 @@ function NewProductList() {
       </MiddleContainer>
       <ProductContainer>
         {productList !== undefined &&
-          productList.map((product, idx) => (
-            <CardContainer>
-              <ProductCard key={idx} product={product}></ProductCard>
-            </CardContainer>
-          ))}
+          productList.map((product, idx) =>
+            // <CardContainer>
+            //   <ProductWarningMark>
+            //     <GoDotFill style={{ color: 'darkred' }} />
+            //     나의 강아지 알러지 성분
+            //   </ProductWarningMark>
+            //   <ProductCard key={idx} product={product}></ProductCard>
+            // </CardContainer>
+            createProductCard(product, idx),
+          )}
         {productList.length < 20 &&
           Array(4 - (productList.length % 4))
             .fill()
