@@ -26,13 +26,17 @@ import { useRef } from 'react';
 import { eventLog } from '../../utils/event_log';
 import { shopCategory } from '../../commonCode';
 import ClappingHeendySwal from '../global/ClappingHeendySwal';
+import DrawingHeendySwal from '../global/DrawingHeendySwal';
+import SadHeendySwal from '../global/SadHeendySwal';
 import { jwtCheck } from '../../utils/tokenCheck';
 import { loginAction } from '../../feature/member/login';
 import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
+import { loadTossPayments } from '@tosspayments/payment-sdk';
 
 function ProductDetail() {
   const dispatch = useDispatch();
   const member = useSelector(state => state.member);
+  const [billingKey, setBillingKey] = useState(null);
 
   const navigate = useNavigate();
 
@@ -41,6 +45,8 @@ function ProductDetail() {
   const [productInfo, setProductInfo] = useState();
 
   const [fadeModalOpen, setFadeModalOpen] = useState(false);
+  const [regularModalOpen, setRegularModalOpen] = useState(false);
+  
 
   const clickDataRef = useRef(null);
 
@@ -78,10 +84,38 @@ function ProductDetail() {
         }
       });
 
+    Api.get(`/api/member/card?memberId=${member.id}`).then(res => {
+      if (res.data.billingKey) {
+        setBillingKey(res.data.billingKey);
+      } else {
+        setBillingKey(null);
+      }
+    });
+
     return () => {
       eventLog(clickDataRef.current);
     };
   }, []);
+
+  function registerCard() {
+    const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
+
+    loadTossPayments(clientKey).then(tossPayments => {
+      tossPayments
+        .requestBillingAuth('카드', {
+          // https://docs.tosspayments.com/reference/js-sdk#requestbillingauth카드-결제-정보
+          customerKey: `${member.id}`, // 고객 ID로 상점에서 만들어야 합니다. 빌링키와 매핑됩니다. 자세한 파라미터 설명은 결제 정보 파라미터 설명을 참고하세요.
+          successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tosscardregisterredirect`,
+          failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/mypage?menu=mysubscription`,
+        })
+        // https://docs.tosspayments.com/reference/error-codes#결제창공통-sdk-에러
+        .catch(function (error) {
+          if (error.code === 'USER_CANCEL') {
+            // 결제 고객이 결제창을 닫았을 때 에러 처리
+          }
+        });
+    });
+  }
 
   function handleModalClose() {
     setModalOpen(false);
@@ -106,6 +140,16 @@ function ProductDetail() {
     handleLog('product_detail', 'cart', productInfo.id, 'Y');
   }
 
+  function handleOpenRegualrModal() {
+    if (jwtCheck()) {
+      showRequiredLoginSwal(() => dispatch(loginAction.setIsLogin(true)));
+      return;
+    }
+
+    setRegularModalOpen(true);
+    // handleLog('product_detail', 'cart', productInfo.id, 'Y');
+  }
+
   function handleCloseCardModal() {
     setFadeModalOpen(false);
   }
@@ -121,6 +165,28 @@ function ProductDetail() {
         trigger={fadeModalOpen}
       />
 
+      {billingKey ? (
+        <DrawingHeendySwal
+          title="결제 카드가 등록되어 있습니다."
+          text="매월 1일날 결제 및 배송됩니다!"
+          confirmButtonText="매달 정기배송 신청하기"
+          cancelButtonText="쇼핑 계속하기"
+          onConfirm={() => navigate('/mypage?menu=mysubscription')}
+          onCancel={() => setRegularModalOpen(false)}
+          trigger={regularModalOpen}
+        />
+      ) : (
+        <SadHeendySwal
+          title="결제 카드가 등록되어있지 않습니다."
+          text="등록 후 정기배송 신청이 가능합니다!"
+          confirmButtonText="카드 등록하러 가기"
+          cancelButtonText="쇼핑 계속하기"
+          onConfirm={() => navigate('/mypage?menu=mysubscription')}
+          onCancel={() => setRegularModalOpen(false)}
+          trigger={regularModalOpen}
+        />
+      )}
+
       {modalOpen && (
         <Modal handleModalClose={handleModalClose}>{<ReviewModal />}</Modal>
       )}
@@ -133,6 +199,7 @@ function ProductDetail() {
             <ProductSummaryContainer
               productInfo={productInfo}
               handleShoppingBasket={handleOpenCartModal}
+              handleCheckBillingKey={handleOpenRegualrModal}
             ></ProductSummaryContainer>
           )}
           <ProductAddtionalBox>

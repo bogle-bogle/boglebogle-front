@@ -33,7 +33,7 @@ import { jwtCheck } from '../../utils/tokenCheck';
 import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
 import { loginAction } from '../../feature/member/login';
 
-function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
+function ProductSummaryContainer({ productInfo, handleShoppingBasket, handleCheckBillingKey }) {
   const member = useSelector(state => state.member);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -120,7 +120,7 @@ function ProductSummaryContainer({ productInfo, handleShoppingBasket }) {
             <TbTruckDelivery className="btn-icon" />
             바로구매
           </DetailButton>
-          <DetailButton className="monthly" onClick={createOrder}>
+          <DetailButton className="monthly" onClick={handleCheckBillingKey}>
             <MdEventRepeat className="btn-icon" />
             정기배송
           </DetailButton>
