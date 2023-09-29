@@ -131,6 +131,7 @@ function ProductDetail() {
 
   function createOrder() {
     showPlainSwal('정기결제 신청 페이지로 이동합니다.');
+    const productType = 'Sub';
     const selectedItems = [
       {
         cnt: 1,
@@ -143,7 +144,7 @@ function ProductDetail() {
       },
     ];
     const totalAmount = productInfo.price;
-    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
+    navigate('/ordersheet', { state: { selectedItems, totalAmount, productType } });
   }
 
   function handleCloseCardModal() {
