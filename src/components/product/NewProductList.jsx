@@ -163,6 +163,10 @@ function NewProductList() {
         }
       }
     }
+    console.log(allergiesList);
+    console.log(allergyFlag);
+    console.log(allergyName);
+    console.log('');
 
     return (
       <CardContainer>
