@@ -1,4 +1,12 @@
 import styled from 'styled-components';
+import { BsPlus } from 'react-icons/bs';
+
+export const PlusIcon = styled(BsPlus)`
+  width: 50px;
+  height: 50px;
+  color: #b9a37d;
+  margin: auto;
+`;
 
 export const MypageGrid = styled.div`
   display: grid;
@@ -188,6 +196,70 @@ export const MypageSubSectionTitle = styled.div`
   font-weight: bolder;
   font-size: 15px;
   margin: 0px 10px 15px 0px;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+
+  align-items: center;
+  justify-content: space-between;
+
+  .monthly {
+    border: 0px solid transparent;
+    background-color: #b9a37d;
+    color: white;
+  }
+
+  .btn-icon {
+    margin-right: 10px;
+    font-size: 20px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+`;
+
+export const DetailButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'HappinessSansTitle';
+  font-size: 16px;
+  margin: 0 10px;
+  width: 45%;
+
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin: 0 8px;
+  }
+`;
+
+export const CardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'HappinessSansTitle';
+  font-size: 16px;
+  margin: 0 10px 10px;
+  width: 40%;
+  height: 10%;
+
+  border: 1px solid #b9a37d;
+  background-color: white;
+  color: #b9a37d;
+  border-radius: 10px;
+  padding: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin: 0 8px;
+  }
 `;
 
 // export const MypageCardFlex = styled.div`
