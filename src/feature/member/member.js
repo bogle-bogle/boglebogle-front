@@ -15,7 +15,7 @@ const initialMemberState = {
     expiresIn: 0,
     grantType: "Bearer",
     refreshToken: "",
-  },
+  }
 };
 
 const memberSlice = createSlice({

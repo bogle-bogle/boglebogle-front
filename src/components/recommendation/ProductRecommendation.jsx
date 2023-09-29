@@ -76,6 +76,8 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
     // }
 
     Api.get(`/api/recommendation/${type}/${param}`).then(res => {
+      console.log(res.data);
+      console.log(type, param);
       setFoodProductList(res.data.products);
       setPetInfo(() => res.data.petInfo);
     });

@@ -121,10 +121,8 @@ function InputPetInfo(props) {
         (feedMainImageInputRef && feedMainImageInputRef.current.files[0])
       ) {
         if (isCrop) {
-          console.log('isCrop', isCrop);
           formData.append('feedDescImgFile', croppedData);
         } else {
-          console.log('isCrop', isCrop);
           formData.append(
             'feedDescImgFile',
             feedDescrImageInputRef.current.files[0],
@@ -133,10 +131,8 @@ function InputPetInfo(props) {
         hasNewImage = true;
       } else {
         if (isCrop) {
-          console.log('isCrop', isCrop);
           formData.append('feedDescImgFile', croppedData);
         } else {
-          console.log('isCrop', isCrop);
           formData.append(
             'feedDescImgFile',
             feedDescrImageInputRef.current.files[0],
@@ -154,7 +150,6 @@ function InputPetInfo(props) {
           );
 
           const resultData = response.data;
-          console.log('111', resultData);
           setNextStepFeedIngredients(response.data.ingredients);
           setSuggestionProduct(() => {
             return [...resultData.suggestions];
@@ -184,8 +179,6 @@ function InputPetInfo(props) {
           );
 
           const resultData = response.data;
-
-          console.log('2222', resultData.ingredients);
 
           setSuggestionProduct(() => {
             return [...resultData.suggestions];
