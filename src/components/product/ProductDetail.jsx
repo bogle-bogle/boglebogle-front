@@ -31,7 +31,7 @@ import SadHeendySwal from '../global/SadHeendySwal';
 import { jwtCheck } from '../../utils/tokenCheck';
 import { loginAction } from '../../feature/member/login';
 import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
-import { loadTossPayments } from '@tosspayments/payment-sdk';
+import PlainSwal, { showPlainSwal } from '../global/showPlainSwal';
 
 function ProductDetail() {
   const dispatch = useDispatch();
@@ -46,7 +46,6 @@ function ProductDetail() {
 
   const [fadeModalOpen, setFadeModalOpen] = useState(false);
   const [regularModalOpen, setRegularModalOpen] = useState(false);
-  
 
   const clickDataRef = useRef(null);
 
@@ -97,26 +96,6 @@ function ProductDetail() {
     };
   }, []);
 
-  function registerCard() {
-    const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
-
-    loadTossPayments(clientKey).then(tossPayments => {
-      tossPayments
-        .requestBillingAuth('카드', {
-          // https://docs.tosspayments.com/reference/js-sdk#requestbillingauth카드-결제-정보
-          customerKey: `${member.id}`, // 고객 ID로 상점에서 만들어야 합니다. 빌링키와 매핑됩니다. 자세한 파라미터 설명은 결제 정보 파라미터 설명을 참고하세요.
-          successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tosscardregisterredirect`,
-          failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/mypage?menu=mysubscription`,
-        })
-        // https://docs.tosspayments.com/reference/error-codes#결제창공통-sdk-에러
-        .catch(function (error) {
-          if (error.code === 'USER_CANCEL') {
-            // 결제 고객이 결제창을 닫았을 때 에러 처리
-          }
-        });
-    });
-  }
-
   function handleModalClose() {
     setModalOpen(false);
   }
@@ -150,6 +129,23 @@ function ProductDetail() {
     // handleLog('product_detail', 'cart', productInfo.id, 'Y');
   }
 
+  function createOrder() {
+    showPlainSwal('정기결제 신청 페이지로 이동합니다.');
+    const selectedItems = [
+      {
+        cnt: 1,
+        createdAt: new Date(),
+        mainImgUrl: productInfo.mainImgUrl,
+        memberId: member.id,
+        name: productInfo.name,
+        price: productInfo.price,
+        productId: productInfo.id,
+      },
+    ];
+    const totalAmount = productInfo.price;
+    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
+  }
+
   function handleCloseCardModal() {
     setFadeModalOpen(false);
   }
@@ -171,7 +167,7 @@ function ProductDetail() {
           text="매월 1일날 결제 및 배송됩니다!"
           confirmButtonText="매달 정기배송 신청하기"
           cancelButtonText="쇼핑 계속하기"
-          onConfirm={() => navigate('/mypage?menu=mysubscription')}
+          onConfirm={() => createOrder()}
           onCancel={() => setRegularModalOpen(false)}
           trigger={regularModalOpen}
         />
