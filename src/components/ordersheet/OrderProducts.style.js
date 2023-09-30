@@ -37,7 +37,7 @@ export const OrderItemsTable = styled.table`
 `;
 
 export const OrderButton = styled.div`
-  background-color: #0a9882;
+  background-color: ${props => props.className === 'Sub' ? '#b9a37d' : '#0a9882'};
   color: #fff;
   text-align: center;
   padding: 15px 15px;
@@ -45,7 +45,7 @@ export const OrderButton = styled.div`
   width: 30%;
   margin: auto;
   &:hover {
-    background-color: #076355;
+    background-color: ${props => props.className === 'Sub' ? '#70634b' : '#076355'};
   }
 `;
 

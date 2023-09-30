@@ -228,7 +228,7 @@ export const DetailButton = styled.button`
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px;
-  width: 45%;
+  width: 28%;
 
   border-radius: 10px;
   padding: 15px;
@@ -247,7 +247,7 @@ export const CardContainer = styled.div`
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px 10px;
-  width: 40%;
+  width: 25%;
   height: 10%;
 
   border: 1px solid #b9a37d;

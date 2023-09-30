@@ -19,8 +19,9 @@ import {
   DiscountButton,
   DiscountconfirmButton,
 } from './OrderProducts.style';
+import * as Api from "../../api";
 
-function OrderProducts({ selectedItems, totalAmount }) {
+function OrderProducts({ selectedItems, totalAmount, productType }) {
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
   const [price, setPrice] = useState(totalAmount);
@@ -29,7 +30,7 @@ function OrderProducts({ selectedItems, totalAmount }) {
   const navigate = useNavigate();
 
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기
-  const clientKey = "test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE";
+  const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
 
   useEffect(() => {
     (async () => {
@@ -76,6 +77,20 @@ function OrderProducts({ selectedItems, totalAmount }) {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleSubOrder = async () => {
+    Api.post(`/api/order/regular-delivery`, {
+      startDate: new Date(),
+      memberId: member.id,
+      productId: selectedItems[0].productId,
+    }).then(res => {
+      console.log(res);
+      navigate(`/mypage?menu=mysubscription`);
+    })
+    .catch(error => {
+      alert("이미 구독 중")
+    });
   };
 
   const applyCoupon = () => {
@@ -134,69 +149,85 @@ function OrderProducts({ selectedItems, totalAmount }) {
         </tbody>
       </OrderItemsTable>
 
-      <h2>할인 및 적립</h2>
-      <DiscountContainer>
+      {productType === 'Sub' ? (
         <div>
-          <DiscountBox>
-            <Row>
-              <p>즉시할인</p>
-              <p>0원</p>
-            </Row>
-            <Row>
-              <p>쿠폰 적용하기</p>
-              <DiscountButton onClick={handleCouponModalOpen}>
-                쿠폰 찾기
-              </DiscountButton>
-            </Row>
-            <hr></hr>
-            <Row>
-              <p>H.Point</p>
-              <p>0원</p>
-            </Row>
-            <Row>
-              <p>더머니</p>
-              <p>0원</p>
-            </Row>
-            <Row>
-              <p>예치금</p>
-              <p>0원</p>
-            </Row>
-            <hr></hr>
-            <Row>
-              <p>H.Point 적립</p>
-              <p>0원</p>
-            </Row>
-          </DiscountBox>
+          <Agreement>
+            <strong>
+              매월 31일에는 결제가 자동으로 진행되며, 1일에는 원하시는 상품을
+              배송받을 수 있습니다.
+            </strong>
+          </Agreement>
+          <OrderButton className="Sub" onClick={handleSubOrder}>
+            <strong>{price.toLocaleString()} 원 결제하기</strong>
+          </OrderButton>
         </div>
+      ) : (
         <div>
-          <InfoBox>
-            <OrderInfo>
-              <p>주문금액</p>
-              <p>상품금액</p>
-              <p>배송비 무료</p>
-            </OrderInfo>
-            <DiscountInfo>
-              <p>할인 및 적립금액</p>
-              <p>{(totalAmount * 0.05).toLocaleString()}원</p>
-            </DiscountInfo>
-          </InfoBox>
-          <FinalBox>
-            <p>결제금액</p>
-            <h1>{price.toLocaleString()}원</h1>
-          </FinalBox>
-        </div>
-      </DiscountContainer>
+          <h2>할인 및 적립</h2>
+          <DiscountContainer>
+            <div>
+              <DiscountBox>
+                <Row>
+                  <p>즉시할인</p>
+                  <p>0원</p>
+                </Row>
+                <Row>
+                  <p>쿠폰 적용하기</p>
+                  <DiscountButton onClick={handleCouponModalOpen}>
+                    쿠폰 찾기
+                  </DiscountButton>
+                </Row>
+                <hr></hr>
+                <Row>
+                  <p>H.Point</p>
+                  <p>0원</p>
+                </Row>
+                <Row>
+                  <p>더머니</p>
+                  <p>0원</p>
+                </Row>
+                <Row>
+                  <p>예치금</p>
+                  <p>0원</p>
+                </Row>
+                <hr></hr>
+                <Row>
+                  <p>H.Point 적립</p>
+                  <p>0원</p>
+                </Row>
+              </DiscountBox>
+            </div>
+            <div>
+              <InfoBox>
+                <OrderInfo>
+                  <p>주문금액</p>
+                  <p>상품금액</p>
+                  <p>배송비 무료</p>
+                </OrderInfo>
+                <DiscountInfo>
+                  <p>할인 및 적립금액</p>
+                  <p>{(totalAmount * 0.05).toLocaleString()}원</p>
+                </DiscountInfo>
+              </InfoBox>
+              <FinalBox>
+                <p>결제금액</p>
+                <h1>{price.toLocaleString()}원</h1>
+              </FinalBox>
+            </div>
+          </DiscountContainer>
+          <div id="payment-widget" />
 
-      <div id="payment-widget" />
-      <Agreement>
-        <strong>
-          주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에
-          동의합니다.
-        </strong>
-      </Agreement>
-      <OrderButton onClick={handleOrder}>
-        <strong>{price.toLocaleString()} 원 결제하기</strong>
-      </OrderButton>
+          <Agreement>
+            <strong>
+              주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에
+              동의합니다.
+            </strong>
+          </Agreement>
+          <OrderButton onClick={handleOrder}>
+            <strong>{price.toLocaleString()} 원 결제하기</strong>
+          </OrderButton>
+        </div>
+      )}
     </div>
   );
 }
