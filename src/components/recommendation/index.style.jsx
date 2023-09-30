@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const RcContainer = styled.div`
   margin: 25px 15px 15px 15px;
-  padding-bottom: 2vw;
+  /* padding-bottom: 2vw; */
 
   @media (max-width: 768px) {
     margin-top: 15px;
