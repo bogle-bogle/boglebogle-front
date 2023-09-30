@@ -1,5 +1,5 @@
-import * as Api from "../../api";
-import React, { useState } from "react";
+import * as Api from '../../api';
+import React, { useState } from 'react';
 import {
   CardBox,
   DeleteIcon,
@@ -14,7 +14,7 @@ import {
   ProductSelect,
   PlusIcon,
   MinusIcon,
-} from "./CartCard.style";
+} from './CartCard.style';
 
 function CartCard({
   cartItemInfo,
@@ -32,7 +32,7 @@ function CartCard({
         calculateTotalAmount(-cartItemInfo.price);
         onSelectItem(cartItemInfo, null, count - 1);
       }
-      setCount((prev) => prev - 1);
+      setCount(prev => prev - 1);
       updateCartCount(count);
     }
   };
@@ -42,28 +42,28 @@ function CartCard({
       calculateTotalAmount(cartItemInfo.price);
       onSelectItem(cartItemInfo, null, count + 1);
     }
-    setCount((prev) => prev + 1);
+    setCount(prev => prev + 1);
     updateCartCount(count);
   };
 
-  const updateCartCount = (count) => {
+  const updateCartCount = count => {
     const updatedCartItem = {
       id: cartItemInfo.id,
       cnt: count,
     };
 
     Api.put(`/api/cart`, updatedCartItem)
-      .then((res) => {
-        console.info("개수 변경 성공", res.data);
+      .then(res => {
+        console.info('개수 변경 성공', res.data);
       })
-      .catch((error) => {
-        console.error("개수 변경 실패", error);
+      .catch(error => {
+        console.error('개수 변경 실패', error);
       });
   };
 
   // 상품 삭제하기
   const handleDelete = () => {
-    Api.put(`/api/cart/${cartItemInfo.id}`).then((res) => {
+    Api.put(`/api/cart/${cartItemInfo.id}`).then(res => {
       onDelete(cartItemInfo.id);
       if (isChecked) {
         calculateTotalAmount(-cartItemInfo.price * count);
@@ -73,8 +73,8 @@ function CartCard({
   };
 
   // 체크 확인
-  const handleCheckboxChange = (e) => {
-    setIsChecked((prev) => !prev);
+  const handleCheckboxChange = e => {
+    setIsChecked(prev => !prev);
     if (!isChecked) {
       calculateTotalAmount(cartItemInfo.price * count);
       onSelectItem({ ...cartItemInfo, count });
@@ -87,7 +87,7 @@ function CartCard({
   return (
     <CardBox key={cartItemInfo.id}>
       <ProductSelect>
-        <input type="checkbox" onChange={(e) => handleCheckboxChange(e)} />
+        <input type="checkbox" onChange={e => handleCheckboxChange(e)} />
         <DeleteIcon onClick={handleDelete} />
       </ProductSelect>
       <ProductInfoContainer>

@@ -25,7 +25,7 @@ import TossRedirect from "./components/toss/TossRedirect";
 import HeendyCarPage from "./pages/HeendyCarPage";
 import ChatbotTest from "./pages/ChatbotTest";
 import Landing from "./pages/Landing";
-
+import TossCardRegisterRedirect from "./components/toss/TossCardRegisterRedirect";
 
 function App() {
   RouteChangeTracker();
@@ -54,9 +54,9 @@ function App() {
           <Route path="/mbti" element={<MbtiTest />}></Route>
           <Route path="/ex" element={<Example />}></Route>
           <Route path="/tossredirect" element={<TossRedirect />}></Route>
+          <Route path="/tosscardregisterredirect" element={<TossCardRegisterRedirect />}></Route>
         </Route>
         <Route path="/admin" element={<Admin />}></Route>
-        <Route path="/chatbot" element={<ChatbotTest />}></Route>
       </Routes>
     </>
   );

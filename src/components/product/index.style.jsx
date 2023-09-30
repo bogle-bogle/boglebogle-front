@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ShopContainer = styled.div`
   @media screen and (max-width: 1400px) {
@@ -28,6 +28,23 @@ export const CardContainer = styled.div`
   }
 `;
 
+export const ProductWarningMark = styled.div`
+  width: 100%;
+  height: auto;
+
+  background-color: #ffa0a0;
+
+  display: flex;
+  align-items: center;
+`;
+
+export const WraningText = styled.p`
+  color: darkred;
+  height: auto;
+
+  margin: 0;
+`;
+
 export const ProductCardContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -37,7 +54,7 @@ export const ProductCardContainer = styled.div`
   margin-bottom: 21px;
 
   cursor: pointer;
-  
+
   @media (max-width: 768px) {
     margin-bottom: 23px;
   }
@@ -45,9 +62,8 @@ export const ProductCardContainer = styled.div`
 
 export const ProductImgBox = styled.div`
   overflow: hidden;
-  border-radius: 10px; 
+  border-radius: 10px;
 `;
-
 
 export const ProductImg = styled.img`
   width: 100%;
@@ -55,7 +71,7 @@ export const ProductImg = styled.img`
   object-fit: fill;
   transform: scale(1.02);
   transition: transform 0.3s;
-  
+
   &:hover {
     transform: scale(1.07);
     transition: transform 0.3s;
@@ -70,11 +86,11 @@ export const ProductInfoContainer = styled.div`
 export const ProductPrice = styled.p`
   font-size: 16px;
   margin: 5px 0 0 0;
-  font-family: "HappinessSansTitle";
+  font-family: 'HappinessSansTitle';
   color: #515151;
   display: flex;
   align-items: center;
-  
+
   @media (max-width: 768px) {
     font-size: 14px;
   }
@@ -87,7 +103,7 @@ export const ProductSummary = styled.p`
   color: #515151;
   margin: 10px 0 0 0;
   align-items: center;
-  
+
   @media (max-width: 768px) {
     font-size: 12px;
   }
@@ -113,7 +129,7 @@ export const PageNumber = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: ${(props) => (props.flag ? "gray" : "white")};
+  background-color: ${props => (props.flag ? 'gray' : 'white')};
 `;
 
 export const CategoryContainer = styled.div`
@@ -147,7 +163,7 @@ export const InitialButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: 0.2s;
-  transform: scale(1.0);
+  transform: scale(1);
 
   cursor: pointer;
 
@@ -197,7 +213,7 @@ export const FilterCategoryTitle = styled.div`
   @media screen and (max-width: 1400px) {
     font-size: 15px;
   }
-  
+
   @media (max-width: 768px) {
     font-size: 13px;
   }
@@ -215,7 +231,7 @@ export const CategoryElementContainer = styled.div`
 export const CategoryElement = styled.div`
   /* width: 170px;
   height: auto; */
-  
+
   flex: 0 0 15%;
 
   font-size: 16px;
@@ -224,7 +240,7 @@ export const CategoryElement = styled.div`
 
   margin: 10px 5px;
 
-  color: ${(props) => (props.isChecked ? "#2F9861" : "#585858")};
+  color: ${props => (props.isChecked ? '#2F9861' : '#585858')};
 
   cursor: pointer;
 
@@ -232,11 +248,10 @@ export const CategoryElement = styled.div`
     font-size: 14px;
     flex: 0 0 21%;
   }
-  
+
   @media (max-width: 768px) {
     font-size: 12px;
   }
-
 `;
 
 export const MiddleContainer = styled.div`
@@ -288,7 +303,7 @@ export const MiddlePageContainer = styled.div`
 
 export const PageArrow = styled.div`
   width: max-content;
-  color: #8AA198;
+  color: #8aa198;
 
   display: flex;
   justify-content: center;

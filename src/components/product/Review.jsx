@@ -6,17 +6,16 @@ import {
   ReviewContainer,
   ReviewImg,
   ReviewImgBox,
-  ReviewTextBox
+  ReviewTextBox,
 } from './review.style';
 import * as Api from '../../api';
 import { FaDog } from 'react-icons/fa';
 import { HiStar } from 'react-icons/hi';
 import { HiOutlineStar } from 'react-icons/hi';
-import smallHeendy from '../../assets/custom/newsmallheendy.jpg'
+import smallHeendy from '../../assets/custom/newsmallheendy.jpg';
 import './custom-slick.css';
 
 function Review({ handleModalOpen, productId }) {
-
   const settings = {
     className: 'slider variable-width',
     dot: false,
@@ -24,16 +23,14 @@ function Review({ handleModalOpen, productId }) {
     slidesToScroll: 4,
     variableWidth: true,
   };
-  
+
   const [reviewData, setReviewData] = useState([]);
-  
+
   useEffect(() => {
-    Api.get(`/api/review/list/${productId}`)
-      .then((res) => {
-      console.log(res);
+    Api.get(`/api/review/list/${productId}`).then(res => {
       setReviewData(res.data);
-      })
-    }, []);
+    });
+  }, []);
 
   return (
     <ReviewContainer>
@@ -43,49 +40,51 @@ function Review({ handleModalOpen, productId }) {
       </ReviewBanner>
       <div>
         <ReviewCardList className="review-slick-container">
-        { reviewData.length > 0 ? (
-          reviewData.map((review) => (
-            <ReviewCard key={review.id} onClick={handleModalOpen}>
-              <ReviewImgBox>
-                <ReviewImg src={review.imgUrl}></ReviewImg>
-              </ReviewImgBox>
-              <ReviewTextBox>
-                <div className='review-member'>{review.memberNickname}</div>
-                <div className='review-stars'>
-                  {/* 별점 */}
-                  {(() => {
-                    const arr = [];
-                    for (let i = 1; i <= 5; i++) {
-                      if(i <= review.starRating) {
-                        arr.push(
+          {reviewData.length > 0 ? (
+            reviewData.map(review => (
+              <ReviewCard key={review.id} onClick={handleModalOpen}>
+                <ReviewImgBox>
+                  <ReviewImg src={review.imgUrl}></ReviewImg>
+                </ReviewImgBox>
+                <ReviewTextBox>
+                  <div className="review-member">{review.memberNickname}</div>
+                  <div className="review-stars">
+                    {/* 별점 */}
+                    {(() => {
+                      const arr = [];
+                      for (let i = 1; i <= 5; i++) {
+                        if (i <= review.starRating) {
+                          arr.push(
                             <div>
-                                <HiStar className='fill'/>
-                            </div>
-                        );
-                      } else {
-                        arr.push(
+                              <HiStar className="fill" />
+                            </div>,
+                          );
+                        } else {
+                          arr.push(
                             <div>
-                                <HiOutlineStar className='outline'/>
-                            </div>
-                        );
+                              <HiOutlineStar className="outline" />
+                            </div>,
+                          );
+                        }
                       }
-                    }
-                    return arr;
-                  })()}
-                </div>
-                <div className='review-title'>{review.title}</div>
-                <div className='review-content'>{review.content}</div>
-              </ReviewTextBox>
-          
-            </ReviewCard>
-          ))
+                      return arr;
+                    })()}
+                  </div>
+                  <div className="review-title">{review.title}</div>
+                  <div className="review-content">{review.content}</div>
+                </ReviewTextBox>
+              </ReviewCard>
+            ))
           ) : (
             <div style={{ textAlign: 'center', padding: '20px' }}>
-              <img src={smallHeendy} alt="No reviews yet" style={{ width: '100%' }} />
+              <img
+                src={smallHeendy}
+                alt="No reviews yet"
+                style={{ width: '100%' }}
+              />
               <p>아직 작성된 리뷰가 없어요</p>
             </div>
           )}
-
         </ReviewCardList>
       </div>
     </ReviewContainer>

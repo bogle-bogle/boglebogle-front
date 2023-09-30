@@ -18,8 +18,7 @@ import {
 import { FaPlus } from 'react-icons/fa';
 
 function CartInfo({ totalAmount, onOrderSheet }) {
-  console.log(totalAmount)
-  const formatPrice = (price) => {
+  const formatPrice = price => {
     return price.toLocaleString();
   };
 

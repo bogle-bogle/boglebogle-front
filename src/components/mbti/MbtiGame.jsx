@@ -76,96 +76,97 @@ function MbtiGame() {
     setCurQuestion(mbtiQuestion[count]);
   };
 
-  const handleSelectAnswer = (e) => {
+  const handleSelectAnswer = e => {
     if (count === 4) {
       setResult(true);
-      setMbti((prev) => {
+      setMbti(prev => {
         return prev + e.target.id;
       });
     } else {
-      setMbti((prev) => {
+      setMbti(prev => {
         return prev + e.target.id;
       });
       setCurQuestion(mbtiQuestion[count + 1]);
-      setCount((prev) => {
+      setCount(prev => {
         return prev + 1;
       });
     }
   };
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = event => {
     const file = URL.createObjectURL(event.target.files[0]);
     setDogProfileImg(file);
   };
 
   return (
     <>
-    <MbtiGameContainer>
-      {result ? (
-        <>
-        <MbtiResultContainer>
-          <MbtiResultContentContainer>
-            <MbtiResultDogImg src={dogProfileImg}></MbtiResultDogImg>
-            <SelectDogImgContainer onClick={() => fileInputRef.current.click()}>
-              <BsFillCameraFill style={{ fontSize: 15 }} />
-              <span>반려동물 사진 선택하기</span>
-            </SelectDogImgContainer>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="file-input"
-              ref={fileInputRef}
-              style={{ display: 'none' }} // 숨김 처리
-            />
-          </MbtiResultContentContainer>
+      <MbtiGameContainer>
+        {result ? (
+          <>
+            <MbtiResultContainer>
+              <MbtiResultContentContainer>
+                <MbtiResultDogImg src={dogProfileImg}></MbtiResultDogImg>
+                <SelectDogImgContainer
+                  onClick={() => fileInputRef.current.click()}
+                >
+                  <BsFillCameraFill style={{ fontSize: 20 }} />
+                  <span style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                    반려동물 사진 선택하기
+                  </span>
+                </SelectDogImgContainer>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="file-input"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }} // 숨김 처리
+                />
+              </MbtiResultContentContainer>
 
-          <MbtiResultInfoContainer>
-            <MbtiH1>{mbti}</MbtiH1>
-            <MbtiDescription>독립적이고 시크한 차도멍</MbtiDescription>
-            <MbtiCompatibilityContainer>
-              <MbtiCompatibilityImg src={mbtiGood} />
-              <MbtiCompatibilityImg src={mbtiBad} />
-            </MbtiCompatibilityContainer>
-          </MbtiResultInfoContainer>
-        </MbtiResultContainer>
-        </>
-      ) : (
-        <>
-          {start ? (
-            <GameContainer>
-              <QuestionBox>{curQuestion.question}</QuestionBox>
-              {curQuestion.answer.map((ele) => (
-                <AnswerBox onClick={handleSelectAnswer} id={ele[0]}>
-                  {ele[1]}
-                </AnswerBox>
-              ))}
-            </GameContainer>
-          ) : (
-            <>
-              <DivideContainer></DivideContainer>
-              <DivideContainer>
-                <MbtiMainText src={mainText}></MbtiMainText>
-                <MbtiStartButton onClick={handleGameStart}>
-                  시작하기
-                </MbtiStartButton>
-              </DivideContainer>
-            </>
-          )}
-        </>
-      )}
-    </MbtiGameContainer>
+              <MbtiResultInfoContainer>
+                <MbtiH1>{mbti}</MbtiH1>
+                <MbtiDescription>독립적이고 시크한 차도멍</MbtiDescription>
+                <MbtiCompatibilityContainer>
+                  <MbtiCompatibilityImg src={mbtiGood} />
+                  <MbtiCompatibilityImg src={mbtiBad} />
+                </MbtiCompatibilityContainer>
+              </MbtiResultInfoContainer>
+            </MbtiResultContainer>
+          </>
+        ) : (
+          <>
+            {start ? (
+              <GameContainer>
+                <QuestionBox>{curQuestion.question}</QuestionBox>
+                {curQuestion.answer.map(ele => (
+                  <AnswerBox onClick={handleSelectAnswer} id={ele[0]}>
+                    {ele[1]}
+                  </AnswerBox>
+                ))}
+              </GameContainer>
+            ) : (
+              <>
+                <DivideContainer></DivideContainer>
+                <DivideContainer>
+                  <MbtiMainText src={mainText}></MbtiMainText>
+                  <MbtiStartButton onClick={handleGameStart}>
+                    시작하기
+                  </MbtiStartButton>
+                </DivideContainer>
+              </>
+            )}
+          </>
+        )}
+      </MbtiGameContainer>
 
-    {
-      result && (
+      {/* {result && (
         <>
-          <ProductRecommendation type={"mbti-to"} param={mbti} />
-          <ProductRecommendation type={"mbti-sp"} param={mbti} />
+          <ProductRecommendation type={'mbti-to'} param={mbti} />
+          <ProductRecommendation type={'mbti-sp'} param={mbti} />
         </>
-      )
-    }
+      )} */}
     </>
-
   );
 }
 
