@@ -41,6 +41,9 @@ import { RxReset } from 'react-icons/rx';
 import { GoDotFill } from 'react-icons/go';
 
 import { useSelector } from 'react-redux';
+import ProductRecommendation from '../recommendation/ProductRecommendation';
+import { useRef } from 'react';
+import { eventLog } from '../../utils/event_log';
 
 function NewProductList() {
   const member = useSelector(state => state.member);
@@ -63,7 +66,30 @@ function NewProductList() {
   const [totalCount, setTotalCount] = useState(0);
 
   const [productList, setProductList] = useState([]);
+  const [curPet, setCurPet] = useState(
+    member && member.pet && member.pet.length > 0 && member.pet[0],
+  );
 
+  const clickRef = useRef(false);
+  const clickDataRef = useRef(null);
+
+  const handleLog = (page, element, isClicked, itemId) => {
+    clickDataRef.current = { page, element, isClicked, itemId };
+  };
+
+  const handleClickRef = flag => {
+    clickRef.current = flag;
+  };
+
+  useEffect(() => {
+    return () => {
+      if (!clickRef.current) {
+        eventLog({ page: 'shop', element: null, itemId: null, isClicked: 'N' });
+      } else {
+        eventLog(clickDataRef.current);
+      }
+    };
+  }, []);
   useEffect(() => {
     Api.post(`/api/product/list/${curPage}`, {
       mainFilter: mainCategory,
@@ -146,13 +172,11 @@ function NewProductList() {
 
   const createProductCard = (product, idx) => {
     let warnFlag =
-      member &&
-      member.pet &&
-      member.pet.length > 0 &&
-      mainCategory === 'FD' &&
-      product.ingredients !== null;
+      curPet && mainCategory === 'FD' && product.ingredients !== null;
     let allergyFlag = false;
-    let allergiesList = member.pet[0].allergies;
+
+    let allergiesList = curPet.allergies;
+
     let allergyName = '';
     if (warnFlag && allergiesList.length > 0) {
       for (let i = 0; i < allergiesList.length; i++) {
@@ -180,6 +204,47 @@ function NewProductList() {
         <ProductCard key={idx} product={product}></ProductCard>
       </CardContainer>
     );
+  };
+
+  const handleOnChange = e => {
+    setCurPet(() => {
+      const newObj = member.pet.filter(p => p.id === e.target.value)[0];
+      return newObj;
+    });
+  };
+
+  const createPetSelect = () => {
+    if (member && member.pet && member.pet.length > 0) {
+      return (
+        <select
+          name=""
+          id=""
+          value={curPet.id}
+          onChange={handleOnChange}
+          style={{ marginLeft: '10px' }}
+        >
+          {member.pet.map(p => (
+            <option value={p.id}>{p.name}</option>
+          ))}
+        </select>
+      );
+    }
+  };
+
+  const createProductRecommendation = () => {
+    if (curPet) {
+      return (
+        <>
+          <ProductRecommendation
+            type={'simple'}
+            param={curPet.id}
+            handleLog={handleLog}
+            handleClickRef={handleClickRef}
+          />
+          <hr />
+        </>
+      );
+    }
   };
 
   return (
@@ -250,26 +315,16 @@ function NewProductList() {
           </FilterCategoryRow>
         )}
       </FilterCategoryContainer>
+      {/* {recommendation component} */}
+      {createProductRecommendation()}
       <MiddleContainer>
-        {/* <MiddleCategoryContainer>
-          <MiddleCategoryElement
-            onClick={() =>
-              TrackGoogleAnalyticsEvent(
-                ContactFormCategory,
-                ContactFormCompleteAction,
-                window.location.pathname
-              )
-            }
-          >
-            신상품순
-          </MiddleCategoryElement>
-          <MiddleCategoryElement>추천순</MiddleCategoryElement>
-          <MiddleCategoryElement>높은가격순</MiddleCategoryElement>
-          <MiddleCategoryElement>낮은가격순</MiddleCategoryElement>
-        </MiddleCategoryContainer> */}
-        <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
-          curPage === pageCount ? totalCount : curPage * 20
-        } / ${totalCount}개`}</MiddlePagenationContainer>
+        <div style={{ display: 'flex', alignItems: 'center', width: 'auto' }}>
+          <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
+            curPage === pageCount ? totalCount : curPage * 20
+          } / ${totalCount}개`}</MiddlePagenationContainer>
+          {createPetSelect()}
+        </div>
+
         <MiddlePageContainer>
           <PageArrow onClick={() => handlePage(curPage - 1)}>
             <AiOutlineLeft />
@@ -282,16 +337,7 @@ function NewProductList() {
       </MiddleContainer>
       <ProductContainer>
         {productList !== undefined &&
-          productList.map((product, idx) =>
-            // <CardContainer>
-            //   <ProductWarningMark>
-            //     <GoDotFill style={{ color: 'darkred' }} />
-            //     나의 강아지 알러지 성분
-            //   </ProductWarningMark>
-            //   <ProductCard key={idx} product={product}></ProductCard>
-            // </CardContainer>
-            createProductCard(product, idx),
-          )}
+          productList.map((product, idx) => createProductCard(product, idx))}
         {productList.length < 20 &&
           Array(4 - (productList.length % 4))
             .fill()
