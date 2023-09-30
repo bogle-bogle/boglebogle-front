@@ -24,6 +24,7 @@ import ThePetBox from "./pages/ThePetBox";
 import TossRedirect from "./components/toss/TossRedirect";
 import HeendyCarPage from "./pages/HeendyCarPage";
 import ChatbotTest from "./pages/ChatbotTest";
+import Landing from "./pages/Landing";
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/suggestion" element={<Suggestion />} />
+          <Route path="/" element={<Landing />}></Route>
+          {/* <Route path="/" element={<Main />}></Route> */}
           <Route path="/auth" element={<RedirectUrl />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
