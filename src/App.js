@@ -23,7 +23,6 @@ import RouteChangeTracker from "./RouteChangeTracker";
 import ThePetBox from "./pages/ThePetBox";
 import TossRedirect from "./components/toss/TossRedirect";
 import HeendyCarPage from "./pages/HeendyCarPage";
-import ChatbotTest from "./pages/ChatbotTest";
 import Landing from "./pages/Landing";
 import TossCardRegisterRedirect from "./components/toss/TossCardRegisterRedirect";
 
