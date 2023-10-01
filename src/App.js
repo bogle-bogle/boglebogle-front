@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import RouteChangeTracker from './RouteChangeTracker';
 import { Suspense, lazy } from 'react';
@@ -31,43 +31,45 @@ const TossCardRegisterRedirect = lazy(() =>
 const RedirectUrl2 = lazy(() => import('./components/login/RedirectUrl2'));
 
 function App() {
-  RouteChangeTracker();
+  // RouteChangeTracker();
   return (
     <>
-      <Suspense>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/suggestion" element={<Suggestion />} />
-            <Route path="/" element={<Landing />}></Route>
-            {/* <Route path="/" element={<Main />}></Route> */}
-            <Route path="/auth/login" element={<RedirectUrl2 />}></Route>
-            <Route path="/shop" element={<Shop />}></Route>
-            <Route path="/product/:id" element={<ProductDetail />}></Route>
-            <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/ordersheet" element={<Ordersheet />}></Route>
-            <Route path="/ordercomplete" element={<OrderComplete />}></Route>
-            <Route path="/thepetbox" element={<ThePetBox />} />
-            <Route path="/heendycar" element={<HeendyCarPage />}></Route>
-            <Route path="/card" element={<HyundaiCard />}></Route>
-            <Route path="/clubregister" element={<ClubRegister />}></Route>
-            <Route path="/addpet" element={<AddPet />}></Route>
-            <Route path="/playground" element={<PlayGround />}></Route>
-            <Route path="/mypage" element={<MyPage />}></Route>
-            <Route
-              path="/completeclubregister"
-              element={<CompleteClubRegister />}
-            ></Route>
-            <Route path="/mypet/:memberId" element={<MyPet />}></Route>
-            <Route path="/mbti" element={<MbtiTest />}></Route>
-            <Route path="/tossredirect" element={<TossRedirect />}></Route>
-            <Route
-              path="/tosscardregisterredirect"
-              element={<TossCardRegisterRedirect />}
-            ></Route>
-          </Route>
-          <Route path="/admin" element={<Admin />}></Route>
-        </Routes>
-      </Suspense>
+      <Router>
+        <Suspense>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/suggestion" element={<Suggestion />} />
+              <Route path="/" element={<Landing />}></Route>
+              {/* <Route path="/" element={<Main />}></Route> */}
+              <Route path="/auth/login" element={<RedirectUrl2 />}></Route>
+              <Route path="/shop" element={<Shop />}></Route>
+              <Route path="/product/:id" element={<ProductDetail />}></Route>
+              <Route path="/cart" element={<Cart />}></Route>
+              <Route path="/ordersheet" element={<Ordersheet />}></Route>
+              <Route path="/ordercomplete" element={<OrderComplete />}></Route>
+              <Route path="/thepetbox" element={<ThePetBox />} />
+              <Route path="/heendycar" element={<HeendyCarPage />}></Route>
+              <Route path="/card" element={<HyundaiCard />}></Route>
+              <Route path="/clubregister" element={<ClubRegister />}></Route>
+              <Route path="/addpet" element={<AddPet />}></Route>
+              <Route path="/playground" element={<PlayGround />}></Route>
+              <Route path="/mypage" element={<MyPage />}></Route>
+              <Route
+                path="/completeclubregister"
+                element={<CompleteClubRegister />}
+              ></Route>
+              <Route path="/mypet/:memberId" element={<MyPet />}></Route>
+              <Route path="/mbti" element={<MbtiTest />}></Route>
+              <Route path="/tossredirect" element={<TossRedirect />}></Route>
+              <Route
+                path="/tosscardregisterredirect"
+                element={<TossCardRegisterRedirect />}
+              ></Route>
+            </Route>
+            <Route path="/admin" element={<Admin />}></Route>
+          </Routes>
+        </Suspense>
+      </Router>
     </>
   );
 }

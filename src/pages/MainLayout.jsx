@@ -6,7 +6,9 @@ import GlobalStyle from '../styles/GlobalStyle';
 import Footer from '../components/footer/footer';
 import floatingSub from '../assets/floating/floating_sub.png';
 import floatingPg from '../assets/floating/floating_playground.png';
+import RouteChangeTracker from '../RouteChangeTracker';
 function MainLayout() {
+  RouteChangeTracker();
   return (
     <>
       <div className="appContainer">

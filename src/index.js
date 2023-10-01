@@ -10,7 +10,7 @@ import { persistStore } from 'redux-persist';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 
 let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -31,9 +31,9 @@ root.render(
         theme="colored"
       />
       <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <App />
-        </Router>
+        {/* <Router> */}
+        <App />
+        {/* </Router> */}
       </PersistGate>
     </HelmetProvider>
   </Provider>,
