@@ -1,28 +1,25 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import * as Api from "../../api";
-import Modal from "../modal/Modal";
-import loadingVideo from "../../assets/card/loading.mp4";
-import loadingSound from "../../assets/card/loading_sound.mp3";
-import useSound from "use-sound";
-import { toast } from "react-toastify";
-import InputPetInfo from "./InputPetInfo";
+import React, { useState, useEffect } from 'react';
+import * as Api from '../../api';
+import Modal from '../modal/Modal';
+import loadingVideo from '../../assets/card/loading.mp4';
+import loadingSound from '../../assets/card/loading_sound.mp3';
+import useSound from 'use-sound';
+import { toast } from 'react-toastify';
+import InputPetInfo from './InputPetInfo';
 import {
   LoadingIcon,
   LoadingText,
-  LoadingVideoModal,
   RoundedModal,
   RoundedVideo,
   SuggestBox,
   SuggestionContainer,
-} from "./suggestion.style";
-import NoDataBox from "../global/NoDataBox";
-import { jwtCheck } from "../../utils/tokenCheck";
+} from './suggestion.style';
+import NoDataBox from '../global/NoDataBox';
+import { jwtCheck } from '../../utils/tokenCheck';
 
 function SuggestionOuterContainer() {
   const [play, { stop }] = useSound(loadingSound);
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
   const [petData, setPetData] = useState([]);
 
   useEffect(() => {
@@ -30,9 +27,9 @@ function SuggestionOuterContainer() {
       return;
     }
     Api.get(`/api/pet`)
-      .then((res) => {
+      .then(res => {
         if (res) {
-          const transformedData = res.data.map((item) => ({
+          const transformedData = res.data.map(item => ({
             codeValue: item.id,
             name: item.name,
             petImgUrl: item.petImgUrl,
@@ -42,9 +39,9 @@ function SuggestionOuterContainer() {
           setPetData(transformedData);
         }
       })
-      .catch((Error) => {
-        console.log("Error fetching pet codes:", Error);
-        toast.error("오류가 발생하였습니다😥");
+      .catch(Error => {
+        console.log('Error fetching pet codes:', Error);
+        toast.error('오류가 발생하였습니다😥');
       });
   }, []);
 
@@ -61,15 +58,6 @@ function SuggestionOuterContainer() {
   return (
     <SuggestionContainer>
       {openModal && (
-        // <Modal handleModalClose={handleModalClose}>
-        //   <LoadingVideoModal>
-        //     <video width="310" height="550" autoPlay loop muted>
-        //       <source src={loadingVideo} type="video/mp4" />
-        //     </video>
-        //   </LoadingVideoModal>
-
-        // </Modal>
-
         <Modal handleModalClose={handleModalClose}>
           <RoundedModal>
             <RoundedVideo width="310" height="550" autoPlay loop muted>

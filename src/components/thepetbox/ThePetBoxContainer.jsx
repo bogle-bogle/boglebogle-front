@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { MainDescr, MainTitle, ThePetBoxContents, ThumbnailList } from './thepetbox.style';
+import React, { useEffect, useState } from 'react';
+import { MainDescr, ThePetBoxContents, ThumbnailList } from './thepetbox.style';
 import MonthlyBox from './MonthlyBox';
-import * as Api from "../../api";
+import * as Api from '../../api';
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./sub-custom-slick.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './sub-custom-slick.css';
 import { GreyBtn } from '../global/btn.style';
 import member from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
-import { showPlainSwal } from '../global/showPlainSwal';
 import { showClappingHeendySwal } from './../global/showClappingHeendySwal';
 
 function ThePetBoxContainer() {
@@ -20,17 +19,17 @@ function ThePetBoxContainer() {
 
   useEffect(() => {
     Api.get(`/api/curation/annual`)
-      .then((res) => {
+      .then(res => {
         setCurationList(res.data);
         setItemList(res.data[0]);
       })
-      .catch((Error) => {
-        console.info("Error!");
+      .catch(Error => {
+        console.info('Error!');
       });
   }, []);
 
   function findSelectedCuration(arr, id) {
-    return arr.find((o) => o.id == id);
+    return arr.find(o => o.id == id);
   }
 
   const settings = {
@@ -48,26 +47,28 @@ function ThePetBoxContainer() {
       cnt: 1,
       createdAt: new Date(),
       mainImgUrl:
-        "https://heendy-assets.s3.ap-northeast-2.amazonaws.com/18344464-8cb3-4579-a8a5-1004b9d21dca-344564076_997472955000706_3678853330360293362_n.jpg",
+        'https://heendy-assets.s3.ap-northeast-2.amazonaws.com/18344464-8cb3-4579-a8a5-1004b9d21dca-344564076_997472955000706_3678853330360293362_n.jpg',
       memberId: member.id,
-      name: "매달 찾아가는 더펫박스",
+      name: '매달 찾아가는 더펫박스',
       price: 49000,
-      productId: "PR000000",
+      productId: 'PR000000',
     },
   ];
   const totalAmount = 49000;
 
   function createCurationOrder() {
-    showClappingHeendySwal("매달 받아보는 더펫 박스! \n\n주문서 페이지로 이동합니다.");
-    navigate("/ordersheet", { state: { selectedItems, totalAmount } });
+    showClappingHeendySwal(
+      '매달 받아보는 더펫 박스! \n\n주문서 페이지로 이동합니다.',
+    );
+    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
   }
 
   return (
     <ThePetBoxContents>
-      <br/>
+      <br />
       <MainDescr>
-      이번 달 더펫박스에는 무엇이 들어있을까? <br /> 
-      매달 정기적으로 새로운 상품을 만나보세요!
+        이번 달 더펫박스에는 무엇이 들어있을까? <br />
+        매달 정기적으로 새로운 상품을 만나보세요!
       </MainDescr>
       {/* <MainTitle>
       4주에 한번씩 <div className='thpet-color'>새로운 상품들을</div>집앞까지 배송받아보세요.
@@ -76,8 +77,8 @@ function ThePetBoxContainer() {
     
     <br/> */}
 
-      <MonthlyBox itemList={curationList.length === 0 ? [] : itemList}/>
-      <div className='more-box-desc-1'>
+      <MonthlyBox itemList={curationList.length === 0 ? [] : itemList} />
+      <div className="more-box-desc-1">
         매달 새로운 즐거움, 다양한 구성으로!
       </div>
       <div className="more-box-desc-2">
@@ -95,15 +96,15 @@ function ThePetBoxContainer() {
                     onClick={() => {
                       var selected = findSelectedCuration(
                         curationList,
-                        curation.id
+                        curation.id,
                       );
                       setItemList(selected);
                     }}
                   />
                 </div>
                 <div className="curation-title-1">
-                  {curation.paymentDate && curation.paymentDate.split("-")[0]}년{" "}
-                  {curation.paymentDate && curation.paymentDate.split("-")[1]}월
+                  {curation.paymentDate && curation.paymentDate.split('-')[0]}년{' '}
+                  {curation.paymentDate && curation.paymentDate.split('-')[1]}월
                 </div>
                 <div className="curation-title-2">{curation.name}</div>
               </div>

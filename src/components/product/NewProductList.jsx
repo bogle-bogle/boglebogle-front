@@ -8,8 +8,6 @@ import {
   FilterCategoryRow,
   FilterCategoryTitle,
   InitialButton,
-  MiddleCategoryContainer,
-  MiddleCategoryElement,
   MiddleContainer,
   MiddlePageContainer,
   MiddlePagenationContainer,
@@ -33,10 +31,6 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import ProductCard from './ProductCard';
 import * as Api from '../../api';
-import { TrackGoogleAnalyticsEvent } from '../../ga';
-import ContactFormCategory, {
-  ContactFormCompleteAction,
-} from '../../ga/event/contactForm';
 import { RxReset } from 'react-icons/rx';
 
 import { GoDotFill } from 'react-icons/go';

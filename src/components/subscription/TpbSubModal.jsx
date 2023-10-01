@@ -12,9 +12,8 @@ import {
   CurationStyledCheckbox,
   CurationTitle,
 } from './submodal.style copy';
-import { Checkbox } from '@mui/material';
 
-function TpbSubModal({ tpbItem }) {
+function TpbSubModal() {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
 

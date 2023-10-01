@@ -1,16 +1,13 @@
 import React, { useState, useRef } from 'react';
 import logo from '../assets/logo.png';
 import { PiBoneLight } from 'react-icons/pi';
-
-// import petImage from '../assets/pet.jpg'; // 반려동물 이미지 경로
-// import foodImage from '../assets/food.jpg'; // 사료 이미지 경로
 import '../styles/CustomPage.css'; // 추가한 스타일 파일을 import
 
 function CustomPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = event => {
     const file = event.target.files[0];
     setSelectedImage(URL.createObjectURL(file));
   };
