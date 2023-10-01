@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import RouteChangeTracker from './RouteChangeTracker';
 import { Suspense, lazy } from 'react';
+import RedirectUrl2 from './components/login/RedirectUrl2';
 
 const Shop = lazy(() => import('./pages/Shop'));
 const Cart = lazy(() => import('./pages/CartPage'));
@@ -28,7 +29,7 @@ const Landing = lazy(() => import('./pages/Landing'));
 const TossCardRegisterRedirect = lazy(() =>
   import('./components/toss/TossCardRegisterRedirect'),
 );
-const RedirectUrl2 = lazy(() => import('./components/login/RedirectUrl2'));
+// const RedirectUrl2 = lazy(() => import('./components/login/RedirectUrl2'));
 
 function App() {
   // RouteChangeTracker();
