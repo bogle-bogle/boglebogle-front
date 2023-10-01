@@ -221,7 +221,8 @@ export const MainDescBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #808080;
+    /* color: #808080; */
+    color: black;
 
     p {
       margin-bottom: 7px;
