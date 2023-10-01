@@ -16,10 +16,10 @@ function Footer() {
   return (
     <FooterWrapper>
       <ImgInfo>
-        <LogoImg src={logo} />
+        <LogoImg src={logo} alt="logo" />
         <SNSImgContainer>
           <a href="http://pf.kakao.com/_zLNxdG">
-            <SNSImg src={kakaochannel} />
+            <SNSImg src={kakaochannel} alt="kakaochannel" />
           </a>
         </SNSImgContainer>
       </ImgInfo>
