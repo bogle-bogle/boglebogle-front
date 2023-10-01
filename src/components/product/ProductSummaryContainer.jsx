@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   BenefitContainer,
   BenefitContent,
@@ -25,15 +25,18 @@ import clubHeendy from '../../assets/detail/club_heendy.png';
 import { BsCartPlus } from 'react-icons/bs';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { MdEventRepeat } from 'react-icons/md';
-import PlainSwal, { showPlainSwal } from '../global/showPlainSwal';
-import { showPreparingSwal } from '../global/showPreparingSwal';
+import { showPlainSwal } from '../global/showPlainSwal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { jwtCheck } from '../../utils/tokenCheck';
 import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
 import { loginAction } from '../../feature/member/login';
 
-function ProductSummaryContainer({ productInfo, handleShoppingBasket, handleCheckBillingKey }) {
+function ProductSummaryContainer({
+  productInfo,
+  handleShoppingBasket,
+  handleCheckBillingKey,
+}) {
   const member = useSelector(state => state.member);
   const navigate = useNavigate();
   const dispatch = useDispatch();

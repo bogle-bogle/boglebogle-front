@@ -1,7 +1,6 @@
 import React, { useState, useRef, createRef } from 'react';
 import shopperheendy from '../../assets/custom/shopperheendy.png';
 import walkingheendy from '../../assets/custom/walkingheendy.gif';
-import AWS from 'aws-sdk';
 import * as Api from '../../api';
 import { toast } from 'react-toastify';
 import {

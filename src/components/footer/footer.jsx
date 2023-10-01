@@ -11,10 +11,6 @@ import {
 } from './footer.style';
 import logo from '../../assets/thepet_logo_img.png';
 import kakaochannel from '../../assets/footer/kakao_channel.png';
-import kakaotalk from '../../assets/footer/kakao_talk.png';
-import navercloud from '../../assets/footer/naver_cloud.png';
-import toss from '../../assets/footer/Toss_App_Icon.png';
-import chatgpt from '../../assets/footer/chatgpt_icon.svg';
 
 function Footer() {
   return (
@@ -25,10 +21,6 @@ function Footer() {
           <a href="http://pf.kakao.com/_zLNxdG">
             <SNSImg src={kakaochannel} />
           </a>
-          <SNSImg src={kakaotalk} />
-          <SNSImg src={navercloud} />
-          <SNSImg src={toss} />
-          <SNSImg src={chatgpt} />
         </SNSImgContainer>
       </ImgInfo>
       <BasicInfo>

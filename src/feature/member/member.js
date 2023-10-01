@@ -1,25 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
-// import { stat } from "fs";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialMemberState = {
   id: 0,
-  name: "",
-  email: "",
-  imgUrl: "",
-  address: "",
-  nickname: "",
-  clubHeendyYn: "",
+  name: '',
+  email: '',
+  imgUrl: '',
+  address: '',
+  nickname: '',
+  clubHeendyYn: '',
   socialId: 0,
   jwt: {
-    accessToken: "",
+    accessToken: '',
     expiresIn: 0,
-    grantType: "Bearer",
-    refreshToken: "",
-  }
+    grantType: 'Bearer',
+    refreshToken: '',
+  },
 };
 
 const memberSlice = createSlice({
-  name: "member",
+  name: 'member',
   initialState: initialMemberState,
   reducers: {
     setMemeber: (state, action) => {
@@ -27,7 +26,7 @@ const memberSlice = createSlice({
 
       return state;
     },
-    clearMember: (state) => {
+    clearMember: state => {
       state = { ...initialMemberState, pet: [] };
       return state;
     },

@@ -1,13 +1,8 @@
 import React from 'react';
 import {
-  CartModalButtonContainer,
-  CartModalContainer,
-  CartModalP,
   CategoryP,
-  CoutinueShopButton,
   DescImg,
   DescImgContainer,
-  MoveCartButton,
   ProductAddtionalBox,
   ProductDetailContainer,
 } from './detail.style';
@@ -31,7 +26,7 @@ import SadHeendySwal from '../global/SadHeendySwal';
 import { jwtCheck } from '../../utils/tokenCheck';
 import { loginAction } from '../../feature/member/login';
 import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
-import PlainSwal, { showPlainSwal } from '../global/showPlainSwal';
+import { showPlainSwal } from '../global/showPlainSwal';
 
 function ProductDetail() {
   const dispatch = useDispatch();
@@ -144,7 +139,9 @@ function ProductDetail() {
       },
     ];
     const totalAmount = productInfo.price;
-    navigate('/ordersheet', { state: { selectedItems, totalAmount, productType } });
+    navigate('/ordersheet', {
+      state: { selectedItems, totalAmount, productType },
+    });
   }
 
   function handleCloseCardModal() {

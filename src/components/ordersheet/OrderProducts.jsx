@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ import {
   DiscountButton,
   DiscountconfirmButton,
 } from './OrderProducts.style';
-import * as Api from "../../api";
+import * as Api from '../../api';
 
 function OrderProducts({ selectedItems, totalAmount, productType }) {
   const paymentWidgetRef = useRef(null);
@@ -84,13 +84,14 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       startDate: new Date(),
       memberId: member.id,
       productId: selectedItems[0].productId,
-    }).then(res => {
-      console.log(res);
-      navigate(`/mypage?menu=mysubscription`);
     })
-    .catch(error => {
-      alert("이미 구독 중")
-    });
+      .then(res => {
+        console.log(res);
+        navigate(`/mypage?menu=mysubscription`);
+      })
+      .catch(error => {
+        alert('이미 구독 중');
+      });
   };
 
   const applyCoupon = () => {

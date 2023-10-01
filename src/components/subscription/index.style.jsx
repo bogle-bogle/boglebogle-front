@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import MovingHeendy from '../../assets/subscription/pink_muhly_heendy.gif';
 
 export const SubGrid = styled.div``;
 
