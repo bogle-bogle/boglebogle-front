@@ -76,8 +76,6 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
     // }
 
     Api.get(`/api/recommendation/${type}/${param}`).then(res => {
-      console.log(res.data);
-      console.log(type, param);
       setFoodProductList(res.data.products);
       setPetInfo(() => res.data.petInfo);
     });
@@ -88,13 +86,13 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
       <RcMiniIcon src={miniIconImg} />
       <RcTitle>
         {changeTitle(type)}
-        <hr
+        {/* <hr
           style={{
             color: 'lightgray',
             marginTop: '15px',
             marginBottom: '25px',
           }}
-        />
+        /> */}
       </RcTitle>
       <ProductContainer>
         {foodProductList !== undefined &&

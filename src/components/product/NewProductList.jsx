@@ -15,6 +15,7 @@ import {
   MiddlePagenationContainer,
   PageArrow,
   PageState,
+  PageTitle,
   ProductCardContainer,
   ProductContainer,
   ProductWarningMark,
@@ -192,7 +193,7 @@ function NewProductList() {
       <CardContainer>
         {allergyFlag ? (
           <ProductWarningMark>
-            <GoDotFill style={{ color: 'darkred' }} />
+            <GoDotFill style={{ color: 'darkred', marginLeft: '5px' }} />
             <WraningText>{`나의 강아지 알러지 성분 : ${allergyName}`}</WraningText>
           </ProductWarningMark>
         ) : (
@@ -241,7 +242,6 @@ function NewProductList() {
             handleLog={handleLog}
             handleClickRef={handleClickRef}
           />
-          <hr />
         </>
       );
     }
@@ -249,6 +249,8 @@ function NewProductList() {
 
   return (
     <ShopContainer>
+      <PageTitle>쇼핑</PageTitle>
+      {createProductRecommendation()}
       <CategoryContainer>
         <CategoryP>
           {`쇼핑`}
@@ -316,7 +318,7 @@ function NewProductList() {
         )}
       </FilterCategoryContainer>
       {/* {recommendation component} */}
-      {createProductRecommendation()}
+
       <MiddleContainer>
         <div style={{ display: 'flex', alignItems: 'center', width: 'auto' }}>
           <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
