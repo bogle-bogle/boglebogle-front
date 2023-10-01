@@ -46,7 +46,11 @@ function LandingContainer() {
                   </div>
                   <LazyShow duration={0.7} delay={0.1}>
                     <div className="img-box">
-                      <img className="thiking-heendy" src={thinkingheendy} />
+                      <img
+                        className="thiking-heendy"
+                        src={thinkingheendy}
+                        alt="thinkingheendy"
+                      />
                     </div>
                   </LazyShow>
                 </motion.div>
@@ -71,7 +75,7 @@ function LandingContainer() {
                           y: ['8px', '0px', '8px'],
                         }}
                       >
-                        <img src={illust1} />
+                        <img src={illust1} alt="illust1" />
                       </motion.div>
                       <motion.div
                         className="illust-img illust-2"
@@ -86,7 +90,7 @@ function LandingContainer() {
                           y: ['8px', '0px', '8px'],
                         }}
                       >
-                        <img src={illust2} />
+                        <img src={illust2} alt="illust2" />
                       </motion.div>
                       <motion.div
                         className="illust-img illust-3"
@@ -101,7 +105,7 @@ function LandingContainer() {
                           y: ['8px', '0px', '8px'],
                         }}
                       >
-                        <img src={illust3} />
+                        <img src={illust3} alt="illust3" />
                       </motion.div>
                       <motion.div
                         className="illust-img illust-4"
@@ -116,12 +120,16 @@ function LandingContainer() {
                           y: ['8px', '0px', '8px'],
                         }}
                       >
-                        <img src={illust4} />
+                        <img src={illust4} alt="illust4" />
                       </motion.div>
                     </div>
                   </LazyShow>
                   <div className="img-box">
-                    <img className="good-heendy" src={goodHeendy} />
+                    <img
+                      className="good-heendy"
+                      src={goodHeendy}
+                      alt="goodHeendy"
+                    />
                   </div>
                 </motion.div>
               </div>
@@ -144,7 +152,7 @@ function LandingContainer() {
             animate={{ opacity: 0.7 }}
             transition={{ delay: 3.5, duration: 0.8 }}
           >
-            <img src={gradientBg} />
+            <img src={gradientBg} alt="gradientBg" />
           </motion.div>
         </div>
         <LazyShow duration={0.6} delay={3.3}>
@@ -170,7 +178,7 @@ function LandingContainer() {
         <LazyShow duration={0.8} delay={0.6}>
           <FeatBox>
             <div className="w-img">
-              <img src={addpetScreenshot} className="img-shadow" />
+              <img src={addpetScreenshot} className="img-shadow" alt="addpet" />
             </div>
             <div className="w-text">
               <p>
@@ -200,7 +208,7 @@ function LandingContainer() {
               </p>
             </div>
             <div className="w-img">
-              <img src={addpetScreenshot} className="img-shadow" />
+              <img src={addpetScreenshot} className="img-shadow" alt="addpet" />
             </div>
           </FeatBox>
         </LazyShow>
@@ -236,7 +244,7 @@ function LandingContainer() {
               <p>이젠 온라인으로 편하게 예약하고 이용 가능합니다!</p>
             </div>
             <div className="w-img">
-              <img src={heendycarScreenshot} />
+              <img src={heendycarScreenshot} alt="heendycar" />
             </div>
           </FeatBox>
         </LazyShow>
