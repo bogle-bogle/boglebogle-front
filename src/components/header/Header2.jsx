@@ -1,11 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { HiMenu, HiShoppingCart } from 'react-icons/hi';
-import { FiLogOut } from 'react-icons/fi';
-import { IoClose } from 'react-icons/io5';
-import logo from '../../assets/thepet_logo_img.png';
+
+// import { HiMenu } from 'react-icons/hi';
+// import { FiLogOut } from 'react-icons/fi';
+// import { IoClose } from 'react-icons/io5';
 import { BiSolidUser } from 'react-icons/bi';
+
+// import { BiSolidUser } from '@react-icons/all-files/bi/BiSolidUser';
+import { HiShoppingCart } from '@react-icons/all-files/hi/HiShoppingCart';
+import { HiMenu } from '@react-icons/all-files/hi/HiMenu';
+import { FiLogOut } from '@react-icons/all-files/fi/FiLogOut';
+import { IoClose } from '@react-icons/all-files/io5/IoClose';
+
+import logo from '../../assets/thepet_logo_img.png';
 import { Header, StyledNavLink } from './Header2.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { memberAction } from '../../feature/member/member';
@@ -111,7 +119,11 @@ function Header2() {
         <div className="header__right" onClick={() => setUserToggled(false)}>
           {member.name !== '' ? (
             <div className="list__container">
-              <StyledNavLink to="/cart" className="menu_icon cart_icon">
+              <StyledNavLink
+                to="/cart"
+                className="menu_icon cart_icon"
+                aria-label="cart"
+              >
                 <HiShoppingCart />
                 <p className="menu_text cart_text"> 장바구니</p>
               </StyledNavLink>
@@ -126,6 +138,7 @@ function Header2() {
                 <StyledNavLink
                   to="/"
                   className="menu_icon logout_icon"
+                  aria-label="logout"
                   onClick={() => {
                     dispatch(memberAction.clearMember());
                     localStorage.removeItem('userToken');
