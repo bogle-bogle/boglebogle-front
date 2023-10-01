@@ -1,11 +1,9 @@
-import React from "react";
-import LandingContainer from "../components/main/LandingContainer";
+import React from 'react';
+import LandingContainer from '../components/main/LandingContainer';
 
 function Landing() {
-
-  return (
-    <LandingContainer/>
-  );
+  console.log('왜 안돼!!!!!!!!!!');
+  return <LandingContainer />;
 }
 
 export default Landing;
