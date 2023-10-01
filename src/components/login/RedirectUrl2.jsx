@@ -17,11 +17,8 @@ function RedirectUrl2() {
   useEffect(() => {
     const params = new URL(document.location.toString()).searchParams;
     const code = params.get('code');
-    console.log(code);
     const kakaoLogin = async () => {
-      console.log(code);
       const res = await Api.get(`/api/member/auth/login?code=${code}`);
-      console.log('3333333333333333');
       const { data } = res;
       localStorage.setItem('userToken', data.member.jwt.accessToken);
       dispatch(memberAction.setMemeber(data));
