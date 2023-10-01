@@ -1,5 +1,4 @@
 import React from 'react';
-import { PiBoneLight } from 'react-icons/pi';
 import { GiDogBowl } from 'react-icons/gi';
 import {
   IngredientBanner,
@@ -15,7 +14,7 @@ function ProductIngredient({ ingredients }) {
         <p>{`전성분 ${ingredients.length}가지`}</p>
       </IngredientBanner>
       <IngredientContainer>
-        {ingredients.map((ing) => (
+        {ingredients.map(ing => (
           <IngredientElement>{ing}</IngredientElement>
         ))}
       </IngredientContainer>

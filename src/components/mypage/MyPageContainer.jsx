@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState } from 'react';
 import {
   MyInfoBox,
   MyInfoBoxCnt,
@@ -17,61 +17,59 @@ import {
   MypageSidebar,
   MypageSubtitle,
   MypageTitle,
-} from "./mypage.style";
-import ClubAdvImg from "../../assets/club/join_club_adv_narrow.png";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import MyReservationContainer from "./MyReservationContainer";
-import MyOrderContainer from "./MyOrderContainer";
-import MyPetContainer from "./MyPetContainer";
-import MySubscriptionContainer from "./MySubscriptionContainer";
-import { toast } from "react-toastify";
-import * as Api from "../../api.js";
-import { showPreparingSwal } from "../global/showPreparingSwal";
+} from './mypage.style';
+import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import MyReservationContainer from './MyReservationContainer';
+import MyOrderContainer from './MyOrderContainer';
+import MyPetContainer from './MyPetContainer';
+import MySubscriptionContainer from './MySubscriptionContainer';
+import * as Api from '../../api.js';
+import { showPreparingSwal } from '../global/showPreparingSwal';
 
 function MyPageContainer() {
-  const member = useSelector((state) => state.member);
-  const pets = member.pet;
+  const member = useSelector(state => state.member);
   const navigate = useNavigate();
   const [selectedMenu, setSelectedMenu] = useState(null);
-  const [myPetCnt, setMyPetCnt] = useState("-");
-  const [mySubCnt, setMySubCnt] = useState("-");
-  const [onDeliveryCnt, setOnDeliveryCnt] = useState("-");
-  const [myCouponCnt, setMyCouponCnt] = useState("-");
+  const [myPetCnt, setMyPetCnt] = useState('-');
+  const [mySubCnt, setMySubCnt] = useState('-');
+  const [onDeliveryCnt, setOnDeliveryCnt] = useState('-');
+  const [myCouponCnt, setMyCouponCnt] = useState('-');
 
   useEffect(() => {
     Api.get(`/api/member/mypage`)
-      .then((res) => {
+      .then(res => {
         setMyPetCnt(res.data.myPetCnt);
         setMySubCnt(res.data.subscriptionCnt);
         setOnDeliveryCnt(res.data.onDeliveryCnt);
         setMyCouponCnt(res.data.couponCnt);
       })
-      .catch((Error) => {
-        console.error("Error : ", Error);
+      .catch(Error => {
+        console.error('Error : ', Error);
       });
   }, []);
 
   const location = useLocation();
 
   useEffect(() => {
-    const menuFromQuery = new URLSearchParams(location.search).get("menu");
+    const menuFromQuery = new URLSearchParams(location.search).get('menu');
     if (menuFromQuery) {
       setSelectedMenu(menuFromQuery);
     } else {
-      setSelectedMenu("mypet"); // default value
+      setSelectedMenu('mypet'); // default value
     }
   }, [location.search]);
 
   const renderContent = () => {
     switch (selectedMenu) {
-      case "mypet":
+      case 'mypet':
         return <MyPetContainer />;
-      case "myorder":
+      case 'myorder':
         return <MyOrderContainer />;
-      case "mysubscription":
+      case 'mysubscription':
         return <MySubscriptionContainer />;
-      case "myreservation":
+      case 'myreservation':
         return <MyReservationContainer />;
       default:
         return <MyPetContainer />;
@@ -90,9 +88,10 @@ function MyPageContainer() {
         <MypageBoldBorder />
 
         <MypageSubtitle>나의 반려동물 관리</MypageSubtitle>
-        <MypageMiniTitle 
+        <MypageMiniTitle
           onClick={() => navigate('/mypage?menu=mypet')}
-          style={selectedMenu === "mypet" ? { fontWeight: 'bold' } : {}}>
+          style={selectedMenu === 'mypet' ? { fontWeight: 'bold' } : {}}
+        >
           나의 반려동물 목록
         </MypageMiniTitle>
         <MypageMiniTitle onClick={showPreparingSwal}>
@@ -101,16 +100,19 @@ function MyPageContainer() {
         <MypageBorder />
 
         <MypageSubtitle>나의 쇼핑내역</MypageSubtitle>
-        <MypageMiniTitle 
-        onClick={() => navigate('/mypage?menu=myorder')}
-        style={selectedMenu === "myorder" ? { fontWeight: 'bold' } : {}}
+        <MypageMiniTitle
+          onClick={() => navigate('/mypage?menu=myorder')}
+          style={selectedMenu === 'myorder' ? { fontWeight: 'bold' } : {}}
         >
           주문/배송 조회
         </MypageMiniTitle>
-        <MypageMiniTitle 
-        onClick={() => navigate('/mypage?menu=mysubscription')}
-        style={selectedMenu === "mysubscription" ? { fontWeight: 'bold' } : {}}>
-        구독 관리
+        <MypageMiniTitle
+          onClick={() => navigate('/mypage?menu=mysubscription')}
+          style={
+            selectedMenu === 'mysubscription' ? { fontWeight: 'bold' } : {}
+          }
+        >
+          구독 관리
         </MypageMiniTitle>
         <MypageBorder />
 
@@ -118,10 +120,11 @@ function MyPageContainer() {
         <MypageMiniTitle onClick={showPreparingSwal}>
           자주 찾는 지점
         </MypageMiniTitle>
-        <MypageMiniTitle 
-        onClick={() => navigate('/mypage?menu=myreservation')}
-        style={selectedMenu === "myreservation" ? { fontWeight: 'bold' } : {}}>
-        예약/취소 내역
+        <MypageMiniTitle
+          onClick={() => navigate('/mypage?menu=myreservation')}
+          style={selectedMenu === 'myreservation' ? { fontWeight: 'bold' } : {}}
+        >
+          예약/취소 내역
         </MypageMiniTitle>
         <MypageBorder />
 
@@ -138,9 +141,7 @@ function MyPageContainer() {
         <MypageMiniTitle onClick={showPreparingSwal}>
           나의 기념일
         </MypageMiniTitle>
-        <MypageMiniTitle onClick={showPreparingSwal}>
-          회원 탈퇴
-        </MypageMiniTitle>
+        <MypageMiniTitle onClick={showPreparingSwal}>회원 탈퇴</MypageMiniTitle>
         <MypageBorder />
       </MypageSidebar>
 

@@ -8,13 +8,12 @@ import {
   MypageList,
   MypageListElement,
   MypageListIndex,
-  MypageMiniTitle,
   MypageSubSectionTitle,
   MypageSubtitle,
   DetailButton,
   ButtonContainer,
   CardContainer,
-  PlusIcon
+  PlusIcon,
 } from './mypage.style';
 import * as Api from '../../api.js';
 import { toast } from 'react-toastify';
@@ -96,7 +95,7 @@ function MySubscriptionContainer() {
         </CardContainer>
       ) : (
         <CardContainer>
-          <PlusIcon/>
+          <PlusIcon />
         </CardContainer>
       )}
       <ButtonContainer>

@@ -6,18 +6,10 @@ import {
   RcTitle,
   StyledSpanGreen,
 } from './index.style';
-import {
-  CardContainer,
-  ProductContainer,
-  ProductImg,
-  ProductPrice,
-  ProductSummary,
-} from '../product/index.style';
-import { useNavigate } from 'react-router-dom';
+import { CardContainer, ProductContainer } from '../product/index.style';
 import { productSub, proteinCode, breedCode } from '../../commonCode.js';
 import miniIconImg from '../../assets/recommendation/mini-text-icon-v2.png';
 import ProductCard from '../product/ProductCard';
-import { eventLog } from '../../utils/event_log';
 
 function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
   const [foodProductList, setFoodProductList] = useState([]);

@@ -78,10 +78,10 @@ export const PetPhoto = styled.div`
 `;
 
 export const PetName = styled.div`
-  grid-area:name
+  grid-area: name;
   width: 100%;
-  display:flex;
-    justify-content:flex-start;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const PetBirth = styled.div`
