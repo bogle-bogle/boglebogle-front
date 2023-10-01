@@ -12,10 +12,12 @@ export const FooterWrapper = styled.footer`
   position: relative;
 `;
 
-export const ImgInfo = styled.ul`
+export const ImgInfo = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+
+  padding-left: 40px;
 `;
 
 export const LogoImg = styled.img`

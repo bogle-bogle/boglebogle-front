@@ -112,7 +112,7 @@ function Header2() {
           {member.name !== '' ? (
             <div className="list__container">
               <StyledNavLink to="/cart" className="menu_icon cart_icon">
-                <HiShoppingCart></HiShoppingCart>
+                <HiShoppingCart />
                 <p className="menu_text cart_text"> 장바구니</p>
               </StyledNavLink>
             </div>
