@@ -16,14 +16,6 @@ import smallHeendy from '../../assets/custom/newsmallheendy.jpg';
 import './custom-slick.css';
 
 function Review({ handleModalOpen, productId }) {
-  const settings = {
-    className: 'slider variable-width',
-    dot: false,
-    slidesToShow: 1,
-    slidesToScroll: 4,
-    variableWidth: true,
-  };
-
   const [reviewData, setReviewData] = useState([]);
 
   useEffect(() => {

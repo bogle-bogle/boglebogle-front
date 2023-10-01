@@ -25,14 +25,14 @@ export const CustomDescr = styled.div`
 `;
 
 export const CustomTitle1 = styled.div`
-  color: '#0a9882'
+  color: '#0a9882';
   grid-area: title1;
   font-weight: bold;
   border-right: 1px solid #ccc;
 `;
 
 export const CustomTitle2 = styled.div`
-  color: '#0a9882'
+  color: '#0a9882';
   grid-area: title2;
   font-weight: bold;
 `;

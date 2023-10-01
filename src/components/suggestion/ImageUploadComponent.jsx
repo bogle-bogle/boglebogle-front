@@ -6,7 +6,6 @@ import {
   ImgFileInput,
   UploadSection,
 } from './image-upload-component.style';
-import { toast } from 'react-toastify';
 
 function ImageUploadComponent({
   title,

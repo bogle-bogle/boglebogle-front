@@ -3,15 +3,15 @@ import styled from 'styled-components';
 export const MainDescBox = styled.div`
   width: 100%;
   margin: 100px 0px;
-  font-family: "HappinessSansBold";
+  font-family: 'HappinessSansBold';
 
   .heendy-box-container {
-    height: 400px
+    height: 400px;
   }
 
   .total-box {
     position: relative;
-    height: 700px
+    height: 700px;
   }
 
   .content-box {
@@ -61,7 +61,6 @@ export const MainDescBox = styled.div`
       position: relative;
     }
 
-
     .illust-1 {
       right: -200px;
     }
@@ -92,18 +91,18 @@ export const MainDescBox = styled.div`
   .chat-bubble-box p {
     border-radius: 1.15rem;
     line-height: 1.25;
-    padding: 0.5rem .875rem;
+    padding: 0.5rem 0.875rem;
     position: relative;
     word-wrap: break-word;
     font-size: 15px;
     width: max-content;
-    color: #fff; 
+    color: #fff;
   }
 
   .chat-bubble-box p::before,
   .chat-bubble-box p::after {
     bottom: -0.1rem;
-    content: "";
+    content: '';
     height: 1rem;
     position: absolute;
   }
@@ -118,11 +117,11 @@ export const MainDescBox = styled.div`
     background-color: #fff;
     border-bottom-left-radius: 0.5rem;
     right: -40px;
-    transform:translate(-30px, -2px);
+    transform: translate(-30px, -2px);
     width: 10px;
   }
 
-  p[class^="from-"] {
+  p[class^='from-'] {
     width: fit-content;
   }
 
@@ -143,32 +142,31 @@ export const MainDescBox = styled.div`
   .chat-1 {
     right: -200px;
     margin: 0;
-    background-color: #C3DAD1;
+    background-color: #c3dad1;
   }
   .chat-1::before {
-    border-left: 1rem solid #C3DAD1;
+    border-left: 1rem solid #c3dad1;
   }
 
   .chat-2 {
     left: -220px;
     margin: 0;
-    background-color: #A2C7B9;
-
+    background-color: #a2c7b9;
   }
   .chat-2::before {
-    border-right: 1rem solid #A2C7B9;
+    border-right: 1rem solid #a2c7b9;
   }
 
   .chat-3 {
     margin: 15px 0 0 0;
     right: -250px;
-    background-color: #95D5BC;
+    background-color: #95d5bc;
   }
   .chat-3::before {
-    border-left: 1rem solid #95D5BC;
+    border-left: 1rem solid #95d5bc;
   }
   /* 말풍선 - end */
-  
+
   .img-box {
     z-index: 0;
     width: 100%;
@@ -192,10 +190,10 @@ export const MainDescBox = styled.div`
     margin-bottom: 120px;
 
     p {
-      font-family: "HappinessSansTitle";
+      font-family: 'HappinessSansTitle';
       margin: 0 0 10px 0;
       text-align: center;
-      color: #5E5E5E;
+      color: #5e5e5e;
     }
 
     .title-1 {
@@ -203,20 +201,20 @@ export const MainDescBox = styled.div`
     }
 
     .title-2 {
-      font-size: 36px;  
+      font-size: 36px;
     }
 
     .title-point-color-1 {
-      color: #95D0B8
+      color: #95d0b8;
     }
 
     .title-point-color-2 {
-      color: #5AAB8A
+      color: #5aab8a;
     }
   }
 
   hr {
-    border-top: 0.3px solid #DBDBDB;
+    border-top: 0.3px solid #dbdbdb;
   }
 
   .more-icon-box {
@@ -249,10 +247,13 @@ export const FeatBox = styled.div`
   color: #878787;
   padding: 0 20px 50px 20px;
   margin-bottom: 60px;
-  
+
   .w-img {
     width: 50%;
 
+    video {
+      width: 100%;
+    }
     img {
       width: 100%;
     }
@@ -274,11 +275,11 @@ export const FeatBox = styled.div`
       font-size: 19px;
       line-height: 150%;
     }
-    
+
     @media (max-width: 768px) {
       width: 100%;
     }
-    
+
     .text-bold {
       font-weight: bolder;
     }

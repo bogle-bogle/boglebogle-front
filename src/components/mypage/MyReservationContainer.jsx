@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  MyInfoElement,
   MypageCard,
   MypageCardDescr,
   MypageCardElement,
@@ -12,7 +11,7 @@ import {
 import * as Api from '../../api.js';
 import { toast } from 'react-toastify';
 import { branchCode } from '../../commonCode';
-import { CancelBtn, GreyBtn } from './../global/btn.style';
+import { CancelBtn } from './../global/btn.style';
 import NoDataBox from '../global/NoDataBox';
 
 function MyReservationContainer() {
