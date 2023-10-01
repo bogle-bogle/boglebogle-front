@@ -25,6 +25,7 @@ import TossRedirect from './components/toss/TossRedirect';
 import HeendyCarPage from './pages/HeendyCarPage';
 import Landing from './pages/Landing';
 import TossCardRegisterRedirect from './components/toss/TossCardRegisterRedirect';
+import RedirectUrl2 from './components/login/RedirectUrl2';
 
 function App() {
   RouteChangeTracker();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<Landing />}></Route>
           {/* <Route path="/" element={<Main />}></Route> */}
           <Route path="/auth" element={<RedirectUrl />}></Route>
+          <Route path="/auth/login" element={<RedirectUrl2 />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
           <Route path="/product/:id" element={<ProductDetail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
