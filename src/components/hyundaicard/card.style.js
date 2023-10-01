@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HyundaiCardContainer = styled.div`
   width: 100%;
@@ -65,7 +65,7 @@ export const HCard = styled.div`
   transition: 0.4s;
   transform-style: preserve-3d;
 
-  transform: ${(props) => props.reverse && `rotateY(180deg)`};
+  transform: ${props => props.reverse && `rotateY(180deg)`};
 `;
 
 export const CardFront = styled.div`
