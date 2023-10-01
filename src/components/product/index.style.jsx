@@ -14,14 +14,14 @@ export const ProductContainer = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  width: 23%;
-  height: 40%;
+  width: 20%;
+  height: 35%;
   display: flex;
   flex-direction: column;
   margin-right: 1%;
   margin-left: 1%;
 
-  flex: 0 0 22%;
+  flex: 0 0 20%;
 
   @media (max-width: 768px) {
     flex: 0 0 42%;
@@ -32,10 +32,17 @@ export const ProductWarningMark = styled.div`
   width: 100%;
   height: auto;
 
-  background-color: #ffa0a0;
+  background-color: #ffdada;
 
   display: flex;
   align-items: center;
+
+  border-radius: 10px;
+  margin-bottom: 2%;
+
+  font-size: 13px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 `;
 
 export const WraningText = styled.p`
@@ -193,22 +200,24 @@ export const FilterCategoryContainer = styled.div`
 export const FilterCategoryRow = styled.div`
   width: 100%;
   height: auto;
-  margin: 10px 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
   display: flex;
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     margin: 5px 0;
-  }
+  } */
 `;
 
 export const FilterCategoryTitle = styled.div`
   width: 15%;
 
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  /* align-items: center; */
+  /* margin-top: 10px; */
 
   @media screen and (max-width: 1400px) {
     font-size: 15px;
@@ -232,13 +241,13 @@ export const CategoryElement = styled.div`
   /* width: 170px;
   height: auto; */
 
-  flex: 0 0 15%;
+  flex: 0 0 12%;
 
-  font-size: 16px;
+  font-size: 20px;
   display: flex;
   align-items: center;
 
-  margin: 10px 5px;
+  /* margin-top: 10px; */
 
   color: ${props => (props.isChecked ? '#2F9861' : '#585858')};
 
@@ -329,4 +338,19 @@ export const PageState = styled.div`
   font-size: 14px;
 
   border: 0px solid transparent;
+`;
+
+export const PageTitle = styled.div`
+  width: 100%;
+  height: auto;
+
+  font-size: 40px;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0;
+  margin-top: 5%;
 `;
