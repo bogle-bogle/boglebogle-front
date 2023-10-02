@@ -44,10 +44,10 @@ function HeendyCarReservation() {
         }));
 
         setDeptBranches(
-          transformedData.filter(item => item.branchCode <= '200'),
+          transformedData.filter(item => item.branchCode <= '50000'),
         );
         setOutletBranches(
-          transformedData.filter(item => item.branchCode > '200'),
+          transformedData.filter(item => item.branchCode > '70000'),
         );
       })
       .catch(Error => {
@@ -55,7 +55,7 @@ function HeendyCarReservation() {
       });
   }, []);
 
-  const [selectedBranchCode, setSelectedBranchCode] = useState('101');
+  const [selectedBranchCode, setSelectedBranchCode] = useState('40000');
   const [selectedTime, setSelectedTime] = useState('');
 
   const [deptBranches, setDeptBranches] = useState([]);
@@ -73,9 +73,16 @@ function HeendyCarReservation() {
   ];
 
   const getBranchName = branchCode => {
+    console.log('선택된 지점 코드:', branchCode);
+    console.log('백화점 지점:', deptBranches);
+    console.log('아울렛 지점:', outletBranches);
+
     const selectedBranch = [...deptBranches, ...outletBranches].find(
       branch => branch.branchCode === branchCode,
     );
+
+    console.log('선택된 지점:', selectedBranch);
+
     return selectedBranch ? selectedBranch.name : null;
   };
 
