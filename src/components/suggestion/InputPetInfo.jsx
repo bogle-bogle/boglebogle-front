@@ -29,7 +29,7 @@ import { showPlainSwal } from '../global/showPlainSwal';
 import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
 import Modal from '../modal/Modal';
 import { Cropper } from 'react-cropper';
-
+import 'cropperjs/dist/cropper.css';
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
 
