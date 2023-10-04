@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
 import { LoginAdvImg } from './login.style';
 
-function RedirectUrl2() {
+function RedirectUrl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,4 +44,4 @@ function RedirectUrl2() {
   );
 }
 
-export default RedirectUrl2;
+export default RedirectUrl;

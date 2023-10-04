@@ -15,7 +15,6 @@ const MyPet = lazy(() => import('./pages/MyPet'));
 const ProductDetail = lazy(() => import('./components/product/ProductDetail'));
 const HyundaiCard = lazy(() => import('./pages/HyundaiCard'));
 const MbtiTest = lazy(() => import('./pages/MbtiTest'));
-const Admin = lazy(() => import('./pages/Admin'));
 const MainLayout = lazy(() => import('./pages/MainLayout'));
 const PlayGround = lazy(() => import('./pages/PlayGround'));
 const MyPage = lazy(() => import('./pages/MyPage'));
@@ -28,7 +27,7 @@ const Landing = lazy(() => import('./pages/Landing'));
 const TossCardRegisterRedirect = lazy(() =>
   import('./components/toss/TossCardRegisterRedirect'),
 );
-const RedirectUrl2 = lazy(() => import('./components/login/RedirectUrl2'));
+const RedirectUrl = lazy(() => import('./components/login/RedirectUrl'));
 
 function App() {
   RouteChangeTracker();
@@ -39,8 +38,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/suggestion" element={<Suggestion />} />
             <Route path="/" element={<Landing />}></Route>
-            {/* <Route path="/" element={<Main />}></Route> */}
-            <Route path="/auth" element={<RedirectUrl2 />}></Route>
+            <Route path="/auth" element={<RedirectUrl />}></Route>
             <Route path="/shop" element={<Shop />}></Route>
             <Route path="/product/:id" element={<ProductDetail />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
@@ -65,7 +63,6 @@ function App() {
               element={<TossCardRegisterRedirect />}
             ></Route>
           </Route>
-          <Route path="/admin" element={<Admin />}></Route>
         </Routes>
       </Suspense>
     </>
