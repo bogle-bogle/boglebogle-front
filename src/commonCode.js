@@ -131,3 +131,86 @@ export const shopCategory = {
     },
   },
 };
+
+export const mbtiCategory = {
+  ENFP: {
+    title: '활발하고 순발력이 뛰어난멍',
+    like: 'ISTJ',
+    dislike: 'ISTP',
+  },
+  ENFJ: {
+    title: '사교적이고 에너지 넘치는 활발멍',
+    like: 'ISTP',
+    dislike: 'ISTJ',
+  },
+  ISTJ: {
+    title: '책임이 강한 집사 바라기',
+    like: 'ENFP',
+    dislike: 'ENFJ',
+  },
+  ENTJ: {
+    title: '단호하고 철저한 단호박멍',
+    like: 'ISFP',
+    dislike: 'ISFJ',
+  },
+  ISTP: {
+    title: '조용하지만 적응력이 강한 가랑비',
+    like: 'ENFJ',
+    dislike: 'ENFP',
+  },
+  ESTJ: {
+    title: '어려운 문제를 해결하는 똑똑멍',
+    like: 'INFP',
+    dislike: 'INFJ',
+  },
+  ESFP: {
+    title: '궁금한게 많은 호기심 대마왕',
+    like: 'INTJ',
+    dislike: 'INTP',
+  },
+  ESFJ: {
+    title: '모두에게 친절한 신사 숙녀멍',
+    like: 'INTP',
+    dislike: 'INTJ',
+  },
+  ISFP: {
+    title: '새로운 것을 찾아다니는 모험가',
+    like: 'ENTJ',
+    dislike: 'ENTP',
+  },
+  INTJ: {
+    title: '독립적이고 시크한 차도멍',
+    like: 'ESFP',
+    dislike: 'ESFJ',
+  },
+  ISFJ: {
+    title: '헌신적이고 따뜻한 우리집 수호자',
+    like: 'ENTP',
+    dislike: 'ENTJ',
+  },
+  ENTP: {
+    title: '모든 것이 궁금한 괴짜 사색가',
+    like: 'ISFJ',
+    dislike: 'ISFP',
+  },
+  INFJ: {
+    title: '멍멍계의 평화주의자',
+    like: 'ESTP',
+    dislike: 'ESTJ',
+  },
+  INFP: {
+    title: '상상의 나라로 풍~덩',
+    like: 'ESTJ',
+    dislike: 'ESTP',
+  },
+  ESTP: {
+    title: '한 번 내 친구는 영원한 내친구',
+    like: 'INFJ',
+    dislike: 'INFP',
+  },
+  INTP: {
+    title: '하나부터 열까지 탐색하는 똑똑멍',
+    like: 'ESFJ',
+    dislike: 'ESFP',
+  },
+};

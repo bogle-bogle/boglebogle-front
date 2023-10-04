@@ -86,7 +86,6 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       productId: selectedItems[0].productId,
     })
       .then(res => {
-        console.log(res);
         navigate(`/mypage?menu=mysubscription`);
       })
       .catch(error => {

@@ -16,6 +16,8 @@ import {
   MbtiCompatibilityContainer,
   MbtiCompatibilityImg,
   MbtiResultInfoContainer,
+  MbtiTitle,
+  LikeContainer,
 } from './mbti.style';
 
 import defaultDog from '../../assets/mbti/default_dog_img.png';
@@ -28,6 +30,7 @@ import mbtiBad from '../../assets/mbti/enfp_bad.png';
 import { BsFillCameraFill } from 'react-icons/bs';
 import { useRef } from 'react';
 import ProductRecommendation from '../recommendation/ProductRecommendation';
+import { mbtiCategory } from '../../commonCode';
 
 const mbtiQuestion = [
   {},
@@ -60,6 +63,8 @@ const mbtiQuestion = [
     ],
   },
 ];
+
+const s3ImgUrl = process.env.REACT_APP_AWS_S3_ASSETS_URL;
 
 function MbtiGame() {
   const [start, setStart] = useState(false);
@@ -100,7 +105,7 @@ function MbtiGame() {
 
   return (
     <>
-      <MbtiGameContainer>
+      <MbtiGameContainer result={result}>
         {result ? (
           <>
             <MbtiResultContainer>
@@ -125,11 +130,32 @@ function MbtiGame() {
               </MbtiResultContentContainer>
 
               <MbtiResultInfoContainer>
-                <MbtiH1>{mbti}</MbtiH1>
-                <MbtiDescription>독립적이고 시크한 차도멍</MbtiDescription>
+                <MbtiTitle>
+                  <MbtiH1>{mbti}</MbtiH1>
+                  <MbtiCompatibilityImg
+                    src={`${s3ImgUrl}/${mbti.toLowerCase()}.png`}
+                  ></MbtiCompatibilityImg>
+                  <MbtiDescription>{mbtiCategory[mbti].title}</MbtiDescription>
+                </MbtiTitle>
                 <MbtiCompatibilityContainer>
-                  <MbtiCompatibilityImg src={mbtiGood} />
-                  <MbtiCompatibilityImg src={mbtiBad} />
+                  <LikeContainer>
+                    <h2>잘 맞는 유형</h2>
+                    <MbtiCompatibilityImg
+                      src={`${s3ImgUrl}/${mbtiCategory[
+                        mbti
+                      ].like.toLowerCase()}.png`}
+                    />
+                    <h2>{mbtiCategory[mbti].like}</h2>
+                  </LikeContainer>
+                  <LikeContainer>
+                    <h2>안 맞는 유형</h2>
+                    <MbtiCompatibilityImg
+                      src={`${s3ImgUrl}/${mbtiCategory[
+                        mbti
+                      ].dislike.toLowerCase()}.png`}
+                    />
+                    <h2>{mbtiCategory[mbti].dislike}</h2>
+                  </LikeContainer>
                 </MbtiCompatibilityContainer>
               </MbtiResultInfoContainer>
             </MbtiResultContainer>
@@ -160,12 +186,12 @@ function MbtiGame() {
         )}
       </MbtiGameContainer>
 
-      {/* {result && (
+      {result && (
         <>
           <ProductRecommendation type={'mbti-to'} param={mbti} />
           <ProductRecommendation type={'mbti-sp'} param={mbti} />
         </>
-      )} */}
+      )}
     </>
   );
 }

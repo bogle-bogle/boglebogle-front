@@ -13,11 +13,11 @@ import ProductCard from '../product/ProductCard';
 
 function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
   const [foodProductList, setFoodProductList] = useState([]);
-  const [petInfo, setPetInfo] = useState({});
+  const [petInfo, setPetInfo] = useState(null);
 
   const changeTitle = type => {
-    if (petInfo.name) {
-      if (type === 'simple') {
+    if (type === 'simple') {
+      if (petInfo !== null) {
         return (
           <>
             <StyledSpanGreen>{productSub[petInfo.ageCode]}</StyledSpanGreen>
@@ -26,13 +26,15 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
               {proteinCode[petInfo.favoriteProteinCode]}
             </StyledSpanGreen>{' '}
             사료를 가장 좋아하는{' '}
-            <StyledSpanGreen>{petInfo.name}</StyledSpanGreen>에게는 이런 상품을
-            추천해요.
+            <StyledSpanGreen>{petInfo.name}</StyledSpanGreen>
+            에게는 이런 상품을 추천해요.
           </>
         );
       }
+    }
 
-      if (type === 'detail') {
+    if (type === 'detail') {
+      if (petInfo !== null) {
         return (
           <>
             <StyledSpanGreen>{petInfo.name}</StyledSpanGreen>와 비슷한 나이대의{' '}
@@ -41,24 +43,24 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
           </>
         );
       }
+    }
 
-      if (type === 'mbti-to') {
-        return (
-          <>
-            <StyledSpanGreen>{param}</StyledSpanGreen> 친구들은 이런{' '}
-            <StyledSpanGreen>장난감</StyledSpanGreen>들을 많이 구매했어요.
-          </>
-        );
-      }
+    if (type === 'mbti-to') {
+      return (
+        <>
+          <StyledSpanGreen>{param}</StyledSpanGreen> 친구들은 이런{' '}
+          <StyledSpanGreen>장난감</StyledSpanGreen>들을 많이 구매했어요.
+        </>
+      );
+    }
 
-      if (type === 'mbti-sp') {
-        return (
-          <>
-            <StyledSpanGreen>{param}</StyledSpanGreen> 친구들은 이런{' '}
-            <StyledSpanGreen>생활 용품</StyledSpanGreen>들을 많이 구매했어요.
-          </>
-        );
-      }
+    if (type === 'mbti-sp') {
+      return (
+        <>
+          <StyledSpanGreen>{param}</StyledSpanGreen> 친구들은 이런{' '}
+          <StyledSpanGreen>생활 용품</StyledSpanGreen>들을 많이 구매했어요.
+        </>
+      );
     }
   };
 
