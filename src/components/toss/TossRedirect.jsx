@@ -30,7 +30,6 @@ function TossRedirect() {
           },
         })
         .then(res => {
-          console.log(res.data);
           const shoppingOrderId = res.data;
           navigate('/ordercomplete', {
             state: { selectedItems, amount, shoppingOrderId },

@@ -4,10 +4,15 @@ import mbtiBackground from '../../assets/mbti/mbti_background.png';
 export const MbtiGameContainer = styled.div`
   width: 100%;
   height: 735px;
-  background-image: url(${mbtiBackground});
+  background-image: ${props => !props.result && `url(${mbtiBackground})`};
+
+  background-color: ${props => props.result && 'lightgray'};
+
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
+
+  border-radius: 20px;
 
   justify-content: center;
   align-items: center;
@@ -96,7 +101,7 @@ export const AnswerBox = styled.div`
 
 export const MbtiResultContainer = styled.div`
   width: 100%;
-  height: 80%;
+  height: 100%;
 
   display: flex;
 `;
@@ -114,6 +119,8 @@ export const MbtiResultContentContainer = styled.div`
 export const MbtiResultDogImg = styled.img`
   width: 300px;
   height: 300px;
+
+  border-radius: 50%;
 `;
 
 export const SelectDogImgContainer = styled.div`
@@ -131,18 +138,35 @@ export const MbtiResultInfoContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const MbtiTitle = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* background-color: white;
+  border-radius: 10px; */
 `;
 
 export const MbtiH1 = styled.p`
   font-weight: bold;
   font-size: 70px;
   color: #538acd;
+  margin: 0;
 `;
 
 export const MbtiDescription = styled.p`
+  width: 100%;
+  text-align: center;
   font-weight: bold;
   font-size: 40px;
-  color: #7b7b7b;
+  color: #538acd;
+  /* color: '#538acd'; */
+  margin: 0;
 `;
 
 export const MbtiCompatibilityContainer = styled.div`
@@ -158,4 +182,19 @@ export const MbtiCompatibilityContainer = styled.div`
 export const MbtiCompatibilityImg = styled.img`
   width: 200px;
   height: 200px;
+  object-fit: cover;
+`;
+
+export const LikeContainer = styled.div`
+  width: 300px;
+  height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: white;
+  border-radius: 20px;
+
+  margin-right: 20px;
 `;
