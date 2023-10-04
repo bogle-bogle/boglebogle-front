@@ -73,15 +73,9 @@ function HeendyCarReservation() {
   ];
 
   const getBranchName = branchCode => {
-    console.log('선택된 지점 코드:', branchCode);
-    console.log('백화점 지점:', deptBranches);
-    console.log('아울렛 지점:', outletBranches);
-
     const selectedBranch = [...deptBranches, ...outletBranches].find(
       branch => branch.branchCode === branchCode,
     );
-
-    console.log('선택된 지점:', selectedBranch);
 
     return selectedBranch ? selectedBranch.name : null;
   };
