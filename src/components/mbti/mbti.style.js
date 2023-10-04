@@ -170,12 +170,12 @@ export const MbtiDescription = styled.p`
 `;
 
 export const MbtiCompatibilityContainer = styled.div`
+  width: 100%;
+  height: auto;
   display: flex;
 
-  justify-content: center;
+  justify-content: space-evenly;
 
-  width: auto;
-  height: auto;
   overflow: auto;
 `;
 
@@ -186,8 +186,8 @@ export const MbtiCompatibilityImg = styled.img`
 `;
 
 export const LikeContainer = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 45%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -195,6 +195,4 @@ export const LikeContainer = styled.div`
 
   background-color: white;
   border-radius: 20px;
-
-  margin-right: 20px;
 `;
