@@ -121,6 +121,8 @@ export const MbtiResultDogImg = styled.img`
   height: 300px;
 
   border-radius: 50%;
+
+  object-fit: cover;
 `;
 
 export const SelectDogImgContainer = styled.div`
