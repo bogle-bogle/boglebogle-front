@@ -15,7 +15,7 @@ function RedirectUrl() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const params = new URL(document.location.toString()).searchParams;
+    const params = new URL(window.location.href).searchParams;
     const code = params.get('code');
     const kakaoLogin = async () => {
       const res = await Api.get(`/api/member/auth/login?code=${code}`);
