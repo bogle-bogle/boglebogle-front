@@ -132,9 +132,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       memberId: member.id,
       productId: selectedItems[0].productId,
     })
-      .then(res => {
-        navigate(`/mypage?menu=mysubscription`);
-      })
+      .then(navigate(`/mypage?menu=mysubscription`))
       .catch(error => {
         alert('이미 구독 중');
       });
@@ -145,9 +143,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       startDate: new Date(),
       memberId: member.id,
     })
-      .then(res => {
-        navigate(`/mypage?menu=mysubscription`);
-      })
+      .then(navigate(`/mypage?menu=mysubscription`))
       .catch(error => {
         alert('이미 구독 중');
       });
