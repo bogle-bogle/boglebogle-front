@@ -12,19 +12,7 @@ import { GreenBtn, GreyBtn } from '../global/btn.style';
 function CompleteClubRegister() {
   const navigate = useNavigate();
   return (
-    <HeendyArea>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    <div style={{ textAlign: 'center', marginTop: '200px' }}>
       <ShopperHeendy src={shopperheendy} alt=" " />
       <TitleBox>
         <p className="title1">등록이 완료되었습니다!</p>
@@ -36,8 +24,9 @@ function CompleteClubRegister() {
         </p>
       </TitleBox>
       <br />
+      <br />
       <GreenBtn onClick={() => navigate('/shop')}>쇼핑하러 가기</GreenBtn>
-    </HeendyArea>
+    </div>
   );
 }
 
