@@ -26,9 +26,6 @@ export const UserRegisterResultContainer = styled.div`
   width: 30%;
   height: auto;
   border-right: 2px solid gray;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
 `;
 
 export const AnalyzeResultContainer = styled.div`
@@ -77,7 +74,7 @@ export const UserResultCard = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 `;
 
@@ -85,23 +82,42 @@ export const UserResultImg = styled.img`
   width: 250px;
   height: 250px;
   object-fit: contain;
-  margin-bottom: 5vh;
 `;
 
-export const UserResultText = styled.p`
+export const UserResultText = styled.div`
   width: 100%;
+
+  overflow: auto;
+
   color: #4f4f4f;
   font-weight: ${props => props.isTitle && 'bold'};
 
   font-size: 17px;
 
-  margin: 0;
+  margin-bottom: 2%;
 
   mark {
     display: inline-block;
     line-height: 0.2em;
     padding: 0 0.2em 0.7rem 0.2rem;
     background-color: #c2f0de;
+  }
+
+  ::-webkit-scrollbar {
+    display: block;
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 15px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #656565;
+    border-radius: 15px;
+    background-clip: content-box;
+    border: 5px solid transparent;
   }
 `;
 
@@ -198,4 +214,6 @@ export const SimilarityPercentText = styled.p`
 export const StickyContainer = styled.div`
   position: sticky;
   top: 0;
+
+  margin-top: 20%;
 `;
