@@ -144,10 +144,6 @@ function ProductDetail() {
     });
   }
 
-  function handleCloseCardModal() {
-    setFadeModalOpen(false);
-  }
-
   return (
     <>
       <ClappingHeendySwal
