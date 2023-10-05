@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   /* 스크롤바 숨기기 */
   *{
@@ -48,15 +48,19 @@ const GlobalStyle = createGlobalStyle`
     margin-right: 5px;
   }
 
-  /* alert */
   .swal2-popup {
-    width: 25vw;
-    font-family: "HappinessSansBold";
-    border-radius: 20px;
+  font-family: "HappinessSansBold";
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .swal2-popup {
+    width: 80%; /* 모바일 화면일 때 너비를 조정 */
   }
+}
 
   .swal2-title {
-    font-size: 0.9vw;
+    font-size: 20px;
   }
   
   .swal2-image {

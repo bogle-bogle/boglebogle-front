@@ -29,6 +29,7 @@ import {
 import * as Api from '../../api';
 import { BsCreditCard } from 'react-icons/bs';
 import { showPlainSwal } from '../global/showPlainSwal';
+import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
 
 function OrderProducts({ selectedItems, totalAmount, productType }) {
   const paymentWidgetRef = useRef(null);
@@ -121,6 +122,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
         successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tossredirect`,
         failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/ordersheet`,
       });
+      showClappingHeendySwal('주문이 완료되었습니다.');
     } catch (error) {
       console.error(error);
     }
@@ -133,10 +135,12 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       productId: selectedItems[0].productId,
     })
       .then(res => {
-        navigate(`/mypage?menu=mysubscription`);
+        showClappingHeendySwal('정기배송 신청이 완료되었습니다.');
+        navigate(`mypage?menu=mysubscription`);
       })
       .catch(error => {
-        alert('이미 구독 중');
+        showPlainSwal('이미 구독중입니다. ');
+        navigate('mypage?menu=mysubscription');
       });
   };
 
@@ -146,10 +150,12 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       memberId: member.id,
     })
       .then(res => {
-        navigate(`/mypage?menu=mysubscription`);
+        showClappingHeendySwal('더펫박스 구독 신청이 완료되었습니다.');
+        navigate(`mypage?menu=mysubscription`);
       })
       .catch(error => {
-        alert('이미 구독 중');
+        showPlainSwal('이미 구독중입니다. ');
+        navigate('/mypage?menu=mysubscription');
       });
   };
 

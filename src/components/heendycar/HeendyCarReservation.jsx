@@ -190,13 +190,10 @@ function HeendyCarReservation() {
       });
 
       const formattedTime = formatDate(res.data.reservationTime);
-      toast.success(
-        <span>
-          예약 완료!
-          <br /> 예약시간: {formattedTime}
-        </span>,
-      );
-      window.location.href = '/mypage?menu=myreservation';
+      showClappingHeendySwal(`${formattedTime} 픽업 예약 완료되었습니다.`);
+      setTimeout(() => {
+        window.location.href = '/mypage?menu=myreservation';
+      }, 2000);
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
@@ -234,8 +231,8 @@ function HeendyCarReservation() {
           <div className="resv-desc-text">* 클럽 흰디 전용 서비스</div>
         </div>
         <div className="resv-desc-text-2">
-          * 예약은 당일 픽업 30분 전부터만 가능하며, 30분 이내로 픽업하지
-          않으시면 예약이 자동 취소됩니다.
+          * 예약은 당일 예약만 가능하며, 30분 이내로 픽업하지 않으시면 예약이
+          자동 취소됩니다.
         </div>
         <hr />
         <div className="input-box">
