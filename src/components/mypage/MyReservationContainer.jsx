@@ -31,6 +31,19 @@ function MyReservationContainer() {
   function cancelReservation(reservationId) {
     const response = Api.put(`/api/hc/${reservationId}`, null)
       .then(res => {
+        setReservations((prevReservations) =>
+          prevReservations.map((reservation) => {
+            if (reservation.id === reservationId) {
+              // 취소 상태 업데이트
+              return {
+                ...reservation,
+                cancelYn: 'Y',
+              };
+            }
+            return reservation;
+          })
+        );
+
         toast.success('취소되었습니다.');
       })
       .catch(Error => {
