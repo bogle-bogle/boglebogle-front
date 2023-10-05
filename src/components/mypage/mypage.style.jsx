@@ -24,12 +24,24 @@ export const MypageGrid = styled.div`
   grid-gap: 50px;
   /* grid-gap: 1vw; */
   height: auto;
+
+  @media (max-width: 768px) {
+    grid-template-areas:
+      'sidebar'
+      'info'
+      'content'
+      'content';
+  }
 `;
 
 export const MypageSidebar = styled.div`
   grid-area: sidebar;
   width: 100%;
   min-width: 200px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const MypageTitle = styled.div`
