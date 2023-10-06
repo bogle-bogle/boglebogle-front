@@ -25,13 +25,12 @@ import {
   ButtonContainer,
   CardContainer,
   PlusIcon,
-  GotoCustomCardImg,
 } from '../mypage/mypage.style';
 import * as Api from '../../api';
 import { BsCreditCard } from 'react-icons/bs';
 import { showPlainSwal } from '../global/showPlainSwal';
 import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
-import gotoCustomCardImg from '../../assets/card/goto_custom_card.png';
+
 function OrderProducts({ selectedItems, totalAmount, productType }) {
   const paymentWidgetRef = useRef(null);
   const paymentMethodsWidgetRef = useRef(null);
@@ -255,39 +254,31 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
         </div>
       ) : productType === 'Cur' ? (
         <div>
-          <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
-            <div style={{ width: '25%', height: '10%' }}>
-              {billingKey ? (
-                <CardContainer>
-                  <p>{cardCompany}</p>
-                  <p>
-                    {cardNumber} {cardType}
-                  </p>
-                </CardContainer>
-              ) : (
-                <CardContainer>
-                  <PlusIcon />
-                </CardContainer>
-              )}
-              <ButtonContainer>
-                {billingKey ? (
-                  <DetailButton className="monthly" onClick={registerCard}>
-                    <BsCreditCard className="btn-icon" />
-                    다른 카드로 등록하기
-                  </DetailButton>
-                ) : (
-                  <DetailButton className="monthly" onClick={registerCard}>
-                    <BsCreditCard className="btn-icon" />
-                    카드 새로 등록하기
-                  </DetailButton>
-                )}
-              </ButtonContainer>
-            </div>
-            <GotoCustomCardImg
-              src={gotoCustomCardImg}
-              onClick={() => navigate('/card')}
-            ></GotoCustomCardImg>
-          </div>
+          {billingKey ? (
+            <CardContainer>
+              <p>{cardCompany}</p>
+              <p>
+                {cardNumber} {cardType}
+              </p>
+            </CardContainer>
+          ) : (
+            <CardContainer>
+              <PlusIcon />
+            </CardContainer>
+          )}
+          <ButtonContainer>
+            {billingKey ? (
+              <DetailButton className="monthly" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                다른 카드로 등록하기
+              </DetailButton>
+            ) : (
+              <DetailButton className="monthly" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                카드 새로 등록하기
+              </DetailButton>
+            )}
+          </ButtonContainer>
           <Agreement>
             <strong>
               매월 31일에는 결제가 자동으로 진행되며, 1일에는 원하시는 상품을
