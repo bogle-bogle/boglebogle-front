@@ -60,6 +60,8 @@ import * as Api from '../api.js';
 
 import { GrPowerReset } from 'react-icons/gr';
 import { BiCut } from 'react-icons/bi';
+import { toast } from 'react-toastify';
+import { showClappingHeendySwal } from '../components/global/showClappingHeendySwal';
 
 const cardDict = {
   pink: {
@@ -170,18 +172,23 @@ function HyundaiCard() {
   };
 
   const handleSubmit = () => {
-    const data = {
-      frontImgFile: frontCropData,
-      backImgFile: backCropData,
-    };
-    Api.post('/api/custom-card', data)
-      .then(res => {
-        window.location.href =
-          'https://www.ehyundai.com/newPortal/card/CA/CA000000_V.do';
-      })
-      .catch(error => {
-        toast.error('이미지 저장 실패!');
-      });
+    // const formData = new FormData();
+    // formData.append('frontImgFile', frontCropperRef);
+    // formData.append('backImgFile', backCropperRef);
+
+    // Api.post('/api/custom-card', formData)
+    //   .then(res => {
+    //     window.location.href =
+    //       'https://www.ehyundai.com/newPortal/card/CA/CA000000_V.do';
+    //   })
+    //   .catch(error => {
+    //     toast.error('이미지 저장 실패!');
+    //   });
+    showClappingHeendySwal('현대백화점카드 페이지로 이동합니다.');
+    setTimeout(() => {
+      window.location.href =
+        'https://www.ehyundai.com/newPortal/card/CA/CA000000_V.do';
+    }, 2000);
   };
 
   return (

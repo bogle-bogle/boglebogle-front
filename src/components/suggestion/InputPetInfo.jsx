@@ -387,6 +387,10 @@ function InputPetInfo(props) {
               </div>
             </div>
 
+            <br />
+            <br />
+            <br />
+
             {/* STEP 2 */}
             <div className="step-box" id="step2">
               <div className="step-text">
@@ -463,6 +467,10 @@ function InputPetInfo(props) {
               </div>
             </div>
 
+            <br />
+            <br />
+            <br />
+
             {/* STEP 3 */}
             <div className="step-box" id="step3">
               <div className="step-text">
@@ -481,6 +489,8 @@ function InputPetInfo(props) {
               </div>
             </div>
           </InputBoxes>
+
+          <br />
 
           {suggestionProduct.length == 0 ? (
             <>
