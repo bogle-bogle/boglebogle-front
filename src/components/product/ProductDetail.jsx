@@ -196,13 +196,15 @@ function ProductDetail() {
             ></ProductSummaryContainer>
           )}
           <ProductAddtionalBox>
+  
+          {productInfo.ingredients !== null && (
+              <ProductIngredient ingredients={ingredients}></ProductIngredient>
+            )}
+
             <Review
               handleModalOpen={handleModalOpen}
               productId={productId}
             ></Review>
-            {productInfo.ingredients !== null && (
-              <ProductIngredient ingredients={ingredients}></ProductIngredient>
-            )}
             <DescImgContainer>
               {productInfo !== undefined && (
                 <DescImg src={productInfo.descImgUrl} alt="" />
