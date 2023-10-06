@@ -80,6 +80,9 @@ export const MainDescBox = styled.div`
 
   /* 말풍선 - start */
   .chat-bubble-box {
+    @media (max-width: 768px) {
+      margin-top: -80px;
+      }
     position: absolute;
     z-index: 10;
     width: 100%;
@@ -143,6 +146,10 @@ export const MainDescBox = styled.div`
     right: -200px;
     margin: 0;
     background-color: #c3dad1;
+
+    @media (max-width: 768px) {
+      right:0px;
+      }
   }
   .chat-1::before {
     border-left: 1rem solid #c3dad1;
@@ -152,6 +159,12 @@ export const MainDescBox = styled.div`
     left: -220px;
     margin: 0;
     background-color: #a2c7b9;
+
+
+    @media (max-width: 768px) {
+    left: 0px;
+    margin-top: 20px;
+      }
   }
   .chat-2::before {
     border-right: 1rem solid #a2c7b9;
@@ -161,6 +174,11 @@ export const MainDescBox = styled.div`
     margin: 15px 0 0 0;
     right: -250px;
     background-color: #95d5bc;
+
+    @media (max-width: 768px) {
+      right: 0px;
+      margin-top: 20px;
+      }
   }
   .chat-3::before {
     border-left: 1rem solid #95d5bc;
@@ -176,10 +194,18 @@ export const MainDescBox = styled.div`
 
   .thiking-heendy {
     width: 20%;
+    @media (max-width: 768px) {
+      width: 40%;
+      margin-top: 80px;
+      }
   }
 
   .good-heendy {
     width: 20%;
+  @media (max-width: 768px) {
+    width: 40%;    
+    margin-top: 80px;  
+    }
   }
 
   .main-title-box {
@@ -198,6 +224,10 @@ export const MainDescBox = styled.div`
 
     .title-1 {
       font-size: 32px;
+
+      @media (max-width: 768px) {
+        font-size: 30px;
+      }
     }
 
     .title-2 {

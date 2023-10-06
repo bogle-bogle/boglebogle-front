@@ -217,6 +217,8 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
+
   .monthly {
     border: 0px solid transparent;
     background-color: #b9a37d;
@@ -240,7 +242,7 @@ export const DetailButton = styled.button`
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px;
-  width: 28%;
+  width: 100%;
 
   border-radius: 10px;
   padding: 15px;
@@ -259,8 +261,8 @@ export const CardContainer = styled.div`
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px 10px;
-  width: 25%;
-  height: 10%;
+  /* width: 100%; */
+  height: 100%;
 
   border: 1px solid #b9a37d;
   background-color: white;
@@ -277,3 +279,13 @@ export const CardContainer = styled.div`
 // export const MypageCardFlex = styled.div`
 //   display: flex;
 // `;
+
+export const GotoCustomCardImg = styled.img`
+  width: 300px;
+  height: 170px;
+  object-fit: contain;
+
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+`;
