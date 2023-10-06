@@ -45,12 +45,13 @@ import { eventLog } from '../../utils/event_log';
 function NewProductList() {
   const member = useSelector(state => state.member);
 
-  const [mainCategory, setMainCategory] = useState('');
+  const [mainCategory, setMainCategory] = useState('FD');
   const [subFilterList, setSubFilterList] = useState([]);
   const [proteinFilterList, setProteinFilterList] = useState([]);
 
   const [mainFilterChecked, setMainFilterChecked] = useState({
     ...initialMainCategory,
+    FD: true,
   });
 
   const [subFilterChecked, setSubFilterChecked] = useState({});
