@@ -66,11 +66,29 @@ function ThePetBoxContainer() {
 
   return (
     <ThePetBoxContents>
-      <br />
-      <MainDescr>
-        이번 달 더펫박스에는 무엇이 들어있을까? <br />
-        매달 정기적으로 새로운 상품을 만나보세요!
-      </MainDescr>
+
+      <div className="thepetbox-title">
+        <br></br>
+        <div>
+        현대백화점에 들어오는 신상품들,
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+        누군가 대신 <div className="thpet-color">세트로 구성</div>해서
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <div className="thpet-color">문앞까지 배송</div>해주면 좋을텐데···
+        </div>
+      </div>
+
+      <div className="title-center">
+        <div className="sale-title-1">
+          매달, 나의 반려동물에 딱 맞춰 고른 키트를 받아보세요!
+        </div>
+        <div className="sale-title-2">더펫박스 정기구독</div>
+        <br/>
+        <GreyBtn onClick={createCurationOrder}>구독하러 가기</GreyBtn>
+      </div>
+
       {/* <MainTitle>
       4주에 한번씩 <div className='thpet-color'>새로운 상품들을</div>집앞까지 배송받아보세요.
       월간 더펫박스
@@ -114,12 +132,10 @@ function ThePetBoxContainer() {
         )}
       </ThumbnailList>
 
-      <div className="title-center">
-        <div className="sale-title-1">
-          매달, 나의 반려동물에 딱 맞춰 고른 키트를 받아보세요!
-        </div>
-        <div className="sale-title-2">더펫박스 정기구독</div>
-      </div>
+      <MainDescr>
+        이번 달 더펫박스에는 무엇이 들어있을까? <br />
+        매달 정기적으로 새로운 상품을 <strong>할인된 가격</strong>에 만나보세요!
+      </MainDescr>
 
       <div>
         <GreyBtn onClick={createCurationOrder}>구독하러 가기</GreyBtn>

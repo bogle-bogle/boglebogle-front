@@ -206,6 +206,15 @@ export const ThePetBoxContents = styled.div`
     margin-bottom: 2px;
   }
 
+  .thepetbox-title {
+    color: #757575;
+    margin-top: 50px;
+    margin-bottom: 2px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
+  }
+
   .more-box-desc-2 {
     margin: 0;
     width: 100%;
