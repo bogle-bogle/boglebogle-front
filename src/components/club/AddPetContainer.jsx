@@ -25,6 +25,8 @@ import { animalCode, breedCode, proteinCode, sizeCode } from '../../commonCode';
 import ImageUploadComponent from '../suggestion/ImageUploadComponent';
 import { toast } from 'react-toastify';
 import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
+import { showPlainHeendySwal } from '../global/showPlainHeendySwal';
+import { showPlainSwal } from '../global/showPlainSwal';
 
 function AddPetContainer() {
   const [, setWindowWidth] = useState(window.innerWidth);
@@ -113,24 +115,20 @@ function AddPetContainer() {
     setSelectedPhotoImage(URL.createObjectURL(file));
   };
 
-  // const uploadImage = async (file) => {
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     const response = await Api.post(`/api/upload`, formData);
-  //     return response.data;
-  //   } catch (error) {
-  //     toast.error("파일 업로드에 실패했습니다.")
-  //     console.error("파일 업로드 실패:", error);
-  //     // throw error;
-  //     return
-  //   }
-  // };
-
   const handleSubmit = async () => {
     try {
-      // const photoUrl = await uploadImage(photoInputRef.current.files[0]);
+      if (
+        !selectedAnimalTypeCode ||
+        !selectedPhotoImage ||
+        !name ||
+        !selectedBirthDate ||
+        !selectedBreedCode ||
+        !selectedAnimalSize
+      ) {
+        showPlainSwal('필수값을 모두 입력하세요.');
+        return;
+      }
+
       const selectedCodesString = selectedProteinCodes.join(',');
 
       const formData = new FormData();
@@ -161,6 +159,7 @@ function AddPetContainer() {
     }
   };
 
+  const newLocal = 'font-red right-text';
   return (
     <AddPetBox>
       <AddPetTitle>
@@ -259,7 +258,7 @@ function AddPetContainer() {
           <div className="qna-box">
             <div className="question-box font-bold text-group">
               <p>반려동물 알러지</p>
-              <p className="font-red right-text">*</p>
+              {/* <p className={newLocal}>*</p> */}
             </div>
             <div className="answer-box">
               <PetProteinCodes>

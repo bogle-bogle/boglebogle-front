@@ -92,6 +92,7 @@ function CustomResult({
                   <UserResultImg src={selectedFeedImage}></UserResultImg>
                   <UserResultText isTitle={true}>성분 분석 결과</UserResultText>
                   <UserResultText
+                    style={{ height: '100px' }}
                     isTitle={false}
                     dangerouslySetInnerHTML={{
                       __html: getHighlightedIngredients(

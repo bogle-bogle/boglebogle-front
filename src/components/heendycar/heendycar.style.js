@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ReservationBox = styled.div`
   padding-top: 20px;
@@ -29,8 +29,8 @@ export const ReservationBox = styled.div`
     margin-bottom: 10px;
 
     @media (max-width: 768px) {
-      font-size: 18px;
-      margin-bottom: 5px;
+      font-size: 22px;
+      margin-bottom: 10px;
     }
   }
 
@@ -39,7 +39,7 @@ export const ReservationBox = styled.div`
     font-size: 12px;
 
     @media (max-width: 768px) {
-      font-size: 6px;
+      font-size: 12px;
     }
   }
 
@@ -49,7 +49,7 @@ export const ReservationBox = styled.div`
     margin-bottom: 15px;
 
     @media (max-width: 768px) {
-      font-size: 4px;
+      font-size: 14px;
     }
   }
 
@@ -78,7 +78,7 @@ export const ReservationBox = styled.div`
     outline: none;
     padding: 10px 15px;
     background-color: #e9e9e9;
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
 
     &::placeholder {
       color: #b1b1b1;
@@ -102,7 +102,7 @@ export const ReservationBox = styled.div`
     cursor: pointer; /* 포인터 커서 설정 */
     transition: 0.2s;
     transform: scale(1);
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     font-size: 15px;
 
     &:hover {
@@ -218,7 +218,7 @@ export const HeendyCarTitle = styled.div`
   }
 
   .title1 {
-    font-family: "HappinessSansTitle";
+    font-family: 'HappinessSansTitle';
     font-size: 40px;
     margin: 0;
 
@@ -227,7 +227,7 @@ export const HeendyCarTitle = styled.div`
     }
 
     @media (max-width: 768px) {
-      font-size: 16px;
+      font-size: 22px;
     }
   }
 
@@ -241,7 +241,7 @@ export const HeendyCarTitle = styled.div`
 
     @media (max-width: 768px) {
       margin-top: 6px;
-      font-size: 9px;
+      font-size: 12px;
     }
   }
 `;
@@ -261,12 +261,12 @@ export const ResvTitle = styled.div`
 `;
 
 export const ResvBtn = styled.button`
-  background-color: ${(props) => (props.isActive ? "#5AAB8A" : "white")};
-  border: 1px solid ${(props) => (props.isActive ? "#5AAB8A" : "#A9A9A9")};
+  background-color: ${props => (props.isActive ? '#5AAB8A' : 'white')};
+  border: 1px solid ${props => (props.isActive ? '#5AAB8A' : '#A9A9A9')};
   font-weight: bold;
   border-radius: 10px;
-  color: ${(props) => (props.isActive ? "white" : "#9E9E9E")};
-  font-family: "HappinessSansBold";
+  color: ${props => (props.isActive ? 'white' : '#9E9E9E')};
+  font-family: 'HappinessSansBold';
   padding: 10px 10px;
   cursor: pointer;
   margin-bottom: 15px;

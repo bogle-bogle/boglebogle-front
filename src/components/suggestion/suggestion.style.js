@@ -214,28 +214,30 @@ export const LoadingIcon = styled(AiOutlineLoading3Quarters)`
 
 export const HeendyArea = styled.div`
   display: flex;
-  justify-content: left;
+  justify-content: center;
+
   align-items: center;
   text-align: left;
-  width: 65%;
+  /* width: 65%; */
 
   @media (max-width: 1400px) {
     width: 100%;
     flex-direction: column;
     text-align: center;
-    justify-content: center;
   }
 `;
 
 export const StepArea = styled.div`
   display: flex;
-  justify-content: right;
-  align-items: center;
-  width: 35%;
+  /* justify-content: center; */
+  /* align-items: center; */
+  margin: auto;
+  width: 80%;
+  margin-top: 50px;
 
   @media (max-width: 1400px) {
-    margin-top: 30px;
     width: 100%;
+    margin-top: 30px;
   }
 
   .stepper {
@@ -257,9 +259,10 @@ export const StepArea = styled.div`
 
 export const DescArea = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-bottom: 80px;
 
   @media (max-width: 1400px) {
-    flex-direction: column;
     margin: 0 10px 0 10px;
   }
 `;
@@ -312,7 +315,7 @@ export const InputArea = styled.div`
 `;
 
 export const TitleBox = styled.div`
-  margin-left: 25px;
+  margin-left: 30px;
 
   .title1 {
     margin: 0 0 10px 0;
@@ -346,11 +349,13 @@ export const TitleBox = styled.div`
 `;
 
 export const ShopperHeendy = styled.img`
-  width: 180px;
+  width: 150px;
   height: auto;
+  margin-bottom: 30px;
 
   @media (max-width: 1400px) {
     width: 100px;
+    margin-bottom: 0px;
   }
 `;
 
