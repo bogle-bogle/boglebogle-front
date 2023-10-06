@@ -11,6 +11,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ScrollToTop from './components/scroll/ScrollToTop';
 
 let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,6 +33,7 @@ root.render(
       />
       <PersistGate loading={null} persistor={persistor}>
         <Router>
+          <ScrollToTop />
           <App />
         </Router>
       </PersistGate>

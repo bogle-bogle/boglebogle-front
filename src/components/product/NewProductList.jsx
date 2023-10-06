@@ -4,6 +4,8 @@ import {
   CategoryContainer,
   CategoryElementContainer,
   CategoryP,
+  DogButton,
+  DogListContainer,
   FilterCategoryContainer,
   FilterCategoryRow,
   FilterCategoryTitle,
@@ -61,6 +63,7 @@ function NewProductList() {
   const [totalCount, setTotalCount] = useState(0);
 
   const [productList, setProductList] = useState([]);
+
   const [curPet, setCurPet] = useState(
     member && member.pet && member.pet.length > 0 && member.pet[0],
   );
@@ -208,24 +211,6 @@ function NewProductList() {
     });
   };
 
-  const createPetSelect = () => {
-    if (member && member.pet && member.pet.length > 0) {
-      return (
-        <select
-          name=""
-          id=""
-          value={curPet.id}
-          onChange={handleOnChange}
-          style={{ marginLeft: '10px' }}
-        >
-          {member.pet.map(p => (
-            <option value={p.id}>{p.name}</option>
-          ))}
-        </select>
-      );
-    }
-  };
-
   const createProductRecommendation = () => {
     if (curPet) {
       return (
@@ -239,6 +224,27 @@ function NewProductList() {
         </>
       );
     }
+  };
+
+  const createPetList = () => {
+    if (localStorage.getItem('userToken') === null) return;
+
+    if (member.pet.length === 0) return;
+
+    return (
+      <>
+        {member.pet.map(p => (
+          <DogButton
+            isClicked={curPet.id === p.id}
+            onClick={() => {
+              setCurPet(p);
+            }}
+          >
+            {p.name}
+          </DogButton>
+        ))}
+      </>
+    );
   };
 
   return (
@@ -311,14 +317,13 @@ function NewProductList() {
           </FilterCategoryRow>
         )}
       </FilterCategoryContainer>
-      {/* {recommendation component} */}
 
+      <DogListContainer>{createPetList()}</DogListContainer>
       <MiddleContainer>
         <div style={{ display: 'flex', alignItems: 'center', width: 'auto' }}>
           <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
             curPage === pageCount ? totalCount : curPage * 20
           } / ${totalCount}개`}</MiddlePagenationContainer>
-          {createPetSelect()}
         </div>
 
         <MiddlePageContainer>

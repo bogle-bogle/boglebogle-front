@@ -93,7 +93,14 @@ function InputPetInfo(props) {
     } else {
       props.handleOpenModal();
       // const id = toast.loading("분석중입니다. 잠시만 기다려주세요.");
-
+      swal.fire({
+        title: `분석중입니다!!`,
+        showCancelButton: true,
+        imageUrl: walkingheendy,
+        showConfirmButton: false,
+        showCancelButton: false,
+        showCloseButton: false,
+      });
       const selectedPetId = selectedPet.codeValue;
       setNextStepFeedImage(
         feedMainImgPreviewUrl ? feedMainImgPreviewUrl : feedDescrImgPreviewUrl,

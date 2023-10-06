@@ -31,6 +31,7 @@ import { BsFillCameraFill } from 'react-icons/bs';
 import { useRef } from 'react';
 import ProductRecommendation from '../recommendation/ProductRecommendation';
 import { mbtiCategory } from '../../commonCode';
+import { useDispatch, useSelector } from 'react-redux';
 
 const mbtiQuestion = [
   {},
@@ -67,6 +68,8 @@ const mbtiQuestion = [
 const s3ImgUrl = process.env.REACT_APP_AWS_S3_ASSETS_URL;
 
 function MbtiGame() {
+  const member = useSelector(state => state.member);
+
   const [start, setStart] = useState(false);
   const [mbti, setMbti] = useState('');
   const [curQuestion, setCurQuestion] = useState();
@@ -110,7 +113,13 @@ function MbtiGame() {
           <>
             <MbtiResultContainer>
               <MbtiResultContentContainer>
-                <MbtiResultDogImg src={dogProfileImg}></MbtiResultDogImg>
+                <MbtiResultDogImg
+                  src={
+                    localStorage.getItem('userToken') &&
+                    member.pet.length !== 0 &&
+                    member.pet[0]
+                  }
+                ></MbtiResultDogImg>
                 <SelectDogImgContainer
                   onClick={() => fileInputRef.current.click()}
                 >

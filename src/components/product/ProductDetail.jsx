@@ -30,6 +30,7 @@ import { showPlainSwal } from '../global/showPlainSwal';
 
 function ProductDetail() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const member = useSelector(state => state.member);
   const [billingKey, setBillingKey] = useState(null);
 
