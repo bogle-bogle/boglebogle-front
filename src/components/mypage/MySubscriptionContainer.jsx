@@ -159,8 +159,7 @@ function MySubscriptionContainer() {
                     {regularDelivery.orderDetails[0].productName}
                   </MypageCardTitle>
                   <MypageCardDescr>
-                    가격:{' '}
-                    {regularDelivery.orderDetails[0].productPrice} 원
+                    가격: {regularDelivery.orderDetails[0].productPrice} 원
                   </MypageCardDescr>
                   <MypageCardDescr>
                     주문 수량: {regularDelivery.orderDetails[0].cnt}
