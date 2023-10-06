@@ -163,6 +163,7 @@ function InputPetInfo(props) {
 
           props.handleModalClose();
           showClappingHeendySwal('분석이 완료되었습니다.');
+          scrollToTop();
         } catch (error) {
           props.handleModalClose();
 
@@ -193,6 +194,7 @@ function InputPetInfo(props) {
 
           props.handleModalClose();
           showClappingHeendySwal('분석이 완료되었습니다.');
+          scrollToTop();
           // toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true});
         } catch (error) {
           props.handleModalClose();

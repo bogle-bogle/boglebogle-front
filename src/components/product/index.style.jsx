@@ -205,6 +205,9 @@ export const FilterCategoryContainer = styled.div`
   border-bottom: 1px solid #808080;
 
   margin-bottom: 10px;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;
 
 export const FilterCategoryRow = styled.div`
@@ -248,13 +251,13 @@ export const CategoryElementContainer = styled.div`
 `;
 
 export const CategoryElement = styled.div`
-  flex: 0 0 13%;
+  flex: 0 0 15%;
 
   font-size: 20px;
   display: flex;
   align-items: center;
 
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   color: ${props => (props.isChecked ? '#2F9861' : '#585858')};
 
