@@ -31,22 +31,21 @@ function MySubscriptionContainer() {
   const [cardNumber, setCardNumber] = useState(null);
   const [cardType, setCardType] = useState(null);
 
-  // 가격 세 자리마다 쉼표 추가
-  const formatPrice = price => {
-    return price.toLocaleString();
-  };
-
   useEffect(() => {
     Api.get(`/api/order/subscription`)
       .then(res => {
+        console.log(res.data);
+
         if (res.data.curationY) {
           setCurations(res.data.curationY);
+          console.log(curations);
         }
         if (res.data.curationN) {
           setRegularDeliveries(res.data.curationN);
+          console.log(regularDeliveries);
         }
       })
-      .catch(Error => {
+      .catch(error => {
         console.log('Error fetching pet codes:', Error);
         toast.error('오류가 발생하였습니다😥');
       });
@@ -70,7 +69,7 @@ function MySubscriptionContainer() {
       tossPayments
         .requestBillingAuth('카드', {
           // https://docs.tosspayments.com/reference/js-sdk#requestbillingauth카드-결제-정보
-          customerKey: `${member.id}`, // 고객 ID로 상점에서 만들어야 합니다. 빌링키와 매핑됩니다. 자세한 파라미터 설명은 결제 정보 파라미터 설명을 참고하세요.
+          customerKey: `${member.id}`,
           successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tosscardregisterredirect`,
           failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/mypage?menu=mysubscription`,
         })
@@ -161,7 +160,7 @@ function MySubscriptionContainer() {
                   </MypageCardTitle>
                   <MypageCardDescr>
                     가격:{' '}
-                    {formatPrice(regularDelivery.orderDetails[0].productPrice)}
+                    {regularDelivery.orderDetails[0].productPrice} 원
                   </MypageCardDescr>
                   <MypageCardDescr>
                     주문 수량: {regularDelivery.orderDetails[0].cnt}

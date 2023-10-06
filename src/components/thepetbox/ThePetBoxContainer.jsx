@@ -60,7 +60,8 @@ function ThePetBoxContainer() {
     showClappingHeendySwal(
       '매달 받아보는 더펫 박스! \n\n주문서 페이지로 이동합니다.',
     );
-    navigate('/ordersheet', { state: { selectedItems, totalAmount } });
+    const productType = 'Cur';
+    navigate('/ordersheet', { state: { selectedItems, totalAmount, productType } });
   }
 
   return (

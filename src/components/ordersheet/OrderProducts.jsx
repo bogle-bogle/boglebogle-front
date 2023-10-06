@@ -4,6 +4,7 @@ import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 import Modal from '../modal/Modal';
+import { loadTossPayments } from '@tosspayments/payment-sdk';
 import CouponImg from '../../assets/club/clubcoupon.png';
 import {
   OrderItemsTable,
@@ -19,7 +20,16 @@ import {
   DiscountButton,
   DiscountconfirmButton,
 } from './OrderProducts.style';
+import {
+  DetailButton,
+  ButtonContainer,
+  CardContainer,
+  PlusIcon,
+} from '../mypage/mypage.style';
 import * as Api from '../../api';
+import { BsCreditCard } from 'react-icons/bs';
+import { showPlainSwal } from '../global/showPlainSwal';
+import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
 
 function OrderProducts({ selectedItems, totalAmount, productType }) {
   const paymentWidgetRef = useRef(null);
@@ -27,6 +37,11 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
   const [price, setPrice] = useState(totalAmount);
   const [couponModalOpen, setCouponModalOpen] = useState(false);
   const member = useSelector(state => state.member);
+  const [billingKey, setBillingKey] = useState(null);
+  const [cardCompany, setCardCompany] = useState(null);
+  const [cardNumber, setCardNumber] = useState(null);
+  const [cardType, setCardType] = useState(null);
+
   const navigate = useNavigate();
 
   // env로 안가려짐, 어차피 테스트 api라서 일단 냅두기
@@ -58,6 +73,39 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
     );
   }, [price]);
 
+  useEffect(() => {
+    Api.get(`/api/member/card?memberId=${member.id}`).then(res => {
+      if (res.data.billingKey) {
+        setBillingKey(res.data.billingKey);
+        setCardCompany(res.data.cardCompany);
+        setCardNumber(res.data.cardNumber);
+        setCardType(res.data.cardType);
+      } else {
+        setBillingKey(null);
+      }
+    });
+  }, []);
+
+  function registerCard() {
+    const clientKey = 'test_ck_0RnYX2w532BP7dMeyZe3NeyqApQE';
+
+    loadTossPayments(clientKey).then(tossPayments => {
+      tossPayments
+        .requestBillingAuth('카드', {
+          // https://docs.tosspayments.com/reference/js-sdk#requestbillingauth카드-결제-정보
+          customerKey: `${member.id}`,
+          successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tosscardregisterredirect`,
+          failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/mypage?menu=mysubscription`,
+        })
+        // https://docs.tosspayments.com/reference/error-codes#결제창공통-sdk-에러
+        .catch(function (error) {
+          if (error.code === 'USER_CANCEL') {
+            // 결제 고객이 결제창을 닫았을 때 에러 처리
+          }
+        });
+    });
+  }
+
   const handleOrder = async () => {
     const paymentWidget = paymentWidgetRef.current;
 
@@ -74,6 +122,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
         successUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/tossredirect`,
         failUrl: `${process.env.REACT_APP_TOSS_REDIRECT_URI}/ordersheet`,
       });
+      showClappingHeendySwal('주문이 완료되었습니다.');
     } catch (error) {
       console.error(error);
     }
@@ -85,11 +134,28 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       memberId: member.id,
       productId: selectedItems[0].productId,
     })
-      .then(res => {
+      .then(() => {
+        showClappingHeendySwal('정기배송 신청이 완료되었습니다.');
         navigate(`/mypage?menu=mysubscription`);
       })
       .catch(error => {
-        alert('이미 구독 중');
+        showPlainSwal('이미 구독중입니다. ');
+        navigate('mypage?menu=mysubscription');
+      });
+  };
+
+  const handleCurOrder = async () => {
+    Api.post(`/api/order/curation`, {
+      startDate: new Date(),
+      memberId: member.id,
+    })
+      .then(() => {
+        showClappingHeendySwal('더펫박스 구독 신청이 완료되었습니다.');
+        navigate(`/mypage?menu=mysubscription`);
+      })
+      .catch(error => {
+        showPlainSwal('이미 구독중입니다. ');
+        navigate('/mypage?menu=mysubscription');
       });
   };
 
@@ -151,6 +217,31 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
 
       {productType === 'Sub' ? (
         <div>
+          {billingKey ? (
+            <CardContainer>
+              <p>{cardCompany}</p>
+              <p>
+                {cardNumber} {cardType}
+              </p>
+            </CardContainer>
+          ) : (
+            <CardContainer>
+              <PlusIcon />
+            </CardContainer>
+          )}
+          <ButtonContainer>
+            {billingKey ? (
+              <DetailButton className="monthly" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                다른 카드로 등록하기
+              </DetailButton>
+            ) : (
+              <DetailButton className="monthly" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                카드 새로 등록하기
+              </DetailButton>
+            )}
+          </ButtonContainer>
           <Agreement>
             <strong>
               매월 31일에는 결제가 자동으로 진행되며, 1일에는 원하시는 상품을
@@ -158,6 +249,43 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
             </strong>
           </Agreement>
           <OrderButton className="Sub" onClick={handleSubOrder}>
+            <strong>{price.toLocaleString()} 원 결제하기</strong>
+          </OrderButton>
+        </div>
+      ) : productType === 'Cur' ? (
+        <div>
+          {billingKey ? (
+            <CardContainer>
+              <p>{cardCompany}</p>
+              <p>
+                {cardNumber} {cardType}
+              </p>
+            </CardContainer>
+          ) : (
+            <CardContainer>
+              <PlusIcon />
+            </CardContainer>
+          )}
+          <ButtonContainer>
+            {billingKey ? (
+              <DetailButton className="monthly" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                다른 카드로 등록하기
+              </DetailButton>
+            ) : (
+              <DetailButton className="monthly" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                카드 새로 등록하기
+              </DetailButton>
+            )}
+          </ButtonContainer>
+          <Agreement>
+            <strong>
+              매월 31일에는 결제가 자동으로 진행되며, 1일에는 원하시는 상품을
+              배송받을 수 있습니다.
+            </strong>
+          </Agreement>
+          <OrderButton className="Sub" onClick={handleCurOrder}>
             <strong>{price.toLocaleString()} 원 결제하기</strong>
           </OrderButton>
         </div>

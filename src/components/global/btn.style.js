@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const GreyBtn = styled.button`
   background-color: #a4a4a4;
-  font-family: "HappinessSansBold";
+  font-family: 'HappinessSansBold';
   margin: 5px;
   display: inline-block;
   padding: 10px 20px;
@@ -19,11 +19,12 @@ export const GreyBtn = styled.button`
 `;
 
 export const GreenBtn = styled.button`
-  font-family: "HappinessSansBold";
+  font-family: 'HappinessSansBold';
   margin: 5px;
   display: inline-block;
   padding: 10px 20px;
-  color: #ffffff;
+  background-color: #087161;
+  color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -31,13 +32,13 @@ export const GreenBtn = styled.button`
   transition: background-color 0.3s, color 0.3s;
 
   :hover {
-    background-color: #087161;
+    background-color: #07564d;
   }
 `;
 
 export const CancelBtn = styled.button`
   /* background-color: #a4a4a4; */
-  font-family: "HappinessSansBold";
+  font-family: 'HappinessSansBold';
   margin: 4px 0px;
   display: inline-block;
   padding: 7px 10px;
