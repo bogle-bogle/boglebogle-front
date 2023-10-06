@@ -172,7 +172,10 @@ function ProductDetail() {
           confirmButtonText="카드 등록하러 가기"
           cancelButtonText="쇼핑 계속하기"
           onConfirm={() => navigate('/mypage?menu=mysubscription')}
-          onCancel={() => setRegularModalOpen(false)}
+          onCancel={() => {
+            setRegularModalOpen(false)
+            navigate('/shop')
+          }}
           trigger={regularModalOpen}
         />
       )}
