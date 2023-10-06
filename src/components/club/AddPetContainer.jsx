@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import bgheendy from '../../assets/club/bgheendy.png';
 
@@ -25,11 +25,14 @@ import { animalCode, breedCode, proteinCode, sizeCode } from '../../commonCode';
 import ImageUploadComponent from '../suggestion/ImageUploadComponent';
 import { toast } from 'react-toastify';
 import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
+import { memberAction } from '../../feature/member/member';
 import { showPlainHeendySwal } from '../global/showPlainHeendySwal';
 import { showPlainSwal } from '../global/showPlainSwal';
 
+
 function AddPetContainer() {
   const [, setWindowWidth] = useState(window.innerWidth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // 화면 크기가 변경될 때마다 windowWidth 상태 업데이트
@@ -150,6 +153,8 @@ function AddPetContainer() {
           'Content-Type': 'multipart/form-data',
         },
       });
+
+      dispatch(memberAction.addPet(response.data));
 
       showClappingHeendySwal('등록이 완료되었습니다.');
       navigate('/completeclubregister');

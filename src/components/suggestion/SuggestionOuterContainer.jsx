@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import * as Api from '../../api';
 import Modal from '../modal/Modal';
 import loadingVideo from '../../assets/card/loading.mp4';
-import loadingSound from '../../assets/card/loading_sound.mp3';
-import useSound from 'use-sound';
 import { toast } from 'react-toastify';
 import InputPetInfo from './InputPetInfo';
+import walkingheendy from '../../assets/custom/walkingheendy.gif';
 import {
   LoadingIcon,
   LoadingText,
@@ -16,16 +15,18 @@ import {
 } from './suggestion.style';
 import NoDataBox from '../global/NoDataBox';
 import { jwtCheck } from '../../utils/tokenCheck';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 function SuggestionOuterContainer() {
-  const [play, { stop }] = useSound(loadingSound);
   const [openModal, setOpenModal] = useState(false);
   const [petData, setPetData] = useState([]);
-
+  const swal = withReactContent(Swal);
   useEffect(() => {
     if (jwtCheck()) {
       return;
     }
+
     Api.get(`/api/pet`)
       .then(res => {
         if (res) {
@@ -47,29 +48,35 @@ function SuggestionOuterContainer() {
 
   const handleOpenModal = () => {
     setOpenModal(true);
-    play();
   };
 
   const handleModalClose = () => {
     setOpenModal(false);
-    stop();
   };
 
   return (
     <SuggestionContainer>
-      {openModal && (
+      {/* {openModal && (
         <Modal handleModalClose={handleModalClose}>
           <RoundedModal>
-            <RoundedVideo width="310" height="550" autoPlay loop muted>
-              <source src={loadingVideo} type="video/mp4" />
-            </RoundedVideo>
+            {swal.fire({
+              title: `분석중입니다!!`,
+              showCancelButton: true,
+              imageUrl: walkingheendy,
+              confirmButtonColor: '#499878',
+              cancelButtonColor: '#A4A4A4',
+              customClass: {
+                confirmButton: 'swal2-button',
+                cancelButton: 'swal2-button',
+              },
+            })}
             <LoadingText>
               <LoadingIcon />
               성분표를 분석중입니다. 잠시만 기다려주세요.
             </LoadingText>
           </RoundedModal>
         </Modal>
-      )}
+      )} */}
       {
         // petData가 비어있는 경우
         petData.length === 0 ? (

@@ -106,10 +106,18 @@ export const ProductPrice = styled.p`
 export const ProductSummary = styled.p`
   font-size: 14px;
   margin: 0;
-  display: flex;
+
   color: #515151;
   margin: 10px 0 0 0;
-  align-items: center;
+
+  text-align: start;
+
+  width: 100%;
+  height: 20px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   @media (max-width: 768px) {
     font-size: 12px;
@@ -195,6 +203,8 @@ export const FilterCategoryContainer = styled.div`
 
   border-top: 1px solid #808080;
   border-bottom: 1px solid #808080;
+
+  margin-bottom: 10px;
 `;
 
 export const FilterCategoryRow = styled.div`
@@ -238,16 +248,13 @@ export const CategoryElementContainer = styled.div`
 `;
 
 export const CategoryElement = styled.div`
-  /* width: 170px;
-  height: auto; */
-
-  flex: 0 0 12%;
+  flex: 0 0 13%;
 
   font-size: 20px;
   display: flex;
   align-items: center;
 
-  /* margin-top: 10px; */
+  margin-bottom: 10px;
 
   color: ${props => (props.isChecked ? '#2F9861' : '#585858')};
 
@@ -261,6 +268,39 @@ export const CategoryElement = styled.div`
   @media (max-width: 768px) {
     font-size: 12px;
   }
+`;
+
+export const DogListContainer = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+export const DogButton = styled.div`
+  width: 100px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  border: 1px solid green;
+
+  margin-left: 10px;
+  margin-bottom: 10px;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  background-color: ${props => props.isClicked && 'green'};
+  color: ${props => props.isClicked && 'white'};
 `;
 
 export const MiddleContainer = styled.div`

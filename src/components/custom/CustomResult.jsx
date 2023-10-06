@@ -11,6 +11,7 @@ import {
   RecommendProductListContainer,
   ResultCardContainer,
   ResultPagenationContainer,
+  SameProductText,
   SimilarityContainer,
   SimilarityPercentText,
   StickyContainer,
@@ -110,21 +111,6 @@ function CustomResult({
             <AnalyzeResultExplain>유사도 기반 추천 결과</AnalyzeResultExplain>
           </AnalyzeResultExplainContainer>
           <RecommendAnalyzeContainer>
-            <ResultPagenationContainer>
-              <MiddleContainer style={{ height: 30 }}>
-                <MiddlePageContainer></MiddlePageContainer>
-                <TotalCountText>{`${suggestionProduct.length}개`}</TotalCountText>
-                <MiddlePageContainer>
-                  <PageArrow>
-                    <AiOutlineLeft />
-                  </PageArrow>
-                  <PageState>{`1/4`}</PageState>
-                  <PageArrow>
-                    <AiOutlineRight />
-                  </PageArrow>
-                </MiddlePageContainer>
-              </MiddleContainer>
-            </ResultPagenationContainer>
             <RecommendProductListContainer>
               {suggestionProduct !== undefined &&
                 suggestionProduct.map((rp, idx) => (
@@ -135,6 +121,11 @@ function CustomResult({
                     }}
                     key={idx}
                   >
+                    <SameProductText
+                      match={rp.matchRate === 100 ? true : false}
+                    >
+                      지금 사료와 같아요!!
+                    </SameProductText>
                     <ProductCard product={rp}></ProductCard>
                     <SimilarityContainer percent={rp.matchRate}>
                       <ProgressBarContainer>
@@ -143,7 +134,9 @@ function CustomResult({
                           si={rp.matchRate}
                         ></ProgressBar>
                       </ProgressBarContainer>
-                      <SimilarityPercentText>성분유사도</SimilarityPercentText>
+                      <SimilarityPercentText percent={rp.matchRate}>
+                        성분유사도
+                      </SimilarityPercentText>
                       <SimilarityPercentText percent={rp.matchRate}>
                         {`${rp.matchRate}%`}
                       </SimilarityPercentText>
