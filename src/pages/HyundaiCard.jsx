@@ -55,8 +55,6 @@ import {
   ResultH2,
 } from '../components/hyundaicard/custom.style';
 import Cropper from 'react-cropper';
-import useSound from 'use-sound';
-import flipSound from '../assets/card/cardSlide3.mp3';
 import nonImg from '../assets/card/non_img.PNG';
 import * as Api from '../api.js';
 
@@ -101,7 +99,6 @@ function HyundaiCard() {
 
   const [openModal, setOpenModal] = useState(false);
   const [isCustom, setIsCustom] = useState(false);
-  const [play] = useSound(flipSound);
   const [reverse, setReverse] = useState(false);
   const [cardDesign, setCardDesign] = useState({
     front: pinkCardFront,
@@ -122,7 +119,6 @@ function HyundaiCard() {
 
   const handleReverse = () => {
     setReverse(prev => !prev);
-    play();
   };
 
   const handleCardDesign = e => {
