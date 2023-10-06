@@ -134,9 +134,9 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       memberId: member.id,
       productId: selectedItems[0].productId,
     })
-      .then(res => {
+      .then(() => {
         showClappingHeendySwal('정기배송 신청이 완료되었습니다.');
-        navigate(`mypage?menu=mysubscription`);
+        navigate(`/mypage?menu=mysubscription`);
       })
       .catch(error => {
         showPlainSwal('이미 구독중입니다. ');
@@ -149,9 +149,9 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
       startDate: new Date(),
       memberId: member.id,
     })
-      .then(res => {
+      .then(() => {
         showClappingHeendySwal('더펫박스 구독 신청이 완료되었습니다.');
-        navigate(`mypage?menu=mysubscription`);
+        navigate(`/mypage?menu=mysubscription`);
       })
       .catch(error => {
         showPlainSwal('이미 구독중입니다. ');
