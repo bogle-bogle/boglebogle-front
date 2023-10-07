@@ -3,7 +3,8 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Header from '../components/header/Header2';
 import { Helmet } from 'react-helmet-async';
 import GlobalStyle from '../styles/GlobalStyle';
-import Footer from '../components/footer/footer';
+import floatingSub from '../assets/floating/floating_sub.png';
+import floatingPg from '../assets/floating/floating_playground.png';
 import floatingAdvAi from '../assets/floating/ai-suggestion.png';
 import floatingTpb from '../assets/floating/thepetbox.png';
 import RouteChangeTracker from '../RouteChangeTracker';
@@ -24,7 +25,6 @@ function MainLayout() {
           <div className="outlet">
             <Outlet />
           </div>
-          {/* <Footer></Footer> */}
         </div>
         <div className="floating">
           <div
