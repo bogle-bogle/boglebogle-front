@@ -216,7 +216,19 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
           ))}
         </tbody>
       </OrderItemsTable>
-
+      <OrderItemsTable>
+        <thead>
+          <h2>정기결제 카드 등록 </h2>
+          <tr BorderTop>
+            <th>카드 등록</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+      </OrderItemsTable>
       {productType === 'Sub' ? (
         <div>
           {billingKey ? (
@@ -366,7 +378,6 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
             </div>
           </DiscountContainer>
           <div id="payment-widget" />
-
           <Agreement>
             <strong>
               주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에
