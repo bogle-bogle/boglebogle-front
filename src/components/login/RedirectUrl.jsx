@@ -19,7 +19,9 @@ function RedirectUrl() {
     const code = params.get('code');
     const kakaoLogin = async () => {
       const res = await Api.get(`/api/member/auth/login?code=${code}`);
+
       const { data } = res;
+
       localStorage.setItem('userToken', data.member.jwt.accessToken);
       dispatch(memberAction.setMemeber(data));
       dispatch(loginAction.setIsLogin(false));
