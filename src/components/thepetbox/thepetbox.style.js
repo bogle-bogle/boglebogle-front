@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MonthBox = styled.div`
   width: 100%;
@@ -208,7 +208,7 @@ export const ThePetBoxContents = styled.div`
 
   .thepetbox-title {
     color: #757575;
-    margin-top: 50px;
+    margin-top: 5px;
     margin-bottom: 2px;
     text-align: center;
     font-size: 32px;

@@ -37,7 +37,10 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
       if (petInfo !== null) {
         return (
           <>
-            <StyledSpanGreen>{petInfo.name}</StyledSpanGreen>와 비슷한 나이대의{' '}
+            <StyledSpanGreen>{petInfo.name}</StyledSpanGreen>와 비슷한 나이대
+            <StyledSpanGreen>
+              ({productSub[petInfo.ageCode]})
+            </StyledSpanGreen>의{' '}
             <StyledSpanGreen>{breedCode[petInfo.breedCode]}</StyledSpanGreen>
             들은 이런 상품들을 많이 구매했어요.
           </>
@@ -65,10 +68,6 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
   };
 
   useEffect(() => {
-    // if (localStorage.getItem("userToken") === null) {
-    //   return;
-    // }
-
     Api.get(`/api/recommendation/${type}/${param}`).then(res => {
       setFoodProductList(res.data.products);
       setPetInfo(() => res.data.petInfo);
@@ -78,16 +77,7 @@ function ProductRecommendation({ type, param, handleLog, handleClickRef }) {
   return (
     <RcContainer>
       <RcMiniIcon src={miniIconImg} />
-      <RcTitle>
-        {changeTitle(type)}
-        {/* <hr
-          style={{
-            color: 'lightgray',
-            marginTop: '15px',
-            marginBottom: '25px',
-          }}
-        /> */}
-      </RcTitle>
+      <RcTitle>{changeTitle(type)}</RcTitle>
       <ProductContainer>
         {foodProductList !== undefined &&
           foodProductList.map((product, idx) => (

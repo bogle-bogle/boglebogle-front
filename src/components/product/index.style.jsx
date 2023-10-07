@@ -32,7 +32,7 @@ export const ProductWarningMark = styled.div`
   width: 100%;
   height: auto;
 
-  background-color: #ffdada;
+  background-color: #ffeeee;
 
   display: flex;
   align-items: center;
@@ -41,12 +41,12 @@ export const ProductWarningMark = styled.div`
   margin-bottom: 2%;
 
   font-size: 13px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 `;
 
 export const WraningText = styled.p`
-  color: darkred;
+  color: #780000;
   height: auto;
 
   margin: 0;
@@ -150,17 +150,17 @@ export const PageNumber = styled.div`
 export const CategoryContainer = styled.div`
   width: 100%;
   height: auto;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 10px 0 5px 0;
 `;
 
 export const CategoryP = styled.p`
   width: auto;
-  height: auto;
+  height: fit-content;
+  margin-bottom: -10px;
+  margin-left: 20px;
   overflow: auto;
   font-family: 'HappinessSansTitle';
   font-size: 15px;
@@ -176,7 +176,6 @@ export const InitialButton = styled.button`
   font-size: 12px;
   display: flex;
   align-items: center;
-  justify-content: center;
   transition: 0.2s;
   transform: scale(1);
 
