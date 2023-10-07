@@ -391,7 +391,6 @@ function InputPetInfo(props) {
 
             <br />
             <br />
-            <br />
 
             {/* STEP 2 */}
             <div className="step-box" id="step2">
@@ -469,7 +468,6 @@ function InputPetInfo(props) {
               </div>
             </div>
 
-            <br />
             <br />
             <br />
 
