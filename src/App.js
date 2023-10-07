@@ -28,7 +28,6 @@ const TossCardRegisterRedirect = lazy(() =>
   import('./components/toss/TossCardRegisterRedirect'),
 );
 const RedirectUrl = lazy(() => import('./components/login/RedirectUrl'));
-// const Footer = lazy(() => import('./components/footer/Footer'));
 import Footer from './components/footer/Footer';
 
 function App() {
