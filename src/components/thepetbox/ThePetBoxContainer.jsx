@@ -61,22 +61,21 @@ function ThePetBoxContainer() {
       '매달 받아보는 더펫 박스! \n\n주문서 페이지로 이동합니다.',
     );
     const productType = 'Cur';
-    navigate('/ordersheet', { state: { selectedItems, totalAmount, productType } });
+    navigate('/ordersheet', {
+      state: { selectedItems, totalAmount, productType },
+    });
   }
 
   return (
     <ThePetBoxContents>
-
       <div className="thepetbox-title">
-        <br></br>
-        <div>
-        현대백화점에 들어오는 신상품들,
+        <br />
+        <div>현대백화점에 들어오는 신상품들,</div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          누군가 대신 <div className="thpet-color">세트로 구성</div>해서
         </div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-        누군가 대신 <div className="thpet-color">세트로 구성</div>해서
-        </div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-        <div className="thpet-color">문앞까지 배송</div>해주면 좋을텐데···
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="thpet-color">문앞까지 배송</div>해주면 좋을텐데···
         </div>
       </div>
 
@@ -85,9 +84,20 @@ function ThePetBoxContainer() {
           매달, 나의 반려동물에 딱 맞춰 고른 키트를 받아보세요!
         </div>
         <div className="sale-title-2">더펫박스 정기구독</div>
-        <br/>
+        <br />
         <GreyBtn onClick={createCurationOrder}>구독하러 가기</GreyBtn>
       </div>
+
+      <div className="more-box-desc-1">
+        이번 달 더펫박스에는 무엇이 들어있을까?
+      </div>
+      <div className="more-box-desc-2">
+        이번 달 <div className="thpet-color">더펫박스</div> 구경하기
+      </div>
+      <MonthlyBox itemList={curationList.length === 0 ? [] : itemList} />
+
+      <br />
+      <br />
 
       {/* <MainTitle>
       4주에 한번씩 <div className='thpet-color'>새로운 상품들을</div>집앞까지 배송받아보세요.
@@ -96,7 +106,6 @@ function ThePetBoxContainer() {
     
     <br/> */}
 
-      <MonthlyBox itemList={curationList.length === 0 ? [] : itemList} />
       <div className="more-box-desc-1">
         매달 새로운 즐거움, 다양한 구성으로!
       </div>
@@ -104,10 +113,18 @@ function ThePetBoxContainer() {
         이전 <div className="thpet-color">더펫박스</div> 구경하기
       </div>
 
+      <MonthlyBox
+        itemList={
+          curationList.length === 0
+            ? []
+            : Array.prototype.slice.call(itemList, 1)
+        }
+      />
+
       <ThumbnailList className="sub-container">
         {curationList.length > 0 && (
           <Slider {...settings}>
-            {curationList.map((curation, index) => (
+            {curationList.slice(1).map((curation, index) => (
               <div key={curation.id} className="curation-box">
                 <div className="img-box">
                   <img

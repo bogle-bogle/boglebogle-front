@@ -41,6 +41,8 @@ import { useSelector } from 'react-redux';
 import ProductRecommendation from '../recommendation/ProductRecommendation';
 import { useRef } from 'react';
 import { eventLog } from '../../utils/event_log';
+import { HeendyRecommendation } from '../recommendation/index.style';
+import RcHeendy from '../../assets/recommendation/오옹오.png';
 
 function NewProductList() {
   const member = useSelector(state => state.member);
@@ -215,14 +217,24 @@ function NewProductList() {
   const createProductRecommendation = () => {
     if (curPet) {
       return (
-        <>
+        <HeendyRecommendation>
           <ProductRecommendation
-            type={'simple'}
+            type={'detail'}
             param={curPet.id}
             handleLog={handleLog}
             handleClickRef={handleClickRef}
           />
-        </>
+          <div>
+            <img
+              src={RcHeendy}
+              style={{
+                width: '190px',
+                marginBottom: '0px',
+                paddingBottom: '0px',
+              }}
+            />
+          </div>
+        </HeendyRecommendation>
       );
     }
   };
@@ -251,12 +263,16 @@ function NewProductList() {
   return (
     <ShopContainer>
       <PageTitle>쇼핑</PageTitle>
+
+      <CategoryP>
+        {`쇼핑`}
+        {mainCategory !== '' && `  >  ${shopCategory[mainCategory].name}`}
+      </CategoryP>
+
       {createProductRecommendation()}
+
       <CategoryContainer>
-        <CategoryP>
-          {`쇼핑`}
-          {mainCategory !== '' && `  >  ${shopCategory[mainCategory].name}`}
-        </CategoryP>
+        <CategoryP></CategoryP>
         <InitialButton onClick={initFilter}>
           <RxReset style={{ marginRight: '3px', color: 'white' }} />
           필터 초기화
@@ -284,17 +300,23 @@ function NewProductList() {
             <FilterCategoryTitle>소분류</FilterCategoryTitle>
             <CategoryElementContainer>
               {Object.entries(shopCategory[mainCategory].subCategory).map(
-                ([key, value]) => (
-                  <CategoryFilterButton
-                    className="filter"
-                    key={key}
-                    id={key}
-                    isChecked={subFilterChecked[key]}
-                    handleFilter={() => handleSubChecked(key)}
-                  >
-                    {value}
-                  </CategoryFilterButton>
-                ),
+                ([key, value]) => {
+                  if (key === '44') {
+                    return null;
+                  }
+
+                  return (
+                    <CategoryFilterButton
+                      className="filter"
+                      key={key}
+                      id={key}
+                      isChecked={subFilterChecked[key]}
+                      handleFilter={() => handleSubChecked(key)}
+                    >
+                      {value}
+                    </CategoryFilterButton>
+                  );
+                },
               )}
             </CategoryElementContainer>
           </FilterCategoryRow>
