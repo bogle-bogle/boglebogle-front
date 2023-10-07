@@ -103,9 +103,10 @@ export const shopCategory = {
   FD: {
     name: '식품',
     subCategory: {
-      43: '전연령(어덜트)',
+      43: '전연령',
       41: '퍼피',
       42: '시니어',
+      44: '어덜트',
     },
   },
   TO: {
