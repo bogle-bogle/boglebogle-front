@@ -12,8 +12,13 @@ import {
   MypageSubtitle,
   DetailButton,
   ButtonContainer,
-  CardContainer,
+  CardContainerYes,
+  CardContainerNo,
   PlusIcon,
+  MyCardsContainer,
+  RightCard,
+  LeftCard,
+  CardByHyundai,
 } from './mypage.style';
 import * as Api from '../../api.js';
 import { toast } from 'react-toastify';
@@ -21,6 +26,9 @@ import NoDataBox from '../global/NoDataBox';
 import { BsCreditCard } from 'react-icons/bs';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import { useSelector } from 'react-redux';
+import hyudaiCardImg from '../../assets/card/card_by_hyundai.png';
+import shinhanImg from '../../assets/card/shinhan.png';
+import { useNavigate } from 'react-router-dom';
 
 function MySubscriptionContainer() {
   const [curations, setCurations] = useState([]);
@@ -30,6 +38,7 @@ function MySubscriptionContainer() {
   const [cardCompany, setCardCompany] = useState(null);
   const [cardNumber, setCardNumber] = useState(null);
   const [cardType, setCardType] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     Api.get(`/api/order/subscription`)
@@ -82,34 +91,70 @@ function MySubscriptionContainer() {
     });
   }
 
+  const customCard = () => {
+    navigate('/card');
+  };
+
   return (
     <>
-      <MypageSubtitle>정기결제 카드 관리</MypageSubtitle>
-      {billingKey ? (
-        <CardContainer>
-          <p>{cardCompany}</p>
-          <p>
-            {cardNumber} {cardType}
-          </p>
-        </CardContainer>
-      ) : (
-        <CardContainer>
-          <PlusIcon />
-        </CardContainer>
-      )}
-      <ButtonContainer>
-        {billingKey ? (
-          <DetailButton className="monthly" onClick={registerCard}>
-            <BsCreditCard className="btn-icon" />
-            다른 카드로 등록하기
-          </DetailButton>
-        ) : (
-          <DetailButton className="monthly" onClick={registerCard}>
-            <BsCreditCard className="btn-icon" />
-            카드 새로 등록하기
-          </DetailButton>
-        )}
-      </ButtonContainer>
+      <MyCardsContainer>
+        <LeftCard>
+          <MypageSubtitle>정기결제 카드 관리</MypageSubtitle>
+          {billingKey ? (
+            <CardContainerYes>
+              {cardCompany === '신한' ? (
+                <>
+                  <img
+                    src={shinhanImg}
+                    alt="신한"
+                    style={{
+                      width: '20%',
+                      marginLeft: '80%',
+                   
+                    }}
+                  />
+                  <p>{cardCompany}</p>
+                  <p>
+                    {cardNumber} {cardType}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>{cardCompany}</p>
+                  <p>
+                    {cardNumber} {cardType}
+                  </p>
+                </>
+              )}
+            </CardContainerYes>
+          ) : (
+            <CardContainerNo>
+              <PlusIcon />
+            </CardContainerNo>
+          )}
+          <ButtonContainer>
+            {billingKey ? (
+              <DetailButton className="new" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                다른 카드로 등록하기
+              </DetailButton>
+            ) : (
+              <DetailButton className="new" onClick={registerCard}>
+                <BsCreditCard className="btn-icon" />
+                카드 새로 등록하기
+              </DetailButton>
+            )}
+          </ButtonContainer>
+        </LeftCard>
+        <RightCard>
+          <MypageSubtitle>현대백화점카드 신청하러가기</MypageSubtitle>
+          <CardByHyundai
+            src={hyudaiCardImg}
+            alt="현대백화점카드 이미지"
+            onClick={customCard}
+          />
+        </RightCard>
+      </MyCardsContainer>
 
       <MypageSubtitle>나의 구독 목록</MypageSubtitle>
 

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Modal from '../modal/Modal';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import CouponImg from '../../assets/club/clubcoupon.png';
+import shinhanImg from '../../assets/card/shinhan.png';
 import {
   OrderItemsTable,
   OrderButton,
@@ -23,7 +24,8 @@ import {
 import {
   DetailButton,
   ButtonContainer,
-  CardContainer,
+  CardContainerYes,
+  CardContainerNo,
   PlusIcon,
 } from '../mypage/mypage.style';
 import * as Api from '../../api';
@@ -214,20 +216,52 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
           ))}
         </tbody>
       </OrderItemsTable>
-
+      <OrderItemsTable>
+        <thead>
+          <h2>정기결제 카드 등록 </h2>
+          <tr BorderTop>
+            <th>카드 등록</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+      </OrderItemsTable>
       {productType === 'Sub' ? (
         <div>
           {billingKey ? (
-            <CardContainer>
-              <p>{cardCompany}</p>
-              <p>
-                {cardNumber} {cardType}
-              </p>
-            </CardContainer>
+            <CardContainerYes>
+              {cardCompany === '신한' ? (
+                <>
+                  <img
+                    src={shinhanImg}
+                    alt="신한"
+                    style={{
+                      width: '20%',
+                      marginLeft: '80%',
+                      marginTop: '8%',
+                    }}
+                  />
+                  <p>{cardCompany}</p>
+                  <p>
+                    {cardNumber} {cardType}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>{cardCompany}</p>
+                  <p>
+                    {cardNumber} {cardType}
+                  </p>
+                </>
+              )}
+            </CardContainerYes>
           ) : (
-            <CardContainer>
+            <CardContainerNo>
               <PlusIcon />
-            </CardContainer>
+            </CardContainerNo>
           )}
           <ButtonContainer>
             {billingKey ? (
@@ -344,7 +378,6 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
             </div>
           </DiscountContainer>
           <div id="payment-widget" />
-
           <Agreement>
             <strong>
               주문하실 상품의 상품명, 가격, 배송정보를 확인하였으며, 이에

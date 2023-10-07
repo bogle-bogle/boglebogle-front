@@ -152,6 +152,24 @@ export const MyInfoBoxCnt = styled.div`
   font-weight: bolder;
 `;
 
+export const MyCardsContainer = styled.div`
+  display: flex;
+`;
+
+export const RightCard = styled.div`
+  flex: 1;
+`;
+
+export const LeftCard = styled.div`
+  flex: 1;
+`;
+
+export const CardByHyundai = styled.img`
+  width: 400px;
+  margin-top: -22px;
+  cursor: pointer;
+`;
+
 export const MypageCard = styled.div`
   display: flex;
   justify-content: start;
@@ -212,12 +230,13 @@ export const MypageSubSectionTitle = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  width: 100%;
 
   align-items: center;
   justify-content: space-between;
 
-  .monthly {
+  .new {
     border: 0px solid transparent;
     background-color: #b9a37d;
     color: white;
@@ -240,7 +259,7 @@ export const DetailButton = styled.button`
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px;
-  width: 28%;
+  width: 84%;
 
   border-radius: 10px;
   padding: 15px;
@@ -252,19 +271,42 @@ export const DetailButton = styled.button`
   }
 `;
 
-export const CardContainer = styled.div`
+export const CardContainerNo = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px 10px;
-  width: 25%;
-  height: 10%;
+  width: 350px;
+  margin-top: 22px;
+  height: 195px;
 
-  border: 1px solid #b9a37d;
-  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+  background-color: #fff;
   color: #b9a37d;
+  border-radius: 10px;
+  padding: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin: 0 8px;
+  }
+`;
+
+export const CardContainerYes = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'HappinessSansTitle';
+  font-size: 16px;
+  margin: 0 10px 10px;
+  width: 350px;
+  margin-top: 22px;
+  height: 195px;
+
+  background-color: #3368fa;
+  color: #fff;
   border-radius: 10px;
   padding: 15px;
 

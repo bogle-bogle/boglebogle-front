@@ -6,8 +6,6 @@ import GlobalStyle from '../styles/GlobalStyle';
 import Footer from '../components/footer/footer';
 import floatingAdvAi from '../assets/floating/ai-suggestion.png';
 import floatingTpb from '../assets/floating/thepetbox.png';
-// import floatingSub from '../assets/floating/ai-suggestion.png';
-// import floatingPg from '../assets/floating/floating_playground.png';
 import RouteChangeTracker from '../RouteChangeTracker';
 
 import goodHeendy from '../assets/main/goodheendy.png';
@@ -26,7 +24,7 @@ function MainLayout() {
           <div className="outlet">
             <Outlet />
           </div>
-          <Footer></Footer>
+          {/* <Footer></Footer> */}
         </div>
         <div className="floating">
           <div

@@ -117,7 +117,7 @@ function MbtiGame() {
                   src={
                     localStorage.getItem('userToken') &&
                     member.pet.length !== 0 &&
-                    member.pet[0]
+                    member.pet[0].petImgUrl
                   }
                 ></MbtiResultDogImg>
                 <SelectDogImgContainer
