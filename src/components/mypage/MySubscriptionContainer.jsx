@@ -43,15 +43,11 @@ function MySubscriptionContainer() {
   useEffect(() => {
     Api.get(`/api/order/subscription`)
       .then(res => {
-        console.log(res.data);
-
         if (res.data.curationY) {
           setCurations(res.data.curationY);
-          console.log(curations);
         }
         if (res.data.curationN) {
           setRegularDeliveries(res.data.curationN);
-          console.log(regularDeliveries);
         }
       })
       .catch(error => {
@@ -110,7 +106,6 @@ function MySubscriptionContainer() {
                     style={{
                       width: '20%',
                       marginLeft: '80%',
-                   
                     }}
                   />
                   <p>{cardCompany}</p>

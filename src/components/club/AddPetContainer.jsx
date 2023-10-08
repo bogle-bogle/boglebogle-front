@@ -29,7 +29,6 @@ import { memberAction } from '../../feature/member/member';
 import { showPlainHeendySwal } from '../global/showPlainHeendySwal';
 import { showPlainSwal } from '../global/showPlainSwal';
 
-
 function AddPetContainer() {
   const [, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
@@ -154,7 +153,8 @@ function AddPetContainer() {
         },
       });
 
-      dispatch(memberAction.addPet(response.data));
+      const memberRes = await Api.get(`/api/member/info/${member.id}`);
+      dispatch(memberAction.setMemeber(memberRes.data));
 
       showClappingHeendySwal('등록이 완료되었습니다.');
       navigate('/completeclubregister');
