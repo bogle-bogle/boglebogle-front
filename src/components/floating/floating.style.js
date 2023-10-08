@@ -1,23 +1,6 @@
-.appContainer {
-  width: 100%;
-  height: auto;
-  position: relative;
+import styled from 'styled-components';
 
-
-}
-
-.contentsContainer {
-  margin-top: 1rem;
-  margin-left: 15vw;
-  margin-right: 15vw;
-  height: 100%;
-
-  @media (max-width: 1100px) {
-    margin: 0;
-  }
-}
-
-.floating {
+export const FloatingContainer = styled.div`
   width: 200px;
   height: 400px;
 
@@ -28,14 +11,14 @@
 
   position: absolute;
   right: 0;
-  top: 5px;
-
+  top: ${props => `${props.x}px`};
+  transition: all 1s;
   @media (max-width: 1100px) {
     display: none;
   }
-}
+`;
 
-.floatingImgCard {
+export const FloatingImgCard = styled.div`
   width: 200px;
   height: 200px;
   margin: 0;
@@ -49,14 +32,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+`;
 
-.floatingImg {
+export const FloatingImg = styled.img`
   width: 220px;
   object-fit: cover;
-}
-
-.floatingText{
-  font-size: 20px;
-  font-weight: bold;
-}
+`;

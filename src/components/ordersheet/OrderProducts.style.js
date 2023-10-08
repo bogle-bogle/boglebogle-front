@@ -99,6 +99,7 @@ export const DiscountContainer = styled.div`
   }
 `;
 
+
 export const InfoBox = styled.div`
   background-color: #eeeeee;
   padding: 10px;

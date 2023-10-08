@@ -1,17 +1,34 @@
-import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/header/Header2';
 import { Helmet } from 'react-helmet-async';
 import GlobalStyle from '../styles/GlobalStyle';
-import floatingSub from '../assets/floating/floating_sub.png';
-import floatingPg from '../assets/floating/floating_playground.png';
-import floatingAdvAi from '../assets/floating/ai-suggestion.png';
-import floatingTpb from '../assets/floating/thepetbox.png';
 import RouteChangeTracker from '../RouteChangeTracker';
 
-import goodHeendy from '../assets/main/goodheendy.png';
+import { useEffect } from 'react';
+import { lazy } from 'react';
+const Floating = lazy(() => import('../components/floating/Floating'));
+
 function MainLayout() {
-  const navigate = useNavigate();
+  const location = useLocation();
+  const [curPath, setCurPath] = useState('/');
+
+  const [position, setPosition] = useState(0);
+  function onScroll() {
+    setPosition(window.scrollY);
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+  useEffect(() => {
+    setCurPath(() => {
+      return location.pathname;
+    });
+  }, [location]);
+
   RouteChangeTracker();
   return (
     <>
@@ -26,30 +43,7 @@ function MainLayout() {
             <Outlet />
           </div>
         </div>
-        <div className="floating">
-          <div
-            className="floatingImgCard"
-            onClick={() => navigate('/suggestion')}
-          >
-            <img className="floatingImg" src={floatingAdvAi} alt="" />
-          </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div
-            className="floatingImgCard"
-            onClick={() => navigate('/thepetbox')}
-          >
-            <img className="floatingImg" src={floatingTpb} alt="" />
-          </div>
-        </div>
+        {curPath !== '/' && <Floating x={position} />}
       </div>
     </>
   );
