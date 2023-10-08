@@ -220,10 +220,9 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
 
       {productType === 'Sub' ? (
         <div>
-          <OrderItemsTable>
+          <CardTable>
             <thead>
-              <h2>정기결제 카드 등록 </h2>
-
+              <h2>정기결제 카드 설정 </h2>
               <tr BorderTop>
                 <th>카드 등록</th>
               </tr>
@@ -234,10 +233,29 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
                   <div>
                     {billingKey ? (
                       <CardContainerYes>
-                        <p>{cardCompany}</p>
-                        <p>
-                          {cardNumber} {cardType}
-                        </p>
+                        {cardCompany === '신한' ? (
+                          <>
+                            <img
+                              src={shinhanImg}
+                              alt="신한"
+                              style={{
+                                width: '20%',
+                                marginLeft: '80%',
+                              }}
+                            />
+                            <p>{cardCompany}</p>
+                            <p>
+                              {cardNumber} {cardType}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p>{cardCompany}</p>
+                            <p>
+                              {cardNumber} {cardType}
+                            </p>
+                          </>
+                        )}
                       </CardContainerYes>
                     ) : (
                       <CardContainerNo>
@@ -267,7 +285,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
                 </td>
               </tr>
             </tbody>
-          </OrderItemsTable>
+          </CardTable>
 
           <Agreement>
             <strong>
@@ -293,14 +311,33 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
                 <td>
                   <div>
                     {billingKey ? (
-                      <CardContainerYes onClick={registerCard}>
-                        <p>{cardCompany}</p>
-                        <p>
-                          {cardNumber} {cardType}
-                        </p>
+                      <CardContainerYes>
+                        {cardCompany === '신한' ? (
+                          <>
+                            <img
+                              src={shinhanImg}
+                              alt="신한"
+                              style={{
+                                width: '20%',
+                                marginLeft: '80%',
+                              }}
+                            />
+                            <p>{cardCompany}</p>
+                            <p>
+                              {cardNumber} {cardType}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p>{cardCompany}</p>
+                            <p>
+                              {cardNumber} {cardType}
+                            </p>
+                          </>
+                        )}
                       </CardContainerYes>
                     ) : (
-                      <CardContainerNo onClick={registerCard}>
+                      <CardContainerNo>
                         <PlusIcon />
                       </CardContainerNo>
                     )}
