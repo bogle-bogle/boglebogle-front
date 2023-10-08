@@ -257,7 +257,10 @@ function NewProductList() {
             isClicked={curPet.id === p.id}
             onClick={() => {
               setCurPet(p);
-              showOnlyMessageSwal(`${p.name}의 맞춤 추천으로 전환합니다.`);
+              showOnlyMessageSwal(
+                `${p.name}의 맞춤 추천으로 전환합니다.`,
+                `${p.petImgUrl}`,
+              );
             }}
           >
             <DogImg src={p.petImgUrl} />

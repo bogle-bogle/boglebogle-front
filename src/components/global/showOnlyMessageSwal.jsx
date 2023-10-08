@@ -1,16 +1,18 @@
 import swal from 'sweetalert2';
-import clappingHeendy from '../../assets/custom/clappingheendy.gif';
 
-export const showOnlyMessageSwal = title => {
+export const showOnlyMessageSwal = (title, img) => {
   const isMobile = window.innerWidth <= 768;
 
   const swalOptions = {
     title: title,
-    imageUrl: clappingHeendy,
+    imageUrl: img,
+    imageWidth: '100px', // Adjust image width as needed
+    imageHeight: '100px', // Adjust image height as needed
+    imageAlt: 'Image', // Alt text for the image
     showCancelButton: false,
     showConfirmButton: false,
     customClass: {
-      popup: isMobile ? 'swal-mobile' : '',
+      popup: `${isMobile ? 'swal-mobile' : ''}`,
     },
   };
 
@@ -19,6 +21,13 @@ export const showOnlyMessageSwal = title => {
   }
 
   const swalInstance = swal.fire(swalOptions);
+
+  // Add inline styles for image
+  const imageElement = document.querySelector('.swal-image');
+  if (imageElement) {
+    imageElement.style.borderRadius = '50%'; // Apply border-radius: 50%
+    imageElement.style.objectFit = 'cover'; // Apply object-fit: cover
+  }
 
   setTimeout(() => {
     swalInstance.close();

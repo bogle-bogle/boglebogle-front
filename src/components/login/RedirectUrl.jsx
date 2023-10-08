@@ -11,6 +11,7 @@ import ClubAdvImg from '../../assets/club/join_club_adv_narrow.png';
 import { LoginAdvImg } from './login.style';
 import { toast } from 'react-toastify';
 import { showOnlyMessageSwal } from '../global/showOnlyMessageSwal';
+import clappingHeendy from '../../assets/custom/clappingheendy.gif';
 
 function RedirectUrl() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function RedirectUrl() {
     const kakaoLogin = async () => {
       await Api.get(`/api/member/auth/login?code=${code}`)
         .then(res => {
-          showOnlyMessageSwal('로그인되었습니다.');
+          showOnlyMessageSwal('로그인되었습니다.', clappingHeendy);
           const { data } = res;
           localStorage.setItem('userToken', data.member.jwt.accessToken);
           dispatch(memberAction.setMemeber(data));
