@@ -28,7 +28,7 @@ function Review({ handleModalOpen, productId }) {
     <ReviewContainer>
       <ReviewBanner>
         <FaDog style={{ fontSize: '25px' }}></FaDog>
-        <p>다른 강아지 친구들은 이렇게 가지고 놀았어요!</p>
+        <p>다른 강아지 친구들은 이렇게 사용했대요!</p>
       </ReviewBanner>
       <div>
         <ReviewCardList className="review-slick-container">
