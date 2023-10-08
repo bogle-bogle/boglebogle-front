@@ -5,6 +5,7 @@ import {
   CategoryElementContainer,
   CategoryP,
   DogButton,
+  DogImg,
   DogListContainer,
   FilterCategoryContainer,
   FilterCategoryRow,
@@ -253,6 +254,7 @@ function NewProductList() {
               setCurPet(p);
             }}
           >
+            <DogImg src={p.petImgUrl} />
             {p.name}
           </DogButton>
         ))}

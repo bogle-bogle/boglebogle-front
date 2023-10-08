@@ -282,8 +282,8 @@ export const DogListContainer = styled.div`
 `;
 
 export const DogButton = styled.div`
-  width: 100px;
-  height: 40px;
+  width: fit-content;
+  height: 50px;
 
   display: flex;
   justify-content: center;
@@ -296,6 +296,7 @@ export const DogButton = styled.div`
 
   margin-left: 10px;
   margin-bottom: 10px;
+  padding: 0px 10px;
 
   border-radius: 20px;
 
@@ -303,6 +304,14 @@ export const DogButton = styled.div`
 
   background-color: ${props => props.isClicked && 'green'};
   color: ${props => props.isClicked && 'white'};
+`;
+
+export const DogImg = styled.img`
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
 `;
 
 export const MiddleContainer = styled.div`
