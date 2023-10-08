@@ -9,6 +9,7 @@ export const OrderItemsTable = styled.table`
 
   th,
   td {
+    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: none; // 세로 테두리를 없앰
     border-right: none; // 세로 테두리를 없앰
@@ -36,8 +37,42 @@ export const OrderItemsTable = styled.table`
   }
 `;
 
+export const CardTable = styled.table`
+  margin: auto;
+  margin-top: 50px;
+  width: 100%; // 테이블 전체 너비를 부모 요소에 맞춤
+  border-collapse: collapse; // 셀 사이의 간격을 없앰
+  margin-bottom: 5%;
+
+  th,
+  td {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: none; // 세로 테두리를 없앰
+    border-right: none; // 세로 테두리를 없앰
+    padding: 8px; // 셀 안쪽 패딩 적용
+    text-align: center; // 텍스트 정렬 방향
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 14px;
+    align-items: center;
+  }
+
+  th {
+    background-color: #f6f6f6;
+  }
+
+  tbody tr td:first-child {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
 export const OrderButton = styled.div`
-  background-color: ${props => props.className === 'Sub' ? '#b9a37d' : '#0a9882'};
+  background-color: ${props =>
+    props.className === 'Sub' ? '#b9a37d' : '#0a9882'};
   color: #fff;
   text-align: center;
   padding: 15px 15px;
@@ -45,7 +80,8 @@ export const OrderButton = styled.div`
   width: 30%;
   margin: auto;
   &:hover {
-    background-color: ${props => props.className === 'Sub' ? '#70634b' : '#076355'};
+    background-color: ${props =>
+      props.className === 'Sub' ? '#70634b' : '#076355'};
   }
 `;
 

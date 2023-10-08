@@ -59,7 +59,7 @@ export const DescInfo = styled.ul`
   list-style: none;
 
   li {
-    font-size: 13px;
+    font-size: 13vm;
     color: #999999;
   }
 `;
@@ -69,7 +69,7 @@ export const CopyrightInfo = styled.ul`
   list-style: none;
 
   li {
-    font-size: 13px;
+    font-size: 13vm;
     color: #999999;
   }
 `;
