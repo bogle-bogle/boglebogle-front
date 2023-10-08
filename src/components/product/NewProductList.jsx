@@ -180,11 +180,18 @@ function NewProductList() {
 
     let allergyName = '';
     if (warnFlag && allergiesList.length > 0) {
-      for (let i = 0; i < allergiesList.length; i++) {
-        if (product.ingredients.includes(proteinCode[allergiesList[i]])) {
-          allergyFlag = true;
-          allergyName = proteinCode[allergiesList[i]];
-          break;
+      if (allergiesList.includes(product.proteinCode)) {
+        allergyName = proteinCode[product.proteinCode];
+        allergyFlag = true;
+      }
+
+      if (!allergyFlag) {
+        for (let i = 0; i < allergiesList.length; i++) {
+          if (product.ingredients.includes(proteinCode[allergiesList[i]])) {
+            allergyFlag = true;
+            allergyName = proteinCode[allergiesList[i]];
+            break;
+          }
         }
       }
     }
@@ -361,11 +368,16 @@ function NewProductList() {
       </MiddleContainer>
       <ProductContainer>
         {productList !== undefined &&
+          productList.length !== 0 &&
           productList.map((product, idx) => createProductCard(product, idx))}
         {productList.length < 20 &&
           Array(4 - (productList.length % 4))
             .fill()
-            .map(() => <ProductCardContainer></ProductCardContainer>)}
+            .map(() => (
+              <CardContainer>
+                <ProductCardContainer></ProductCardContainer>
+              </CardContainer>
+            ))}
       </ProductContainer>
     </ShopContainer>
   );
