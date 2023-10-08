@@ -22,6 +22,16 @@ export const CardViewContainer = styled.div`
   align-items: center;
 `;
 
+export const CardSectionTitle = styled.div`
+  text-align: start;
+  font-weight: bold;
+  /* margin-left: 25%; */
+  /* padding-left: 0px; */
+  margin: 20px;
+  /* padding-bottom: 0px; */
+  font-size: 30px;
+`;
+
 export const CardInfoCol = styled.div`
   width: auto;
   height: auto;
@@ -99,30 +109,12 @@ export const CardImg = styled.img`
   box-shadow: 3px 3px 5px gray;
 `;
 
-// export const CardFront = styled.img`
-//   width: 323.52755906px;
-//   height: 204.01889764px;
-
-//   position: absolute;
-//   backface-visibility: hidden;
-// `;
-
-// export const CardBack = styled.img`
-//   width: 323.52755906px;
-//   height: 204.01889764px;
-
-//   position: absolute;
-//   backface-visibility: hidden;
-
-//   transform: rotateY(180deg);
-// `;
-
 export const CardInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 323.52755906px;
+  width: 500px;
   height: 204.01889764px;
 `;
 
@@ -141,16 +133,35 @@ export const SelectButton = styled.button`
 `;
 
 export const CardList = styled.div`
-  width: 800px;
+  width: 1000px;
   height: 150px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .wrap {
+    text-align: center;
+    margin-top: -50px;
+  }
+
+  .chatbox {
+    animation: motion 0.5s linear 0s infinite alternate; 
+    margin: -220px 10px 0px;
+    width: 145px;
+  }
+          
+  @keyframes motion {
+    0% {margin-top: 0px;}
+    100% {margin-top: 10px;}
+  }
+`;
+
+export const BadgeImg = styled.img`
 `;
 
 export const CardCandidate = styled.img`
-  width: 161.76377953px;
+  width: 200px;
   height: 102.00944882;
 
   cursor: pointer;

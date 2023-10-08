@@ -57,7 +57,11 @@ export const SelectImgDefault = styled.img`
   width: 485.29133859px;
 `;
 
-export const CustomCardModalContainer = styled.div``;
+export const CustomCardModalContainer = styled.div`
+  /* width: 800px; */
+  border-radius: 30px;
+  border: solid 10px #F4E4EE;
+`;
 
 export const CustomSelectButtonContainer = styled.div`
   width: 100%;
@@ -68,18 +72,19 @@ export const CustomSelectButtonContainer = styled.div`
 `;
 
 export const CutButton = styled.button`
-  width: 120px;
-  height: 30px;
+  /* width: 120px; */
+  /* height: 30px; */
 
-  background-color: #20b4a4;
-  border: 1px solid #20b4a4;
+  background-color: #2B7F6B;
+  border: 1px solid #2B7F6B;
 
   border-radius: 20px;
 
   color: white;
 
   font-weight: 600;
-  font-size: 16px;
+  font-size: 20px;
+  padding: 7px 10px;
 
   display: flex;
   justify-content: center;
@@ -89,8 +94,6 @@ export const CutButton = styled.button`
 `;
 
 export const InitialButton = styled.button`
-  width: 120px;
-  height: 30px;
 
   background-color: #4f4f4f;
   border: 1px solid #4f4f4f;
@@ -100,7 +103,8 @@ export const InitialButton = styled.button`
   color: white;
 
   font-weight: 600;
-  font-size: 16px;
+  font-size: 20px;
+  padding: 7px 10px;
 
   display: flex;
   justify-content: center;
@@ -122,5 +126,5 @@ export const ResultH2 = styled.p`
   justify-content: center;
 
   font-weight: 600;
-  font-size: 20px;
+  font-size: 24px;
 `;

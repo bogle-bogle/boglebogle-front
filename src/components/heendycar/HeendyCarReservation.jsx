@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import bgheendycar from '../../assets/heendycar/bigheendy.png';
 import { HiMiniBuildingOffice } from 'react-icons/hi2';
 import { MdHolidayVillage } from 'react-icons/md';
+import HeendycarHeader from '../../assets/heendycar/newheader.png'
 
 import { toast } from 'react-toastify';
 import walkingheendy from '../../assets/custom/walkingheendy.gif';
@@ -22,6 +23,7 @@ import {
 import { jwtCheck } from '../../utils/tokenCheck';
 import { loginAction } from '../../feature/member/login';
 import { showRequiredLoginSwal } from '../global/showRequiredLoginSwal';
+import { PageHeaderImg } from '../global/global.style';
 
 function HeendyCarReservation() {
   const dispatch = useDispatch();
@@ -216,7 +218,9 @@ function HeendyCarReservation() {
 
   return (
     <div style={{ marginTop: '16px' }}>
-      <HeendyCarTitle>
+
+      <PageHeaderImg src={HeendycarHeader} />
+      {/* <HeendyCarTitle>
         <div className="title-text">
           <p className="title1">Heendy Car</p>
           <p className="title2">
@@ -224,7 +228,7 @@ function HeendyCarReservation() {
           </p>
         </div>
         <img src={bgheendycar} alt="background" />
-      </HeendyCarTitle>
+      </HeendyCarTitle> */}
       <ReservationBox>
         <div className="info-text">
           <div className="resv-title-text">흰디카 픽업 예약</div>

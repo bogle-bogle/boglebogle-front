@@ -17,6 +17,8 @@ import NoDataBox from '../global/NoDataBox';
 import { jwtCheck } from '../../utils/tokenCheck';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { PageHeaderImg } from '../global/global.style';
+import SuggestionHeader from '../../assets/custom/suggestion-header.png'
 
 function SuggestionOuterContainer() {
   const [openModal, setOpenModal] = useState(false);
@@ -56,6 +58,8 @@ function SuggestionOuterContainer() {
 
   return (
     <SuggestionContainer>
+
+      <PageHeaderImg src={SuggestionHeader}/>
       {/* {openModal && (
         <Modal handleModalClose={handleModalClose}>
           <RoundedModal>

@@ -50,6 +50,8 @@ import {
 import RcHeendy from '../../assets/recommendation/오옹오.png';
 import miniIconImg from '../../assets/recommendation/mini-text-icon-v2.png';
 import { showOnlyMessageSwal } from '../global/showOnlyMessageSwal';
+import { PageHeaderImg } from '../global/global.style';
+import ShopHeader from '../../assets/product/shop-header-pink.png'
 
 function NewProductList() {
   const member = useSelector(state => state.member);
@@ -279,15 +281,17 @@ function NewProductList() {
   };
 
   return (
+
     <ShopContainer>
-      <PageTitle>쇼핑</PageTitle>
+
+<PageHeaderImg src={ShopHeader} />
+
+      {/* <PageTitle>쇼핑</PageTitle> */}
 
       <CategoryP>
         {`쇼핑`}
         {mainCategory !== '' && `  >  ${shopCategory[mainCategory].name}`}
       </CategoryP>
-
-      {createProductRecommendation()}
 
       <CategoryContainer>
         <CategoryP></CategoryP>
@@ -359,13 +363,16 @@ function NewProductList() {
         )}
       </FilterCategoryContainer>
 
-      <RcMiniIcon src={miniIconImg} style={{ margin: '0px 0px -30px 10px' }} />
+      {/* <RcMiniIcon src={miniIconImg} style={{ margin: '0px 0px -30px 10px' }} /> */}
 
       <DogListText>
         아래의 버튼을 눌러, <strong>나의 강아지 맞춤 추천</strong>으로 쇼핑을
         즐겨보세요!
       </DogListText>
       <DogListContainer>{createPetList()}</DogListContainer>
+
+      {createProductRecommendation()}
+
 
       <hr />
 

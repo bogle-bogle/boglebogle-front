@@ -45,6 +45,7 @@ export const AnalyzeResultExplainContainer = styled.div`
 export const AnalyzeResultExplain = styled.p`
   color: #4f4f4f;
   font-weight: 600;
+  font-size: 20px;
 `;
 
 export const FlexContainer = styled.div`
@@ -92,7 +93,7 @@ export const UserResultText = styled.div`
   color: #4f4f4f;
   font-weight: ${props => props.isTitle && 'bold'};
 
-  font-size: 17px;
+  font-size: 19px;
 
   margin-bottom: 2%;
 
