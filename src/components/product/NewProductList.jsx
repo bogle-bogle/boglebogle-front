@@ -4,6 +4,7 @@ import {
   CategoryContainer,
   CategoryElementContainer,
   CategoryP,
+  CustomToggleBtn,
   DogButton,
   DogImg,
   DogListContainer,
@@ -32,7 +33,7 @@ import {
   initialSubCategory,
   initialProteinCategory,
 } from '../../utils/productFilter';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineDown, AiOutlineLeft, AiOutlineRight, AiOutlineUp } from 'react-icons/ai';
 import ProductCard from './ProductCard';
 import * as Api from '../../api';
 import { RxReset } from 'react-icons/rx';
@@ -75,6 +76,7 @@ function NewProductList() {
   const [totalCount, setTotalCount] = useState(0);
 
   const [productList, setProductList] = useState([]);
+  const [isRecommendationVisible, setIsRecommendationVisible] = useState(true);
 
   const [curPet, setCurPet] = useState(
     member && member.pet && member.pet.length > 0 && member.pet[0],
@@ -180,6 +182,7 @@ function NewProductList() {
     setProteinFilterChecked({ ...initialProteinCategory });
   };
 
+
   const createProductCard = (product, idx) => {
     let warnFlag =
       curPet && mainCategory === 'FD' && product.ingredients !== null;
@@ -231,7 +234,7 @@ function NewProductList() {
   };
 
   const createProductRecommendation = () => {
-    if (curPet) {
+    if (curPet && isRecommendationVisible) {
       return (
         <HeendyRecommendation>
           <ProductRecommendation
@@ -253,6 +256,10 @@ function NewProductList() {
         </HeendyRecommendation>
       );
     }
+  };
+
+  const toggleRecommendationVisibility = () => {
+    setIsRecommendationVisible(prev => !prev);
   };
 
   const createPetList = () => {
@@ -370,6 +377,24 @@ function NewProductList() {
         즐겨보세요!
       </DogListText>
       <DogListContainer>{createPetList()}</DogListContainer>
+
+      <CustomToggleBtn onClick={toggleRecommendationVisibility}>
+        {isRecommendationVisible ? (
+          <>
+            <span>맞춤 추천 숨기기</span>
+            <span style={{ margin: '0.3em 0.5em -4em' }}>
+              <AiOutlineUp />
+            </span>
+          </>
+        ) : (
+          <>
+            <span>맞춤 추천 펼치기</span>
+            <span style={{ margin: '0 0.5em 1em' }}>
+              <AiOutlineDown />
+            </span>
+          </>
+        )}
+      </CustomToggleBtn>
 
       {createProductRecommendation()}
 

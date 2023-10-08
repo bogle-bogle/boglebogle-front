@@ -7,10 +7,15 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './sub-custom-slick.css';
-import { GreyBtn } from '../global/btn.style';
+import { BeigeBtn, GreyBtn } from '../global/btn.style';
 import member from '../../feature/member/member';
 import { useNavigate } from 'react-router-dom';
 import { showClappingHeendySwal } from './../global/showClappingHeendySwal';
+import { PageHeaderImg } from '../global/global.style';
+import ThepetboxHeader from '../../assets/subscription/thepetbox-header.png';
+import SubInfoBox from '../../assets/subscription/sub_info_img.png';
+import Ttaomp from '../../assets/subscription/ttaomp.png';
+import Ttaomp2 from '../../assets/subscription/ttaomp_upside_down.png';
 
 function ThePetBoxContainer() {
   const navigate = useNavigate();
@@ -66,10 +71,17 @@ function ThePetBoxContainer() {
     });
   }
 
+  let modifiedItemList = [];
+  if (Array.isArray(itemList) && itemList.length > 0) {
+    modifiedItemList = itemList.slice(1);
+  }
+
   return (
     <ThePetBoxContents>
-      <div className="thepetbox-title">
-        <br />
+      <PageHeaderImg src={ThepetboxHeader} />
+
+      <div className="ming-title">
+        <img src={Ttaomp} />
         <div>현대백화점에 들어오는 신상품들,</div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           누군가 대신 <div className="thpet-color">세트로 구성</div>해서
@@ -77,15 +89,10 @@ function ThePetBoxContainer() {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div className="thpet-color">문앞까지 배송</div>해주면 좋을텐데···
         </div>
-      </div>
+        <img src={Ttaomp2} />
 
-      <div className="title-center">
-        <div className="sale-title-1">
-          매달, 나의 반려동물에 딱 맞춰 고른 키트를 받아보세요!
-        </div>
-        <div className="sale-title-2">더펫박스 정기구독</div>
         <br />
-        <GreyBtn onClick={createCurationOrder}>구독하러 가기</GreyBtn>
+        <div className="thpet-color">그래서 준비했습니다!</div>
       </div>
 
       <div className="more-box-desc-1">
@@ -94,17 +101,13 @@ function ThePetBoxContainer() {
       <div className="more-box-desc-2">
         이번 달 <div className="thpet-color">더펫박스</div> 구경하기
       </div>
+
       <MonthlyBox itemList={curationList.length === 0 ? [] : itemList} />
 
-      <br />
-      <br />
-
-      {/* <MainTitle>
-      4주에 한번씩 <div className='thpet-color'>새로운 상품들을</div>집앞까지 배송받아보세요.
-      월간 더펫박스
-      </MainTitle>
-    
-    <br/> */}
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+      <img src={SubInfoBox} style={{width: '100%'}} />
+      <BeigeBtn onClick={createCurationOrder} style={{width: '200px'}}>구독하러 가기</BeigeBtn>
+    </div>
 
       <div className="more-box-desc-1">
         매달 새로운 즐거움, 다양한 구성으로!
@@ -113,13 +116,6 @@ function ThePetBoxContainer() {
         이전 <div className="thpet-color">더펫박스</div> 구경하기
       </div>
 
-      <MonthlyBox
-        itemList={
-          curationList.length === 0
-            ? []
-            : Array.prototype.slice.call(itemList, 1)
-        }
-      />
 
       <ThumbnailList className="sub-container">
         {curationList.length > 0 && (
@@ -148,16 +144,13 @@ function ThePetBoxContainer() {
           </Slider>
         )}
       </ThumbnailList>
+      {/* <MonthlyBox itemList={curationList[1]} /> */}
 
       <MainDescr>
         이번 달 더펫박스에는 무엇이 들어있을까? <br />
         매달 정기적으로 새로운 상품을 <strong>할인된 가격</strong>에 만나보세요!
       </MainDescr>
 
-      <div>
-        <GreyBtn onClick={createCurationOrder}>구독하러 가기</GreyBtn>
-        <GreyBtn>정기배송 상품 고르러 가기</GreyBtn>
-      </div>
     </ThePetBoxContents>
   );
 }
