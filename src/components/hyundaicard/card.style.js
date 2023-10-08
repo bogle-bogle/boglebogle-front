@@ -44,6 +44,8 @@ export const BackButton = styled.div`
   align-items: center;
   width: 100px;
   height: 30px;
+  font-size: 15px;
+
 
   border-radius: 20px;
 
@@ -125,16 +127,17 @@ export const CardInfoContainer = styled.div`
 `;
 
 export const SelectButton = styled.button`
-  width: 250px;
+  width: 300px;
   height: 50px;
+  margin-top: 50px;
   color: white;
   background-color: #376558;
   border: 1px solid #376558;
 
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
 
-  border-radius: 30px;
+  border-radius: 10px;
 `;
 
 export const CardList = styled.div`
