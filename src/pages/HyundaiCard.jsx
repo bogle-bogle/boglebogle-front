@@ -333,7 +333,6 @@ function HyundaiCard() {
         </Modal>
       )}
       <HyundaiCardContainer>
-        <h2>카드 디자인 선택하기</h2>
         <SelectCardContainer>
           <CardViewContainer>
             <CardInfoCol>
@@ -373,7 +372,7 @@ function HyundaiCard() {
               </BackButton>
             </CardInfoCol>
           </CardViewContainer>
-          <SelectButton onClick={handleSubmit}>이 디자인으로 결정</SelectButton>
+
           <CardList>
             <CardCandidate
               name="pink"
@@ -395,6 +394,7 @@ function HyundaiCard() {
               src={selectCardCustom}
             ></CardCandidate>
           </CardList>
+          <SelectButton onClick={handleSubmit}>커스텀 카드 발급하러가기</SelectButton>
         </SelectCardContainer>
       </HyundaiCardContainer>
     </>
