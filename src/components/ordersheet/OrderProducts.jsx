@@ -20,6 +20,7 @@ import {
   Row,
   DiscountButton,
   DiscountconfirmButton,
+  CardTable,
 } from './OrderProducts.style';
 import {
   DetailButton,
@@ -206,7 +207,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
             <tr>
               <td>
                 <img src={cartItem.mainImgUrl} alt={cartItem.name} />
-                <p>{cartItem.name}</p>
+                <p>&nbsp;&nbsp;&nbsp;{cartItem.name}</p>
               </td>
               <td>{cartItem.cnt}개</td>
               <td>{cartItem.price.toLocaleString()}원</td>
@@ -216,70 +217,62 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
           ))}
         </tbody>
       </OrderItemsTable>
-      <OrderItemsTable>
-        <thead>
-          <h2>정기결제 카드 등록 </h2>
-          <tr BorderTop>
-            <th>카드 등록</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-          </tr>
-        </tbody>
-      </OrderItemsTable>
+
       {productType === 'Sub' ? (
         <div>
-          {billingKey ? (
-            <CardContainerYes>
-              {cardCompany === '신한' ? (
-                <>
-                  <img
-                    src={shinhanImg}
-                    alt="신한"
-                    style={{
-                      width: '20%',
-                      marginLeft: '80%',
-                      marginTop: '8%',
-                    }}
-                  />
-                  <p>{cardCompany}</p>
-                  <p>
-                    {cardNumber} {cardType}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p>{cardCompany}</p>
-                  <p>
-                    {cardNumber} {cardType}
-                  </p>
-                </>
-              )}
-            </CardContainerYes>
-          ) : (
-            <CardContainerNo>
-              <PlusIcon />
-            </CardContainerNo>
-          )}
-          <ButtonContainer>
-            {billingKey ? (
-              <DetailButton className="monthly" onClick={registerCard}>
-                <BsCreditCard className="btn-icon" />
-                다른 카드로 등록하기
-              </DetailButton>
-            ) : (
-              <DetailButton className="monthly" onClick={registerCard}>
-                <BsCreditCard className="btn-icon" />
-                카드 새로 등록하기
-              </DetailButton>
-            )}
-          </ButtonContainer>
+          <OrderItemsTable>
+            <thead>
+              <h2>정기결제 카드 등록 </h2>
+
+              <tr BorderTop>
+                <th>카드 등록</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div>
+                    {billingKey ? (
+                      <CardContainerYes>
+                        <p>{cardCompany}</p>
+                        <p>
+                          {cardNumber} {cardType}
+                        </p>
+                      </CardContainerYes>
+                    ) : (
+                      <CardContainerNo>
+                        <PlusIcon />
+                      </CardContainerNo>
+                    )}
+                    <ButtonContainer>
+                      {billingKey ? (
+                        <DetailButton
+                          className="monthly"
+                          onClick={registerCard}
+                        >
+                          <BsCreditCard className="btn-icon" />
+                          다른 카드로 등록하기
+                        </DetailButton>
+                      ) : (
+                        <DetailButton
+                          className="monthly"
+                          onClick={registerCard}
+                        >
+                          <BsCreditCard className="btn-icon" />
+                          카드 새로 등록하기
+                        </DetailButton>
+                      )}
+                    </ButtonContainer>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </OrderItemsTable>
+
           <Agreement>
             <strong>
-              매월 31일에는 결제가 자동으로 진행되며, 1일에는 원하시는 상품을
-              배송받을 수 있습니다.
+              매월 31일에는 결제가 자동으로 진행되며, 1일에 주문한 상품이
+              발송됩니다.
             </strong>
           </Agreement>
           <OrderButton className="Sub" onClick={handleSubOrder}>
@@ -288,35 +281,58 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
         </div>
       ) : productType === 'Cur' ? (
         <div>
-          {billingKey ? (
-            <CardContainer>
-              <p>{cardCompany}</p>
-              <p>
-                {cardNumber} {cardType}
-              </p>
-            </CardContainer>
-          ) : (
-            <CardContainer>
-              <PlusIcon />
-            </CardContainer>
-          )}
-          <ButtonContainer>
-            {billingKey ? (
-              <DetailButton className="monthly" onClick={registerCard}>
-                <BsCreditCard className="btn-icon" />
-                다른 카드로 등록하기
-              </DetailButton>
-            ) : (
-              <DetailButton className="monthly" onClick={registerCard}>
-                <BsCreditCard className="btn-icon" />
-                카드 새로 등록하기
-              </DetailButton>
-            )}
-          </ButtonContainer>
+          <CardTable>
+            <thead>
+              <h2>정기결제 카드 설정 </h2>
+              <tr BorderTop>
+                <th>카드 등록</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div>
+                    {billingKey ? (
+                      <CardContainerYes onClick={registerCard}>
+                        <p>{cardCompany}</p>
+                        <p>
+                          {cardNumber} {cardType}
+                        </p>
+                      </CardContainerYes>
+                    ) : (
+                      <CardContainerNo onClick={registerCard}>
+                        <PlusIcon />
+                      </CardContainerNo>
+                    )}
+                    <ButtonContainer>
+                      {billingKey ? (
+                        <DetailButton
+                          className="monthly"
+                          onClick={registerCard}
+                        >
+                          <BsCreditCard className="btn-icon" />
+                          다른 카드로 등록하기
+                        </DetailButton>
+                      ) : (
+                        <DetailButton
+                          className="monthly"
+                          onClick={registerCard}
+                        >
+                          <BsCreditCard className="btn-icon" />
+                          카드 새로 등록하기
+                        </DetailButton>
+                      )}
+                    </ButtonContainer>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </CardTable>
+
           <Agreement>
             <strong>
-              매월 31일에는 결제가 자동으로 진행되며, 1일에는 원하시는 상품을
-              배송받을 수 있습니다.
+              매월 31일에는 결제가 자동으로 진행되며, 1일에 주문한 상품이
+              발송됩니다.
             </strong>
           </Agreement>
           <OrderButton className="Sub" onClick={handleCurOrder}>

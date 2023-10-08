@@ -28,7 +28,7 @@ const TossCardRegisterRedirect = lazy(() =>
   import('./components/toss/TossCardRegisterRedirect'),
 );
 const RedirectUrl = lazy(() => import('./components/login/RedirectUrl'));
-import Footer from './components/footer/Footer';
+const Footer = lazy(() => import('./components/footer/Footer'));
 
 function App() {
   RouteChangeTracker();
@@ -65,8 +65,8 @@ function App() {
             ></Route>
           </Route>
         </Routes>
+        <Footer></Footer>
       </Suspense>
-      <Footer></Footer>
     </>
   );
 }
