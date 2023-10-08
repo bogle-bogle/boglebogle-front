@@ -272,6 +272,10 @@ export const CategoryElement = styled.div`
   }
 `;
 
+export const DogListText = styled.div`
+  margin: 30px 0px 15px 10px;
+`;
+
 export const DogListContainer = styled.div`
   width: 100%;
   height: auto;
@@ -292,7 +296,7 @@ export const DogButton = styled.div`
   font-size: 20px;
   font-weight: bold;
 
-  border: 1px solid green;
+  border: 1px solid #2b7f6b;
 
   margin-left: 10px;
   margin-bottom: 10px;
@@ -302,7 +306,7 @@ export const DogButton = styled.div`
 
   cursor: pointer;
 
-  background-color: ${props => props.isClicked && 'green'};
+  background-color: ${props => props.isClicked && '#2B7F6B'};
   color: ${props => props.isClicked && 'white'};
 `;
 

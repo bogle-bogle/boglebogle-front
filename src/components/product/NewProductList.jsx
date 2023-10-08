@@ -7,6 +7,7 @@ import {
   DogButton,
   DogImg,
   DogListContainer,
+  DogListText,
   FilterCategoryContainer,
   FilterCategoryRow,
   FilterCategoryTitle,
@@ -42,8 +43,13 @@ import { useSelector } from 'react-redux';
 import ProductRecommendation from '../recommendation/ProductRecommendation';
 import { useRef } from 'react';
 import { eventLog } from '../../utils/event_log';
-import { HeendyRecommendation } from '../recommendation/index.style';
+import {
+  HeendyRecommendation,
+  RcMiniIcon,
+} from '../recommendation/index.style';
 import RcHeendy from '../../assets/recommendation/오옹오.png';
+import miniIconImg from '../../assets/recommendation/mini-text-icon-v2.png';
+import { showOnlyMessageSwal } from '../global/showOnlyMessageSwal';
 
 function NewProductList() {
   const member = useSelector(state => state.member);
@@ -242,7 +248,6 @@ function NewProductList() {
 
   const createPetList = () => {
     if (localStorage.getItem('userToken') === null) return;
-
     if (member.pet.length === 0) return;
 
     return (
@@ -252,6 +257,7 @@ function NewProductList() {
             isClicked={curPet.id === p.id}
             onClick={() => {
               setCurPet(p);
+              showOnlyMessageSwal(`${p.name}의 맞춤 추천으로 전환합니다.`);
             }}
           >
             <DogImg src={p.petImgUrl} />
@@ -343,7 +349,16 @@ function NewProductList() {
         )}
       </FilterCategoryContainer>
 
+      <RcMiniIcon src={miniIconImg} style={{ margin: '0px 0px -30px 10px' }} />
+
+      <DogListText>
+        아래의 버튼을 눌러, <strong>나의 강아지 맞춤 추천</strong>으로 쇼핑을
+        즐겨보세요!
+      </DogListText>
       <DogListContainer>{createPetList()}</DogListContainer>
+
+      <hr />
+
       <MiddleContainer>
         <div style={{ display: 'flex', alignItems: 'center', width: 'auto' }}>
           <MiddlePagenationContainer>{`${(curPage - 1) * 20 + 1}-${
