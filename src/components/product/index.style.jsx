@@ -153,7 +153,7 @@ export const CategoryContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0 5px 0;
+  margin: 10px 0 5px -40px;
 `;
 
 export const CategoryP = styled.p`

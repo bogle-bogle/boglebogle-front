@@ -20,8 +20,7 @@ export const showOnlyMessageSwal = title => {
 
   const swalInstance = swal.fire(swalOptions);
 
-  // 자동으로 스위트얼트(alert) 닫기
   setTimeout(() => {
     swalInstance.close();
-  }, 800); // 2000 밀리초 (2초) 후에 닫음
+  }, 500);
 };
