@@ -125,7 +125,7 @@ function ProductDetail() {
   }
 
   function createOrder() {
-    showPlainSwal('정기결제 신청 페이지로 이동합니다.');
+    // showPlainSwal('정기결제 신청 페이지로 이동합니다.');
     const productType = 'Sub';
     const selectedItems = [
       {
@@ -157,7 +157,7 @@ function ProductDetail() {
 
       {billingKey ? (
         <DrawingHeendySwal
-          title="결제 카드가 등록되어 있습니다."
+          title="정기 결제 페이지로 이동합니다."
           text="매월 1일날 결제 및 배송됩니다!"
           confirmButtonText="매달 정기배송 신청하기"
           cancelButtonText="쇼핑 계속하기"
@@ -172,7 +172,10 @@ function ProductDetail() {
           confirmButtonText="카드 등록하러 가기"
           cancelButtonText="쇼핑 계속하기"
           onConfirm={() => navigate('/mypage?menu=mysubscription')}
-          onCancel={() => setRegularModalOpen(false)}
+          onCancel={() => {
+            setRegularModalOpen(false)
+            navigate('/shop')
+          }}
           trigger={regularModalOpen}
         />
       )}
@@ -193,13 +196,15 @@ function ProductDetail() {
             ></ProductSummaryContainer>
           )}
           <ProductAddtionalBox>
+  
+          {productInfo.ingredients !== null && (
+              <ProductIngredient ingredients={ingredients}></ProductIngredient>
+            )}
+
             <Review
               handleModalOpen={handleModalOpen}
               productId={productId}
             ></Review>
-            {productInfo.ingredients !== null && (
-              <ProductIngredient ingredients={ingredients}></ProductIngredient>
-            )}
             <DescImgContainer>
               {productInfo !== undefined && (
                 <DescImg src={productInfo.descImgUrl} alt="" />

@@ -10,6 +10,11 @@ export const RcContainer = styled.div`
   }
 `;
 
+export const HeendyRecommendation = styled.div`
+  display: flex;
+  justify-content: baseline;
+`;
+
 export const RcMiniIcon = styled.img`
   height: 35px;
   padding-bottom: 5px;
