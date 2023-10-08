@@ -7,8 +7,10 @@ import {
 
 import floatingAdvAi from '../../assets/floating/ai-suggestion.png';
 import floatingTpb from '../../assets/floating/thepetbox.png';
+import { useNavigate } from 'react-router-dom';
 
 function Floating({ x }) {
+  const navigate = useNavigate();
   return (
     <FloatingContainer x={x}>
       <FloatingImgCard onClick={() => navigate('/suggestion')}>
