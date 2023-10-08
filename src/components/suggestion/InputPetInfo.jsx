@@ -30,6 +30,8 @@ import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
 import Modal from '../modal/Modal';
 import { Cropper } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
+import { showDrawingHeendySwal } from './../global/showDrawingHeendySwal';
+
 function InputPetInfo(props) {
   const [selectedPet, setSelectedPet] = useState(null);
 
@@ -91,16 +93,8 @@ function InputPetInfo(props) {
       toast.warn('성분표 이미지를 업로드해주세요');
       scrollTo('step2');
     } else {
-      props.handleOpenModal();
-      // const id = toast.loading("분석중입니다. 잠시만 기다려주세요.");
-      swal.fire({
-        title: `분석중입니다!!`,
-        showCancelButton: true,
-        imageUrl: walkingheendy,
-        showConfirmButton: false,
-        showCancelButton: false,
-        showCloseButton: false,
-      });
+      showDrawingHeendySwal('분석 중입니다. 잠시만 기다려주세요.');
+
       const selectedPetId = selectedPet.codeValue;
       setNextStepFeedImage(
         feedMainImgPreviewUrl ? feedMainImgPreviewUrl : feedDescrImgPreviewUrl,

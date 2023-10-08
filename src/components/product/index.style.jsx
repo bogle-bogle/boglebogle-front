@@ -153,7 +153,7 @@ export const CategoryContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0 5px 0;
+  margin: 10px 0 5px -40px;
 `;
 
 export const CategoryP = styled.p`
@@ -272,6 +272,10 @@ export const CategoryElement = styled.div`
   }
 `;
 
+export const DogListText = styled.div`
+  margin: 30px 0px 15px 10px;
+`;
+
 export const DogListContainer = styled.div`
   width: 100%;
   height: auto;
@@ -282,8 +286,8 @@ export const DogListContainer = styled.div`
 `;
 
 export const DogButton = styled.div`
-  width: 100px;
-  height: 40px;
+  width: fit-content;
+  height: 50px;
 
   display: flex;
   justify-content: center;
@@ -292,17 +296,26 @@ export const DogButton = styled.div`
   font-size: 20px;
   font-weight: bold;
 
-  border: 1px solid green;
+  border: 1px solid #2b7f6b;
 
   margin-left: 10px;
   margin-bottom: 10px;
+  padding: 0px 10px;
 
   border-radius: 20px;
 
   cursor: pointer;
 
-  background-color: ${props => props.isClicked && 'green'};
+  background-color: ${props => props.isClicked && '#2B7F6B'};
   color: ${props => props.isClicked && 'white'};
+`;
+
+export const DogImg = styled.img`
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
 `;
 
 export const MiddleContainer = styled.div`

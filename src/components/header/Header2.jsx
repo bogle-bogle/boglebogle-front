@@ -21,6 +21,7 @@ import { loginAction } from '../../feature/member/login';
 import LoginModal from '../login/LoginModal';
 import Modal from '../modal/Modal';
 import { useEffect } from 'react';
+import { showPlainSwal } from '../global/showPlainSwal';
 
 function Header2() {
   const navigate = useNavigate();
@@ -143,6 +144,7 @@ function Header2() {
                     dispatch(memberAction.clearMember());
                     localStorage.removeItem('userToken');
                     // navigate('/')
+                    showPlainSwal('로그아웃되었습니다.');
                   }}
                 >
                   <FiLogOut></FiLogOut>

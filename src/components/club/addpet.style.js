@@ -87,15 +87,15 @@ export const InputBox = styled.div`
   }
 
   .font-bold {
-    font-family: "HappinessSansBold";
+    font-family: 'HappinessSansBold';
   }
 
   .font-gray {
-    color : gray;
+    color: gray;
   }
 
   .font-red {
-    color : red;
+    color: red;
   }
 
   .text-group {
@@ -103,11 +103,11 @@ export const InputBox = styled.div`
   }
 
   .left-text {
-    margin-right: 5px ;
+    margin-right: 5px;
   }
 
   .right-text {
-    margin-left: 5px ;
+    margin-left: 5px;
   }
 
   .info-text {
@@ -150,7 +150,7 @@ export const InputBox = styled.div`
     display: flex;
 
     @media (max-width: 768px) {
-      flex-direction: column
+      flex-direction: column;
     }
   }
 
@@ -159,11 +159,10 @@ export const InputBox = styled.div`
     border-radius: 15px;
     outline: none;
     padding: 10px 15px;
-    background-color: #E9E9E9;  
+    background-color: #e9e9e9;
     font-family: 'HappinessSansBold';
     width: 165px;
 
-    
     @media (max-width: 768px) {
       margin: 0px 10px 0px 10px;
     }
@@ -175,10 +174,10 @@ export const InputBox = styled.div`
 
   /* 자동완성 값 선택시 배경색 변하지 않도록 설정 - 기본 하늘색 */
   input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus, 
-  input:-webkit-autofill:active{
-      -webkit-box-shadow: 0 0 0 30px #E9E9E9 inset !important;
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #e9e9e9 inset !important;
   }
 `;
 
@@ -203,18 +202,18 @@ export const PetBirth = styled.div`
 
 export const StyledButton = styled.button`
   background-color: ${({ active }) => (active ? '#5AAB8A' : 'white')};
-  border: 1px solid ${({ active }) => (active ? '#5AAB8A' : '#A9A9A9')};
+  border: 1px solid ${({ active }) => (active ? '#5AAB8A' : '#575757')};
   border-radius: 20px;
-  color: ${({ active }) => (active ? 'white' : '#9E9E9E')};
+  color: ${({ active }) => (active ? 'white' : '#575757')};
   font-family: 'HappinessSansBold';
   padding: 10px 10px;
   cursor: pointer;
   margin-left: 10px;
   margin-right: 10px;
-  flex: 1 1 25%;        /* 반려동물 알러지 부분 너비 설정을 위해 flex-basis 값 추가 */
+  flex: 1 1 25%; /* 반려동물 알러지 부분 너비 설정을 위해 flex-basis 값 추가 */
   transition: 0.2s;
-  transform: scale(1.0);
-  
+  transform: scale(1);
+
   &:hover {
     transform: scale(1.05);
     transition: transform 0.2s;
@@ -228,7 +227,7 @@ export const PetProteinCodes = styled.div`
   flex-wrap: wrap;
 
   button {
-    margin-bottom: 15px
+    margin-bottom: 15px;
   }
 `;
 
@@ -252,7 +251,7 @@ export const PetBreedCode = styled.div`
   select {
     width: 195px;
     padding: 10px;
-    background-color: #E9E9E9;  
+    background-color: #e9e9e9;
     border: 0px;
     border-radius: 15px;
     font-family: 'HappinessSansBold';
@@ -302,13 +301,13 @@ export const BlackButton = styled.button`
   background-color: #707070; /* 배경색을 검은색으로 설정 */
   border-radius: 20px;
   color: white; /* 텍스트 색상을 흰색으로 설정 */
-  padding: 12px 22px; /* 내부 여백 설정 */
+  padding: 14px 24px;
   border: none; /* 테두리 제거 */
   cursor: pointer; /* 포인터 커서 설정 */
   transition: 0.2s;
-  transform: scale(1.0);
+  transform: scale(1);
   font-family: 'HappinessSansTitle';
-  font-size: 15px;
+  font-size: 18px;
 
   &:hover {
     background-color: #545454;

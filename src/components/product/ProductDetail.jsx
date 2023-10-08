@@ -151,7 +151,10 @@ function ProductDetail() {
         confirmButtonText="장바구니로 이동"
         cancelButtonText="쇼핑 계속하기"
         onConfirm={() => navigate('/cart')}
-        onCancel={() => setFadeModalOpen(false)}
+        onCancel={() => {
+          setFadeModalOpen(false);
+          navigate('/shop');
+        }}
         trigger={fadeModalOpen}
       />
 
@@ -162,7 +165,10 @@ function ProductDetail() {
           confirmButtonText="매달 정기배송 신청하기"
           cancelButtonText="쇼핑 계속하기"
           onConfirm={() => createOrder()}
-          onCancel={() => setRegularModalOpen(false)}
+          onCancel={() => {
+            setRegularModalOpen(false);
+            navigate('/shop');
+          }}
           trigger={regularModalOpen}
         />
       ) : (
@@ -173,8 +179,8 @@ function ProductDetail() {
           cancelButtonText="쇼핑 계속하기"
           onConfirm={() => navigate('/mypage?menu=mysubscription')}
           onCancel={() => {
-            setRegularModalOpen(false)
-            navigate('/shop')
+            setRegularModalOpen(false);
+            navigate('/shop');
           }}
           trigger={regularModalOpen}
         />
@@ -196,8 +202,7 @@ function ProductDetail() {
             ></ProductSummaryContainer>
           )}
           <ProductAddtionalBox>
-  
-          {productInfo.ingredients !== null && (
+            {productInfo.ingredients !== null && (
               <ProductIngredient ingredients={ingredients}></ProductIngredient>
             )}
 

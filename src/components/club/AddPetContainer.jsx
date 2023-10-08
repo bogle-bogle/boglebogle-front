@@ -26,7 +26,7 @@ import ImageUploadComponent from '../suggestion/ImageUploadComponent';
 import { toast } from 'react-toastify';
 import { showClappingHeendySwal } from '../global/showClappingHeendySwal';
 import { memberAction } from '../../feature/member/member';
-import { showPlainHeendySwal } from '../global/showPlainHeendySwal';
+// import { showPlainHeendySwal } from '../global/showPlainHeendySwal';
 import { showPlainSwal } from '../global/showPlainSwal';
 
 function AddPetContainer() {
