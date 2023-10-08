@@ -231,7 +231,7 @@ export const MypageSubSectionTitle = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   margin-bottom: 30px;
-  width: 100%;
+  width: 400px;
 
   align-items: center;
   justify-content: space-between;
@@ -259,7 +259,7 @@ export const DetailButton = styled.button`
   font-family: 'HappinessSansTitle';
   font-size: 16px;
   margin: 0 10px;
-  width: 84%;
+  width: 100%;
 
   border-radius: 10px;
   padding: 15px;
@@ -299,7 +299,7 @@ export const CardContainerYes = styled.div`
   justify-content: center;
   flex-direction: column;
   font-family: 'HappinessSansTitle';
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 10px 10px;
   width: 350px;
   margin-top: 22px;
