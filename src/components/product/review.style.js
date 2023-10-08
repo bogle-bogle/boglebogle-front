@@ -43,7 +43,7 @@ export const ReviewCard = styled.div`
 
 export const ReviewImgBox = styled.div`
   overflow: hidden;
-  height: 60%;
+  height: 50%;
   margin: 0;
 `;
 
@@ -137,7 +137,7 @@ export const ReviewRate = styled.p`
 
 export const ReviewCardContainer = styled.div`
   width: 800px;
-  height: 800px;
+  height: 400px;
 
   display: flex;
   justify-content: center;
@@ -148,7 +148,7 @@ export const ReviewCardContainer = styled.div`
 
 export const ReviewModalCard = styled.div`
   width: 700px;
-  height: 700px;
+  height: 600px;
   background-color: white;
 `;
 
