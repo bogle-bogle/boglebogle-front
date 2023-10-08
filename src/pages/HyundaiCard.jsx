@@ -15,6 +15,7 @@ import {
   SelectButton,
   SelectCardContainer,
 } from '../components/hyundaicard/card.style';
+import { HeendyCarTitle } from '../components/heendycar/heendycar.style';
 import selectCardGreen from '../assets/card/hyundai_card_green.png';
 import selectCardPink from '../assets/card/hyundai_card_pink.png';
 import selectCardHeendy from '../assets/card/hyundai_card_heendy.png';
@@ -38,6 +39,8 @@ import selectBackDefault from '../assets/card/select_back_default_new.png';
 import rotateArrow from '../assets/card/turn-arrow.svg';
 
 import Modal from '../components/modal/Modal';
+
+import bgheendycar from '../assets/heendycar/bigheendy.png';
 
 import 'cropperjs/dist/cropper.css';
 import {
@@ -193,6 +196,18 @@ function HyundaiCard() {
 
   return (
     <>
+      {' '}
+      <div style={{ marginTop: '16px' }}>
+        <HeendyCarTitle>
+          <div className="title-text">
+            <p className="title1">현대백화점 THE PET 카드 신청</p>
+            <p className="title2">
+              반려동물 사진으로 커스텀한 나만의 카드로 THE PET 쇼핑과 H.Point 추가 적립까지!
+            </p>
+          </div>
+          <img src={bgheendycar} alt="background" />
+        </HeendyCarTitle>
+      </div>
       {openModal && (
         <Modal handleModalClose={handleCloseModal}>
           <CustomCardModalContainer>
@@ -394,7 +409,9 @@ function HyundaiCard() {
               src={selectCardCustom}
             ></CardCandidate>
           </CardList>
-          <SelectButton onClick={handleSubmit}>커스텀 카드 발급하러가기</SelectButton>
+          <SelectButton onClick={handleSubmit}>
+            커스텀 카드 발급하러가기
+          </SelectButton>
         </SelectCardContainer>
       </HyundaiCardContainer>
     </>
