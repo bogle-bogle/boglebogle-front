@@ -106,6 +106,10 @@ function MbtiGame() {
     setDogProfileImg(file);
   };
 
+  const handleLog = (page, element, isClicked, itemId) => {
+    clickDataRef.current = { page, element, isClicked, itemId };
+  };
+
   return (
     <>
       <MbtiGameContainer result={result}>
@@ -197,8 +201,8 @@ function MbtiGame() {
 
       {result && (
         <>
-          <ProductRecommendation type={'mbti-to'} param={mbti} />
-          <ProductRecommendation type={'mbti-sp'} param={mbti} />
+          <ProductRecommendation handleLog={handleLog} type={'mbti-to'} param={mbti} />
+          <ProductRecommendation handleLog={handleLog} type={'mbti-sp'} param={mbti} />
         </>
       )}
     </>
