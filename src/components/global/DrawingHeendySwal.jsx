@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import swal from 'sweetalert2';
-import drawingHeendy from '../../assets/custom/drawingheendy.gif';
+import drawingHeendy from '../../assets/custom/drawing-heendy.gif';
 
 const DrawingHeendySwal = ({
   title,
