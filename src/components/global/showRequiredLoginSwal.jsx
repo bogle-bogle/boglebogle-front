@@ -15,6 +15,7 @@ export const showRequiredLoginSwal = callback => {
     customClass: {
       popup: isMobile ? 'swal-mobile' : '',
     },
+    fontSize: isMobile ? '12px' : undefined,
   };
 
   if (isMobile) {

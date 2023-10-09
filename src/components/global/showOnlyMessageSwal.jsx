@@ -1,7 +1,7 @@
 import swal from 'sweetalert2';
 
 export const showOnlyMessageSwal = (title, img) => {
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = window.innerWidth <= 800;
 
   const swalOptions = {
     title: title,
@@ -14,6 +14,7 @@ export const showOnlyMessageSwal = (title, img) => {
     customClass: {
       popup: `${isMobile ? 'swal-mobile' : ''}`,
     },
+    fontSize: isMobile ? '12px' : undefined,
   };
 
   if (isMobile) {
