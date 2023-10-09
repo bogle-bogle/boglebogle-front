@@ -149,6 +149,11 @@ export const ResultCardContainer = styled.div`
   height: 40%;
   display: flex;
   flex-direction: column;
+
+  border: ${props => props.match && '4px solid #0A9882'};
+  border-radius: ${props => props.match && '10px 10px 10px 10px'};
+
+  position: relative;
 `;
 
 export const SimilarityContainer = styled.div`
@@ -175,6 +180,8 @@ export const SimilarityContainer = styled.div`
       return '#F7F6EC';
     }
   }};
+
+  border-radius: ${props => props.percent === 100 && '0 0 10px 10px'};
 `;
 
 export const ProgressBarContainer = styled.div`
@@ -190,15 +197,6 @@ export const ProgressBar = styled.div`
   width: ${props => `${props.si}%`};
   height: 100%;
 
-  /* background-color: ${props => {
-    if (props.percent >= 70 && props.percent <= 100) {
-      return '#0a9882';
-    } else if (props.percent >= 40 && props.percent < 70) {
-      return '#D4B200';
-    } else {
-      return 'red';
-    }
-  }}; */
   background-color: ${props => {
     if (props.percent >= 70 && props.percent <= 100) {
       return '#0a9882';
@@ -231,10 +229,22 @@ export const StickyContainer = styled.div`
 `;
 
 export const SameProductText = styled.div`
-  width: 100%;
-  height: 20px;
-
+  width: 170px;
+  height: 30px;
+  color: white;
+  font-weight: bold;
   margin: 0;
   padding: 0;
+  background-color: ${props => props.match && '#0A9882'};
+  border-radius: ${props => props.match && '10px'};
   visibility: ${props => !props.match && 'hidden'};
+
+  position: absolute;
+  left: 65px;
+  top: -18px;
+  z-index: 100;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
