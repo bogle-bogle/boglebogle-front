@@ -56,7 +56,6 @@ export const BackButton = styled.div`
   height: 30px;
   font-size: 15px;
 
-
   border-radius: 20px;
 
   cursor: pointer;
@@ -125,6 +124,7 @@ export const SelectButton = styled.button`
   color: white;
   background-color: #376558;
   border: 1px solid #376558;
+  cursor: pointer;
 
   font-weight: bold;
   font-size: 18px;
@@ -146,19 +146,22 @@ export const CardList = styled.div`
   }
 
   .chatbox {
-    animation: motion 0.5s linear 0s infinite alternate; 
+    animation: motion 0.5s linear 0s infinite alternate;
     margin: -220px 10px 0px;
     width: 145px;
   }
-          
+
   @keyframes motion {
-    0% {margin-top: 0px;}
-    100% {margin-top: 10px;}
+    0% {
+      margin-top: 0px;
+    }
+    100% {
+      margin-top: 10px;
+    }
   }
 `;
 
-export const BadgeImg = styled.img`
-`;
+export const BadgeImg = styled.img``;
 
 export const CardCandidate = styled.img`
   width: 200px;
