@@ -15,8 +15,7 @@ const ClappingHeendySwal = ({
       const isMobile = window.innerWidth <= 768;
 
       const swalOptions = {
-        title: title
-        ),
+        title: title,
         showCancelButton: true,
         imageUrl: clappingHeendy,
         confirmButtonText: confirmButtonText,
