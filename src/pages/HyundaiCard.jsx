@@ -67,9 +67,10 @@ import { GrPowerReset } from 'react-icons/gr';
 import { BiCut } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { showClappingHeendySwal } from '../components/global/showClappingHeendySwal';
-import CardHeader from '../assets/card/card_header.png'
+import CardHeader from '../assets/card/card_header.png';
 import { PageHeaderImg } from '../components/global/global.style';
-import CustomCardBadge from '../assets/card/custom-card-badge-pink.png'
+import CustomCardBadge from '../assets/card/custom-card-badge-pink.png';
+import DrawingHeendySwal from '../components/global/DrawingHeendySwal';
 
 const cardDict = {
   pink: {
@@ -124,6 +125,7 @@ function HyundaiCard() {
 
   const [frontCropData, setFrontCropData] = useState(nonImg);
   const [backCropData, setBackCropData] = useState(nonImg);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleReverse = () => {
     setReverse(prev => !prev);
@@ -180,17 +182,29 @@ function HyundaiCard() {
   };
 
   const handleSubmit = () => {
-    showClappingHeendySwal('현대백화점카드 페이지로 이동합니다.');
-    setTimeout(() => {
-      window.open('https://www.ehyundai.com/newPortal/card/CA/CA000000_V.do');
-    }, 2000);
+    setIsModalOpen(true);
   };
-  
 
   return (
     <>
-    <PageHeaderImg src={CardHeader} />
-      {' '}
+      <PageHeaderImg src={CardHeader} />{' '}
+      <DrawingHeendySwal
+        title="현대백화점 카드 신청 페이지로 이동합니다."
+        // text="매월 1일날 결제 및 배송됩니다!"
+        confirmButtonText="확인"
+        cancelButtonText="취소"
+        onConfirm={() => {
+          setIsModalOpen(false);
+          window.open(
+            'https://www.ehyundai.com/newPortal/card/CA/CA000000_V.do',
+          );
+        }}
+        onCancel={() => {
+          setIsModalOpen(false);
+          return;
+        }}
+        trigger={isModalOpen}
+      />
       <div style={{ marginTop: '16px' }}>
         {/* <HeendyCarTitle>
           <div className="title-text">
@@ -202,15 +216,12 @@ function HyundaiCard() {
           <img src={bgheendycar} alt="background" />
         </HeendyCarTitle> */}
       </div>
-
       {openModal && (
         <Modal handleModalClose={handleCloseModal}>
           <CustomCardModalContainer>
             {/* <PageHeaderImg src={CardHeader} /> */}
             <CustomCardContainer>
-              <CardSectionTitle>
-                나만의 카드 커스텀하기
-              </CardSectionTitle>
+              <CardSectionTitle>나만의 카드 커스텀하기</CardSectionTitle>
               <input
                 type="file"
                 accept="image/*"
@@ -347,9 +358,9 @@ function HyundaiCard() {
         </Modal>
       )}
       <HyundaiCardContainer>
-          <CardSectionTitle style={{margin: '45px 14% -40px'}}>
-            카드 디자인 살펴보기
-          </CardSectionTitle>
+        <CardSectionTitle style={{ margin: '45px 14% -40px' }}>
+          카드 디자인 살펴보기
+        </CardSectionTitle>
         <SelectCardContainer>
           <CardViewContainer>
             <CardInfoCol>
@@ -364,9 +375,10 @@ function HyundaiCard() {
                 ) : (
                   <>
                     <h1>{cardDesign.title}</h1>
-                    <p style={{ fontSize: '18px', marginTop: '-6px'}}>{cardDesign.description}</p>
-                    <hr/>
-
+                    <p style={{ fontSize: '18px', marginTop: '-6px' }}>
+                      {cardDesign.description}
+                    </p>
+                    <hr />
                   </>
                 )}
               </CardInfoContainer>
@@ -392,17 +404,33 @@ function HyundaiCard() {
             </CardInfoCol>
           </CardViewContainer>
 
-          <CardSectionTitle style={{marginLeft: '-55%', paddingLeft: '0px'}}>
+          <CardSectionTitle style={{ marginLeft: '-55%', paddingLeft: '0px' }}>
             카드 디자인 선택하기
           </CardSectionTitle>
-          <hr/>
+          <hr />
           <CardList>
-            <CardCandidate name="pink" src={selectCardPink} onClick={handleCardDesign} />
-            <CardCandidate name="green" src={selectCardGreen} onClick={handleCardDesign} />
-            <CardCandidate name="heendy" src={selectCardHeendy} onClick={handleCardDesign} />
+            <CardCandidate
+              name="pink"
+              src={selectCardPink}
+              onClick={handleCardDesign}
+            />
+            <CardCandidate
+              name="green"
+              src={selectCardGreen}
+              onClick={handleCardDesign}
+            />
+            <CardCandidate
+              name="heendy"
+              src={selectCardHeendy}
+              onClick={handleCardDesign}
+            />
             <div>
               <div className="wrap">
-                <BadgeImg src={CustomCardBadge} alt="Custom Card Badge" className="chatbox" />
+                <BadgeImg
+                  src={CustomCardBadge}
+                  alt="Custom Card Badge"
+                  className="chatbox"
+                />
               </div>
               <CardCandidate
                 onClick={handleOpenModal}
