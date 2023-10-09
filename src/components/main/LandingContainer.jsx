@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeatBox, FeatDescBox, MainDescBox } from './landing.style';
+import { BtnArea, FeatBox, FeatDescBox, MainDescBox } from './landing.style';
 import { motion } from 'framer-motion';
 import LazyShow from './LazyShow';
 import { HiOutlineChevronDoubleDown } from 'react-icons/hi';
@@ -160,6 +160,14 @@ function LandingContainer() {
               transition={{ delay: 3.5, duration: 0.8 }}
             >
               <img src={gradientBg} alt="gradientBg" />
+
+          <BtnArea>
+            <GreenBtn onClick={() => navigate('/addpet')}>
+              반려동물 등록하기
+            </GreenBtn>
+            <br />
+            <br />
+          </BtnArea>
             </motion.div>
           </div>
 
@@ -184,19 +192,7 @@ function LandingContainer() {
         </MainDescBox>
       </div>
 
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: '-80px',
-          marginBottom: '60px',
-        }}
-      >
-        <GreenBtn onClick={() => navigate('/addpet')}>
-          반려동물 등록하기
-        </GreenBtn>
-        <br />
-        <br />
-      </div>
+      
 
       <div>
         <FeatDescBox>

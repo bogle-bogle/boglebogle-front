@@ -5,7 +5,11 @@ export const showClappingHeendySwal = title => {
   const isMobile = window.innerWidth <= 768;
 
   const swalOptions = {
-    title: title,
+    title: (
+          <div style={{ fontSize: isMobile ? '12px' : '20px' }}>
+            {title}
+          </div>
+        ),
     showCancelButton: true,
     imageUrl: clappingHeendy,
     confirmButtonText: '확인',
