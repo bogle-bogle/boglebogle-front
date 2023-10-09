@@ -10,6 +10,10 @@ export const FooterWrapper = styled.footer`
   border-top: 1px solid lightgray;
   bottom: 0;
   position: relative;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const ImgInfo = styled.div`
