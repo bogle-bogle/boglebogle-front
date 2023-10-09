@@ -15,11 +15,10 @@ export const MainDescBox = styled.div`
     .content-box {
       padding: 0 20px;
     }
-
   }
 
   .heendy-box-container {
-    height: 400px;
+    height: 360px;
   }
 
   .total-box {
@@ -30,21 +29,21 @@ export const MainDescBox = styled.div`
   .content-box {
     position: absolute;
     width: 100%;
-    z-index: 40;
+    /* z-index: 10; */
   }
 
   .bg-box {
     position: relative;
-    z-index: 0;
+    z-index: ;
     opacity: 0.7;
     max-width: 100%;
   }
 
   .bg-box img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 
   .heendy-box {
     position: relative;
@@ -54,11 +53,13 @@ export const MainDescBox = styled.div`
   .think-heendy-box {
     position: absolute;
     width: 100%;
+    z-index: 20;
   }
 
   .good-heendy-box {
     position: absolute;
     width: 100%;
+    z-index: 20;
   }
 
   .illust-box {
@@ -71,9 +72,9 @@ export const MainDescBox = styled.div`
     align-items: center;
 
     @media (max-width: 800px) {
-    width: 30%;
-    margin-top: -120px;
-  }
+      width: 30%;
+      margin-top: -120px;
+    }
 
     img {
       /* position: absolute; */
@@ -90,28 +91,28 @@ export const MainDescBox = styled.div`
     .illust-1 {
       right: -200px;
       @media (max-width: 800px) {
-        right: 0px;
+        right: 0%;
       }
     }
 
     .illust-2 {
       left: -240px;
       @media (max-width: 800px) {
-        left: 230px;
+        left: 220%;
       }
     }
 
     .illust-3 {
       right: -260px;
       @media (max-width: 800px) {
-        right: 0px;
+        right: 0%;
       }
     }
 
     .illust-4 {
       left: -280px;
       @media (max-width: 800px) {
-        left: 200px;
+        left: 200%;
       }
     }
   }
@@ -120,7 +121,7 @@ export const MainDescBox = styled.div`
   .chat-bubble-box {
     @media (max-width: 800px) {
       display: none;
-      }
+    }
     position: absolute;
     z-index: 10;
     width: 100%;
@@ -186,8 +187,8 @@ export const MainDescBox = styled.div`
     background-color: #c3dad1;
 
     @media (max-width: 800px) {
-      right:0px;
-      }
+      right: 0px;
+    }
   }
   .chat-1::before {
     border-left: 1rem solid #c3dad1;
@@ -198,11 +199,10 @@ export const MainDescBox = styled.div`
     margin: 0;
     background-color: #a2c7b9;
 
-
     @media (max-width: 800px) {
-    left: 0px;
-    margin-top: 20px;
-      }
+      left: 0px;
+      margin-top: 20px;
+    }
   }
   .chat-2::before {
     border-right: 1rem solid #a2c7b9;
@@ -216,7 +216,7 @@ export const MainDescBox = styled.div`
     @media (max-width: 800px) {
       right: 0px;
       margin-top: 20px;
-      }
+    }
   }
   .chat-3::before {
     border-left: 1rem solid #95d5bc;
@@ -235,14 +235,14 @@ export const MainDescBox = styled.div`
     @media (max-width: 800px) {
       width: 40%;
       margin-top: -100px;
-      }
+    }
   }
 
   .good-heendy {
     width: 20%;
     @media (max-width: 800px) {
-    width: 40%;  
-    margin-top: -100px;
+      width: 40%;
+      margin-top: -100px;
     }
   }
 
@@ -251,7 +251,7 @@ export const MainDescBox = styled.div`
     position: static;
     display: flex;
     flex-direction: column;
-    margin-bottom: 120px;
+    /* margin-bottom: 120px; */
 
     p {
       font-family: 'HappinessSansTitle';
@@ -265,7 +265,13 @@ export const MainDescBox = styled.div`
 
       @media (max-width: 800px) {
         font-size: 20px;
-        margin-top: -90px;
+        /* margin-top: 30%; */
+        margin-top: -10%;
+        z-index: 10;
+      }
+
+      @media screen {
+        margin-top: 10%;
       }
     }
 
@@ -273,7 +279,7 @@ export const MainDescBox = styled.div`
       font-size: 36px;
       @media (max-width: 800px) {
         font-size: 27px;
-        margin-top: -60px;
+        margin-top: 0%;
       }
     }
 
@@ -298,8 +304,12 @@ export const MainDescBox = styled.div`
     color: black;
 
     @media (max-width: 800px) {
-        margin-top: -120px;
-      }
+      margin-top: -120px;
+    }
+
+    @media screen {
+      margin-top: 10%;
+    }
 
     p {
       margin-bottom: 7px;
@@ -324,11 +334,18 @@ export const FeatDescBox = styled.div`
 
 export const BtnArea = styled.div`
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20%;
+  z-index: 100;
+
   @media (max-width: 800px) {
-    margin-top: 330px;
+    margin-top: 80%;
+    z-index: 100;
   }
-`
+
+  @media (min-width: 2200px) {
+    margin-top: 0%;
+  }
+`;
 
 export const FeatBox = styled.div`
   display: flex;
@@ -370,7 +387,7 @@ export const FeatBox = styled.div`
       line-height: 150%;
     }
 
-  @media (max-width: 800px) {
+    @media (max-width: 800px) {
       width: 80%;
     }
 
