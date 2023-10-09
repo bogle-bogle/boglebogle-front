@@ -22,9 +22,10 @@ const WalkingHeendySwal = ({
     customClass: {
       confirmButton: 'swal2-button',
       cancelButton: 'swal2-button',
-      popup: 'swal-mobile', // 클래스명 추가
+      popup: 'swal-mobile',
     },
-    style: mobileStyle, // 모바일 스타일 적용
+    fontSize: isMobile ? '12px' : undefined,
+    style: mobileStyle,
   };
 
   useEffect(() => {

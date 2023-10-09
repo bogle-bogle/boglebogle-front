@@ -12,7 +12,7 @@ const ClappingHeendySwal = ({
 }) => {
   useEffect(() => {
     if (trigger) {
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = window.innerWidth <= 800;
 
       const swalOptions = {
         title: title,
@@ -27,6 +27,7 @@ const ClappingHeendySwal = ({
           cancelButton: 'swal2-button',
           popup: isMobile ? 'swal-mobile' : '',
         },
+        fontSize: isMobile ? '12px' : undefined,
       };
 
       if (isMobile) {
