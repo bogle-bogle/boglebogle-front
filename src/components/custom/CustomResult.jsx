@@ -120,6 +120,7 @@ function CustomResult({
                       handleLog('suggestion', 'recommend_product', rp.id, 'Y');
                     }}
                     key={idx}
+                    match={rp.matchRate === 100 ? true : false}
                   >
                     <SameProductText
                       match={rp.matchRate === 100 ? true : false}
