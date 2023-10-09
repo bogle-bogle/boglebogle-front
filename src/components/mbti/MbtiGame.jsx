@@ -32,6 +32,8 @@ import { useRef } from 'react';
 import ProductRecommendation from '../recommendation/ProductRecommendation';
 import { mbtiCategory } from '../../commonCode';
 import { useDispatch, useSelector } from 'react-redux';
+import { PageHeaderImg } from '../global/global.style';
+import mbtiHeader from '../../assets/playground/mbti-header.png'
 
 const mbtiQuestion = [
   {},
@@ -112,6 +114,11 @@ function MbtiGame() {
 
   return (
     <>
+    <PageHeaderImg src={mbtiHeader} style={{marginBottom: '15px'}} />
+
+    {member.pet && member.pet.length !== 0 && member.pet[0].name && (
+    <div style={{fontSize:'25px', fontWeight: 'bold', margin: '20px 0px', color: '#616161'}}> Step 1. {member.pet[0].name}의 MBTI 검사하기</div>
+    )}
       <MbtiGameContainer result={result}>
         {result ? (
           <>
@@ -124,21 +131,16 @@ function MbtiGame() {
                     member.pet[0].petImgUrl
                   }
                 ></MbtiResultDogImg>
-                <SelectDogImgContainer
-                  onClick={() => fileInputRef.current.click()}
-                >
-                  <BsFillCameraFill style={{ fontSize: 20 }} />
-                  <span style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                    반려동물 사진 선택하기
-                  </span>
-                </SelectDogImgContainer>
+                {member.pet && member.pet.length !== 0 && member.pet[0].name && (
+                <div style={{fontSize: '30px', fontWeight: 'bold', marginTop: '5px'}}>우리 {member.pet[0].name}은... </div>
+                )}
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
                   className="file-input"
                   ref={fileInputRef}
-                  style={{ display: 'none' }} // 숨김 처리
+                  style={{ display: 'none' }}
                 />
               </MbtiResultContentContainer>
 
@@ -201,6 +203,9 @@ function MbtiGame() {
 
       {result && (
         <>
+        {member.pet && member.pet.length !== 0 && member.pet[0].name && (
+          <div style={{fontSize:'25px', fontWeight: 'bold', margin: '60px 0px 20px 20px', color: '#616161'}}> Step 2. {member.pet[0].name}와 같은 {mbti} 친구들에게는 다음과 같은 상품이 딱이에요!</div>
+          )}
           <ProductRecommendation handleLog={handleLog} type={'mbti-to'} param={mbti} />
           <ProductRecommendation handleLog={handleLog} type={'mbti-sp'} param={mbti} />
         </>

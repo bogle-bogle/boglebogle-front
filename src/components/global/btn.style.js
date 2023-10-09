@@ -36,6 +36,24 @@ export const GreenBtn = styled.button`
   }
 `;
 
+export const BeigeBtn = styled.button`
+  font-family: 'HappinessSansBold';
+  margin: 5px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #C9A581;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, color 0.3s;
+
+  :hover {
+    background-color: #9E7144;
+  }
+`;
+
 export const CancelBtn = styled.button`
   /* background-color: #a4a4a4; */
   font-family: 'HappinessSansBold';

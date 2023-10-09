@@ -17,6 +17,7 @@ export const ImageboxTitle = styled.p`
     margin: 0px 0;
     font-family: 'HappinessSansBold';
     color: #499878;
+    font-size: 20px;
 `;
 
 export const ImagePreview = styled.div`

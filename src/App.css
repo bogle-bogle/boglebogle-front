@@ -18,7 +18,7 @@
 }
 
 .floating {
-  width: 200px;
+  width: 180px;
   height: 400px;
 
   margin-top: 10%;
@@ -36,14 +36,9 @@
 }
 
 .floatingImgCard {
-  width: 200px;
-  height: 200px;
   margin: 0;
-
-  /* border: 1px solid black; */
   border-radius: 20px;
-
-  margin-bottom: 210px;
+  margin-bottom: 100px;
 
   display: flex;
   flex-direction: column;
@@ -52,7 +47,7 @@
 }
 
 .floatingImg {
-  width: 220px;
+  width: 200px;
   object-fit: cover;
 }
 

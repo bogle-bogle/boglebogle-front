@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 
 export const FloatingContainer = styled.div`
-  width: 200px;
-  height: 400px;
-
-  margin-top: 10%;
+  margin-bottom: 20px;
   margin-right: 2%;
 
   cursor: pointer;
@@ -19,14 +16,11 @@ export const FloatingContainer = styled.div`
 `;
 
 export const FloatingImgCard = styled.div`
-  width: 200px;
-  height: 200px;
   margin: 0;
 
-  /* border: 1px solid black; */
   border-radius: 20px;
 
-  margin-bottom: 210px;
+  margin-bottom: 20px;
 
   display: flex;
   flex-direction: column;
@@ -35,6 +29,6 @@ export const FloatingImgCard = styled.div`
 `;
 
 export const FloatingImg = styled.img`
-  width: 220px;
+  width: 180px;
   object-fit: cover;
 `;
