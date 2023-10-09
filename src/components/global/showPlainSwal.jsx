@@ -15,6 +15,7 @@ export const showPlainSwal = title => {
       cancelButton: 'swal2-button',
       popup: isMobile ? 'swal-mobile' : '',
     },
+    fontSize: isMobile ? '12px' : undefined,
   };
 
   if (isMobile) {

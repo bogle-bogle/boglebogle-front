@@ -2,7 +2,7 @@ import swal from 'sweetalert2';
 import drawingHeendy from '../../assets/custom/drawing-heendy.gif';
 
 export const showDrawingHeendySwal = title => {
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = window.innerWidth <= 800;
 
   const swalOptions = {
     title: title,
@@ -16,6 +16,7 @@ export const showDrawingHeendySwal = title => {
       cancelButton: 'swal2-button',
       popup: isMobile ? 'swal-mobile' : '',
     },
+    fontSize: isMobile ? '12px' : undefined,
   };
 
   if (isMobile) {
