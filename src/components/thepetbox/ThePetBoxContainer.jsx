@@ -39,7 +39,7 @@ function ThePetBoxContainer() {
 
   const settings = {
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     speed: 1000,
@@ -80,6 +80,9 @@ function ThePetBoxContainer() {
     <ThePetBoxContents>
       <PageHeaderImg src={ThepetboxHeader} />
 
+      <br />
+      <br />
+
       <div className="ming-title">
         <img src={Ttaomp} />
         <div>현대백화점에 들어오는 신상품들,</div>
@@ -95,6 +98,20 @@ function ThePetBoxContainer() {
         <div className="thpet-color">그래서 준비했습니다!</div>
       </div>
 
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <img src={SubInfoBox} style={{ width: '100%' }} />
+        <BeigeBtn onClick={createCurationOrder} style={{ width: '200px' }}>
+          구독하러 가기
+        </BeigeBtn>
+      </div>
+
       <div className="more-box-desc-1">
         이번 달 더펫박스에는 무엇이 들어있을까?
       </div>
@@ -104,18 +121,12 @@ function ThePetBoxContainer() {
 
       <MonthlyBox itemList={curationList.length === 0 ? [] : itemList} />
 
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-      <img src={SubInfoBox} style={{width: '100%'}} />
-      <BeigeBtn onClick={createCurationOrder} style={{width: '200px'}}>구독하러 가기</BeigeBtn>
-    </div>
-
       <div className="more-box-desc-1">
         매달 새로운 즐거움, 다양한 구성으로!
       </div>
       <div className="more-box-desc-2">
         이전 <div className="thpet-color">더펫박스</div> 구경하기
       </div>
-
 
       <ThumbnailList className="sub-container">
         {curationList.length > 0 && (
@@ -150,7 +161,6 @@ function ThePetBoxContainer() {
         이번 달 더펫박스에는 무엇이 들어있을까? <br />
         매달 정기적으로 새로운 상품을 <strong>할인된 가격</strong>에 만나보세요!
       </MainDescr>
-
     </ThePetBoxContents>
   );
 }
