@@ -15,10 +15,7 @@ const ClappingHeendySwal = ({
       const isMobile = window.innerWidth <= 768;
 
       const swalOptions = {
-        title: (
-          <div style={{ fontSize: isMobile ? '12px' : '20px' }}>
-            {title}
-          </div>
+        title: title
         ),
         showCancelButton: true,
         imageUrl: clappingHeendy,
