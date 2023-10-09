@@ -154,7 +154,7 @@ function AddPetContainer() {
       });
 
       const memberRes = await Api.get(`/api/member/info/${member.id}`);
-      dispatch(memberAction.setMemeber(memberRes.data));
+      dispatch(memberAction.addPet(memberRes.data.pets));
 
       showClappingHeendySwal('등록이 완료되었습니다.');
       navigate('/completeclubregister');

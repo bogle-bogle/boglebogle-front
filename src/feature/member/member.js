@@ -15,7 +15,6 @@ const initialMemberState = {
     grantType: 'Bearer',
     refreshToken: '',
   },
-  pet: [],
 };
 
 const memberSlice = createSlice({
@@ -32,10 +31,8 @@ const memberSlice = createSlice({
       return state;
     },
     addPet: (state, action) => {
-      return {
-        ...state,
-        pet: [...state.pet, action.payload],
-      };
+      state = { ...state, pet: [...action.payload] };
+      return state;
     },
   },
 });
