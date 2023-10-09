@@ -80,9 +80,13 @@ function ThePetBoxContainer() {
     <ThePetBoxContents>
       <PageHeaderImg src={ThepetboxHeader} />
 
-      <br />
-      <br />
+      
 
+      {/* 
+      
+      
+      <br />
+      <br />
       <div className="ming-title">
         <img src={Ttaomp} />
         <div>현대백화점에 들어오는 신상품들,</div>
@@ -96,7 +100,7 @@ function ThePetBoxContainer() {
 
         <br />
         <div className="thpet-color">그래서 준비했습니다!</div>
-      </div>
+      </div> */}
 
       <div
         style={{
@@ -107,17 +111,20 @@ function ThePetBoxContainer() {
         }}
       >
         <img src={SubInfoBox} style={{ width: '100%' }} />
+
+        <MainDescr>
+        이번 달 더펫박스에는 무엇이 들어있을까? <br />
+        매달 정기적으로 새로운 상품을 <strong>할인된 가격</strong>에 만나보세요!
+      </MainDescr>
+
+      <br/>
         <BeigeBtn onClick={createCurationOrder} style={{ width: '200px' }}>
           구독하러 가기
         </BeigeBtn>
       </div>
 
-      <div className="more-box-desc-1">
-        이번 달 더펫박스에는 무엇이 들어있을까?
-      </div>
-      <div className="more-box-desc-2">
-        이번 달 <div className="thpet-color">더펫박스</div> 구경하기
-      </div>
+      <br/>
+      <br/>
 
       <MonthlyBox itemList={curationList.length === 0 ? [] : itemList} />
 
@@ -157,10 +164,7 @@ function ThePetBoxContainer() {
       </ThumbnailList>
       {/* <MonthlyBox itemList={curationList[1]} /> */}
 
-      <MainDescr>
-        이번 달 더펫박스에는 무엇이 들어있을까? <br />
-        매달 정기적으로 새로운 상품을 <strong>할인된 가격</strong>에 만나보세요!
-      </MainDescr>
+
     </ThePetBoxContents>
   );
 }
