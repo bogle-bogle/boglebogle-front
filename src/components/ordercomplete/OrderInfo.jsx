@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { useLocation  } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import * as Api from '../../api';
 
 import {
   MemberInfoTable,
@@ -15,11 +16,19 @@ import {
 } from './OrderInfo.style';
 
 function OrderInfo({ selectedItems, amount }) {
-
-  const member = useSelector((state) => state.member);
+  const member = useSelector(state => state.member);
+  const [memberInfo, setMemberInfo] = useState(null);
+  useEffect(() => {
+    Api.get(`/api/member/info/${member.id}`).then(res => {
+      const memberInfo = res.data;
+      setMemberInfo(memberInfo);
+      console.log(memberInfo.member.phoneNumber);
+    });
+  }, []);
 
   const handleClick = () => {
-    window.location.href = "/shop";  };
+    window.location.href = '/shop';
+  };
 
   return (
     <div>
@@ -31,7 +40,7 @@ function OrderInfo({ selectedItems, amount }) {
           </tr>
           <tr>
             <th>휴대폰 번호</th>
-            <td>{member.phoneNumber}</td>
+            <td>{memberInfo !== null && memberInfo.member.phoneNumber}</td>
           </tr>
         </tbody>
       </MemberInfoTable>
@@ -49,7 +58,7 @@ function OrderInfo({ selectedItems, amount }) {
           </tr>
         </thead>
         <tbody>
-          {selectedItems.map((cartItem) => (
+          {selectedItems.map(cartItem => (
             <tr>
               <td>
                 <img src={cartItem.mainImgUrl} alt={cartItem.name} />
@@ -75,7 +84,7 @@ function OrderInfo({ selectedItems, amount }) {
           </tr>
           <tr>
             <th>휴대폰 번호</th>
-            <td>{member.phoneNumber}</td>
+            <td>{memberInfo !== null && memberInfo.member.phoneNumber}</td>
           </tr>
           <tr>
             <th>배송지</th>
@@ -83,7 +92,7 @@ function OrderInfo({ selectedItems, amount }) {
           </tr>
         </tbody>
       </MemberInfoTable>
-{/* 
+      {/* 
       <PaymentInfoTable>
         <tbody>
           <tr>

@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   TableContainer1,
   Table1,
@@ -8,10 +9,20 @@ import {
   Table2,
   Th2,
   Td2,
-} from "./OrderMember.style";
+} from './OrderMember.style';
+import * as Api from '../../api';
 
 function OrderMember() {
-  const member = useSelector((state) => state.member);
+  const member = useSelector(state => state.member);
+  const [memberInfo, setMemberInfo] = useState(null);
+
+  useEffect(() => {
+    Api.get(`/api/member/info/${member.id}`).then(res => {
+      const memberInfo = res.data;
+      setMemberInfo(memberInfo);
+      console.log(memberInfo.member.phoneNumber);
+    });
+  }, []);
 
   return (
     <div>
@@ -23,7 +34,7 @@ function OrderMember() {
               <Td1 noBorderLeft>
                 이름 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.name}
               </Td1>
-              <Td1>전화번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.phoneNumber}</Td1>
+              <Td1>전화번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{memberInfo !== null && memberInfo.member.phoneNumber}</Td1>
               <Td1 noBorderRight>
                 이메일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{member.email}
               </Td1>
@@ -42,10 +53,10 @@ function OrderMember() {
             </tr>
             <tr>
               <Th2>휴대폰 번호</Th2>
-              <Td2>{member.phoneNumber}</Td2>
+              <Td2>{memberInfo !== null && memberInfo.member.phoneNumber}</Td2>
             </tr>
             <tr>
-              <Th2 BorderBottom>{member.phoneNumber}</Th2>
+              <Th2 BorderBottom>배송지</Th2>
               <Td2 BorderBottom>{member.address}</Td2>
             </tr>
           </tbody>
