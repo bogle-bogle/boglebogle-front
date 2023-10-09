@@ -206,7 +206,7 @@ export const ThePetBoxContents = styled.div`
     margin-bottom: 2px;
   }
 
-  .thepetbox-title {
+  .ming-title {
     color: #757575;
     margin-top: 5px;
     margin-bottom: 2px;

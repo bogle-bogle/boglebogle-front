@@ -15,6 +15,7 @@ export const ModalBackGround = styled.div`
 
 export const ModalMain = styled.div`
   background-color: white;
+  border-radius: 30px;
 
   display: inline-flex;
 

@@ -4,6 +4,7 @@ import {
   CategoryContainer,
   CategoryElementContainer,
   CategoryP,
+  CustomToggleBtn,
   DogButton,
   DogImg,
   DogListContainer,
@@ -32,7 +33,7 @@ import {
   initialSubCategory,
   initialProteinCategory,
 } from '../../utils/productFilter';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineDown, AiOutlineLeft, AiOutlineRight, AiOutlineUp } from 'react-icons/ai';
 import ProductCard from './ProductCard';
 import * as Api from '../../api';
 import { RxReset } from 'react-icons/rx';
@@ -50,6 +51,8 @@ import {
 import RcHeendy from '../../assets/recommendation/오옹오.png';
 import miniIconImg from '../../assets/recommendation/mini-text-icon-v2.png';
 import { showOnlyMessageSwal } from '../global/showOnlyMessageSwal';
+import { PageHeaderImg } from '../global/global.style';
+import ShopHeader from '../../assets/product/shop-header-pink.png'
 
 function NewProductList() {
   const member = useSelector(state => state.member);
@@ -73,6 +76,7 @@ function NewProductList() {
   const [totalCount, setTotalCount] = useState(0);
 
   const [productList, setProductList] = useState([]);
+  const [isRecommendationVisible, setIsRecommendationVisible] = useState(true);
 
   const [curPet, setCurPet] = useState(
     member && member.pet && member.pet.length > 0 && member.pet[0],
@@ -178,6 +182,7 @@ function NewProductList() {
     setProteinFilterChecked({ ...initialProteinCategory });
   };
 
+
   const createProductCard = (product, idx) => {
     let warnFlag =
       curPet && mainCategory === 'FD' && product.ingredients !== null;
@@ -229,7 +234,7 @@ function NewProductList() {
   };
 
   const createProductRecommendation = () => {
-    if (curPet) {
+    if (curPet && isRecommendationVisible) {
       return (
         <HeendyRecommendation>
           <ProductRecommendation
@@ -251,6 +256,10 @@ function NewProductList() {
         </HeendyRecommendation>
       );
     }
+  };
+
+  const toggleRecommendationVisibility = () => {
+    setIsRecommendationVisible(prev => !prev);
   };
 
   const createPetList = () => {
@@ -279,15 +288,17 @@ function NewProductList() {
   };
 
   return (
+
     <ShopContainer>
-      <PageTitle>쇼핑</PageTitle>
+
+<PageHeaderImg src={ShopHeader} />
+
+      {/* <PageTitle>쇼핑</PageTitle> */}
 
       <CategoryP>
         {`쇼핑`}
         {mainCategory !== '' && `  >  ${shopCategory[mainCategory].name}`}
       </CategoryP>
-
-      {createProductRecommendation()}
 
       <CategoryContainer>
         <CategoryP></CategoryP>
@@ -359,13 +370,34 @@ function NewProductList() {
         )}
       </FilterCategoryContainer>
 
-      <RcMiniIcon src={miniIconImg} style={{ margin: '0px 0px -30px 10px' }} />
+      {/* <RcMiniIcon src={miniIconImg} style={{ margin: '0px 0px -30px 10px' }} /> */}
 
       <DogListText>
         아래의 버튼을 눌러, <strong>나의 강아지 맞춤 추천</strong>으로 쇼핑을
         즐겨보세요!
       </DogListText>
       <DogListContainer>{createPetList()}</DogListContainer>
+
+      <CustomToggleBtn onClick={toggleRecommendationVisibility}>
+        {isRecommendationVisible ? (
+          <>
+            <span>맞춤 추천 숨기기</span>
+            <span style={{ margin: '0.3em 0.5em -4em' }}>
+              <AiOutlineUp />
+            </span>
+          </>
+        ) : (
+          <>
+            <span>맞춤 추천 펼치기</span>
+            <span style={{ margin: '0 0.5em 1em' }}>
+              <AiOutlineDown />
+            </span>
+          </>
+        )}
+      </CustomToggleBtn>
+
+      {createProductRecommendation()}
+
 
       <hr />
 

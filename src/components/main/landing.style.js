@@ -5,6 +5,19 @@ export const MainDescBox = styled.div`
   margin: 100px 0px;
   font-family: 'HappinessSansBold';
 
+  @media (max-width: 800px) {
+    width: 90%;
+
+    .total-box {
+      height: auto;
+    }
+
+    .content-box {
+      padding: 0 20px;
+    }
+
+  }
+
   .heendy-box-container {
     height: 400px;
   }
@@ -21,9 +34,17 @@ export const MainDescBox = styled.div`
   }
 
   .bg-box {
-    position: absolute;
+    position: relative;
     z-index: 0;
+    opacity: 0.7;
+    max-width: 100%;
   }
+
+  .bg-box img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
   .heendy-box {
     position: relative;
@@ -49,10 +70,15 @@ export const MainDescBox = styled.div`
     flex-direction: column;
     align-items: center;
 
+    @media (max-width: 800px) {
+    width: 30%;
+    margin-top: -120px;
+  }
+
     img {
-      position: absolute;
+      /* position: absolute; */
       opacity: 0.6;
-      width: 100%;
+      max-width: 100%;
     }
 
     .illust-img {
@@ -63,25 +89,37 @@ export const MainDescBox = styled.div`
 
     .illust-1 {
       right: -200px;
+      @media (max-width: 800px) {
+        right: 0px;
+      }
     }
 
     .illust-2 {
       left: -240px;
+      @media (max-width: 800px) {
+        left: 230px;
+      }
     }
 
     .illust-3 {
       right: -260px;
+      @media (max-width: 800px) {
+        right: 0px;
+      }
     }
 
     .illust-4 {
       left: -280px;
+      @media (max-width: 800px) {
+        left: 200px;
+      }
     }
   }
 
   /* 말풍선 - start */
   .chat-bubble-box {
-    @media (max-width: 768px) {
-      margin-top: -80px;
+    @media (max-width: 800px) {
+      display: none;
       }
     position: absolute;
     z-index: 10;
@@ -147,7 +185,7 @@ export const MainDescBox = styled.div`
     margin: 0;
     background-color: #c3dad1;
 
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
       right:0px;
       }
   }
@@ -161,7 +199,7 @@ export const MainDescBox = styled.div`
     background-color: #a2c7b9;
 
 
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
     left: 0px;
     margin-top: 20px;
       }
@@ -175,7 +213,7 @@ export const MainDescBox = styled.div`
     right: -250px;
     background-color: #95d5bc;
 
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
       right: 0px;
       margin-top: 20px;
       }
@@ -194,17 +232,17 @@ export const MainDescBox = styled.div`
 
   .thiking-heendy {
     width: 20%;
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
       width: 40%;
-      margin-top: 80px;
+      margin-top: -100px;
       }
   }
 
   .good-heendy {
     width: 20%;
-  @media (max-width: 768px) {
-    width: 40%;    
-    margin-top: 80px;  
+    @media (max-width: 800px) {
+    width: 40%;  
+    margin-top: -100px;
     }
   }
 
@@ -225,13 +263,18 @@ export const MainDescBox = styled.div`
     .title-1 {
       font-size: 32px;
 
-      @media (max-width: 768px) {
-        font-size: 30px;
+      @media (max-width: 800px) {
+        font-size: 20px;
+        margin-top: -90px;
       }
     }
 
     .title-2 {
       font-size: 36px;
+      @media (max-width: 800px) {
+        font-size: 27px;
+        margin-top: -60px;
+      }
     }
 
     .title-point-color-1 {
@@ -254,6 +297,10 @@ export const MainDescBox = styled.div`
     /* color: #808080; */
     color: black;
 
+    @media (max-width: 800px) {
+        margin-top: -120px;
+      }
+
     p {
       margin-bottom: 7px;
     }
@@ -269,7 +316,19 @@ export const FeatDescBox = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 10%;
+
+  @media (max-width: 800px) {
+    width: 80%;
+  }
 `;
+
+export const BtnArea = styled.div`
+  text-align: center;
+  margin-top: 30px;
+  @media (max-width: 800px) {
+    margin-top: 330px;
+  }
+`
 
 export const FeatBox = styled.div`
   display: flex;
@@ -278,6 +337,10 @@ export const FeatBox = styled.div`
   color: #878787;
   padding: 0 20px 50px 20px;
   margin-bottom: 60px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 
   .w-img {
     width: 50%;
@@ -293,8 +356,8 @@ export const FeatBox = styled.div`
       box-shadow: rgba(100, 100, 111, 0.2) 0px 6px 25px 0px;
     }
 
-    @media (max-width: 768px) {
-      width: 100%;
+    @media (max-width: 800px) {
+      width: 80%;
     }
   }
 
@@ -307,8 +370,8 @@ export const FeatBox = styled.div`
       line-height: 150%;
     }
 
-    @media (max-width: 768px) {
-      width: 100%;
+  @media (max-width: 800px) {
+      width: 80%;
     }
 
     .text-bold {

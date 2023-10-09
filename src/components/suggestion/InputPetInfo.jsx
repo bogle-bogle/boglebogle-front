@@ -189,7 +189,6 @@ function InputPetInfo(props) {
           props.handleModalClose();
           showClappingHeendySwal('분석이 완료되었습니다.');
           scrollToTop();
-          // toast.update(id, { render: "분석이 완료되었습니다.", type: "success", isLoading: false,  closeButton: true, autoClose: true});
         } catch (error) {
           props.handleModalClose();
 
@@ -275,11 +274,13 @@ function InputPetInfo(props) {
           </FeedImgCropBackground>
         </Modal>
       )}
-      <DescArea>
+
+    {suggestionProduct.length === 0 && 
+    <DescArea>
         <HeendyArea>
-          <ShopperHeendy src={shopperheendy} alt=" " />
+          {/* <ShopperHeendy src={shopperheendy} alt=" " /> */}
           <TitleBox>
-            <p className="title1">퍼스널 쇼퍼 흰디에요!</p>
+            {/* <p className="title1">퍼스널 쇼퍼 흰디에요!</p> */}
             <p className="title2">
               우리 반려동물 기호에 딱 맞는 새로운 사료, 궁금하다면?
               <br />
@@ -304,7 +305,8 @@ function InputPetInfo(props) {
             ))}
           </Stepper>
         </StepArea>
-      </DescArea>
+
+      </DescArea>}
 
       <InputArea>
         <div className="formBox">
@@ -464,6 +466,7 @@ function InputPetInfo(props) {
 
             <br />
             <br />
+            <br />
 
             {/* STEP 3 */}
             <div className="step-box" id="step3">
@@ -493,6 +496,7 @@ function InputPetInfo(props) {
                 onClick={() => {
                   resetInput();
                 }}
+                style={{fontSize: '23px'}}
               >
                 처음부터
               </div>
@@ -504,6 +508,7 @@ function InputPetInfo(props) {
                     : 'basic-bg')
                 }
                 onClick={handleSubmission}
+                style={{fontSize: '23px'}}
               >
                 맞춤 사료 찾기
               </button>
@@ -525,8 +530,9 @@ function InputPetInfo(props) {
             onClick={() => {
               resetInput();
             }}
+            style={{fontSize: '23px', margin: '-30px 0 55px 0'}}
           >
-            새로운 추천 받기
+            ←  또 다른 추천 받기
           </div>
 
           <CustomResult

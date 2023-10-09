@@ -409,3 +409,15 @@ export const PageTitle = styled.div`
   margin: 0;
   margin-top: 5%;
 `;
+
+export const CustomToggleBtn = styled.button`
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    margin: 20px 10px -10px;
+    font-weight: bold;
+    font-size: 17px;
+    display: flex;
+    font-family: 'HappinessSansBold';
+`

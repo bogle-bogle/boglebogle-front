@@ -232,8 +232,8 @@ export const StepArea = styled.div`
   /* justify-content: center; */
   /* align-items: center; */
   margin: auto;
-  width: 80%;
-  margin-top: 50px;
+  width: 75%;
+  margin-top: 80px;
 
   @media (max-width: 1400px) {
     width: 100%;
@@ -245,15 +245,19 @@ export const StepArea = styled.div`
 
     .Mui-completed {
       color: #a6c9bb;
+      /* font-weight: bold; */
     }
 
     .Mui-active {
       color: #499878;
+      font-weight: bold;
     }
   }
 
   .MuiStepLabel-label {
     font-family: 'HappinessSansRegular';
+    font-size: 20px;
+    /* font-weight: bold; */
   }
 `;
 
@@ -291,12 +295,12 @@ export const InputArea = styled.div`
 
   .badge {
     color: white;
-    padding: 5px 10px;
+    padding: 6px 11px;
     text-align: center;
     border-radius: 20px;
     width: fit-content;
     font-family: 'HappinessSansTitle';
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .active-bg {
@@ -310,7 +314,7 @@ export const InputArea = styled.div`
   .step-desc {
     margin-left: 15px;
     font-family: 'HappinessSansBold';
-    font-size: 18px;
+    font-size: 24px;
   }
 `;
 
@@ -321,7 +325,7 @@ export const TitleBox = styled.div`
     margin: 0 0 10px 0;
     font-family: 'HappinessSansTitle';
     color: #499878;
-    font-size: 25px;
+    font-size: 35px;
 
     @media (max-width: 1400px) {
       font-size: 20px;
@@ -333,7 +337,7 @@ export const TitleBox = styled.div`
     margin: 0;
     line-height: 160%;
     color: #5f5f5f;
-    font-size: 15px;
+    font-size: 20px;
 
     @media (max-width: 1400px) {
       font-size: 12px;
@@ -387,7 +391,7 @@ export const FeedImgCutButton = styled.button`
   background-color: #499878;
   color: white;
 
-  font-size: 17px;
+  font-size: 19px;
   font-weight: bold;
 
   border: none;
