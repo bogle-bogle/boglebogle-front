@@ -359,7 +359,6 @@ function HyundaiCard() {
       )}
       <HyundaiCardContainer>
         <CardSectionTitle style={{ margin: '45px 14% -40px' }}>
-          카드 디자인 살펴보기
         </CardSectionTitle>
         <SelectCardContainer>
           <CardViewContainer>
@@ -405,7 +404,6 @@ function HyundaiCard() {
           </CardViewContainer>
 
           <CardSectionTitle style={{ marginLeft: '-55%', paddingLeft: '0px' }}>
-            카드 디자인 선택하기
           </CardSectionTitle>
           <hr />
           <CardList>

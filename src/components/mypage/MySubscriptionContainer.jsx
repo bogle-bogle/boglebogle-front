@@ -155,7 +155,7 @@ function MySubscriptionContainer() {
 
       {curations.length > 0 && (
         <MypageList>
-          <MypageSubSectionTitle>큐레이션 구독</MypageSubSectionTitle>
+          <MypageSubSectionTitle>더펫박스 구독</MypageSubSectionTitle>
           <MypageListElement>
             <MypageListIndex>
               구독 시작 일자 :{' '}

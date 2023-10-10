@@ -44,6 +44,8 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
   const [cardCompany, setCardCompany] = useState(null);
   const [cardNumber, setCardNumber] = useState(null);
   const [cardType, setCardType] = useState(null);
+  const [discountAmount, setDiscountAmount] = useState(0);
+
 
   const navigate = useNavigate();
 
@@ -165,6 +167,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
   const applyCoupon = () => {
     // 5% 할인을 계산합니다.
     const discountAmount = totalAmount * (1 - 0.05);
+    setDiscountAmount(totalAmount * 0.05);
     setPrice(discountAmount);
   };
 
@@ -421,7 +424,7 @@ function OrderProducts({ selectedItems, totalAmount, productType }) {
                 </OrderInfo>
                 <DiscountInfo>
                   <p>할인 및 적립금액</p>
-                  <p>{(totalAmount * 0.05).toLocaleString()}원</p>
+                  <p>{discountAmount.toLocaleString()}원</p>
                 </DiscountInfo>
               </InfoBox>
               <FinalBox>

@@ -338,7 +338,7 @@ export const BtnArea = styled.div`
   z-index: 100;
 
   @media (max-width: 800px) {
-    margin-top: 80%;
+    margin-top: 130%;
     z-index: 100;
   }
 
